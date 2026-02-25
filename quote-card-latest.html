@@ -1,65 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Stoic Quote</title>
-    <style>
-        body {
-            background-color: #1a1a1a;
-            color: #e0e0e0;
-            font-family: 'Georgia', serif;
-            display: flex;
-            justify_content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .card {
-            background-color: #252525;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            max-width: 600px;
-            text-align: center;
-            border: 1px solid #333;
-        }
-        .art {
-            margin-bottom: 30px;
-        }
-        /* Minimalist geometric art using CSS */
-        .circle {
-            width: 80px;
-            height: 80px;
-            border: 2px solid #555;
-            border-radius: 50%;
-            display: inline-block;
-            margin: 0 10px;
-        }
-        .quote {
-            font-size: 1.5em;
-            font-style: italic;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        .author {
-            font-size: 1em;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Quote Card</title>
+  <style>
+    :root { color-scheme: dark; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at 20% 20%, #1a2236, #0c0f18 65%);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: #e6edf3;
+      padding: 20px;
+    }
+    .card {
+      width: min(920px, 96vw);
+      background: rgba(13, 17, 23, 0.86);
+      border: 1px solid #30363d;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 18px 60px rgba(0,0,0,.45);
+    }
+    .hero {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid #30363d;
+    }
+    .hero.fallback {
+      background: linear-gradient(140deg, #1f2937, #0b1020 60%, #2b1f46);
+    }
+    .content { padding: 26px 24px 24px; }
+    .kicker {
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #7d8590;
+      margin-bottom: 12px;
+    }
+    .quote {
+      font-size: clamp(22px, 2.3vw, 34px);
+      line-height: 1.35;
+      font-weight: 600;
+      margin: 0 0 16px;
+    }
+    .meta {
+      font-size: 13px;
+      color: #8b949e;
+    }
+  </style>
 </head>
 <body>
-    <div class="card">
-        <div class="art">
-            <div class="circle"></div>
-            <div class="circle" style="border-color: #777;"></div>
-            <div class="circle"></div>
-        </div>
-        <div class="quote">
-            "No man is free who is not master of himself." — Epictetus
-        </div>
-    </div>
+  <article class="card">
+    <div class="hero fallback"></div>
+    <section class="content">
+      <div class="kicker">Daily Reflection</div>
+      <p class="quote">“We suffer more often in imagination than in reality. — Seneca”</p>
+      <div class="meta">Generated on 2026-02-25 at 163757</div>
+    </section>
+  </article>
 </body>
 </html>
