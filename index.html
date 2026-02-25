@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whiteboard | Christopher's Artifacts</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        header {
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        h1 { color: #58a6ff; }
+        .file-list {
+            list-style: none;
+            padding: 0;
+        }
+        .file-item {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .file-item:hover {
+            background: #21262d;
+        }
+        #viewer {
+            display: none;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 30px;
+            margin-top: 20px;
+        }
+        #viewer h1, #viewer h2, #viewer h3 { border-bottom: 1px solid #30363d; padding-bottom: 0.3em; }
+        .back-btn {
+            background: #21262d;
+            color: #58a6ff;
+            border: 1px solid #30363d;
+            padding: 5px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header id="header">
+            <h1>Whiteboard</h1>
+            <p>Remote Artifact Viewer</p>
+        </header>
+
+        <button id="backBtn" class="back-btn" style="display:none;" onclick="showList()">← Back to Files</button>
+
+        <div id="fileList" class="file-list">
+            <!-- Files will be listed here -->
+            <div class="file-item" onclick="loadMarkdown('ai-model-intelligence.md')">
+                <strong>ai-model-intelligence.md</strong><br>
+                <small>AI Model Intelligence & Tiered Strategy</small>
+            </div>
+        </div>
+
+        <div id="viewer"></div>
+    </div>
+
+    <script>
+        async function loadMarkdown(filename) {
+            const response = await fetch(filename);
+            const text = await response.text();
+            document.getElementById('fileList').style.display = 'none';
+            document.getElementById('header').style.display = 'none';
+            document.getElementById('backBtn').style.display = 'block';
+            const viewer = document.getElementById('viewer');
+            viewer.style.display = 'block';
+            viewer.innerHTML = marked.parse(text);
+        }
+
+        function showList() {
+            document.getElementById('fileList').style.display = 'block';
+            document.getElementById('header').style.display = 'block';
+            document.getElementById('backBtn').style.display = 'none';
+            document.getElementById('viewer').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
