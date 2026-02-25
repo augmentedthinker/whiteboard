@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Card Gallery</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .gallery-container {
+            width: 90%;
+            max-width: 800px;
+            height: 80%;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: white;
+            position: relative;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .counter {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery-container">
+        <iframe id="viewer" src="quotes/quote-card-164706.html"></iframe>
+    </div>
+
+    <div class="controls">
+        <button id="prevBtn" onclick="prevCard()" disabled>Previous</button>
+        <span class="counter" id="counter">1 / 5</span>
+        <button id="nextBtn" onclick="nextCard()">Next</button>
+    </div>
+
+    <script>
+        const cards = [
+            "quotes/quote-card-164706.html",
+            "quotes/quote-card-164657.html",
+            "quotes/quote-card-164646.html",
+            "quotes/quote-card-164637.html",
+            "quotes/quote-card-164628.html"
+        ];
+        let currentIndex = 0;
+
+        const viewer = document.getElementById('viewer');
+        const counter = document.getElementById('counter');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function updateGallery() {
+            viewer.src = cards[currentIndex];
+            counter.innerText = `${currentIndex + 1} / ${cards.length}`;
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === cards.length - 1;
+        }
+
+        function nextCard() {
+            if (currentIndex < cards.length - 1) {
+                currentIndex++;
+                updateGallery();
+            }
+        }
+
+        function prevCard() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateGallery();
+            }
+        }
+    </script>
+</body>
+</html>
