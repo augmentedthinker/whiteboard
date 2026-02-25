@@ -1,106 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quote Card Gallery</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        .gallery-container {
-            width: 90%;
-            max-width: 800px;
-            height: 80%;
-            border: 1px solid #ccc;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            background: white;
-            position: relative;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        .controls {
-            margin-top: 20px;
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            background-color: #007bff;
-            color: white;
-            border-radius: 5px;
-        }
-        button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-        .counter {
-            font-size: 18px;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="gallery-container">
-        <iframe id="viewer" src="quotes/quote-card-164706.html"></iframe>
-    </div>
-
-    <div class="controls">
-        <button id="prevBtn" onclick="prevCard()" disabled>Previous</button>
-        <span class="counter" id="counter">1 / 5</span>
-        <button id="nextBtn" onclick="nextCard()">Next</button>
-    </div>
-
-    <script>
-        const cards = [
-            "quotes/quote-card-164706.html",
-            "quotes/quote-card-164657.html",
-            "quotes/quote-card-164646.html",
-            "quotes/quote-card-164637.html",
-            "quotes/quote-card-164628.html"
-        ];
-        let currentIndex = 0;
-
-        const viewer = document.getElementById('viewer');
-        const counter = document.getElementById('counter');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-
-        function updateGallery() {
-            viewer.src = cards[currentIndex];
-            counter.innerText = `${currentIndex + 1} / ${cards.length}`;
-            prevBtn.disabled = currentIndex === 0;
-            nextBtn.disabled = currentIndex === cards.length - 1;
-        }
-
-        function nextCard() {
-            if (currentIndex < cards.length - 1) {
-                currentIndex++;
-                updateGallery();
-            }
-        }
-
-        function prevCard() {
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateGallery();
-            }
-        }
-    </script>
-</body>
-</html>
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Quote Card Gallery</title>
+<style>body{font-family:system-ui;background:#0d1117;color:#c9d1d9;margin:0;padding:16px} .top{display:flex;gap:8px;align-items:center;flex-wrap:wrap} select,button{background:#161b22;color:#c9d1d9;border:1px solid #30363d;border-radius:8px;padding:8px} iframe{width:100%;height:78vh;border:1px solid #30363d;border-radius:10px;margin-top:12px;background:#fff}</style></head>
+<body><h2>🗂️ Quote Card Gallery</h2><div class='top'><button onclick='prev()'>Prev</button><button onclick='next()'>Next</button><select id='sel' onchange='go(this.value)'><option value='quotes/quote-card-164901.html'>quote-card-164901.html</option>
+<option value='quotes/quote-card-164850.html'>quote-card-164850.html</option>
+<option value='quotes/quote-card-164842.html'>quote-card-164842.html</option>
+<option value='quotes/quote-card-164833.html'>quote-card-164833.html</option>
+<option value='quotes/quote-card-164824.html'>quote-card-164824.html</option>
+<option value='quotes/quote-card-164706.html'>quote-card-164706.html</option>
+<option value='quotes/quote-card-164657.html'>quote-card-164657.html</option>
+<option value='quotes/quote-card-164646.html'>quote-card-164646.html</option>
+<option value='quotes/quote-card-164637.html'>quote-card-164637.html</option>
+<option value='quotes/quote-card-164628.html'>quote-card-164628.html</option></select></div><iframe id='frame' src='quotes/quote-card-164901.html'></iframe>
+<script>
+const sel=document.getElementById('sel');const frame=document.getElementById('frame');
+function go(v){frame.src=v;sel.value=v;}
+function idx(){return sel.selectedIndex;}
+function prev(){let i=idx(); if(i<sel.options.length-1) i++; sel.selectedIndex=i; go(sel.value);}
+function next(){let i=idx(); if(i>0) i--; sel.selectedIndex=i; go(sel.value);}
+</script></body></html>
