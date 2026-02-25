@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EOD Summaries</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    body{margin:0;background:#0d1117;color:#c9d1d9;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    .wrap{max-width:1000px;margin:0 auto;padding:18px}
+    h1{color:#58a6ff;margin:8px 0 16px}
+    .layout{display:grid;grid-template-columns:280px 1fr;gap:14px}
+    .panel{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:12px}
+    .item{display:block;width:100%;text-align:left;background:#0d1117;color:#c9d1d9;border:1px solid #30363d;border-radius:8px;padding:10px;margin-bottom:8px;cursor:pointer}
+    .item:hover{background:#21262d}
+    #viewer{line-height:1.6}
+    #viewer h1,#viewer h2,#viewer h3{border-bottom:1px solid #30363d;padding-bottom:.2em}
+    #viewer code,#viewer pre{background:#0b0f14}
+    .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    a{color:#58a6ff}
+    @media (max-width:900px){.layout{grid-template-columns:1fr}.panel{padding:10px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <h1>📚 End-of-Day Summaries</h1>
+      <a href="index.html">← Back to Remote Viewer</a>
+    </div>
+    <div class="layout">
+      <div class="panel" id="list"></div>
+      <div class="panel"><div id="viewer">Select a summary from the left.</div></div>
+    </div>
+  </div>
+  <script>
+    const files = [
+      "2026-02-25-eod-summary.md",
+      "2026-02-23-end-of-day-summary.md",
+      "2026-02-22-evening-summary.md",
+      "2026-02-22-afternoon-summary.md"
+    ];
+
+    const list = document.getElementById('list');
+    const viewer = document.getElementById('viewer');
+
+    async function loadSummary(file){
+      const res = await fetch('summaries/' + file);
+      const text = await res.text();
+      viewer.innerHTML = marked.parse(text);
+      history.replaceState(null,'','#'+encodeURIComponent(file));
+    }
+
+    files.forEach(f => {
+      const btn = document.createElement('button');
+      btn.className = 'item';
+      btn.textContent = f.replace('.md','');
+      btn.onclick = () => loadSummary(f);
+      list.appendChild(btn);
+    });
+
+    const hash = decodeURIComponent((location.hash || '').replace('#',''));
+    if (hash && files.includes(hash)) loadSummary(hash);
+  </script>
+</body>
+</html>
