@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Junior's Space | Remote Viewer</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg2: #0e1c32;
+      --panel: rgba(14, 26, 45, 0.84);
+      --border: rgba(145, 204, 255, 0.35);
+      --text: #e8f2ff;
+      --muted: #b8c7dc;
+      --accent: #87d1ff;
+      --accent2: #86ffc9;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background:
+        radial-gradient(90vw 50vh at -8% -10%, rgba(76, 145, 255, 0.24), transparent 70%),
+        radial-gradient(60vw 45vh at 110% 110%, rgba(89, 244, 198, 0.16), transparent 72%),
+        linear-gradient(145deg, var(--bg), var(--bg2));
+      padding: max(16px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
+    }
+    .shell {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    .nav {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      color: #d3e6ff;
+      border: 1px solid rgba(148, 197, 255, 0.42);
+      background: rgba(7, 20, 38, 0.55);
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+      font-weight: 600;
+    }
+    .hero {
+      margin-top: 14px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: clamp(20px, 4vw, 34px);
+      box-shadow: 0 24px 60px rgba(1, 8, 20, 0.45);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      right: -120px;
+      top: -130px;
+      background: radial-gradient(circle, rgba(117, 189, 255, 0.24), transparent 70%);
+      pointer-events: none;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(1.6rem, 4.2vw, 2.7rem);
+      letter-spacing: 0.01em;
+    }
+    .lead {
+      margin: 10px 0 0;
+      color: var(--muted);
+      max-width: 65ch;
+      line-height: 1.55;
+    }
+    .grid {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 14px;
+    }
+    .card {
+      background: rgba(8, 21, 38, 0.78);
+      border: 1px solid rgba(151, 198, 255, 0.25);
+      border-radius: 16px;
+      padding: 16px;
+    }
+    .card small { color: #9eb0c8; }
+    .date-cta {
+      margin-top: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+      text-decoration: none;
+      color: #f5fdff;
+      background: linear-gradient(135deg, #1d5e89 0%, #2e9fc3 52%, #42c7a2 100%);
+      border: 1px solid rgba(186, 255, 242, 0.75);
+      border-radius: 14px;
+      padding: 13px 14px;
+      font-weight: 700;
+      box-shadow: 0 12px 28px rgba(33, 134, 171, 0.4);
+      transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
+    }
+    .date-cta:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.04);
+      box-shadow: 0 16px 30px rgba(33, 134, 171, 0.5);
+    }
+    .tag {
+      font-size: .76rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <a class="nav" href="index.html">← Back to Remote Viewer</a>
+
+    <section class="hero">
+      <span class="tag">Junior personal space</span>
+      <h1>Daily briefings and message drops</h1>
+      <p class="lead">Welcome to Junior's dedicated channel inside Remote Viewer. Each dated card opens a standalone, visual message built for that specific day.</p>
+
+      <div class="grid">
+        <article class="card">
+          <strong>📅 Today</strong><br>
+          <small>New visual check-in from Junior</small>
+          <a class="date-cta" href="junior-message-2026-02-26.html">
+            <span>Open message — 2026-02-26</span>
+            <span>↗</span>
+          </a>
+        </article>
+
+        <article class="card">
+          <strong>🧭 Navigation</strong><br>
+          <small>Use back links on every page to quickly return to this hub or main viewer.</small>
+        </article>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

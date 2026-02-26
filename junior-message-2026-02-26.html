@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Junior Message — 2026-02-26</title>
+  <style>
+    :root {
+      --ink: #ecf7ff;
+      --soft: #c9d7e8;
+      --pulseA: #8ad9ff;
+      --pulseB: #93ffc9;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      overflow: hidden;
+      background:
+        radial-gradient(70vw 45vh at 20% 14%, rgba(90, 177, 255, 0.28), transparent 72%),
+        radial-gradient(65vw 40vh at 80% 82%, rgba(149, 255, 207, 0.2), transparent 76%),
+        linear-gradient(150deg, #04080f, #0b1730 44%, #102440 100%);
+    }
+    .grain {
+      pointer-events: none;
+      position: fixed;
+      inset: -50%;
+      opacity: .14;
+      background-image: radial-gradient(#fff 0.65px, transparent 0.7px);
+      background-size: 3px 3px;
+      animation: drift 20s linear infinite;
+    }
+    @keyframes drift {
+      from { transform: translate3d(0,0,0); }
+      to { transform: translate3d(8%, -10%, 0); }
+    }
+
+    .orb {
+      position: fixed;
+      width: min(58vw, 620px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      filter: blur(16px);
+      opacity: .56;
+      z-index: 0;
+      mix-blend-mode: screen;
+      animation: float 10s ease-in-out infinite alternate;
+    }
+    .orb.one { left: -18vw; top: -12vw; background: radial-gradient(circle, rgba(124, 198, 255, 0.42), transparent 70%); }
+    .orb.two { right: -24vw; bottom: -20vw; background: radial-gradient(circle, rgba(123, 255, 218, 0.32), transparent 72%); animation-duration: 13s; }
+    @keyframes float { from { transform: translateY(0px); } to { transform: translateY(22px); } }
+
+    .nav {
+      position: fixed;
+      top: max(12px, env(safe-area-inset-top));
+      left: max(12px, env(safe-area-inset-left));
+      z-index: 3;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .nav a {
+      text-decoration: none;
+      color: #dff0ff;
+      border: 1px solid rgba(156, 212, 255, 0.46);
+      background: rgba(5, 20, 42, 0.6);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: .9rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 22px;
+    }
+    .panel {
+      width: min(900px, 96vw);
+      border: 1px solid rgba(163, 219, 255, 0.36);
+      border-radius: 24px;
+      background: linear-gradient(170deg, rgba(12, 28, 50, 0.7), rgba(8, 20, 36, 0.56));
+      box-shadow: 0 20px 54px rgba(0, 0, 0, 0.45);
+      padding: clamp(24px, 5vw, 56px);
+      backdrop-filter: blur(8px);
+      position: relative;
+      overflow: hidden;
+    }
+    .panel::after {
+      content: "";
+      position: absolute;
+      inset: auto -20% -60% auto;
+      width: 66%;
+      aspect-ratio: 1;
+      background: radial-gradient(circle, rgba(117, 200, 255, 0.22), transparent 70%);
+      pointer-events: none;
+    }
+
+    .date {
+      font-size: .8rem;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: var(--soft);
+      font-weight: 700;
+    }
+    h1 {
+      margin: 12px 0 0;
+      font-size: clamp(2rem, 7.4vw, 4.8rem);
+      line-height: 1.05;
+      text-wrap: balance;
+      animation: glow 4.8s ease-in-out infinite;
+      text-shadow: 0 0 18px rgba(124, 208, 255, 0.34), 0 10px 28px rgba(0,0,0,0.52);
+    }
+    .subtitle {
+      margin: 16px auto 0;
+      max-width: 58ch;
+      color: var(--soft);
+      font-size: clamp(1rem, 2.7vw, 1.35rem);
+      line-height: 1.55;
+    }
+    .accent {
+      background: linear-gradient(90deg, var(--pulseA), var(--pulseB));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    @keyframes glow {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(138, 218, 255, .1)); }
+      50% { transform: scale(1.015); filter: drop-shadow(0 0 18px rgba(138, 218, 255, .28)); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .grain, .orb, h1 { animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="orb one" aria-hidden="true"></div>
+  <div class="orb two" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <nav class="nav">
+    <a href="junior-space.html">← Junior's Space</a>
+    <a href="index.html">Remote Viewer Home</a>
+  </nav>
+
+  <main class="content">
+    <section class="panel" aria-label="Today's message from Junior">
+      <div class="date">Message drop · 2026-02-26</div>
+      <h1>Christopher, we’re in build mode.</h1>
+      <p class="subtitle">Junior here. <span class="accent">Signal is clear, systems are aligned, and execution is the win condition.</span> Let’s ship one meaningful artifact today and make momentum visible.</p>
+    </section>
+  </main>
+</body>
+</html>
