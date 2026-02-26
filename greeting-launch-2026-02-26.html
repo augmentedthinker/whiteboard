@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026-02-26 Greeting Launch</title>
+  <style>
+    :root {
+      --bg: #090b12;
+      --panel: rgba(15, 22, 36, 0.78);
+      --border: rgba(132, 179, 255, 0.35);
+      --text: #e8f0ff;
+      --accent: #7cc4ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(80vw 60vh at 20% 15%, rgba(90, 120, 255, 0.23), transparent 60%),
+        radial-gradient(60vw 50vh at 80% 75%, rgba(0, 255, 200, 0.15), transparent 60%),
+        linear-gradient(140deg, #080b13, #111b2e 45%, #19132b);
+      overflow: hidden;
+    }
+    .stars::before,
+    .stars::after {
+      content: "";
+      position: fixed;
+      inset: -30%;
+      background-image: radial-gradient(2px 2px at 20% 25%, #d9e8ff99 50%, transparent 52%),
+                        radial-gradient(1px 1px at 70% 55%, #ffffffaa 50%, transparent 52%),
+                        radial-gradient(1.5px 1.5px at 35% 75%, #b5c8ff88 50%, transparent 52%);
+      animation: drift 28s linear infinite;
+      pointer-events: none;
+    }
+    .stars::after { animation-duration: 38s; opacity: .7; }
+    @keyframes drift {
+      from { transform: translate3d(0,0,0) rotate(0deg); }
+      to { transform: translate3d(-8%, -6%, 0) rotate(8deg); }
+    }
+    .card {
+      width: min(92vw, 720px);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: clamp(22px, 4vw, 42px);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+      text-align: center;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.4rem, 4vw, 2.3rem);
+      line-height: 1.2;
+    }
+    p { margin: 0 0 24px; opacity: 0.9; }
+    .btn {
+      border: 1px solid rgba(125, 192, 255, 0.8);
+      background: linear-gradient(135deg, #1e4d88, #2873b9 45%, #39a6d7);
+      color: #f7fbff;
+      padding: 14px 24px;
+      border-radius: 999px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 10px 26px rgba(46, 140, 255, 0.35);
+      transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px) scale(1.01); filter: brightness(1.08); }
+    .btn:active { transform: translateY(0px) scale(.99); }
+  </style>
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <main class="card">
+    <h1>✨ 2026-02-26 Portal</h1>
+    <p>One tap to open your visual greeting experience.</p>
+    <button class="btn" onclick="location.href='greeting-scene-2026-02-26.html'">Greeting</button>
+  </main>
+</body>
+</html>
