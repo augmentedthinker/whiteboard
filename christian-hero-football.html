@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Christian Hero Page | Game Day</title>
+  <meta name="description" content="A football-inspired animated hero page for Christian." />
+  <style>
+    :root {
+      --bg: #05070d;
+      --primary: #2f88ff;
+      --secondary: #9fe1ff;
+      --field: #0f4420;
+      --card: rgba(10, 16, 26, 0.78);
+      --line: rgba(255,255,255,0.14);
+      --text: #e8f4ff;
+      --muted: #a8bfd6;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(circle at 25% 20%, #0d1f38 0%, #060a13 45%, #05070d 100%);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    .stadium-bg {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(180deg, rgba(8,11,20,0.3) 0%, rgba(5,7,13,0.9) 100%),
+        url('https://image.pollinations.ai/prompt/epic%20night%20football%20stadium%20cinematic%20wide%20shot%20digital%20art%20no%20text?seed=2126&width=1536&height=896&nologo=true');
+      background-size: cover;
+      background-position: center;
+      filter: saturate(1.1) contrast(1.05);
+      transform: scale(1.03);
+      animation: breathe 10s ease-in-out infinite;
+      z-index: -3;
+    }
+
+    .glow {
+      position: fixed;
+      inset: -30%;
+      background:
+        radial-gradient(circle at 70% 30%, rgba(47,136,255,.35) 0%, transparent 35%),
+        radial-gradient(circle at 20% 80%, rgba(159,225,255,.22) 0%, transparent 40%);
+      filter: blur(24px);
+      z-index: -2;
+      animation: drift 14s ease-in-out infinite alternate;
+    }
+
+    .lights {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent 0 90px,
+        rgba(255,255,255,0.04) 91px 93px
+      );
+      mask-image: linear-gradient(to bottom, rgba(255,255,255,.8), transparent 65%);
+      z-index: -1;
+      opacity: .35;
+      animation: sweep 4.5s linear infinite;
+    }
+
+    .wrap {
+      width: min(1050px, 94vw);
+      margin: 0 auto;
+      padding: clamp(24px, 6vw, 60px) 0 40px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 22px;
+      align-items: center;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: clamp(18px, 4vw, 34px);
+      box-shadow: 0 20px 40px rgba(0,0,0,.35);
+      backdrop-filter: blur(8px);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      border: 1px solid rgba(47,136,255,.4);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: .8rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      background: rgba(47,136,255,.12);
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      text-shadow: 0 0 22px rgba(74,160,255,0.35);
+    }
+
+    .sub {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      max-width: 46ch;
+    }
+
+    .tags {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      color: #d7ecff;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: .86rem;
+    }
+
+    .portrait {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      position: relative;
+      box-shadow: 0 12px 26px rgba(0,0,0,.35);
+      transform: perspective(1200px) rotateY(-8deg);
+      transition: transform .6s ease;
+    }
+
+    .portrait:hover { transform: perspective(1200px) rotateY(0deg); }
+
+    .portrait img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      filter: contrast(1.08) saturate(1.04);
+    }
+
+    .portrait::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 20%, rgba(6,11,20,0.55));
+    }
+
+    .cta-row {
+      margin-top: 22px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 1px solid rgba(159,225,255,.4);
+      background: linear-gradient(120deg, rgba(47,136,255,.22), rgba(159,225,255,.16));
+      color: #f2faff;
+      text-decoration: none;
+      padding: 11px 16px;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: transform .2s ease, box-shadow .2s ease;
+      box-shadow: 0 8px 16px rgba(0,0,0,.2);
+    }
+
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 22px rgba(0,0,0,.3); }
+
+    .mini {
+      margin-top: 16px;
+      color: #8da8c2;
+      font-size: .84rem;
+    }
+
+    @keyframes breathe {
+      0%,100% { transform: scale(1.03) translateY(0); }
+      50% { transform: scale(1.06) translateY(-5px); }
+    }
+    @keyframes drift {
+      0% { transform: translate(-3%, -2%); }
+      100% { transform: translate(3%, 2%); }
+    }
+    @keyframes sweep {
+      from { transform: translateX(-40px); }
+      to { transform: translateX(40px); }
+    }
+
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; }
+      .portrait { max-width: 420px; margin: 0 auto; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stadium-bg" aria-hidden="true"></div>
+  <div class="glow" aria-hidden="true"></div>
+  <div class="lights" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <span class="eyebrow">🏈 Hero Spotlight</span>
+        <h1>Christian.<br/>Built for Game Day.</h1>
+        <p class="sub">A football-inspired tribute page with cinematic AI visuals, animated stadium energy, and main-character momentum.</p>
+        <div class="tags">
+          <span class="tag">AI Art Direction</span>
+          <span class="tag">Animated Hero Section</span>
+          <span class="tag">Football Vibes</span>
+        </div>
+        <div class="cta-row">
+          <a class="btn" href="index.html">← Back to Remote Viewer</a>
+          <a class="btn" href="javascript:location.reload()">↻ Replay Entrance</a>
+        </div>
+        <p class="mini">Visuals sourced from live generative image prompts and styled for fast mobile viewing.</p>
+      </div>
+
+      <figure class="portrait">
+        <img
+          src="https://image.pollinations.ai/prompt/cinematic%20portrait%20of%20a%20football%20hero%20named%20Christian%2C%20stadium%20lights%2C%20blue%20silver%20uniform%2C%20dynamic%20pose%2C%20digital%20art%2C%20no%20text?seed=1984&width=896&height=1152&nologo=true"
+          alt="AI-styled football portrait for Christian"
+          loading="eager"
+        />
+      </figure>
+    </section>
+  </main>
+</body>
+</html>
