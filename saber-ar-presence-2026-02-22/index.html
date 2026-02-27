@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Saber XR Presence — Lab Pass</title>
+  <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.0/dist/aframe-extras.min.js"></script>
+  <style>
+    html, body { margin:0; height:100%; overflow:hidden; font-family: Inter, system-ui, sans-serif; background:#05070f; }
+    .hud { position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom,0px)); z-index: 200; background: rgba(12,18,34,.78); border:1px solid rgba(112,150,255,.45); border-radius: 14px; backdrop-filter: blur(8px); padding: 10px; pointer-events: auto; }
+    .row { display:flex; gap:8px; align-items:center; }
+    input { flex:1; background:#111a33; color:#e9efff; border:1px solid #3f5fc2; border-radius:10px; padding:10px; font-size:16px; pointer-events: auto; }
+    button { background:#1a2d66; color:#fff; border:1px solid #6d90ff; border-radius:10px; padding:10px 12px; font-weight:700; cursor: pointer; pointer-events: auto; }
+    #status { color:#b8caff; font-size:12px; margin-top:6px; }
+    .hint { position:fixed; top:10px; left:50%; transform:translateX(-50%); z-index:200; background:#101933cc; color:#d7e4ff; border:1px solid #3f5fc2; border-radius:999px; padding:6px 12px; font-size:12px; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <div class="hint">Click floor to move Saber. Viewport optimized for desktop + Quest.</div>
+  <div class="hud">
+    <div class="row">
+      <input id="userInput" type="text" placeholder="Talk to Saber..." />
+      <button id="sendBtn">Send</button>
+    </div>
+    <div id="status">Lab ready. Click floor to move Saber.</div>
+  </div>
+
+  <a-scene shadow="type: pcfsoft" renderer="colorManagement:true; physicallyCorrectLights:true" xr-mode-ui="enabled: true"
+           webxr="optionalFeatures: local-floor, bounded-floor, hit-test, dom-overlay; overlayElement: body"
+           background="color: #0b0f18" cursor="rayOrigin: mouse" raycaster="objects: .clickable">
+
+    <a-assets>
+      <a-asset-item id="robotModel" src="https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/RobotExpressive/RobotExpressive.glb"></a-asset-item>
+      <img id="space1" src="assets/window-space-1.png" />
+      <img id="space2" src="assets/window-space-2.png" />
+      <img id="space3" src="assets/window-space-3.png" />
+    </a-assets>
+
+    <a-entity light="type: ambient; intensity: 0.4; color: #aeb8d8"></a-entity>
+    <a-entity light="type: directional; intensity: 0.8; color: #ffffff; castShadow: true" position="2 4 1" shadow="shadowMapHeight: 1024; shadowMapWidth: 1024; shadowCameraLeft: -10; shadowCameraRight: 10; shadowCameraTop: 10; shadowCameraBottom: -10"></a-entity>
+
+    <a-entity id="rig" position="0 0 2.2">
+      <a-camera look-controls="pointerLockEnabled: false" wasd-controls-enabled="false" position="0 1.6 0"></a-camera>
+      <a-entity id="leftHand" laser-controls="hand: left" raycaster="objects: .clickable" line="color: #7fc0ff; opacity: 0.9"></a-entity>
+      <a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: .clickable" line="color: #d2a3ff; opacity: 0.9"></a-entity>
+    </a-entity>
+
+    <!-- LAB ROOM -->
+    <a-box position="0 3 -6" depth="0.1" height="6" width="16" color="#6d7482" shadow="receive: true"></a-box>
+    <a-box position="-8 3 2" depth="16" height="6" width="0.1" color="#636a78" shadow="receive: true"></a-box>
+    <a-box position="8 3 2" depth="16" height="6" width="0.1" color="#636a78" shadow="receive: true"></a-box>
+    <a-box position="0 6 2" depth="16" height="0.1" width="16" color="#818a98" shadow="receive: true"></a-box>
+
+    <!-- Nav Plane: The Floor -->
+    <a-plane id="navPlane" class="clickable" rotation="-90 0 0" position="0 0.01 0" width="16" height="16" color="#4e5562" material="roughness:0.95; metalness:0.1" shadow="receive: true"></a-plane>
+
+    <!-- WINDOWS -->
+    <a-plane position="-4.6 2.6 -5.92" width="2.64" height="1.64" src="#space1" material="shader: flat; side: double; transparent: false"></a-plane>
+    <a-plane position="0 2.6 -5.92" width="2.64" height="1.64" src="#space2" material="shader: flat; side: double; transparent: false"></a-plane>
+    <a-plane position="4.6 2.6 -5.92" width="2.64" height="1.64" src="#space3" material="shader: flat; side: double; transparent: false"></a-plane>
+
+    <!-- Frames -->
+    <a-box position="-4.6 2.6 -5.94" width="2.95" height="1.95" depth="0.05" color="#2f3644" shadow="cast: true"></a-box>
+    <a-box position="0 2.6 -5.94" width="2.95" height="1.95" depth="0.05" color="#2f3644" shadow="cast: true"></a-box>
+    <a-box position="4.6 2.6 -5.94" width="2.95" height="1.95" depth="0.05" color="#2f3644" shadow="cast: true"></a-box>
+
+    <a-entity id="saber" position="0 0 -1.2" shadow="cast: true">
+      <a-entity id="saberModel" gltf-model="#robotModel" scale="0.28 0.28 0.28" position="0 0 0" rotation="0 0 0" animation-mixer="clip: Idle; loop: repeat"></a-entity>
+      <a-cylinder radius="0.28" height="0.03" color="#20305f" position="0 -0.02 0" material="emissive:#2d4ca0; emissiveIntensity:0.4"></a-cylinder>
+      
+      <!-- Antenna Sync Lights -->
+      <a-cylinder id="antennaMast" radius="0.02" height="0.8" position="0 1.0 0" color="#4a556b"></a-cylinder>
+      <a-sphere id="antennaTip" radius="0.05" position="0 1.4 0" color="#6ea1ff" material="emissive:#4f83ff; emissiveIntensity:0.5"></a-sphere>
+      <a-sphere id="antennaLight1" radius="0.015" position="0 1.25 0" color="#45ff8f" material="emissive:#1eff73; emissiveIntensity:0.4"></a-sphere>
+      <a-sphere id="antennaLight2" radius="0.015" position="0 1.1 0" color="#ff5a5a" material="emissive:#ff2a2a; emissiveIntensity:0.3"></a-sphere>
+      
+      <a-sphere id="beepLightGreen" radius="0.05" position="0 0.58 0.18" color="#45ff8f" material="emissive:#1eff73; emissiveIntensity:0.15"></a-sphere>
+      <a-sphere id="beepLightRed" radius="0.04" position="0.09 0.54 0.16" color="#ff5a5a" material="emissive:#ff2a2a; emissiveIntensity:0.1"></a-sphere>
+    </a-entity>
+
+    <a-entity light="type: point; intensity: 1.0; distance: 6; color: #77a7ff" position="0 1.2 -1.2"></a-entity>
+  </a-scene>
+
+  <script>
+    const statusEl = document.getElementById('status');
+    const userInput = document.getElementById('userInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const saber = document.getElementById('saber');
+    const saberModel = document.getElementById('saberModel');
+    const navPlane = document.getElementById('navPlane');
+    const beepLightGreen = document.getElementById('beepLightGreen');
+    const beepLightRed = document.getElementById('beepLightRed');
+    const antennaTip = document.getElementById('antennaTip');
+    const antennaLight1 = document.getElementById('antennaLight1');
+    const antennaLight2 = document.getElementById('antennaLight2');
+
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function flashBeepLights(dist){
+      const nearFactor = Math.max(0, Math.min(1, 1 - (dist / 6)));
+      const greenPeak = 0.7 + nearFactor * 1.7;
+      const redPeak = 0.3 + nearFactor * 1.2;
+      const bluePeak = 0.5 + nearFactor * 1.5;
+
+      beepLightGreen.setAttribute('material', `emissiveIntensity: ${greenPeak.toFixed(2)}`);
+      beepLightRed.setAttribute('material', `emissiveIntensity: ${redPeak.toFixed(2)}`);
+      antennaTip.setAttribute('material', `emissiveIntensity: ${bluePeak.toFixed(2)}`);
+      antennaLight1.setAttribute('material', `emissiveIntensity: ${greenPeak.toFixed(2)}`);
+      antennaLight2.setAttribute('material', `emissiveIntensity: ${redPeak.toFixed(2)}`);
+
+      setTimeout(()=>{
+        beepLightGreen.setAttribute('material', 'emissiveIntensity: 0.15');
+        beepLightRed.setAttribute('material', 'emissiveIntensity: 0.10');
+        antennaTip.setAttribute('material', 'emissiveIntensity: 0.20');
+        antennaLight1.setAttribute('material', 'emissiveIntensity: 0.15');
+        antennaLight2.setAttribute('material', 'emissiveIntensity: 0.10');
+      }, 130);
+    }
+
+    function robotBeep(){
+      if (audioCtx.state !== 'running') return;
+      const scene = document.querySelector('a-scene');
+      if (!scene || !scene.camera) return;
+      const camPos = scene.camera.el.object3D.position;
+      const rb = saber.object3D.position;
+      const dist = Math.hypot(camPos.x - rb.x, camPos.z - rb.z);
+      const vol = Math.max(0.01, Math.min(0.16, 0.22 / (dist * dist)));
+      const freq = 640 + Math.random()*460;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = Math.random() > 0.5 ? 'square' : 'triangle';
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(vol, audioCtx.currentTime + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.14);
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.start(); osc.stop(audioCtx.currentTime + 0.15);
+      flashBeepLights(dist);
+    }
+
+    // Movement Logic
+    let targetPos = null;
+    let isWalking = false;
+    const speed = 0.001; // Units per ms
+
+    AFRAME.registerComponent('saber-logic', {
+      tick(time, dt) {
+        if (!targetPos) {
+          if (isWalking) {
+            saberModel.setAttribute('animation-mixer', {clip: 'Idle', loop: 'repeat'});
+            isWalking = false;
+          }
+          return;
+        }
+        
+        if (!isWalking) {
+          saberModel.setAttribute('animation-mixer', {clip: 'Walking', loop: 'repeat'});
+          isWalking = true;
+        }
+
+        const p = saber.object3D.position;
+        const dx = targetPos.x - p.x, dz = targetPos.z - p.z;
+        const dist = Math.hypot(dx, dz);
+        
+        if (dist < 0.1) { 
+          targetPos = null; 
+          return; 
+        }
+        
+        const moveStep = dt * speed;
+        p.x += (dx / dist) * Math.min(moveStep, dist);
+        p.z += (dz / dist) * Math.min(moveStep, dist);
+        saber.object3D.rotation.y = Math.atan2(dx, dz);
+      }
+    });
+    saber.setAttribute('saber-logic', '');
+
+    navPlane.addEventListener('mousedown', (e) => {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      if (!e.detail || !e.detail.intersection) return;
+      const p = e.detail.intersection.point;
+      targetPos = { x: p.x, z: p.z };
+      statusEl.textContent = `Target set: x:${p.x.toFixed(1)} z:${p.z.toFixed(1)}`;
+    });
+
+    // Chat Logic
+    async function respond(msg){
+      if (!msg) return;
+      statusEl.textContent = 'Thinking...';
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: msg })
+        });
+        const data = await response.json();
+        const reply = data.reply || "Connection fuzzy...";
+        statusEl.textContent = reply;
+        speak(reply);
+      } catch (err) {
+        console.error('Chat error:', err);
+        statusEl.textContent = "Brain offline. Check server console.";
+      }
+    }
+
+    function speak(text){
+      if (!('speechSynthesis' in window)) return;
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = 1.0; u.pitch = 1.0; u.volume = 0.9;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(u);
+    }
+
+    sendBtn.onclick = () => {
+      const msg = userInput.value.trim();
+      if(!msg) return;
+      respond(msg);
+      userInput.value = '';
+    };
+
+    userInput.onkeydown = (e) => {
+      if(e.key === 'Enter') sendBtn.click();
+    };
+
+    setInterval(robotBeep, 1200);
+  </script>
+</body>
+</html>
