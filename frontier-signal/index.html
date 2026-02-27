@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Frontier Signal Desk</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    :root { --bg:#0d1117; --panel:#161b22; --panelHover:#21262d; --border:#30363d; --text:#c9d1d9; --accent:#58a6ff; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);padding:max(12px,env(safe-area-inset-top)) 12px max(16px,env(safe-area-inset-bottom));line-height:1.5}
+    .wrap{max-width:920px;margin:0 auto}
+    .hero,.panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:14px}
+    .hero{margin-bottom:10px}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
+    .btn,select{background:var(--panelHover);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:10px 12px;text-decoration:none}
+    select{min-width:260px}
+    #report{margin-top:10px}
+    #report h1,#report h2,#report h3{border-bottom:1px solid var(--border);padding-bottom:.25em}
+    a{color:var(--accent)}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <h1 style="margin:0;color:var(--accent)">🛰️ Frontier Signal Desk</h1>
+    <p style="margin:.35rem 0 0">Most current report is loaded by default. Use the dropdown for older reports.</p>
+    <div class="row">
+      <a class="btn" href="../index.html">← Back to Remote Viewer</a>
+      <label for="reportSelect">Older reports:</label>
+      <select id="reportSelect"></select>
+      <a id="openRaw" class="btn" target="_blank" rel="noopener">Open raw markdown</a>
+    </div>
+  </section>
+  <section id="report" class="panel">Loading report…</section>
+</div>
+<script>
+  const select = document.getElementById('reportSelect');
+  const reportEl = document.getElementById('report');
+  const rawLink = document.getElementById('openRaw');
+
+  async function loadReport(file){
+    const path = `./reports/${file}`;
+    rawLink.href = path;
+    const res = await fetch(path);
+    const md = await res.text();
+    reportEl.innerHTML = marked.parse(md);
+  }
+
+  async function boot(){
+    const meta = await (await fetch('./reports/reports.json')).json();
+    meta.reports.forEach(file=>{
+      const opt=document.createElement('option');
+      opt.value=file; opt.textContent=file.replace('frontier-signal-digest-','').replace('.md','');
+      select.appendChild(opt);
+    });
+    select.value = meta.latest;
+    await loadReport(meta.latest);
+    select.addEventListener('change', ()=> loadReport(select.value));
+  }
+  boot();
+</script>
+</body>
+</html>
