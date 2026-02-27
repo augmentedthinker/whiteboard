@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Remote Viewer | Archived</title>
+  <link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg" />
+  <link rel="apple-touch-icon" href="assets/icons/icon.svg" />
+  <style>
+    :root {
+      --bg: #0d1117;
+      --panel: #161b22;
+      --panelHover: #21262d;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --accent: #58a6ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      background-image: url('assets/bg-junior.svg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: var(--text);
+      margin: 0;
+      padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+    .container { max-width: 820px; margin: 0 auto; }
+    header { border-bottom: 1px solid var(--border); padding-bottom: 14px; margin-bottom: 16px; }
+    h1 { color: var(--accent); margin: 0; font-size: clamp(1.4rem, 3.8vw, 2rem); }
+    header p { margin: 4px 0 0; opacity: 0.9; }
+    .back-link {
+      display: inline-block;
+      margin: 0 0 12px;
+      text-decoration: none;
+      color: var(--accent);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      background: var(--panelHover);
+    }
+    .file-list { list-style: none; padding: 0; margin: 0; }
+    .file-item {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .file-item:hover, .file-item:active { background: var(--panelHover); }
+    .file-item strong { font-size: 1rem; display: inline-block; margin-bottom: 2px; }
+    .file-item small { color: #9da7b1; font-size: 0.9rem; }
+
+    .theme-saber { border-color: #8cc8ff; background: linear-gradient(135deg, rgba(20, 46, 89, 0.82), rgba(27, 67, 128, 0.6)); }
+    .theme-gemini { border-color: #ffd166; background: linear-gradient(135deg, rgba(133, 90, 24, 0.72), rgba(166, 118, 25, 0.4)); }
+    .theme-junior { border-color: #9fffc8; background: linear-gradient(135deg, rgba(27, 53, 78, 0.82), rgba(24, 76, 68, 0.72)); }
+    .theme-spotlight { border-color: #9fe1ff; background: rgba(47, 136, 255, 0.16); }
+
+    @media (max-width: 900px) { body { background-attachment: scroll; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Archived / Needs Work</h1>
+      <p>Older and in-progress artifacts</p>
+    </header>
+
+    <a class="back-link" href="index.html">← Back to Remote Viewer</a>
+
+    <div class="file-list">
+      <div class="file-item theme-saber" onclick="window.open('saber-image-generator.html','_blank')">
+        <strong>⚔️ SABER IMAGE GENERATOR</strong><br>
+        <small>Comparison build (Saber): prompt → image with your Google key</small>
+      </div>
+      <div class="file-item theme-gemini" onclick="window.open('gemini-image-generator.html','_blank')">
+        <strong>🖼️ GEMINI IMAGE GENERATOR</strong><br>
+        <small>Create images with Imagen 3 directly in browser</small>
+      </div>
+      <div class="file-item theme-junior" onclick="window.open('junior-space.html','_blank')">
+        <strong>🤖 JUNIOR'S SPACE</strong><br>
+        <small>Enter Junior's portal and open message streams</small>
+      </div>
+      <div class="file-item" onclick="window.open('dnd-dice-roller.html','_blank')">
+        <strong>🎲 D&D DICE ROLLER</strong><br>
+        <small>3D dice experience (v5)</small>
+      </div>
+      <div class="file-item" onclick="window.open('./greetings/2026-02-25-evening.html','_blank')">
+        <strong>✨ 2026-02-25 Evening Greeting</strong><br>
+        <small>Animated evening check-in experience</small>
+      </div>
+      <div class="file-item theme-spotlight" onclick="window.open('christian-hero-football.html','_blank')">
+        <strong>🏈 CHRISTIAN HERO PAGE</strong><br>
+        <small>Football-inspired animated spotlight page</small>
+      </div>
+      <div class="file-item" onclick="loadMarkdown('team-blueprint.md')">
+        <strong>🏛️ TEAM BLUEPRINT</strong><br>
+        <small>Expansion & specialized roles</small>
+      </div>
+      <div class="file-item" onclick="loadMarkdown('junior-protocol.md')">
+        <strong>🤖 DELEGATION PROTOCOL</strong><br>
+        <small>Junior's automation rules</small>
+      </div>
+      <div class="file-item" onclick="loadMarkdown('personnel.md')">
+        <strong>⚔️ 🤖 PERSONNEL</strong><br>
+        <small>Roles: Saber & Saber Junior</small>
+      </div>
+      <div class="file-item" onclick="loadMarkdown('ai-model-intelligence.md')">
+        <strong>🧠 MODELS</strong><br>
+        <small>Legacy model strategy notes</small>
+      </div>
+    </div>
+
+    <div id="viewer" style="display:none; background: rgba(22, 27, 34, 0.95); border: 1px solid var(--border); border-radius: 12px; padding: clamp(14px, 3vw, 24px); margin-top: 12px;"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    async function loadMarkdown(filename) {
+      const response = await fetch(filename);
+      const text = await response.text();
+      const viewer = document.getElementById('viewer');
+      viewer.style.display = 'block';
+      viewer.innerHTML = marked.parse(text);
+      window.scrollTo({ top: viewer.offsetTop - 10, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

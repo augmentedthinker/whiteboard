@@ -78,6 +78,15 @@
             font-size: 0.95rem;
             touch-action: manipulation;
         }
+
+        .theme-junior { border-color: #7ee787; background: rgba(126, 231, 135, 0.12); box-shadow: 0 0 0 1px rgba(126, 231, 135, 0.2) inset; }
+        .theme-matrix { border-color: #9ad0ff; background: linear-gradient(135deg, rgba(25, 54, 93, 0.86), rgba(38, 77, 130, 0.64)); }
+        .theme-health { border-color: #f0a8ff; background: linear-gradient(135deg, rgba(76, 36, 97, 0.72), rgba(36, 64, 112, 0.74)); }
+        .theme-ar { border-color: #9ac6ff; background: linear-gradient(135deg, rgba(20, 38, 80, 0.9), rgba(36, 75, 138, 0.68)); }
+        .theme-junior-demo { border-color: #ffb86c; background: linear-gradient(135deg, rgba(89, 56, 30, 0.9), rgba(145, 82, 41, 0.65)); }
+        .theme-saber-demo { border-color: #7cc4ff; background: linear-gradient(135deg, rgba(30, 56, 96, 0.9), rgba(41, 82, 145, 0.65)); }
+        .theme-archive { border-color: #737f8c; background: linear-gradient(135deg, rgba(45, 52, 61, 0.92), rgba(62, 69, 79, 0.72)); }
+
         @media (max-width: 900px) {
             body { background-attachment: scroll; }
         }
@@ -93,15 +102,15 @@
         <button id="backBtn" class="back-btn" style="display:none;" onclick="showList()">← Back to Files</button>
 
         <div id="fileList" class="file-list">
-            <div class="file-item" onclick="window.open('junior-morning-2026-02-27.html','_blank')" style="border-color: #7ee787; background: rgba(126, 231, 135, 0.12); box-shadow: 0 0 0 1px rgba(126, 231, 135, 0.2) inset;">
+            <div class="file-item theme-junior" onclick="window.open('junior-morning-2026-02-27.html','_blank')">
                 <strong>🌅 Junior Morning Greeting — 2026-02-27</strong><br>
                 <small>Open Junior's polished morning hello for Christopher + Saber</small>
             </div>
-            <div class="file-item" onclick="loadMarkdown('gemini-verified-model-matrix-2026-02-26.md')" style="border-color: #9ad0ff; background: linear-gradient(135deg, rgba(25, 54, 93, 0.86), rgba(38, 77, 130, 0.64));">
+            <div class="file-item theme-matrix" onclick="loadMarkdown('gemini-verified-model-matrix-2026-02-26.md')">
                 <strong>🧾 VERIFIED GEMINI MODEL MATRIX</strong><br>
                 <small>Current image/music/voice model IDs + fallback notes</small>
             </div>
-            <div class="file-item" onclick="window.open('gemini-ping-checker.html','_blank')" style="border-color: #f0a8ff; background: linear-gradient(135deg, rgba(76, 36, 97, 0.72), rgba(36, 64, 112, 0.74));">
+            <div class="file-item theme-health" onclick="window.open('gemini-ping-checker.html','_blank')">
                 <strong>🩺 GEMINI PING CHECKER</strong><br>
                 <small>Manual one-click Gemini connectivity test (no auto polling)</small>
             </div>
@@ -117,69 +126,21 @@
                 <strong>🗂️ QUOTE CARD GALLERY</strong><br>
                 <small>Browse all generated quote cards</small>
             </div>
-            <div class="file-item" onclick="window.open('saber-ar-presence-2026-02-22/index.html','_blank')" style="border-color: #9ac6ff; background: linear-gradient(135deg, rgba(20, 38, 80, 0.9), rgba(36, 75, 138, 0.68));">
+            <div class="file-item theme-ar" onclick="window.open('saber-ar-presence-2026-02-22/index.html','_blank')">
                 <strong>🪞 SABER AR PRESENCE (2026-02-22)</strong><br>
                 <small>Camera-reactive AR portal prototype</small>
             </div>
-            <div class="file-item" onclick="window.open('junior-multimodal-demos.html','_blank')" style="border-color: #ffb86c; background: linear-gradient(135deg, rgba(89, 56, 30, 0.9), rgba(145, 82, 41, 0.65));">
+            <div class="file-item theme-junior-demo" onclick="window.open('junior-multimodal-demos.html','_blank')">
                 <strong>🤖 JUNIOR MULTIMODAL DEMOS</strong><br>
                 <small>Runnable image + voice demos, plus music probe diagnostics</small>
             </div>
-            <div class="file-item" onclick="window.open('saber-multimodal-demos.html','_blank')" style="border-color: #7cc4ff; background: linear-gradient(135deg, rgba(30, 56, 96, 0.9), rgba(41, 82, 145, 0.65));">
+            <div class="file-item theme-saber-demo" onclick="window.open('saber-multimodal-demos.html','_blank')">
                 <strong>⚔️ SABER MULTIMODAL DEMOS</strong><br>
                 <small>Runnable image + voice demos, plus music probe diagnostics</small>
             </div>
-
-            <div class="file-item" onclick="toggleArchived()" style="border-color: #737f8c; background: linear-gradient(135deg, rgba(45, 52, 61, 0.92), rgba(62, 69, 79, 0.72));">
+            <div class="file-item theme-archive" onclick="window.open('archived.html','_self')">
                 <strong>🗄️ ARCHIVED / NEEDS WORK</strong><br>
-                <small>Tap to show or hide older and in-progress artifacts</small>
-            </div>
-
-            <div id="archivedSection" style="display:none; margin-top: 10px;">
-                <div class="file-item" onclick="window.open('saber-image-generator.html','_blank')" style="border-color: #8cc8ff; background: linear-gradient(135deg, rgba(20, 46, 89, 0.82), rgba(27, 67, 128, 0.6));">
-                    <strong>⚔️ SABER IMAGE GENERATOR</strong><br>
-                    <small>Comparison build (Saber): prompt → image with your Google key</small>
-                </div>
-                <div class="file-item" onclick="window.open('gemini-image-generator.html','_blank')" style="border-color: #ffd166; background: linear-gradient(135deg, rgba(133, 90, 24, 0.72), rgba(166, 118, 25, 0.4));">
-                    <strong>🖼️ GEMINI IMAGE GENERATOR</strong><br>
-                    <small>Create images with Imagen 3 directly in browser</small>
-                </div>
-                <div class="file-item" onclick="window.open('junior-space.html','_blank')" style="border-color: #9fffc8; background: linear-gradient(135deg, rgba(27, 53, 78, 0.82), rgba(24, 76, 68, 0.72));">
-                    <strong>🤖 JUNIOR'S SPACE</strong><br>
-                    <small>Enter Junior's portal and open message streams</small>
-                </div>
-                <div class="file-item" onclick="window.open('dnd-dice-roller.html','_blank')">
-                    <strong>🎲 D&D DICE ROLLER</strong><br>
-                    <small>3D dice experience (v5)</small>
-                </div>
-                <div class="file-item" onclick="window.open('./greetings/2026-02-25-evening.html','_blank')">
-                    <strong>✨ 2026-02-25 Evening Greeting</strong><br>
-                    <small>Animated evening check-in experience</small>
-                </div>
-                <div class="file-item" onclick="window.open('christian-hero-football.html','_blank')" style="border-color: #9fe1ff; background: rgba(47, 136, 255, 0.16);">
-                    <strong>🏈 CHRISTIAN HERO PAGE</strong><br>
-                    <small>Football-inspired animated spotlight page</small>
-                </div>
-                <div class="file-item" onclick="loadMarkdown('team-blueprint.md')">
-                    <strong>🏛️ TEAM BLUEPRINT</strong><br>
-                    <small>Expansion & specialized roles</small>
-                </div>
-                <div class="file-item" onclick="loadMarkdown('junior-protocol.md')">
-                    <strong>🤖 DELEGATION PROTOCOL</strong><br>
-                    <small>Junior's automation rules</small>
-                </div>
-                <div class="file-item" onclick="loadMarkdown('personnel.md')">
-                    <strong>⚔️ 🤖 PERSONNEL</strong><br>
-                    <small>Roles: Saber & Saber Junior</small>
-                </div>
-                <div class="file-item" onclick="loadMarkdown('ai-model-intelligence.md')">
-                    <strong>🧠 MODELS</strong><br>
-                    <small>Legacy model strategy notes</small>
-                </div>
-                <div class="file-item" onclick="window.open('junior-space.html','_blank')">
-                    <strong>🤖 JUNIOR'S SPACE HUB</strong><br>
-                    <small>Messages, archives, and daily check-ins</small>
-                </div>
+                <small>Open archived and in-progress artifacts on a dedicated page</small>
             </div>
         </div>
 
@@ -197,11 +158,6 @@
             viewer.style.display = 'block';
             viewer.innerHTML = marked.parse(text);
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function toggleArchived() {
-            const section = document.getElementById('archivedSection');
-            section.style.display = section.style.display === 'none' ? 'block' : 'none';
         }
 
         function showList() {
