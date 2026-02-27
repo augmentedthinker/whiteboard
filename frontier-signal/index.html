@@ -18,6 +18,25 @@
     #report{margin-top:10px}
     #report h1,#report h2,#report h3{border-bottom:1px solid var(--border);padding-bottom:.25em}
     a{color:var(--accent)}
+
+    #report img{
+      width:100%;
+      max-width:100%;
+      height:auto;
+      display:block;
+      border-radius:12px;
+      border:1px solid var(--border);
+      margin:10px 0 14px;
+      object-fit:cover;
+    }
+    #report p{overflow-wrap:anywhere}
+    @media (max-width: 640px){
+      body{padding:max(10px,env(safe-area-inset-top)) 10px max(14px,env(safe-area-inset-bottom));}
+      .hero,.panel{padding:12px}
+      .row{gap:8px}
+      .btn,select{width:100%}
+      select{min-width:0}
+    }
   </style>
 </head>
 <body>
