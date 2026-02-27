@@ -118,6 +118,7 @@
             <label for="apiKey">Gemini API Key</label>
             <input type="password" id="apiKey" placeholder="Enter API Key">
             <button onclick="saveKey()">Save Key</button>
+            <button onclick="listModelsForKey()" style="margin-left:8px;background:#2ea043;color:#fff;">List models for this key</button>
         </div>
 
         <!-- IMAGE SECTION -->
@@ -125,10 +126,10 @@
             <h2>🖼️ Image Generation</h2>
             <label>Model ID</label>
             <select id="model-image">
-                <option value="imagen-3.0-generate-002">imagen-3.0-generate-002 (Recommended)</option>
-                <option value="gemini-2.0-flash-exp">gemini-2.0-flash-exp (Fallback)</option>
-                <option value="nano-banana-pro-preview">nano-banana-pro-preview</option>
-                <option value="nano-banana-2-preview">nano-banana-2-preview</option>
+                <option value="gemini-3.1-flash-image-preview">gemini-3.1-flash-image-preview (Recommended)</option>
+                <option value="gemini-2.5-flash-image">gemini-2.5-flash-image</option>
+                <option value="gemini-3-pro-image-preview">gemini-3-pro-image-preview</option>
+                <option value="imagen-3.0-generate-002">imagen-3.0-generate-002 (Legacy/if enabled)</option>
             </select>
             <label>Prompt</label>
             <textarea id="prompt-image" rows="3">A futuristic city at sunset with flying cars</textarea>
@@ -146,10 +147,9 @@
             <h2>🗣️ Voice Generation (TTS)</h2>
             <label>Model ID</label>
             <select id="model-voice">
-                <option value="gemini-2.0-flash-exp">gemini-2.0-flash-exp (Recommended)</option>
-                <option value="gemini-2.5-flash-tts-preview">gemini-2.5-flash-tts-preview</option>
-                <option value="gemini-2.5-pro-tts-preview">gemini-2.5-pro-tts-preview</option>
-                <option value="gemini-live-2.5-flash-native-audio">gemini-live-2.5-flash-native-audio</option>
+                <option value="gemini-2.5-flash-preview-tts">gemini-2.5-flash-preview-tts (Recommended)</option>
+                <option value="gemini-2.5-pro-preview-tts">gemini-2.5-pro-preview-tts</option>
+                <option value="gemini-2.5-flash-native-audio-preview-12-2025">gemini-2.5-flash-native-audio-preview-12-2025</option>
             </select>
             <label>Prompt</label>
             <textarea id="prompt-voice" rows="3">Hello from Junior! This is a test of the voice model capabilities.</textarea>
@@ -194,6 +194,39 @@
             const key = document.getElementById('apiKey').value;
             localStorage.setItem('gemini_api_key', key);
             alert('Key saved locally!');
+        }
+
+        async function listModelsForKey() {
+            const apiKey = document.getElementById('apiKey').value;
+            if (!apiKey) { alert('Please enter API key first.'); return; }
+            try {
+                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`);
+                const data = await res.json();
+                if (!res.ok) {
+                    alert(`List models failed: ${res.status} ${data?.error?.message || ''}`);
+                    return;
+                }
+                const models = (data.models || []).map(m => ({
+                    id: (m.name || '').replace('models/', ''),
+                    methods: m.supportedGenerationMethods || []
+                }));
+
+                const setOptions = (selectId, predicate) => {
+                    const sel = document.getElementById(selectId);
+                    const current = sel.value;
+                    const candidates = models.filter(predicate).map(m => m.id).sort();
+                    if (!candidates.length) return;
+                    sel.innerHTML = candidates.map(id => `<option value="${id}">${id}</option>`).join('');
+                    if (candidates.includes(current)) sel.value = current;
+                };
+
+                setOptions('model-image', m => /image|imagen|banana/i.test(m.id));
+                setOptions('model-voice', m => /tts|audio|native-audio/i.test(m.id));
+                setOptions('model-music', m => /lyria|music|audio/i.test(m.id));
+                alert(`Loaded ${models.length} models for this key.`);
+            } catch (e) {
+                alert(`List models error: ${e.message}`);
+            }
         }
 
         function getTroubleshootingHint(status) {
@@ -296,13 +329,13 @@
                     url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:predict?key=${apiKey}`;
                     payload = {
                         instances: [{ prompt: prompt }],
-                        parameters: { sampleCount: 1 }
+                        parameters: { sampleCount: 1, outputOptions: { mimeType: 'image/jpeg' } }
                     };
                 } else {
-                    // Fallback to standard generateContent, maybe it supports it via tools or raw prompting (e.g. gemini-2.0)
                     url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
                     payload = {
-                        contents: [{ role: "user", parts: [{ text: prompt }] }]
+                        contents: [{ role: "user", parts: [{ text: prompt }] }],
+                        generationConfig: { responseModalities: ["IMAGE", "TEXT"] }
                     };
                 }
             } else if (type === 'voice') {
@@ -310,7 +343,8 @@
                 payload = {
                     contents: [{ role: "user", parts: [{ text: prompt }] }],
                     generationConfig: {
-                        responseModalities: ["AUDIO"]
+                        responseModalities: ["AUDIO"],
+                        speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: 'Kore' } } }
                     }
                 };
             } else {
@@ -352,8 +386,9 @@
                     // Try to render media
                     if (type === 'image') {
                         // Imagen format
-                        if (data.predictions && data.predictions[0] && data.predictions[0].bytesBase64Encoded) {
-                            mediaDiv.innerHTML = `<div class="media-container"><img src="data:image/jpeg;base64,${data.predictions[0].bytesBase64Encoded}" alt="Generated Image" /></div>`;
+                        if (data.predictions && data.predictions[0] && (data.predictions[0].bytesBase64Encoded || data.predictions[0].bytesBase64)) {
+                            const b64img = data.predictions[0].bytesBase64Encoded || data.predictions[0].bytesBase64;
+                            mediaDiv.innerHTML = `<div class="media-container"><img src="data:image/jpeg;base64,${b64img}" alt="Generated Image" /></div>`;
                         } 
                         // Standard format (if standard generateContent returns images via inlineData)
                         else if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) {
@@ -371,7 +406,8 @@
                                 let audioSrc = `data:${mime};base64,${b64}`;
                                 
                                 // Fix for raw PCM playback in browser
-                                if (mime.includes('audio/pcm')) {
+                                const lowMime = (mime || '').toLowerCase();
+                                if (lowMime.includes('audio/pcm') || lowMime.includes('audio/l16')) {
                                     const wavBlob = createWavBlob(b64);
                                     if (wavBlob) {
                                         audioSrc = URL.createObjectURL(wavBlob);
@@ -386,8 +422,9 @@
 
                 // Truncate giant base64 strings in the response viewer for readability
                 const displayData = JSON.parse(JSON.stringify(data));
-                if (displayData.predictions && displayData.predictions[0] && displayData.predictions[0].bytesBase64Encoded) {
-                    displayData.predictions[0].bytesBase64Encoded = "(base64 data truncated for viewing)";
+                if (displayData.predictions && displayData.predictions[0]) {
+                    if (displayData.predictions[0].bytesBase64Encoded) displayData.predictions[0].bytesBase64Encoded = "(base64 data truncated for viewing)";
+                    if (displayData.predictions[0].bytesBase64) displayData.predictions[0].bytesBase64 = "(base64 data truncated for viewing)";
                 }
                 if (displayData.candidates) {
                     displayData.candidates.forEach(c => {

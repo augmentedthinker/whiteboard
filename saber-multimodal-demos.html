@@ -34,6 +34,9 @@
       <input id="apiKey" type="password" placeholder="AIzaSy..." />
       <button class="btn" style="margin-top:0" id="toggleKey">Show</button>
     </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+      <button class="btn" style="margin-top:0;background:#2ea043;border-color:#4ad66d" id="listModels">List models for this key</button>
+    </div>
     <div class="muted" style="margin-top:6px">Stored in this browser only (localStorage). Never committed.</div>
   </div>
 
@@ -95,6 +98,26 @@ function hint(status){
   return 'Check model ID and request schema.';
 }
 
+function b64ToBytes(b64){
+  const bin = atob(b64); const len = bin.length; const out = new Uint8Array(len);
+  for(let i=0;i<len;i++) out[i]=bin.charCodeAt(i); return out;
+}
+
+function pcm16ToWavDataUrl(b64, sampleRate=24000){
+  const pcm = b64ToBytes(b64);
+  const dataSize = pcm.length;
+  const buf = new ArrayBuffer(44 + dataSize);
+  const view = new DataView(buf);
+  const writeStr = (o,s)=>{ for(let i=0;i<s.length;i++) view.setUint8(o+i,s.charCodeAt(i)); };
+  writeStr(0,'RIFF'); view.setUint32(4,36+dataSize,true); writeStr(8,'WAVE');
+  writeStr(12,'fmt '); view.setUint32(16,16,true); view.setUint16(20,1,true);
+  view.setUint16(22,1,true); view.setUint32(24,sampleRate,true); view.setUint32(28,sampleRate*2,true);
+  view.setUint16(32,2,true); view.setUint16(34,16,true);
+  writeStr(36,'data'); view.setUint32(40,dataSize,true);
+  new Uint8Array(buf,44).set(pcm);
+  return URL.createObjectURL(new Blob([buf],{type:'audio/wav'}));
+}
+
 async function postModel(model, body){
   const key = keyEl.value.trim();
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(key)}`;
@@ -111,10 +134,11 @@ function extractFirstImage(resp){
 
 function extractFirstAudio(resp){
   const parts = resp?.candidates?.[0]?.content?.parts || [];
-  const p = parts.find(x=>x.inlineData?.data && (x.inlineData.mimeType||'').includes('audio'));
+  const p = parts.find(x=>x.inlineData?.data && (x.inlineData.mimeType||'').toLowerCase().includes('audio'));
   if(!p) return null;
-  const mime = p.inlineData.mimeType || 'audio/wav';
-  return `data:${mime};base64,${p.inlineData.data}`;
+  const mime = (p.inlineData.mimeType || 'audio/wav').toLowerCase();
+  if(mime.includes('audio/l16') || mime.includes('audio/pcm')) return pcm16ToWavDataUrl(p.inlineData.data, 24000);
+  return `data:${p.inlineData.mimeType};base64,${p.inlineData.data}`;
 }
 
 async function runImage(){
@@ -189,6 +213,31 @@ async function runMusic(){
 document.getElementById('runImage').onclick = runImage;
 document.getElementById('runVoice').onclick = runVoice;
 document.getElementById('runMusic').onclick = runMusic;
+
+document.getElementById('listModels').onclick = async () => {
+  const key = keyEl.value.trim();
+  if(!key) return alert('Enter API key first.');
+  try{
+    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(key)}`);
+    const d = await r.json();
+    if(!r.ok) return alert(`List models failed: ${r.status} ${d?.error?.message||''}`);
+    const ids = (d.models||[]).map(m=>(m.name||'').replace('models/','')).filter(Boolean);
+
+    const fill = (id, pred) => {
+      const sel = document.getElementById(id); const cur = sel.value;
+      const arr = ids.filter(pred).sort(); if(!arr.length) return;
+      sel.innerHTML = arr.map(x=>`<option>${x}</option>`).join('');
+      if(arr.includes(cur)) sel.value = cur;
+    };
+
+    fill('imageModel', x => /image|imagen|banana/i.test(x));
+    fill('voiceModel', x => /tts|audio|native-audio/i.test(x));
+    fill('musicModel', x => /lyria|music|audio/i.test(x));
+    alert(`Loaded ${ids.length} models for this key.`);
+  }catch(e){
+    alert(`List models error: ${e.message}`);
+  }
+};
 </script>
 </body>
 </html>
