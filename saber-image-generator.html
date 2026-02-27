@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Saber Image Generator | Remote Viewer</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: #131d31;
+      --border: #2a3a58;
+      --text: #d9e4ff;
+      --accent: #7cc4ff;
+      --good: #3fb950;
+      --bad: #ff7b72;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 90% -10%, #23355f 0%, transparent 60%), linear-gradient(160deg, #0a1120, #0f1930);
+      padding: max(14px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
+    }
+    .shell { max-width: 760px; margin: 0 auto; }
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin-bottom: 12px; }
+    h1 { margin: 0 0 6px; color: var(--accent); font-size: clamp(1.3rem, 3.6vw, 1.9rem); }
+    p { margin: 0; opacity: .9; }
+    label { display:block; margin: 12px 0 6px; font-weight: 600; }
+    input, textarea, select, button { font: inherit; }
+    input[type="password"], input[type="text"], textarea, select {
+      width: 100%; background: #0c1527; color: var(--text); border: 1px solid var(--border); border-radius: 10px; padding: 10px;
+    }
+    textarea { min-height: 92px; resize: vertical; }
+    .row { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+    .btn { border: 1px solid var(--border); background: #192845; color: var(--text); border-radius: 10px; padding: 10px 12px; cursor: pointer; }
+    .btn.primary { background: #1f6feb; border-color: #3f89ff; font-weight: 700; width: 100%; margin-top: 12px; }
+    .btn:disabled { opacity: .6; cursor: not-allowed; }
+    #status { margin-top: 10px; padding: 10px; border-radius: 10px; display:none; white-space: pre-wrap; }
+    .ok { background: rgba(63,185,80,.15); border:1px solid rgba(63,185,80,.55); color:#8ae79f; }
+    .err { background: rgba(255,123,114,.14); border:1px solid rgba(255,123,114,.5); color:#ffb0a8; }
+    .info { background: rgba(124,196,255,.12); border:1px solid rgba(124,196,255,.5); color:#b9ddff; }
+    #resultWrap { display:none; }
+    #img { width: 100%; border-radius: 12px; border:1px solid var(--border); margin-top: 12px; }
+    .meta { margin-top: 8px; font-size: .85rem; opacity: .8; }
+    a.back { color: #b9ddff; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="card">
+      <h1>⚔️ Saber Image Generator</h1>
+      <p>Comparison build: prompt-to-image via Google API using your own key.</p>
+      <p style="margin-top:6px"><a class="back" href="index.html">← Back to Remote Viewer</a></p>
+    </div>
+
+    <div class="card">
+      <label>Google API Key</label>
+      <div class="row">
+        <input id="key" type="password" placeholder="AIzaSy..." autocomplete="off" />
+        <button class="btn" type="button" id="toggle">Show</button>
+      </div>
+
+      <label>Prompt</label>
+      <textarea id="prompt" placeholder="A cinematic self-portrait of a calm futuristic AI companion in neon-blue light..."></textarea>
+
+      <label>Aspect ratio</label>
+      <select id="ratio">
+        <option value="1:1">1:1</option>
+        <option value="16:9">16:9</option>
+        <option value="9:16">9:16</option>
+      </select>
+
+      <button class="btn primary" id="go" type="button">Generate (Saber)</button>
+      <div id="status"></div>
+    </div>
+
+    <div class="card" id="resultWrap">
+      <img id="img" alt="generated image" />
+      <div class="meta" id="meta"></div>
+      <button class="btn" id="download" type="button" style="margin-top:10px">Download</button>
+    </div>
+  </div>
+
+<script>
+const keyEl = document.getElementById('key');
+const promptEl = document.getElementById('prompt');
+const ratioEl = document.getElementById('ratio');
+const goBtn = document.getElementById('go');
+const statusEl = document.getElementById('status');
+const resultWrap = document.getElementById('resultWrap');
+const imgEl = document.getElementById('img');
+const metaEl = document.getElementById('meta');
+const dlBtn = document.getElementById('download');
+
+keyEl.value = localStorage.getItem('saber_img_key') || '';
+document.getElementById('toggle').onclick = () => {
+  keyEl.type = keyEl.type === 'password' ? 'text' : 'password';
+  document.getElementById('toggle').textContent = keyEl.type === 'password' ? 'Show' : 'Hide';
+};
+
+function showStatus(text, kind='info') {
+  statusEl.style.display = 'block';
+  statusEl.className = kind;
+  statusEl.textContent = text;
+}
+
+goBtn.onclick = async () => {
+  const key = keyEl.value.trim();
+  const prompt = promptEl.value.trim();
+  if (!key) return showStatus('Enter API key first.', 'err');
+  if (!prompt) return showStatus('Enter a prompt first.', 'err');
+  localStorage.setItem('saber_img_key', key);
+
+  goBtn.disabled = true;
+  resultWrap.style.display = 'none';
+  showStatus('Testing image generation…', 'info');
+  const t0 = performance.now();
+
+  try {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-001:predict?key=${encodeURIComponent(key)}`;
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        instances: [{ prompt }],
+        parameters: { sampleCount: 1, aspectRatio: ratioEl.value, outputOptions: { mimeType: 'image/jpeg' } }
+      })
+    });
+    const data = await res.json();
+    const dt = Math.round(performance.now() - t0);
+
+    if (!res.ok) {
+      const msg = data?.error?.message || `${res.status} ${res.statusText}`;
+      throw new Error(msg);
+    }
+
+    const b64 = data?.predictions?.[0]?.bytesBase64;
+    if (!b64) throw new Error('No image bytes returned by API.');
+
+    const dataUrl = `data:image/jpeg;base64,${b64}`;
+    imgEl.src = dataUrl;
+    resultWrap.style.display = 'block';
+    metaEl.textContent = `Latency: ${dt}ms • ${new Date().toLocaleString()} • Model: imagen-3.0-generate-001`;
+    dlBtn.onclick = () => {
+      const a = document.createElement('a');
+      a.href = dataUrl;
+      a.download = `saber-image-${Date.now()}.jpg`;
+      a.click();
+    };
+    showStatus('Image generated successfully.', 'ok');
+  } catch (e) {
+    showStatus(`Generation failed: ${e.message}\n\nHints:\n• If 403/invalid key: check key + API access\n• If 404: model endpoint not available for this project/region\n• If 429: quota/rate limit`, 'err');
+  } finally {
+    goBtn.disabled = false;
+  }
+};
+</script>
+</body>
+</html>
