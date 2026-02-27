@@ -17,3 +17,10 @@ Saber is authorized to delegate tasks to Saber Junior that meet any of the follo
 
 ## 4. Operational Guardrail
 - Saber remains the **Lead Architect**. All core architectural decisions and safety-critical operations (like system config changes) must be initiated by Saber.
+
+
+## 5. Execution Contract (v1)
+- Canonical contract path:
+  `/mnt/chromeos/MyFiles/Downloads/SHARE/core/ops/junior-task-contract-v1.md`
+- Junior must run the contract preflight before implementation tasks.
+- For `/mnt/chromeos/...` paths, prefer shell-based file operations to avoid workspace-boundary write failures.
