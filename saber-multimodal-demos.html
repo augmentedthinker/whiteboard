@@ -5,15 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Saber Multimodal Demos</title>
   <style>
-    :root{--bg:#0b1220;--card:#121b2f;--line:#2a3a58;--txt:#dce7ff;--muted:#9db0d6;--acc:#7cc4ff;--ok:#3fb950;--err:#ff7b72}
-    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui;background:linear-gradient(170deg,#0a1120,#101b30);color:var(--txt);padding:14px}
-    .wrap{max-width:920px;margin:0 auto}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+    :root{--bg:#0b1220;--card:#121b2f;--line:#2a3a58;--txt:#dce7ff;--muted:#9db0d6;--acc:#7cc4ff}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui;background:linear-gradient(170deg,#0a1120,#101b30);color:var(--txt);padding:14px}
+    .wrap{max-width:980px;margin:0 auto}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
     h1{margin:0 0 4px;color:var(--acc)} h2{margin:0 0 8px;font-size:1.05rem} .muted{color:var(--muted);font-size:.9rem}
     input,textarea,select,button{font:inherit} input,textarea,select{width:100%;background:#0c1527;color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:10px}
-    textarea{min-height:70px;resize:vertical} .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px} @media(max-width:760px){.grid{grid-template-columns:1fr}}
+    textarea{min-height:72px;resize:vertical} .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px} @media(max-width:760px){.grid{grid-template-columns:1fr}}
     .btn{margin-top:8px;background:#1f6feb;color:#fff;border:1px solid #4f8fff;border-radius:10px;padding:10px 12px;cursor:pointer}
-    .btn:disabled{opacity:.6;cursor:not-allowed}.out{white-space:pre-wrap;background:#0b1424;border:1px solid var(--line);border-radius:10px;padding:10px;max-height:260px;overflow:auto;margin-top:8px}
+    .btn:disabled{opacity:.6;cursor:not-allowed}.out{white-space:pre-wrap;background:#0b1424;border:1px solid var(--line);border-radius:10px;padding:10px;max-height:220px;overflow:auto;margin-top:8px;font-size:.88rem}
     .row{display:grid;grid-template-columns:1fr auto;gap:8px}.pill{font-size:.78rem;border:1px solid var(--line);padding:2px 8px;border-radius:999px;color:var(--muted)}
+    #imgWrap,#voiceWrap{display:none;margin-top:10px} #imgOut{width:100%;border-radius:12px;border:1px solid var(--line)}
+    audio{width:100%;margin-top:8px}
     a{color:#b9ddff;text-decoration:none}
   </style>
 </head>
@@ -21,7 +24,7 @@
 <div class="wrap">
   <div class="card">
     <h1>⚔️ Saber Multimodal Demos</h1>
-    <div class="muted">User-initiated test lab for image/music/voice model IDs. Shows raw API responses/errors.</div>
+    <div class="muted">Runnable image + voice demos, plus music probe. Button-initiated only.</div>
     <div style="margin-top:6px"><a href="index.html">← Back to Remote Viewer</a></div>
   </div>
 
@@ -31,43 +34,45 @@
       <input id="apiKey" type="password" placeholder="AIzaSy..." />
       <button class="btn" style="margin-top:0" id="toggleKey">Show</button>
     </div>
-    <div class="muted" style="margin-top:6px">Stored only in local browser storage for convenience.</div>
+    <div class="muted" style="margin-top:6px">Stored in this browser only (localStorage). Never committed.</div>
   </div>
 
   <div class="grid">
     <div class="card">
-      <h2>🖼️ Image Demo <span class="pill">nano/imagen</span></h2>
+      <h2>🖼️ Image Demo <span class="pill">render attempt</span></h2>
       <select id="imageModel">
-        <option>nano-banana-pro-preview</option>
-        <option>nano-banana-2-preview</option>
-        <option>imagen-3.0-generate-002</option>
+        <option>gemini-3.1-flash-image-preview</option>
+        <option>gemini-2.5-flash-image</option>
+        <option>gemini-3-pro-image-preview</option>
       </select>
       <textarea id="imagePrompt" placeholder="Prompt for image generation"></textarea>
       <button class="btn" id="runImage">Run Image Demo</button>
+      <div id="imgWrap"><img id="imgOut" alt="Generated image" /></div>
       <div class="out" id="outImage">Idle.</div>
     </div>
 
     <div class="card">
-      <h2>🎵 Music Demo <span class="pill">lyria</span></h2>
+      <h2>🎵 Music Demo <span class="pill">probe-only</span></h2>
       <select id="musicModel">
+        <option>lyria-realtime-exp</option>
         <option>lyria-3-preview</option>
         <option>lyria-002</option>
-        <option>lyria-realtime-preview</option>
       </select>
       <textarea id="musicPrompt" placeholder="Prompt for music generation"></textarea>
-      <button class="btn" id="runMusic">Run Music Demo</button>
+      <button class="btn" id="runMusic">Run Music Probe</button>
       <div class="out" id="outMusic">Idle.</div>
     </div>
 
     <div class="card" style="grid-column:1/-1">
-      <h2>🗣️ Voice Demo <span class="pill">tts/live</span></h2>
+      <h2>🗣️ Voice Demo (TTS) <span class="pill">audio playback</span></h2>
       <select id="voiceModel">
-        <option>gemini-2.5-flash-tts-preview</option>
-        <option>gemini-2.5-pro-tts-preview</option>
-        <option>gemini-live-2.5-flash-native-audio</option>
+        <option>gemini-2.5-flash-preview-tts</option>
+        <option>gemini-2.5-pro-preview-tts</option>
+        <option>gemini-2.5-flash-native-audio-preview-12-2025</option>
       </select>
       <textarea id="voicePrompt" placeholder="Text to synthesize"></textarea>
       <button class="btn" id="runVoice">Run Voice Demo</button>
+      <div id="voiceWrap"><audio id="voiceAudio" controls></audio></div>
       <div class="out" id="outVoice">Idle.</div>
     </div>
   </div>
@@ -82,33 +87,108 @@ keyEl.addEventListener('change',()=>localStorage.setItem('saber_multimodal_key',
 function now() { return new Date().toLocaleString(); }
 function ms(t0){ return Math.round(performance.now()-t0); }
 function out(el, txt){ document.getElementById(el).textContent = txt; }
+function hint(status){
+  if(status===401||status===403) return 'Auth/API key issue or feature not enabled on project.';
+  if(status===404) return 'Model/endpoint not available for this tier/region.';
+  if(status===429) return 'Rate limit/quota reached.';
+  if(status>=500) return 'Provider temporary issue/outage.';
+  return 'Check model ID and request schema.';
+}
 
-async function runDemo(kind, model, prompt, outId){
+async function postModel(model, body){
   const key = keyEl.value.trim();
-  if(!key) return out(outId,'Missing API key.');
-  if(!prompt.trim()) return out(outId,'Missing prompt/text.');
-
-  const t0 = performance.now();
-  out(outId,`Testing ${kind} with model: ${model}\nTime: ${now()}\n...`);
-
-  // Generic probe request to candidate model endpoint. Intentionally surfaces raw errors.
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(key)}`;
-  const body = { contents:[{parts:[{text: prompt}]}] };
+  return fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+}
 
+function extractFirstImage(resp){
+  const parts = resp?.candidates?.[0]?.content?.parts || [];
+  const p = parts.find(x=>x.inlineData?.data);
+  if(!p) return null;
+  const mime = p.inlineData.mimeType || 'image/png';
+  return `data:${mime};base64,${p.inlineData.data}`;
+}
+
+function extractFirstAudio(resp){
+  const parts = resp?.candidates?.[0]?.content?.parts || [];
+  const p = parts.find(x=>x.inlineData?.data && (x.inlineData.mimeType||'').includes('audio'));
+  if(!p) return null;
+  const mime = p.inlineData.mimeType || 'audio/wav';
+  return `data:${mime};base64,${p.inlineData.data}`;
+}
+
+async function runImage(){
+  const model = imageModel.value;
+  const prompt = imagePrompt.value.trim();
+  if(!keyEl.value.trim()) return out('outImage','Missing API key.');
+  if(!prompt) return out('outImage','Missing prompt.');
+  document.getElementById('imgWrap').style.display='none';
+  const t0 = performance.now();
+  out('outImage',`Running image demo with ${model}...`);
+  const body = { contents:[{parts:[{text: prompt}]}], generationConfig:{ responseModalities:['IMAGE','TEXT'] } };
   try{
-    const res = await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    const res = await postModel(model, body);
     const txt = await res.text();
-    let parsed = txt;
-    try { parsed = JSON.stringify(JSON.parse(txt), null, 2); } catch {}
-    out(outId,`Model: ${model}\nHTTP: ${res.status} ${res.statusText}\nLatency: ${ms(t0)}ms\nTimestamp: ${now()}\n\n${parsed}`);
-  } catch(e){
-    out(outId,`Model: ${model}\nNetwork/Error: ${e.message}\nLatency: ${ms(t0)}ms\nTimestamp: ${now()}`);
+    let data = null; try{ data = JSON.parse(txt);}catch{}
+    const image = data && extractFirstImage(data);
+    if(res.ok && image){
+      imgOut.src = image;
+      document.getElementById('imgWrap').style.display='block';
+    }
+    out('outImage',`Model: ${model}\nHTTP: ${res.status} ${res.statusText}\nLatency: ${ms(t0)}ms\nTimestamp: ${now()}\nHint: ${hint(res.status)}\n\n${data?JSON.stringify(data,null,2):txt}`);
+  }catch(e){
+    out('outImage',`Model: ${model}\nNetwork/Error: ${e.message}\nLatency: ${ms(t0)}ms\nTimestamp: ${now()}`);
   }
 }
 
-document.getElementById('runImage').onclick = ()=>runDemo('image', imageModel.value, imagePrompt.value, 'outImage');
-document.getElementById('runMusic').onclick = ()=>runDemo('music', musicModel.value, musicPrompt.value, 'outMusic');
-document.getElementById('runVoice').onclick = ()=>runDemo('voice', voiceModel.value, voicePrompt.value, 'outVoice');
+async function runVoice(){
+  const model = voiceModel.value;
+  const prompt = voicePrompt.value.trim();
+  if(!keyEl.value.trim()) return out('outVoice','Missing API key.');
+  if(!prompt) return out('outVoice','Missing text.');
+  document.getElementById('voiceWrap').style.display='none';
+  const t0 = performance.now();
+  out('outVoice',`Running voice demo with ${model}...`);
+  const body = {
+    contents:[{parts:[{text: prompt}]}],
+    generationConfig:{ responseModalities:['AUDIO'], speechConfig:{ voiceConfig:{ prebuiltVoiceConfig:{ voiceName:'Kore' } } } }
+  };
+  try{
+    const res = await postModel(model, body);
+    const txt = await res.text();
+    let data = null; try{ data = JSON.parse(txt);}catch{}
+    const audio = data && extractFirstAudio(data);
+    if(res.ok && audio){
+      voiceAudio.src = audio;
+      document.getElementById('voiceWrap').style.display='block';
+    }
+    out('outVoice',`Model: ${model}\nHTTP: ${res.status} ${res.statusText}\nLatency: ${ms(t0)}ms\nTimestamp: ${now()}\nHint: ${hint(res.status)}\n\n${data?JSON.stringify(data,null,2):txt}`);
+  }catch(e){
+    out('outVoice',`Model: ${model}\nNetwork/Error: ${e.message}\nLatency: ${ms(t0)}ms\nTimestamp: ${now()}`);
+  }
+}
+
+async function runMusic(){
+  const model = musicModel.value;
+  const prompt = musicPrompt.value.trim();
+  if(!keyEl.value.trim()) return out('outMusic','Missing API key.');
+  if(!prompt) return out('outMusic','Missing prompt.');
+  const t0 = performance.now();
+  out('outMusic',`Running music probe with ${model}...`);
+  const body = { contents:[{parts:[{text: prompt}]}], generationConfig:{ responseModalities:['AUDIO','TEXT'] } };
+  try{
+    const res = await postModel(model, body);
+    const txt = await res.text();
+    let data = null; try{ data = JSON.parse(txt);}catch{}
+    out('outMusic',`(Probe-only)\nModel: ${model}\nHTTP: ${res.status} ${res.statusText}\nLatency: ${ms(t0)}ms\nTimestamp: ${now()}\nHint: ${hint(res.status)}\n\n${data?JSON.stringify(data,null,2):txt}`);
+  }catch(e){
+    out('outMusic',`Model: ${model}\nNetwork/Error: ${e.message}\nLatency: ${ms(t0)}ms\nTimestamp: ${now()}`);
+  }
+}
+
+document.getElementById('runImage').onclick = runImage;
+document.getElementById('runVoice').onclick = runVoice;
+document.getElementById('runMusic').onclick = runMusic;
 </script>
 </body>
 </html>
