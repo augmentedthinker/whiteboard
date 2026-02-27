@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Junior Multimodal Doms</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --panel: #161b22;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --accent: #58a6ff;
+            --error: #f85149;
+            --success: #2ea043;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1, h2 { color: var(--accent); }
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        label { display: block; margin-bottom: 8px; font-weight: bold; }
+        input[type="text"], input[type="password"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        button {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover { opacity: 0.9; }
+        .response-area {
+            background: #000;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 0.9em;
+            white-space: pre-wrap;
+            margin-top: 15px;
+            border: 1px solid var(--border);
+        }
+        .meta {
+            font-size: 0.85em;
+            color: #8b949e;
+            margin-top: 10px;
+        }
+        .status-success { color: var(--success); }
+        .status-error { color: var(--error); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Junior Multimodal Demos</h1>
+        
+        <div class="card">
+            <label for="apiKey">Gemini API Key</label>
+            <input type="password" id="apiKey" placeholder="Enter API Key">
+            <button onclick="saveKey()">Save Key</button>
+        </div>
+
+        <!-- IMAGE SECTION -->
+        <div class="card" id="section-image">
+            <h2>🖼️ Image Generation</h2>
+            <label>Model ID</label>
+            <select id="model-image">
+                <option value="nano-banana-pro-preview">nano-banana-pro-preview</option>
+                <option value="nano-banana-2-preview">nano-banana-2-preview</option>
+                <option value="imagen-3.0-generate-002">imagen-3.0-generate-002</option>
+            </select>
+            <label>Prompt</label>
+            <textarea id="prompt-image" rows="3">A futuristic city at sunset</textarea>
+            <button onclick="runDemo('image')">Run Demo</button>
+            <div id="result-image" style="display: none;">
+                <div class="meta" id="meta-image"></div>
+                <div class="response-area" id="response-image"></div>
+            </div>
+        </div>
+
+        <!-- MUSIC SECTION -->
+        <div class="card" id="section-music">
+            <h2>🎵 Music Generation</h2>
+            <label>Model ID</label>
+            <select id="model-music">
+                <option value="lyria-3-preview">lyria-3-preview</option>
+                <option value="lyria-002">lyria-002</option>
+                <option value="lyria-realtime-preview">lyria-realtime-preview</option>
+            </select>
+            <label>Prompt</label>
+            <textarea id="prompt-music" rows="3">An upbeat electronic track with a heavy bassline</textarea>
+            <button onclick="runDemo('music')">Run Demo</button>
+            <div id="result-music" style="display: none;">
+                <div class="meta" id="meta-music"></div>
+                <div class="response-area" id="response-music"></div>
+            </div>
+        </div>
+
+        <!-- VOICE SECTION -->
+        <div class="card" id="section-voice">
+            <h2>🗣️ Voice Generation</h2>
+            <label>Model ID</label>
+            <select id="model-voice">
+                <option value="gemini-2.5-flash-tts-preview">gemini-2.5-flash-tts-preview</option>
+                <option value="gemini-2.5-pro-tts-preview">gemini-2.5-pro-tts-preview</option>
+                <option value="gemini-live-2.5-flash-native-audio">gemini-live-2.5-flash-native-audio</option>
+            </select>
+            <label>Prompt</label>
+            <textarea id="prompt-voice" rows="3">Hello from Junior! This is a test of the voice model capabilities.</textarea>
+            <button onclick="runDemo('voice')">Run Demo</button>
+            <div id="result-voice" style="display: none;">
+                <div class="meta" id="meta-voice"></div>
+                <div class="response-area" id="response-voice"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedKey = localStorage.getItem('gemini_api_key');
+            if (savedKey) document.getElementById('apiKey').value = savedKey;
+        });
+
+        function saveKey() {
+            const key = document.getElementById('apiKey').value;
+            localStorage.setItem('gemini_api_key', key);
+            alert('Key saved locally!');
+        }
+
+        async function runDemo(type) {
+            const apiKey = document.getElementById('apiKey').value;
+            if (!apiKey) {
+                alert("Please enter an API Key");
+                return;
+            }
+
+            const model = document.getElementById(`model-${type}`).value;
+            const prompt = document.getElementById(`prompt-${type}`).value;
+            const resultDiv = document.getElementById(`result-${type}`);
+            const metaDiv = document.getElementById(`meta-${type}`);
+            const responseDiv = document.getElementById(`response-${type}`);
+
+            resultDiv.style.display = 'block';
+            metaDiv.innerHTML = 'Executing request...';
+            responseDiv.textContent = '';
+
+            const startTime = Date.now();
+            
+            // Constructing the URL based on standard Gemini API structure
+            // Using standard generateContent for everything, as specific multimodal endpoints might differ
+            // but this will capture raw response/errors accurately including endpoint mismatches.
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: prompt }]
+                }]
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const latency = Date.now() - startTime;
+                const timestamp = new Date().toISOString();
+                const data = await response.json();
+                
+                const statusClass = response.ok ? 'status-success' : 'status-error';
+
+                metaDiv.innerHTML = `
+                    <span class="${statusClass}">Status: ${response.status} ${response.statusText}</span> | 
+                    Latency: ${latency}ms | 
+                    Time: ${timestamp} | 
+                    Model: ${model}
+                `;
+
+                responseDiv.textContent = JSON.stringify(data, null, 2);
+
+            } catch (error) {
+                const latency = Date.now() - startTime;
+                const timestamp = new Date().toISOString();
+                
+                metaDiv.innerHTML = `
+                    <span class="status-error">Fetch Error</span> | 
+                    Latency: ${latency}ms | 
+                    Time: ${timestamp} | 
+                    Model: ${model}
+                `;
+                responseDiv.textContent = error.toString();
+            }
+        }
+    </script>
+</body>
+</html>
