@@ -7,123 +7,336 @@
     <style>
         :root {
             --bg: #0d1117;
+            --bg-soft: #111725;
             --panel: #161b22;
+            --panel-strong: #1b2230;
             --border: #30363d;
             --text: #c9d1d9;
+            --muted: #8b949e;
             --accent: #58a6ff;
+            --accent-soft: rgba(88, 166, 255, 0.22);
             --error: #f85149;
             --success: #2ea043;
             --warning: #d29922;
+            --radius: 12px;
+            --shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
         }
+
+        * { box-sizing: border-box; }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
             background:
-                radial-gradient(900px 500px at -10% -10%, rgba(88,166,255,.16), transparent 60%),
-                radial-gradient(700px 420px at 110% 110%, rgba(46,160,103,.12), transparent 60%),
+                radial-gradient(950px 560px at -15% -15%, rgba(88, 166, 255, 0.18), transparent 58%),
+                radial-gradient(780px 520px at 115% 105%, rgba(46, 160, 67, 0.15), transparent 55%),
                 var(--bg);
             color: var(--text);
             margin: 0;
-            padding: 20px;
-            line-height: 1.5;
+            padding: clamp(12px, 3.2vw, 26px);
+            line-height: 1.55;
+            font-size: clamp(15px, 2.7vw, 16px);
         }
+
         .container {
-            max-width: 800px;
+            max-width: 880px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
-        h1, h2 { color: var(--accent); }
+
+        h1 {
+            color: var(--accent);
+            margin: 0 0 12px;
+            font-size: clamp(1.4rem, 4.8vw, 1.95rem);
+            letter-spacing: 0.01em;
+        }
+
+        h2 {
+            color: var(--accent);
+            margin: 0 0 10px;
+            font-size: clamp(1.1rem, 3.8vw, 1.35rem);
+            line-height: 1.3;
+        }
+
+        .subhead {
+            margin: 0 0 16px;
+            color: var(--muted);
+            font-size: 0.95em;
+        }
+
         .card {
-            background: var(--panel);
+            background: linear-gradient(180deg, var(--panel), var(--panel-strong));
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 16px;
+            border-radius: var(--radius);
+            padding: clamp(14px, 3.6vw, 22px);
             margin-bottom: 14px;
-            box-shadow: 0 8px 24px rgba(0,0,0,.22);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(2px);
         }
-        label { display: block; margin-bottom: 8px; font-weight: bold; }
-        input[type="text"], input[type="password"], select, textarea {
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            font-size: 0.95em;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        select,
+        textarea {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            background: var(--bg);
+            padding: 12px 13px;
+            margin-bottom: 12px;
+            background: var(--bg-soft);
             border: 1px solid var(--border);
             color: var(--text);
-            border-radius: 6px;
-            box-sizing: border-box;
+            border-radius: 10px;
+            font: inherit;
         }
+
+        textarea {
+            min-height: 96px;
+            resize: vertical;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft);
+            outline: none;
+        }
+
+        .btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
         button {
             background: var(--accent);
-            color: #000;
+            color: #041326;
             border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
+            padding: 12px 16px;
+            min-height: 44px;
+            border-radius: 10px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 700;
+            font-size: 0.95em;
+            line-height: 1.1;
         }
-        button:hover { opacity: 0.9; }
+
+        button:hover { opacity: 0.92; }
+
+        button:active { transform: translateY(1px); }
+
+        .btn-secondary {
+            background: #2ea043;
+            color: #fff;
+        }
+
+        .response-wrap {
+            margin-top: 14px;
+        }
+
+        .response-summary {
+            margin: 0 0 8px;
+            font-size: 0.85em;
+            color: var(--muted);
+        }
+
         .response-area {
-            background: #000;
-            padding: 10px;
-            border-radius: 6px;
+            background: #020408;
+            padding: 13px;
+            border-radius: 8px;
             overflow-x: auto;
-            max-height: 180px;
-            font-family: monospace;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
             font-size: 0.82em;
             white-space: pre-wrap;
-            margin-top: 10px;
-            border: 1px solid var(--border);
+            margin-top: 8px;
+            border: 1px solid #273040;
+            line-height: 1.45;
         }
+
         .meta {
-            font-size: 0.85em;
-            color: #8b949e;
+            font-size: 0.86em;
+            color: var(--muted);
             margin-top: 10px;
             margin-bottom: 10px;
+            overflow-wrap: anywhere;
         }
+
         .status-success { color: var(--success); }
         .status-error { color: var(--error); }
+
         .troubleshooting {
             margin-top: 10px;
-            padding: 10px;
+            padding: 10px 12px;
             background: rgba(248, 81, 73, 0.1);
+            border: 1px solid rgba(248, 81, 73, 0.35);
             border-left: 4px solid var(--error);
+            border-radius: 8px;
             font-size: 0.9em;
             display: none;
         }
+
         .media-container {
-            margin-top: 15px;
+            margin-top: 12px;
             padding: 10px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 6px;
+            background: #0a111c;
+            border: 1px solid #2b3546;
+            border-radius: 10px;
             text-align: center;
         }
-        img { max-width: 100%; max-height: 58vh; object-fit: contain; height: auto; border-radius: 8px; background:#0a1324; }
-        audio { width: 100%; margin-top: 10px; }
+
+        img {
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            max-height: min(62vh, 480px);
+            object-fit: contain;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 4px;
+            min-height: 42px;
+        }
+
         .probe-label {
             display: inline-block;
             background: var(--warning);
-            color: #000;
+            color: #120f00;
             padding: 2px 8px;
-            border-radius: 12px;
+            border-radius: 999px;
             font-size: 0.7em;
             vertical-align: middle;
-            margin-left: 10px;
-            font-weight: bold;
+            margin-left: 8px;
+            font-weight: 800;
+            letter-spacing: 0.02em;
         }
-        @media (max-width: 600px) {
+
+        .helper-note {
+            font-size: 0.9em;
+            color: var(--muted);
+            margin: -4px 0 10px;
+        }
+
+        details.diagnostics {
+            margin-top: 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: rgba(2, 5, 10, 0.55);
+        }
+
+        details.diagnostics > summary {
+            list-style: none;
+            cursor: pointer;
+            font-weight: 700;
+            padding: 10px 12px;
+            color: var(--muted);
+            user-select: none;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        details.diagnostics > summary::-webkit-details-marker { display: none; }
+
+        details.diagnostics > summary::before {
+            content: '▸';
+            color: var(--accent);
+            transition: transform 0.15s ease;
+        }
+
+        details.diagnostics[open] > summary::before {
+            transform: rotate(90deg);
+        }
+
+        details.diagnostics[open] > summary {
+            color: var(--text);
+            border-bottom: 1px solid var(--border);
+        }
+
+        details.diagnostics .response-area {
+            margin: 0;
+            border: none;
+            border-radius: 0 0 10px 10px;
+        }
+
+        @media (min-width: 980px) {
+            body::before,
+            body::after {
+                content: '';
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                width: 18vw;
+                min-width: 110px;
+                pointer-events: none;
+                z-index: 0;
+                opacity: 0.55;
+            }
+
+            body::before {
+                left: 0;
+                background:
+                    radial-gradient(220px 220px at 20% 14%, rgba(88, 166, 255, 0.34), transparent 68%),
+                    linear-gradient(180deg, rgba(88, 166, 255, 0.06), transparent 44%);
+                border-right: 1px solid rgba(88, 166, 255, 0.12);
+            }
+
+            body::after {
+                right: 0;
+                background:
+                    radial-gradient(210px 210px at 76% 84%, rgba(46, 160, 67, 0.3), transparent 68%),
+                    linear-gradient(0deg, rgba(46, 160, 67, 0.05), transparent 44%);
+                border-left: 1px solid rgba(46, 160, 67, 0.1);
+            }
+        }
+
+        @media (max-width: 640px) {
             body { padding: 10px; }
-            .card { padding: 15px; }
+
+            .card { margin-bottom: 12px; }
+
+            .btn-row {
+                flex-direction: column;
+            }
+
+            .btn-row button {
+                width: 100%;
+            }
+
+            .response-area {
+                font-size: 0.78em;
+                max-height: 44vh;
+            }
+
+            details.diagnostics > summary {
+                font-size: 0.92em;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🤖 Junior Multimodal Demos</h1>
-        
+        <p class="subhead">Quick multimodal checks for image, voice, and music probe workflows.</p>
+
         <div class="card">
             <label for="apiKey">Gemini API Key</label>
             <input type="password" id="apiKey" placeholder="Enter API Key">
-            <button onclick="saveKey()">Save Key</button>
-            <button onclick="listModelsForKey()" style="margin-left:8px;background:#2ea043;color:#fff;">List models for this key</button>
+            <div class="btn-row">
+                <button onclick="saveKey()">Save Key</button>
+                <button class="btn-secondary" onclick="listModelsForKey()">List models for this key</button>
+            </div>
         </div>
 
         <!-- IMAGE SECTION -->
@@ -138,12 +351,20 @@
             </select>
             <label>Prompt</label>
             <textarea id="prompt-image" rows="3">A futuristic city at sunset with flying cars</textarea>
-            <button onclick="runDemo('image')">Run Demo</button>
+            <div class="btn-row">
+                <button onclick="runDemo('image')">Run Demo</button>
+            </div>
             <div id="result-image" style="display: none;">
                 <div class="meta" id="meta-image"></div>
                 <div id="troubleshoot-image" class="troubleshooting"></div>
                 <div id="media-image"></div>
-                <details style="margin-top:10px;"><summary style="cursor:pointer;color:#9ecbff;">Show diagnostics</summary><div class="response-area" id="response-image"></div></details>
+                <details class="diagnostics" id="diag-image">
+                    <summary>Diagnostics JSON (collapsed by default)</summary>
+                    <div class="response-wrap">
+                        <div class="response-summary">Raw payload is kept available for troubleshooting.</div>
+                        <div class="response-area" id="response-image"></div>
+                    </div>
+                </details>
             </div>
         </div>
 
@@ -158,19 +379,27 @@
             </select>
             <label>Prompt</label>
             <textarea id="prompt-voice" rows="3">Hello from Junior! This is a test of the voice model capabilities.</textarea>
-            <button onclick="runDemo('voice')">Run Demo</button>
+            <div class="btn-row">
+                <button onclick="runDemo('voice')">Run Demo</button>
+            </div>
             <div id="result-voice" style="display: none;">
                 <div class="meta" id="meta-voice"></div>
                 <div id="troubleshoot-voice" class="troubleshooting"></div>
                 <div id="media-voice"></div>
-                <details style="margin-top:10px;"><summary style="cursor:pointer;color:#9ecbff;">Show diagnostics</summary><div class="response-area" id="response-voice"></div></details>
+                <details class="diagnostics" id="diag-voice">
+                    <summary>Diagnostics JSON (collapsed by default)</summary>
+                    <div class="response-wrap">
+                        <div class="response-summary">Raw payload is kept available for troubleshooting.</div>
+                        <div class="response-area" id="response-voice"></div>
+                    </div>
+                </details>
             </div>
         </div>
 
         <!-- MUSIC SECTION -->
         <div class="card" id="section-music">
             <h2>🎵 Music Generation <span class="probe-label">PROBE ONLY</span></h2>
-            <p style="font-size: 0.9em; color: #8b949e; margin-top: -10px;">This endpoint is an exploratory probe. It may fail if the model or endpoint is unavailable.</p>
+            <p class="helper-note">This endpoint is exploratory and may fail if the model or endpoint is unavailable.</p>
             <label>Model ID</label>
             <select id="model-music">
                 <option value="lyria-3-preview">lyria-3-preview</option>
@@ -179,12 +408,20 @@
             </select>
             <label>Prompt</label>
             <textarea id="prompt-music" rows="3">An upbeat electronic track with a heavy bassline</textarea>
-            <button onclick="runDemo('music')">Run Probe</button>
+            <div class="btn-row">
+                <button onclick="runDemo('music')">Run Probe</button>
+            </div>
             <div id="result-music" style="display: none;">
                 <div class="meta" id="meta-music"></div>
                 <div id="troubleshoot-music" class="troubleshooting"></div>
                 <div id="media-music"></div>
-                <details style="margin-top:10px;"><summary style="cursor:pointer;color:#9ecbff;">Show diagnostics</summary><div class="response-area" id="response-music"></div></details>
+                <details class="diagnostics" id="diag-music">
+                    <summary>Diagnostics JSON (collapsed by default)</summary>
+                    <div class="response-wrap">
+                        <div class="response-summary">Raw payload is kept available for troubleshooting.</div>
+                        <div class="response-area" id="response-music"></div>
+                    </div>
+                </details>
             </div>
         </div>
     </div>
@@ -246,16 +483,13 @@
                     return null;
             }
         }
-        
-        // Convert raw PCM to WAV for browser playback
+
         function createWavBlob(pcmData, sampleRate = 24000) {
             try {
-                // Decode base64 to Int16Array
                 const binaryStr = atob(pcmData);
                 const len = binaryStr.length;
                 const pcm16 = new Int16Array(len / 2);
                 for (let i = 0; i < len / 2; i++) {
-                    // Assuming little-endian PCM
                     const low = binaryStr.charCodeAt(i * 2);
                     const high = binaryStr.charCodeAt(i * 2 + 1);
                     pcm16[i] = (high << 8) | low;
@@ -267,24 +501,20 @@
                 const buffer = new ArrayBuffer(44 + pcm16.length * 2);
                 const view = new DataView(buffer);
 
-                // RIFF chunk descriptor
                 writeString(view, 0, 'RIFF');
                 view.setUint32(4, 36 + pcm16.length * 2, true);
                 writeString(view, 8, 'WAVE');
-                // fmt sub-chunk
                 writeString(view, 12, 'fmt ');
-                view.setUint32(16, 16, true); // Subchunk1Size
-                view.setUint16(20, 1, true); // AudioFormat (PCM)
+                view.setUint32(16, 16, true);
+                view.setUint16(20, 1, true);
                 view.setUint16(22, numChannels, true);
                 view.setUint32(24, sampleRate, true);
                 view.setUint32(28, byteRate, true);
                 view.setUint16(32, blockAlign, true);
-                view.setUint16(34, 16, true); // BitsPerSample
-                // data sub-chunk
+                view.setUint16(34, 16, true);
                 writeString(view, 36, 'data');
                 view.setUint32(40, pcm16.length * 2, true);
 
-                // Write PCM data
                 const offset = 44;
                 for (let i = 0; i < pcm16.length; i++) {
                     view.setInt16(offset + i * 2, pcm16[i], true);
@@ -328,7 +558,6 @@
             let url = '';
             let payload = {};
 
-            // Determine API shape based on task type and model
             if (type === 'image') {
                 if (model.includes('imagen')) {
                     url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:predict?key=${apiKey}`;
@@ -353,7 +582,6 @@
                     }
                 };
             } else {
-                // Music or other probes
                 url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
                 payload = {
                     contents: [{ role: "user", parts: [{ text: prompt }] }]
@@ -370,17 +598,16 @@
                 const latency = Date.now() - startTime;
                 const timestamp = new Date().toISOString();
                 const data = await response.json();
-                
+
                 const statusClass = response.ok ? 'status-success' : 'status-error';
 
                 metaDiv.innerHTML = `
-                    <span class="${statusClass}">Status: ${response.status} ${response.statusText}</span> | 
-                    Latency: ${latency}ms | 
-                    Time: ${timestamp} | 
+                    <span class="${statusClass}">Status: ${response.status} ${response.statusText}</span> |
+                    Latency: ${latency}ms |
+                    Time: ${timestamp} |
                     Model: ${model}
                 `;
 
-                // Render troubleshooting if error
                 if (!response.ok) {
                     const hint = getTroubleshootingHint(response.status);
                     if (hint) {
@@ -388,18 +615,15 @@
                         troubleshootDiv.style.display = 'block';
                     }
                 } else {
-                    // Try to render media
                     if (type === 'image') {
-                        // Imagen format
                         if (data.predictions && data.predictions[0] && (data.predictions[0].bytesBase64Encoded || data.predictions[0].bytesBase64)) {
                             const b64img = data.predictions[0].bytesBase64Encoded || data.predictions[0].bytesBase64;
-                            mediaDiv.innerHTML = `<div class="media-container"><img src="data:image/jpeg;base64,${b64img}" alt="Generated Image" /></div>`;
-                        } 
-                        // Standard format (if standard generateContent returns images via inlineData)
+                            mediaDiv.innerHTML = `<div class="media-container"><img src="data:image/jpeg;base64,${b64img}" alt="Generated Image" loading="lazy" /></div>`;
+                        }
                         else if (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) {
                             const part = data.candidates[0].content.parts.find(p => p.inlineData && p.inlineData.mimeType.startsWith('image/'));
                             if (part) {
-                                mediaDiv.innerHTML = `<div class="media-container"><img src="data:${part.inlineData.mimeType};base64,${part.inlineData.data}" alt="Generated Image" /></div>`;
+                                mediaDiv.innerHTML = `<div class="media-container"><img src="data:${part.inlineData.mimeType};base64,${part.inlineData.data}" alt="Generated Image" loading="lazy" /></div>`;
                             }
                         }
                     } else if (type === 'voice') {
@@ -409,8 +633,7 @@
                                 const mime = part.inlineData.mimeType;
                                 const b64 = part.inlineData.data;
                                 let audioSrc = `data:${mime};base64,${b64}`;
-                                
-                                // Fix for raw PCM playback in browser
+
                                 const lowMime = (mime || '').toLowerCase();
                                 if (lowMime.includes('audio/pcm') || lowMime.includes('audio/l16')) {
                                     const wavBlob = createWavBlob(b64);
@@ -418,14 +641,13 @@
                                         audioSrc = URL.createObjectURL(wavBlob);
                                     }
                                 }
-                                
+
                                 mediaDiv.innerHTML = `<div class="media-container"><audio controls src="${audioSrc}"></audio></div>`;
                             }
                         }
                     }
                 }
 
-                // Truncate giant base64 strings in the response viewer for readability
                 const displayData = JSON.parse(JSON.stringify(data));
                 if (displayData.predictions && displayData.predictions[0]) {
                     if (displayData.predictions[0].bytesBase64Encoded) displayData.predictions[0].bytesBase64Encoded = "(base64 data truncated for viewing)";
@@ -448,11 +670,11 @@
             } catch (error) {
                 const latency = Date.now() - startTime;
                 const timestamp = new Date().toISOString();
-                
+
                 metaDiv.innerHTML = `
-                    <span class="status-error">Fetch Error</span> | 
-                    Latency: ${latency}ms | 
-                    Time: ${timestamp} | 
+                    <span class="status-error">Fetch Error</span> |
+                    Latency: ${latency}ms |
+                    Time: ${timestamp} |
                     Model: ${model}
                 `;
                 responseDiv.textContent = error.toString();
