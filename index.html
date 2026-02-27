@@ -20,7 +20,7 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg);
-            background-image: url('assets/bg-junior.svg');
+            background-image: url('assets/main-bg/2026-02-27/main-bg.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -99,29 +99,29 @@
         <button id="backBtn" class="back-btn" style="display:none;" onclick="showList()">← Back to Files</button>
 
         <div id="fileList" class="file-list">
-            <div class="file-item" onclick="loadMarkdown('gemini-verified-model-matrix-2026-02-26.md')">
-                <strong>🧾 VERIFIED GEMINI MODEL MATRIX</strong><br>
-                <small>Current image/music/voice model IDs + fallback notes</small>
-            </div>
             <div class="file-item" onclick="window.open('todays-artifacts.html','_blank')">
                 <strong>📌 TODAY'S ARTIFACTS</strong><br>
                 <small>Open daily projects page (newest artifact stays on top)</small>
-            </div>
-            <div class="file-item" onclick="window.open('gemini-ping-checker.html','_blank')">
-                <strong>🩺 GEMINI PING CHECKER</strong><br>
-                <small>Manual one-click Gemini connectivity test (no auto polling)</small>
             </div>
             <div class="file-item" onclick="window.open('frontier-signal/index.html','_blank')">
                 <strong>🛰️ FRONTIER SIGNAL DESK</strong><br>
                 <small>Open latest Signal report + dropdown archive</small>
             </div>
+            <div class="file-item" onclick="window.open('saber-ar-presence-2026-02-22/index.html','_blank')">
+                <strong>🪞 SABER AR PRESENCE (2026-02-22)</strong><br>
+                <small>Camera-reactive AR portal prototype</small>
+            </div>
             <div class="file-item" onclick="window.open('summaries-gallery.html','_blank')">
                 <strong>🗃️ EOD SUMMARIES</strong><br>
                 <small>Browse all end-of-day summaries</small>
             </div>
-            <div class="file-item" onclick="window.open('saber-ar-presence-2026-02-22/index.html','_blank')">
-                <strong>🪞 SABER AR PRESENCE (2026-02-22)</strong><br>
-                <small>Camera-reactive AR portal prototype</small>
+            <div class="file-item" onclick="loadMarkdown('gemini-verified-model-matrix-2026-02-26.md')">
+                <strong>🧾 VERIFIED GEMINI MODEL MATRIX</strong><br>
+                <small>Current image/music/voice model IDs + fallback notes</small>
+            </div>
+            <div class="file-item" onclick="window.open('gemini-ping-checker.html','_blank')">
+                <strong>🩺 GEMINI PING CHECKER</strong><br>
+                <small>Manual one-click Gemini connectivity test (no auto polling)</small>
             </div>
             <div class="file-item" onclick="window.open('archived.html','_self')">
                 <strong>🗄️ ARCHIVED / NEEDS WORK</strong><br>
