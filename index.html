@@ -43,17 +43,21 @@
         header p { margin: 4px 0 0; opacity: 0.9; }
         .file-list { list-style: none; padding: 0; margin: 0; }
         .file-item {
-            background: var(--panel);
-            border: 1px solid var(--border);
+            background: linear-gradient(135deg, rgba(28, 35, 46, 0.95), rgba(20, 27, 38, 0.92));
+            border: 1px solid rgba(136, 174, 255, 0.35);
             border-radius: 12px;
             padding: 14px;
             margin-bottom: 10px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: background 0.2s, border-color 0.2s, transform 0.2s;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
         }
-        .file-item:hover, .file-item:active { background: var(--panelHover); }
+        .file-item:hover, .file-item:active {
+            background: linear-gradient(135deg, rgba(34, 43, 56, 0.98), rgba(24, 33, 46, 0.96));
+            border-color: rgba(136, 174, 255, 0.55);
+            transform: translateY(-1px);
+        }
         .file-item strong { font-size: 1rem; display: inline-block; margin-bottom: 2px; }
         .file-item small { color: #9da7b1; font-size: 0.9rem; }
         #viewer {
@@ -79,13 +83,6 @@
             touch-action: manipulation;
         }
 
-        .theme-junior { border-color: #7ee787; background: rgba(126, 231, 135, 0.12); box-shadow: 0 0 0 1px rgba(126, 231, 135, 0.2) inset; }
-        .theme-matrix { border-color: #9ad0ff; background: linear-gradient(135deg, rgba(25, 54, 93, 0.86), rgba(38, 77, 130, 0.64)); }
-        .theme-health { border-color: #f0a8ff; background: linear-gradient(135deg, rgba(76, 36, 97, 0.72), rgba(36, 64, 112, 0.74)); }
-        .theme-ar { border-color: #9ac6ff; background: linear-gradient(135deg, rgba(20, 38, 80, 0.9), rgba(36, 75, 138, 0.68)); }
-        .theme-junior-demo { border-color: #ffb86c; background: linear-gradient(135deg, rgba(89, 56, 30, 0.9), rgba(145, 82, 41, 0.65)); }
-        .theme-saber-demo { border-color: #7cc4ff; background: linear-gradient(135deg, rgba(30, 56, 96, 0.9), rgba(41, 82, 145, 0.65)); }
-        .theme-archive { border-color: #737f8c; background: linear-gradient(135deg, rgba(45, 52, 61, 0.92), rgba(62, 69, 79, 0.72)); }
 
         @media (max-width: 900px) {
             body { background-attachment: scroll; }
@@ -102,15 +99,15 @@
         <button id="backBtn" class="back-btn" style="display:none;" onclick="showList()">← Back to Files</button>
 
         <div id="fileList" class="file-list">
-            <div class="file-item theme-junior" onclick="window.open('junior-morning-2026-02-27.html','_blank')">
+            <div class="file-item" onclick="window.open('junior-morning-2026-02-27.html','_blank')">
                 <strong>🌅 Junior Morning Greeting — 2026-02-27</strong><br>
                 <small>Open Junior's polished morning hello for Christopher + Saber</small>
             </div>
-            <div class="file-item theme-matrix" onclick="loadMarkdown('gemini-verified-model-matrix-2026-02-26.md')">
+            <div class="file-item" onclick="loadMarkdown('gemini-verified-model-matrix-2026-02-26.md')">
                 <strong>🧾 VERIFIED GEMINI MODEL MATRIX</strong><br>
                 <small>Current image/music/voice model IDs + fallback notes</small>
             </div>
-            <div class="file-item theme-health" onclick="window.open('gemini-ping-checker.html','_blank')">
+            <div class="file-item" onclick="window.open('gemini-ping-checker.html','_blank')">
                 <strong>🩺 GEMINI PING CHECKER</strong><br>
                 <small>Manual one-click Gemini connectivity test (no auto polling)</small>
             </div>
@@ -126,19 +123,19 @@
                 <strong>🗂️ QUOTE CARD GALLERY</strong><br>
                 <small>Browse all generated quote cards</small>
             </div>
-            <div class="file-item theme-ar" onclick="window.open('saber-ar-presence-2026-02-22/index.html','_blank')">
+            <div class="file-item" onclick="window.open('saber-ar-presence-2026-02-22/index.html','_blank')">
                 <strong>🪞 SABER AR PRESENCE (2026-02-22)</strong><br>
                 <small>Camera-reactive AR portal prototype</small>
             </div>
-            <div class="file-item theme-junior-demo" onclick="window.open('junior-multimodal-demos.html','_blank')">
+            <div class="file-item" onclick="window.open('junior-multimodal-demos.html','_blank')">
                 <strong>🤖 JUNIOR MULTIMODAL DEMOS</strong><br>
                 <small>Runnable image + voice demos, plus music probe diagnostics</small>
             </div>
-            <div class="file-item theme-saber-demo" onclick="window.open('saber-multimodal-demos.html','_blank')">
+            <div class="file-item" onclick="window.open('saber-multimodal-demos.html','_blank')">
                 <strong>⚔️ SABER MULTIMODAL DEMOS</strong><br>
                 <small>Runnable image + voice demos, plus music probe diagnostics</small>
             </div>
-            <div class="file-item theme-archive" onclick="window.open('archived.html','_self')">
+            <div class="file-item" onclick="window.open('archived.html','_self')">
                 <strong>🗄️ ARCHIVED / NEEDS WORK</strong><br>
                 <small>Open archived and in-progress artifacts on a dedicated page</small>
             </div>
