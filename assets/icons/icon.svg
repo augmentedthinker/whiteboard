@@ -6,25 +6,25 @@
     </linearGradient>
   </defs>
 
-  <!-- full-bleed rounded app tile -->
-  <rect x="16" y="16" width="480" height="480" rx="110" fill="url(#bg)"/>
+  <!-- full tile fill (no transparent margins) -->
+  <rect x="0" y="0" width="512" height="512" fill="url(#bg)"/>
 
-  <!-- remote body -->
-  <rect x="146" y="86" width="220" height="340" rx="78" fill="#0d1117"/>
+  <!-- remote body (larger so icon reads bigger on launchers) -->
+  <rect x="122" y="54" width="268" height="404" rx="96" fill="#0d1117"/>
 
   <!-- d-pad -->
-  <rect x="190" y="180" width="52" height="18" rx="9" fill="#c9d1d9"/>
-  <rect x="207" y="163" width="18" height="52" rx="9" fill="#c9d1d9"/>
+  <rect x="175" y="172" width="66" height="22" rx="11" fill="#c9d1d9"/>
+  <rect x="197" y="150" width="22" height="66" rx="11" fill="#c9d1d9"/>
 
   <!-- action buttons -->
-  <circle cx="292" cy="180" r="13" fill="#ff7b72"/>
-  <circle cx="322" cy="204" r="13" fill="#3fb950"/>
+  <circle cx="308" cy="176" r="17" fill="#ff7b72"/>
+  <circle cx="344" cy="206" r="17" fill="#3fb950"/>
 
-  <!-- lower buttons -->
-  <circle cx="214" cy="270" r="10" fill="#8b949e"/>
-  <circle cx="246" cy="270" r="10" fill="#8b949e"/>
-  <rect x="274" y="262" width="62" height="16" rx="8" fill="#8b949e"/>
+  <!-- lower controls -->
+  <circle cx="206" cy="286" r="13" fill="#8b949e"/>
+  <circle cx="246" cy="286" r="13" fill="#8b949e"/>
+  <rect x="278" y="276" width="74" height="20" rx="10" fill="#8b949e"/>
 
-  <!-- accent line -->
-  <rect x="182" y="334" width="148" height="14" rx="7" fill="#58a6ff"/>
+  <!-- accent -->
+  <rect x="170" y="360" width="172" height="18" rx="9" fill="#58a6ff"/>
 </svg>

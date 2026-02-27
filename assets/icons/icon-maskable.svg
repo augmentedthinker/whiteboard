@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="bg" cx="35%" cy="20%" r="90%">
+      <stop offset="0%" stop-color="#66b7ff"/>
+      <stop offset="100%" stop-color="#1f6feb"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <!-- keep glyph in central safe zone for maskable icons -->
+  <rect x="132" y="76" width="248" height="360" rx="92" fill="#0d1117"/>
+  <rect x="182" y="186" width="58" height="20" rx="10" fill="#c9d1d9"/>
+  <rect x="201" y="167" width="20" height="58" rx="10" fill="#c9d1d9"/>
+  <circle cx="304" cy="190" r="15" fill="#ff7b72"/>
+  <circle cx="338" cy="218" r="15" fill="#3fb950"/>
+  <rect x="176" y="356" width="160" height="16" rx="8" fill="#58a6ff"/>
+</svg>
