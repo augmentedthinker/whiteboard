@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Saber Multimodal Demos</title>
+  <style>
+    :root{--bg:#0b1220;--card:#121b2f;--line:#2a3a58;--txt:#dce7ff;--muted:#9db0d6;--acc:#7cc4ff;--ok:#3fb950;--err:#ff7b72}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui;background:linear-gradient(170deg,#0a1120,#101b30);color:var(--txt);padding:14px}
+    .wrap{max-width:920px;margin:0 auto}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+    h1{margin:0 0 4px;color:var(--acc)} h2{margin:0 0 8px;font-size:1.05rem} .muted{color:var(--muted);font-size:.9rem}
+    input,textarea,select,button{font:inherit} input,textarea,select{width:100%;background:#0c1527;color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:10px}
+    textarea{min-height:70px;resize:vertical} .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px} @media(max-width:760px){.grid{grid-template-columns:1fr}}
+    .btn{margin-top:8px;background:#1f6feb;color:#fff;border:1px solid #4f8fff;border-radius:10px;padding:10px 12px;cursor:pointer}
+    .btn:disabled{opacity:.6;cursor:not-allowed}.out{white-space:pre-wrap;background:#0b1424;border:1px solid var(--line);border-radius:10px;padding:10px;max-height:260px;overflow:auto;margin-top:8px}
+    .row{display:grid;grid-template-columns:1fr auto;gap:8px}.pill{font-size:.78rem;border:1px solid var(--line);padding:2px 8px;border-radius:999px;color:var(--muted)}
+    a{color:#b9ddff;text-decoration:none}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <h1>⚔️ Saber Multimodal Demos</h1>
+    <div class="muted">User-initiated test lab for image/music/voice model IDs. Shows raw API responses/errors.</div>
+    <div style="margin-top:6px"><a href="index.html">← Back to Remote Viewer</a></div>
+  </div>
+
+  <div class="card">
+    <h2>API Key</h2>
+    <div class="row">
+      <input id="apiKey" type="password" placeholder="AIzaSy..." />
+      <button class="btn" style="margin-top:0" id="toggleKey">Show</button>
+    </div>
+    <div class="muted" style="margin-top:6px">Stored only in local browser storage for convenience.</div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>🖼️ Image Demo <span class="pill">nano/imagen</span></h2>
+      <select id="imageModel">
+        <option>nano-banana-pro-preview</option>
+        <option>nano-banana-2-preview</option>
+        <option>imagen-3.0-generate-002</option>
+      </select>
+      <textarea id="imagePrompt" placeholder="Prompt for image generation"></textarea>
+      <button class="btn" id="runImage">Run Image Demo</button>
+      <div class="out" id="outImage">Idle.</div>
+    </div>
+
+    <div class="card">
+      <h2>🎵 Music Demo <span class="pill">lyria</span></h2>
+      <select id="musicModel">
+        <option>lyria-3-preview</option>
+        <option>lyria-002</option>
+        <option>lyria-realtime-preview</option>
+      </select>
+      <textarea id="musicPrompt" placeholder="Prompt for music generation"></textarea>
+      <button class="btn" id="runMusic">Run Music Demo</button>
+      <div class="out" id="outMusic">Idle.</div>
+    </div>
+
+    <div class="card" style="grid-column:1/-1">
+      <h2>🗣️ Voice Demo <span class="pill">tts/live</span></h2>
+      <select id="voiceModel">
+        <option>gemini-2.5-flash-tts-preview</option>
+        <option>gemini-2.5-pro-tts-preview</option>
+        <option>gemini-live-2.5-flash-native-audio</option>
+      </select>
+      <textarea id="voicePrompt" placeholder="Text to synthesize"></textarea>
+      <button class="btn" id="runVoice">Run Voice Demo</button>
+      <div class="out" id="outVoice">Idle.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const keyEl = document.getElementById('apiKey');
+keyEl.value = localStorage.getItem('saber_multimodal_key') || '';
+document.getElementById('toggleKey').onclick = () => { keyEl.type = keyEl.type==='password'?'text':'password'; };
+keyEl.addEventListener('change',()=>localStorage.setItem('saber_multimodal_key', keyEl.value.trim()));
+
+function now() { return new Date().toLocaleString(); }
+function ms(t0){ return Math.round(performance.now()-t0); }
+function out(el, txt){ document.getElementById(el).textContent = txt; }
+
+async function runDemo(kind, model, prompt, outId){
+  const key = keyEl.value.trim();
+  if(!key) return out(outId,'Missing API key.');
+  if(!prompt.trim()) return out(outId,'Missing prompt/text.');
+
+  const t0 = performance.now();
+  out(outId,`Testing ${kind} with model: ${model}\nTime: ${now()}\n...`);
+
+  // Generic probe request to candidate model endpoint. Intentionally surfaces raw errors.
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(key)}`;
+  const body = { contents:[{parts:[{text: prompt}]}] };
+
+  try{
+    const res = await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    const txt = await res.text();
+    let parsed = txt;
+    try { parsed = JSON.stringify(JSON.parse(txt), null, 2); } catch {}
+    out(outId,`Model: ${model}\nHTTP: ${res.status} ${res.statusText}\nLatency: ${ms(t0)}ms\nTimestamp: ${now()}\n\n${parsed}`);
+  } catch(e){
+    out(outId,`Model: ${model}\nNetwork/Error: ${e.message}\nLatency: ${ms(t0)}ms\nTimestamp: ${now()}`);
+  }
+}
+
+document.getElementById('runImage').onclick = ()=>runDemo('image', imageModel.value, imagePrompt.value, 'outImage');
+document.getElementById('runMusic').onclick = ()=>runDemo('music', musicModel.value, musicPrompt.value, 'outMusic');
+document.getElementById('runVoice').onclick = ()=>runDemo('voice', voiceModel.value, voicePrompt.value, 'outVoice');
+</script>
+</body>
+</html>
