@@ -48,7 +48,15 @@
       <input id="userInput" type="text" placeholder="Or type here..." />
       <button id="sendBtn">Send</button>
     </div>
-    <div id="status">Lab ready. Click floor to move Junior.</div>
+    <div class="row" style="margin-top: 8px;">
+      <select id="voiceSelect" style="flex:1; background:#111a33; color:#a8c0ff; border:1px solid #3f5fc2; border-radius:10px; padding:6px; font-size:12px;">
+        <option value="browser">Voice: Browser Default (Fast)</option>
+        <option value="Puck">Voice: Gemini Puck (Playful)</option>
+        <option value="Aoede">Voice: Gemini Aoede (Warm)</option>
+        <option value="Charon">Voice: Gemini Charon (Deep)</option>
+      </select>
+    </div>
+    <div id="status" style="margin-top: 8px;">Lab ready. Click floor to move Junior.</div>
   </div>
 
   <a-scene shadow="type: pcfsoft" renderer="colorManagement:true; physicallyCorrectLights:true" xr-mode-ui="enabled: true"
@@ -270,12 +278,90 @@ Keep responses to exactly 1 short conversational sentence.`;
       }
     }
 
-    function speak(text){
-      if (!('speechSynthesis' in window)) return;
-      const u = new SpeechSynthesisUtterance(text);
-      u.rate = 1.0; u.pitch = 1.0; u.volume = 0.9;
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(u);
+    async function speak(text){
+      const voiceMode = document.getElementById('voiceSelect').value;
+      
+      if (voiceMode === 'browser' || !geminiKey) {
+          // Fallback to standard browser TTS
+          if (!('speechSynthesis' in window)) return;
+          const u = new SpeechSynthesisUtterance(text);
+          u.rate = 1.0; u.pitch = 1.0; u.volume = 0.9;
+          window.speechSynthesis.cancel();
+          window.speechSynthesis.speak(u);
+          return;
+      }
+
+      // Premium Gemini TTS Logic
+      try {
+          // Using the current reliable TTS model
+          const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${geminiKey}`;
+          
+          const reqBody = {
+            "contents": [{ "parts": [{"text": text}] }],
+            "generationConfig": {
+                "responseModalities": ["AUDIO"],
+                "speechConfig": {
+                    "voiceConfig": {
+                        "prebuiltVoiceConfig": {
+                            "voiceName": voiceMode // Puck, Aoede, Charon
+                        }
+                    }
+                }
+            }
+          };
+
+          const res = await fetch(url, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(reqBody)
+          });
+          
+          if (!res.ok) throw new Error('TTS API failed');
+          const data = await res.json();
+          
+          // Find audio data
+          let b64 = null;
+          const parts = data.candidates?.[0]?.content?.parts || [];
+          for (const p of parts) {
+              if (p.inlineData && p.inlineData.data) {
+                  b64 = p.inlineData.data;
+                  break;
+              }
+          }
+          
+          if (b64) {
+             // Decode and play PCM audio (Google TTS returns raw L16 PCM by default)
+             // Need to wrap it in a wav header or decode it via AudioContext
+             const binaryStr = window.atob(b64);
+             const len = binaryStr.length;
+             const bytes = new Uint8Array(len);
+             for(let i=0; i<len; i++) bytes[i] = binaryStr.charCodeAt(i);
+             
+             // Decode PCM directly using AudioContext
+             // Google TTS returns 24kHz 16-bit PCM.
+             const numChannels = 1;
+             const sampleRate = 24000;
+             const floats = new Float32Array(bytes.length / 2);
+             const view = new DataView(bytes.buffer);
+             for(let i=0; i<floats.length; i++) {
+                 floats[i] = view.getInt16(i * 2, true) / 32768.0; 
+             }
+             
+             if (audioCtx.state === 'suspended') await audioCtx.resume();
+             const audioBuffer = audioCtx.createBuffer(numChannels, floats.length, sampleRate);
+             audioBuffer.getChannelData(0).set(floats);
+             
+             const source = audioCtx.createBufferSource();
+             source.buffer = audioBuffer;
+             source.connect(audioCtx.destination);
+             source.start();
+          }
+      } catch (err) {
+          console.error("Gemini TTS Error:", err);
+          // Fallback if network fails
+          const u = new SpeechSynthesisUtterance(text);
+          window.speechSynthesis.speak(u);
+      }
     }
 
     sendBtn.onclick = () => {
