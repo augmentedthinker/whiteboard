@@ -28,6 +28,7 @@
     #status { color:#b8caff; font-size:12px; margin-top:6px; }
     .hint { position:fixed; top:10px; left:50%; transform:translateX(-50%); z-index:200; background:#101933cc; color:#d7e4ff; border:1px solid #3f5fc2; border-radius:999px; padding:6px 12px; font-size:12px; pointer-events: none; }
   </style>
+  <script src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
 </head>
 <body>
   <div class="hint">Click floor to move Junior. Viewport optimized for desktop + Quest.</div>
@@ -70,24 +71,12 @@
       <a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: .clickable" line="color: #d2a3ff; opacity: 0.9"></a-entity>
     </a-entity>
 
-    <!-- LAB ROOM -->
-    <a-box position="0 3 -6" depth="0.1" height="6" width="16" color="#6d7482" shadow="receive: true"></a-box>
-    <a-box position="-8 3 2" depth="16" height="6" width="0.1" color="#636a78" shadow="receive: true"></a-box>
-    <a-box position="8 3 2" depth="16" height="6" width="0.1" color="#636a78" shadow="receive: true"></a-box>
-    <a-box position="0 6 2" depth="16" height="0.1" width="16" color="#818a98" shadow="receive: true"></a-box>
+    
+    <!-- PROCEDURAL ENVIRONMENT (LAB) -->
+    <a-entity environment="preset: tron; skyType: atmosphere; lighting: none; groundColor: #0a0e17; grid: 1x1; gridColor: #284488"></a-entity>
 
-    <!-- Nav Plane: The Floor -->
-    <a-plane id="navPlane" class="clickable" rotation="-90 0 0" position="0 0.01 0" width="16" height="16" color="#4e5562" material="roughness:0.95; metalness:0.1" shadow="receive: true"></a-plane>
-
-    <!-- WINDOWS -->
-    <a-plane position="-4.6 2.6 -5.92" width="2.64" height="1.64" src="#space1" material="shader: flat; side: double; transparent: false"></a-plane>
-    <a-plane position="0 2.6 -5.92" width="2.64" height="1.64" src="#space2" material="shader: flat; side: double; transparent: false"></a-plane>
-    <a-plane position="4.6 2.6 -5.92" width="2.64" height="1.64" src="#space3" material="shader: flat; side: double; transparent: false"></a-plane>
-
-    <!-- Frames -->
-    <a-box position="-4.6 2.6 -5.94" width="2.95" height="1.95" depth="0.05" color="#2f3644" shadow="cast: true"></a-box>
-    <a-box position="0 2.6 -5.94" width="2.95" height="1.95" depth="0.05" color="#2f3644" shadow="cast: true"></a-box>
-    <a-box position="4.6 2.6 -5.94" width="2.95" height="1.95" depth="0.05" color="#2f3644" shadow="cast: true"></a-box>
+    <!-- Invisible Nav Plane for Click-to-Move Raycasting -->
+    <a-plane id="navPlane" class="clickable" rotation="-90 0 0" position="0 0.05 0" width="30" height="30" material="opacity: 0.0; transparent: true"></a-plane>
 
     <a-entity id="junior" position="0 0 -1.2" shadow="cast: true">
       <a-entity id="juniorModel" gltf-model="#robotModel" scale="0.28 0.28 0.28" position="0 0 0" rotation="0 0 0" animation-mixer="clip: Idle; loop: repeat"></a-entity>
@@ -231,30 +220,22 @@
       statusEl.textContent = `Target set: x:${p.x.toFixed(1)} z:${p.z.toFixed(1)}`;
     });
 
-    // Chat Logic + Keyword Animation
+    // Chat Logic + Keyword Animation + Pollinations AI
     async function respond(msg){
       if (!msg) return;
       statusEl.textContent = 'Thinking...';
       
-      const text = msg.toLowerCase();
+      const textLower = msg.toLowerCase();
       let animTime = 0;
       
-      if (text.includes('hello') || text.includes('hi') || text.includes('wave')) {
+      // Keyword fallbacks
+      if (textLower.includes('hello') || textLower.includes('hi') || textLower.includes('wave')) {
           juniorModel.setAttribute('animation-mixer', {clip: 'Wave', loop: 'once', clampWhenFinished: true});
           animTime = 2500;
-      } else if (text.includes('yes') || text.includes('agree')) {
+      } else if (textLower.includes('yes') || textLower.includes('agree')) {
           juniorModel.setAttribute('animation-mixer', {clip: 'Yes', loop: 'once', clampWhenFinished: true});
           animTime = 2000;
-      } else if (text.includes('no') || text.includes('disagree')) {
-          juniorModel.setAttribute('animation-mixer', {clip: 'No', loop: 'once', clampWhenFinished: true});
-          animTime = 2000;
-      } else if (text.includes('jump') || text.includes('yay')) {
-          juniorModel.setAttribute('animation-mixer', {clip: 'Jump', loop: 'once', clampWhenFinished: true});
-          animTime = 1500;
-      } else if (text.includes('good') || text.includes('thumbs')) {
-          juniorModel.setAttribute('animation-mixer', {clip: 'ThumbsUp', loop: 'once', clampWhenFinished: true});
-          animTime = 2000;
-      } else if (text.includes('dance')) {
+      } else if (textLower.includes('dance')) {
           juniorModel.setAttribute('animation-mixer', {clip: 'Dance', loop: 'once', clampWhenFinished: true});
           animTime = 5000;
       }
@@ -263,10 +244,24 @@
           setTimeout(() => { if(!isMoving) juniorModel.setAttribute('animation-mixer', {clip: 'Idle', loop: 'repeat'}); }, animTime);
       }
 
-      // Static fallback for GitHub Pages
-      setTimeout(() => {
-        statusEl.textContent = `Junior: "${msg}" [Action triggered]`;
-      }, 500);
+      // Live AI Generation via Pollinations (No API Key Required)
+      try {
+        const prompt = `You are Junior, a friendly robotic AI assistant in a virtual lab. The user says: "${msg}". Respond in exactly 1 short conversational sentence.`;
+        const response = await fetch(`https://text.pollinations.ai/prompt/${encodeURIComponent(prompt)}`);
+        if (!response.ok) throw new Error('API Error');
+        const aiText = await response.text();
+        
+        statusEl.textContent = `Junior: ${aiText}`;
+        speak(aiText); // Use built-in TTS
+        
+        // Auto-animate if AI is excited or asking a question
+        if (aiText.includes('!') && animTime === 0) {
+            juniorModel.setAttribute('animation-mixer', {clip: 'Jump', loop: 'once', clampWhenFinished: true});
+            setTimeout(() => { if(!isMoving) juniorModel.setAttribute('animation-mixer', {clip: 'Idle', loop: 'repeat'}); }, 1500);
+        }
+      } catch (e) {
+        statusEl.textContent = `Junior: I heard you say "${msg}", but my brain connection is fuzzy right now.`;
+      }
     }
 
     function speak(text){
