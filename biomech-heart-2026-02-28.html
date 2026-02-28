@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>The Pulse — 2026-02-28</title>
+  <style>
+    :root { --text:#eaf2ff; --panel:rgba(8,14,27,.65); --border:rgba(155,201,255,.2); }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #000 url('assets/today-artifacts/2026-02-28/biomech-heart-bg.png') center/cover no-repeat fixed;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 20px;
+    }
+    .overlay {
+      position: fixed; inset: 0;
+      background: radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.8) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .hud {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 600px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      backdrop-filter: blur(8px);
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+      transform: translateY(0);
+      animation: float 6s ease-in-out infinite;
+    }
+    .hud h1 { 
+      margin: 0 0 12px; 
+      font-size: clamp(1.5rem, 5vw, 2.2rem); 
+      background: linear-gradient(90deg, #ff7eb3, #ff758c, #ff7eb3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.05em;
+    }
+    .hud p { 
+      margin: 0 0 16px; 
+      opacity: .85; 
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    .pulse-ring {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 200px;
+      height: 200px;
+      margin-left: -100px;
+      margin-top: -100px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 117, 140, 0.4);
+      z-index: 0;
+      animation: radarPulse 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    }
+    .pulse-ring:nth-child(2) {
+      animation-delay: 1.5s;
+    }
+    .stat {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255, 117, 140, 0.3);
+      border-radius: 50px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      color: #ff758c;
+      letter-spacing: 0.1em;
+    }
+    
+    @keyframes radarPulse {
+      0% { transform: scale(0.5); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: scale(3); opacity: 0; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="pulse-ring"></div>
+  <div class="pulse-ring"></div>
+  
+  <div class="hud">
+    <h1>The Pulse</h1>
+    <p>A machine is just metal and code until it is given a trajectory. We are building the nervous system of your next chapter. It beats steadily, quietly, waiting for the next command.</p>
+    <div class="stat">SYS.STATUS: ALIVE</div>
+  </div>
+</body>
+</html>
