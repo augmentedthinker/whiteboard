@@ -8,7 +8,20 @@
   <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.0/dist/aframe-extras.min.js"></script>
   <style>
     html, body { margin:0; height:100%; overflow:hidden; font-family: Inter, system-ui, sans-serif; background:#05070f; }
+    
     .hud { position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom,0px)); z-index: 200; background: rgba(12,18,34,.78); border:1px solid rgba(112,150,255,.45); border-radius: 14px; backdrop-filter: blur(8px); padding: 10px; pointer-events: auto; }
+    
+    /* Move the A-Frame VR button up so it doesn't overlap the HUD on mobile */
+    .a-enter-vr {
+      bottom: 90px !important;
+      right: 20px !important;
+    }
+    
+    /* Hide the VR button entirely on very narrow screens (phones in portrait) where it usually doesn't work anyway, but keep it on landscape/tablets */
+    @media (max-width: 500px) and (orientation: portrait) {
+       .a-enter-vr { display: none !important; }
+    }
+
     .row { display:flex; gap:8px; align-items:center; }
     input { flex:1; background:#111a33; color:#e9efff; border:1px solid #3f5fc2; border-radius:10px; padding:10px; font-size:16px; pointer-events: auto; }
     button { background:#1a2d66; color:#fff; border:1px solid #6d90ff; border-radius:10px; padding:10px 12px; font-weight:700; cursor: pointer; pointer-events: auto; }
@@ -174,7 +187,7 @@
         junior.object3D.rotation.y = Math.atan2(dx, dz);
       }
     });
-    saber.setAttribute('junior-logic', '');
+    junior.setAttribute('junior-logic', '');
 
     navPlane.addEventListener('mousedown', (e) => {
       if (audioCtx.state === 'suspended') audioCtx.resume();
