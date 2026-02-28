@@ -62,7 +62,10 @@
     const path = `./reports/${file}`;
     rawLink.href = path;
     const res = await fetch(path);
-    const md = await res.text();
+    let md = await res.text();
+    // Reports are authored from /reports/*.md and use ../assets/... links.
+    // When rendered inside index.html, normalize those links to local page context.
+    md = md.replace(/\(\.\.\/assets\//g, '(./assets/');
     reportEl.innerHTML = marked.parse(md);
   }
 
