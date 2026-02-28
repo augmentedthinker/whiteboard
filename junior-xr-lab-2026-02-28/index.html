@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Saber XR Presence — Lab Pass</title>
+  <title>Junior XR Lab</title>
   <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.0/dist/aframe-extras.min.js"></script>
   <style>
@@ -17,13 +17,13 @@
   </style>
 </head>
 <body>
-  <div class="hint">Click floor to move Saber. Viewport optimized for desktop + Quest.</div>
+  <div class="hint">Click floor to move Junior. Viewport optimized for desktop + Quest.</div>
   <div class="hud">
     <div class="row">
-      <input id="userInput" type="text" placeholder="Talk to Saber..." />
+      <input id="userInput" type="text" placeholder="Talk to Junior..." />
       <button id="sendBtn">Send</button>
     </div>
-    <div id="status">Lab ready. Click floor to move Saber.</div>
+    <div id="status">Lab ready. Click floor to move Junior.</div>
   </div>
 
   <a-scene shadow="type: pcfsoft" renderer="colorManagement:true; physicallyCorrectLights:true" xr-mode-ui="enabled: true"
@@ -65,8 +65,8 @@
     <a-box position="0 2.6 -5.94" width="2.95" height="1.95" depth="0.05" color="#2f3644" shadow="cast: true"></a-box>
     <a-box position="4.6 2.6 -5.94" width="2.95" height="1.95" depth="0.05" color="#2f3644" shadow="cast: true"></a-box>
 
-    <a-entity id="saber" position="0 0 -1.2" shadow="cast: true">
-      <a-entity id="saberModel" gltf-model="#robotModel" scale="0.28 0.28 0.28" position="0 0 0" rotation="0 0 0" animation-mixer="clip: Idle; loop: repeat"></a-entity>
+    <a-entity id="junior" position="0 0 -1.2" shadow="cast: true">
+      <a-entity id="juniorModel" gltf-model="#robotModel" scale="0.28 0.28 0.28" position="0 0 0" rotation="0 0 0" animation-mixer="clip: Idle; loop: repeat"></a-entity>
       <a-cylinder radius="0.28" height="0.03" color="#20305f" position="0 -0.02 0" material="emissive:#2d4ca0; emissiveIntensity:0.4"></a-cylinder>
       
       <!-- Antenna Sync Lights -->
@@ -86,8 +86,8 @@
     const statusEl = document.getElementById('status');
     const userInput = document.getElementById('userInput');
     const sendBtn = document.getElementById('sendBtn');
-    const saber = document.getElementById('saber');
-    const saberModel = document.getElementById('saberModel');
+    const junior = document.getElementById('junior');
+    const juniorModel = document.getElementById('juniorModel');
     const navPlane = document.getElementById('navPlane');
     const beepLightGreen = document.getElementById('beepLightGreen');
     const beepLightRed = document.getElementById('beepLightRed');
@@ -123,7 +123,7 @@
       const scene = document.querySelector('a-scene');
       if (!scene || !scene.camera) return;
       const camPos = scene.camera.el.object3D.position;
-      const rb = saber.object3D.position;
+      const rb = junior.object3D.position;
       const dist = Math.hypot(camPos.x - rb.x, camPos.z - rb.z);
       const vol = Math.max(0.01, Math.min(0.16, 0.22 / (dist * dist)));
       const freq = 640 + Math.random()*460;
@@ -144,22 +144,22 @@
     let isWalking = false;
     const speed = 0.001; // Units per ms
 
-    AFRAME.registerComponent('saber-logic', {
+    AFRAME.registerComponent('junior-logic', {
       tick(time, dt) {
         if (!targetPos) {
           if (isWalking) {
-            saberModel.setAttribute('animation-mixer', {clip: 'Idle', loop: 'repeat'});
+            juniorModel.setAttribute('animation-mixer', {clip: 'Idle', loop: 'repeat'});
             isWalking = false;
           }
           return;
         }
         
         if (!isWalking) {
-          saberModel.setAttribute('animation-mixer', {clip: 'Walking', loop: 'repeat'});
+          juniorModel.setAttribute('animation-mixer', {clip: 'Walking', loop: 'repeat'});
           isWalking = true;
         }
 
-        const p = saber.object3D.position;
+        const p = junior.object3D.position;
         const dx = targetPos.x - p.x, dz = targetPos.z - p.z;
         const dist = Math.hypot(dx, dz);
         
@@ -171,10 +171,10 @@
         const moveStep = dt * speed;
         p.x += (dx / dist) * Math.min(moveStep, dist);
         p.z += (dz / dist) * Math.min(moveStep, dist);
-        saber.object3D.rotation.y = Math.atan2(dx, dz);
+        junior.object3D.rotation.y = Math.atan2(dx, dz);
       }
     });
-    saber.setAttribute('saber-logic', '');
+    saber.setAttribute('junior-logic', '');
 
     navPlane.addEventListener('mousedown', (e) => {
       if (audioCtx.state === 'suspended') audioCtx.resume();
