@@ -184,24 +184,42 @@
       statusEl.textContent = `Target set: x:${p.x.toFixed(1)} z:${p.z.toFixed(1)}`;
     });
 
-    // Chat Logic
+    // Chat Logic + Keyword Animation
     async function respond(msg){
       if (!msg) return;
       statusEl.textContent = 'Thinking...';
-      try {
-        const response = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: msg })
-        });
-        const data = await response.json();
-        const reply = data.reply || "Connection fuzzy...";
-        statusEl.textContent = reply;
-        speak(reply);
-      } catch (err) {
-        console.error('Chat error:', err);
-        statusEl.textContent = "Brain offline. Check server console.";
+      
+      const text = msg.toLowerCase();
+      let animTime = 0;
+      
+      if (text.includes('hello') || text.includes('hi') || text.includes('wave')) {
+          juniorModel.setAttribute('animation-mixer', {clip: 'Wave', loop: 'once', clampWhenFinished: true});
+          animTime = 2500;
+      } else if (text.includes('yes') || text.includes('agree')) {
+          juniorModel.setAttribute('animation-mixer', {clip: 'Yes', loop: 'once', clampWhenFinished: true});
+          animTime = 2000;
+      } else if (text.includes('no') || text.includes('disagree')) {
+          juniorModel.setAttribute('animation-mixer', {clip: 'No', loop: 'once', clampWhenFinished: true});
+          animTime = 2000;
+      } else if (text.includes('jump') || text.includes('yay')) {
+          juniorModel.setAttribute('animation-mixer', {clip: 'Jump', loop: 'once', clampWhenFinished: true});
+          animTime = 1500;
+      } else if (text.includes('good') || text.includes('thumbs')) {
+          juniorModel.setAttribute('animation-mixer', {clip: 'ThumbsUp', loop: 'once', clampWhenFinished: true});
+          animTime = 2000;
+      } else if (text.includes('dance')) {
+          juniorModel.setAttribute('animation-mixer', {clip: 'Dance', loop: 'once', clampWhenFinished: true});
+          animTime = 5000;
       }
+      
+      if (animTime > 0) {
+          setTimeout(() => { if(!isMoving) juniorModel.setAttribute('animation-mixer', {clip: 'Idle', loop: 'repeat'}); }, animTime);
+      }
+
+      // Static fallback for GitHub Pages
+      setTimeout(() => {
+        statusEl.textContent = `Junior: "${msg}" [Action triggered]`;
+      }, 500);
     }
 
     function speak(text){
