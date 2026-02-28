@@ -32,8 +32,19 @@
 <body>
   <div class="hint">Click floor to move Junior. Viewport optimized for desktop + Quest.</div>
   <div class="hud">
+    <div class="row" style="margin-bottom: 8px;">
+      <select id="actionSelect" style="flex:1; background:#111a33; color:#e9efff; border:1px solid #3f5fc2; border-radius:10px; padding:8px; font-size:14px; pointer-events: auto;">
+        <option value="">-- Choose an action --</option>
+        <option value="hello">Wave (hello, hi)</option>
+        <option value="yes">Nod (yes, agree)</option>
+        <option value="no">Shake Head (no, disagree)</option>
+        <option value="jump">Jump (jump, yay, excited)</option>
+        <option value="good">Thumbs Up (good, great)</option>
+        <option value="dance">Dance</option>
+      </select>
+    </div>
     <div class="row">
-      <input id="userInput" type="text" placeholder="Talk to Junior..." />
+      <input id="userInput" type="text" placeholder="Or type here..." />
       <button id="sendBtn">Send</button>
     </div>
     <div id="status">Lab ready. Click floor to move Junior.</div>
@@ -164,6 +175,29 @@
             juniorModel.setAttribute('animation-mixer', {clip: 'Idle', loop: 'repeat'});
             isWalking = false;
           }
+          
+          // GAZE TRACKING (Works on mobile/desktop/VR)
+          // Always try to face the active camera when idle
+          const cameraEl = document.querySelector('a-camera') || document.querySelector('[camera]');
+          if (cameraEl && cameraEl.object3D) {
+             const camPos = cameraEl.object3D.position;
+             const botPos = junior.object3D.position;
+             // Calculate angle to camera
+             const dx = camPos.x - botPos.x;
+             const dz = camPos.z - botPos.z;
+             const targetRotY = Math.atan2(dx, dz);
+             
+             // Smooth rotation (slerp-like)
+             let currentRotY = junior.object3D.rotation.y;
+             let diff = targetRotY - currentRotY;
+             while (diff < -Math.PI) diff += Math.PI * 2;
+             while (diff > Math.PI) diff -= Math.PI * 2;
+             
+             // Only turn if the difference is noticeable
+             if (Math.abs(diff) > 0.05) {
+                 junior.object3D.rotation.y += diff * 0.08;
+             }
+          }
           return;
         }
         
@@ -249,6 +283,14 @@
       respond(msg);
       userInput.value = '';
     };
+    
+    document.getElementById('actionSelect').addEventListener('change', (e) => {
+      const val = e.target.value;
+      if (val) {
+        respond(val);
+        e.target.value = ''; // reset dropdown
+      }
+    });
 
     userInput.onkeydown = (e) => {
       if(e.key === 'Enter') sendBtn.click();
