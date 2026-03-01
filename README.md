@@ -36,14 +36,8 @@ Remote Viewer is not just a file dump — it is a curated operational interface.
 - `junior-xr-lab-2026-02-28/`
   - WebXR lab experience
 
-- `summaries/`
-  - `index.html` summary browser + summary markdown files
-
 - `docs/`
   - `index.html` docs hub + contracts/references/ops docs
-
-- `tools/`
-  - Utility tools (currently Gemini Ping Checker)
 
 - `archive/`
   - Archive lane page (currently empty/reset)
@@ -105,3 +99,10 @@ Every page should either:
 - preserve meaningful continuity.
 
 Everything else should be archived or removed.
+
+## Privacy Boundary Update (2026-03-01)
+
+- End-of-day summaries were removed from the public Remote Viewer due potential sensitive context.
+- Gemini Ping Checker was removed from the public Remote Viewer (requires private API key).
+- Internal/canonical summaries remain in `../session-summaries/`.
+- Local-only ping utility preserved in `../tools-local/gemini-ping-checker-local.html`.
