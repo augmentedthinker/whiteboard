@@ -4,7 +4,7 @@ Purpose: make delegated implementation reliable across sessions/runtimes.
 
 ## 1) Preflight (mandatory, before any edits)
 1. Confirm target repo path exists.
-2. Confirm required files exist (example: `index.html`, `archived.html`).
+2. Confirm required files exist (example: `index.html`, `archive/index.html`).
 3. Run `git remote -v` and `git branch --show-current`.
 4. If any preflight check fails, STOP and report exactly what is missing.
 
@@ -39,7 +39,7 @@ If blocked:
 ## 7) Path Lock & Repo Identity (new)
 - Every task must include an explicit **Target Repo Path**.
 - Junior must print `pwd` and it must exactly match Target Repo Path before edits.
-- Junior must verify sentinel files exist (e.g., `index.html`, `todays-artifacts.html`).
+- Junior must verify sentinel files exist (e.g., `index.html`, `today/index.html`).
 - Junior must run `git remote -v` and `git branch --show-current` and include output in report.
 - If path is wrong or missing, STOP (do not auto-switch to a guessed fallback path).
 
