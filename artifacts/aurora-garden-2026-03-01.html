@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Aurora Garden — 2026-03-01</title>
+  <style>
+    :root{--txt:#eaf6ff;--muted:#b6c9e6}
+    html,body{margin:0;height:100%;overflow:hidden;background:#03060f;color:var(--txt);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    canvas{position:fixed;inset:0;width:100%;height:100%}
+    .veil{position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 120%, rgba(0,0,0,.0), rgba(0,0,0,.35) 55%, rgba(0,0,0,.7) 100%)}
+    .hud{position:fixed;left:50%;transform:translateX(-50%);bottom:max(14px,env(safe-area-inset-bottom));text-align:center;padding:10px 14px;border:1px solid rgba(155,195,255,.35);border-radius:12px;background:rgba(7,13,30,.45);backdrop-filter:blur(8px);max-width:min(92vw,760px)}
+    h1{margin:0;font-size:clamp(1rem,3.6vw,1.3rem)}
+    p{margin:.25rem 0 0;color:var(--muted);font-size:clamp(.78rem,2.9vw,.93rem)}
+    .sig{position:fixed;top:max(10px,env(safe-area-inset-top));right:max(10px,env(safe-area-inset-right));text-decoration:none;color:#d9e8ff;background:rgba(14,22,48,.7);border:1px solid rgba(155,195,255,.45);padding:8px 11px;border-radius:10px;font-size:.84rem}
+  </style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <div class="veil"></div>
+  <a class="sig" href="aurora-garden-2026-03-01-signature.html">🧠</a>
+  <div class="hud">
+    <h1>Aurora Garden</h1>
+    <p>Move your finger or cursor to bend the light field.</p>
+  </div>
+<script>
+const c=document.getElementById('c'),x=c.getContext('2d');
+let w,h,dpr,stems=[],t=0; const p={x:.5,y:.5};
+function rs(){dpr=Math.min(devicePixelRatio||1,2);w=innerWidth;h=innerHeight;c.width=w*dpr;c.height=h*dpr;x.setTransform(dpr,0,0,dpr,0,0);mk();}
+function mk(){const n=Math.floor((w*h)/9000);stems=Array.from({length:n},()=>({bx:Math.random()*w,by:h+Math.random()*120,len:120+Math.random()*260,ph:Math.random()*6.28,s:0.5+Math.random()*1.2,h:170+Math.random()*120}))}
+addEventListener('resize',rs);
+addEventListener('mousemove',e=>{p.x=e.clientX/w;p.y=e.clientY/h},{passive:true});
+addEventListener('touchmove',e=>{const a=e.touches[0]; if(a){p.x=a.clientX/w;p.y=a.clientY/h;}},{passive:true});
+function frame(ms){t=ms*0.001; x.fillStyle='rgba(3,6,15,0.16)'; x.fillRect(0,0,w,h);
+ const gx=(p.x-.5)*80, gy=(p.y-.5)*60;
+ const g=x.createRadialGradient(w*(.2+p.x*.3),h*(.1+p.y*.2),20,w*(.5+p.x*.1),h*(.4+p.y*.1),Math.max(w,h));
+ g.addColorStop(0,'rgba(120,220,255,.14)'); g.addColorStop(.45,'rgba(146,102,255,.09)'); g.addColorStop(1,'rgba(0,0,0,0)'); x.fillStyle=g; x.fillRect(0,0,w,h);
+ for(const s of stems){
+  x.beginPath();
+  const sway=Math.sin(t*s.s+s.ph)*18 + gx*(.1+s.s*.08);
+  const tipX=s.bx+sway, tipY=s.by-s.len+Math.sin(t*1.4+s.ph)*8+gy*.06;
+  const cp1x=s.bx+sway*.4, cp1y=s.by-s.len*.35;
+  const cp2x=s.bx+sway*.85, cp2y=s.by-s.len*.72;
+  x.moveTo(s.bx,s.by); x.bezierCurveTo(cp1x,cp1y,cp2x,cp2y,tipX,tipY);
+  x.strokeStyle=`hsla(${s.h},95%,70%,.30)`; x.lineWidth=1.2+s.s*.7; x.stroke();
+  x.beginPath(); x.arc(tipX,tipY,1.2+s.s*1.2,0,Math.PI*2); x.fillStyle=`hsla(${s.h+30},100%,78%,.55)`; x.fill();
+ }
+ requestAnimationFrame(frame);
+}
+rs(); requestAnimationFrame(frame);
+</script>
+</body>
+</html>
