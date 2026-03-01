@@ -33,6 +33,8 @@
       <h1>📊 Usage Gauges</h1>
       <p class="muted">Manual refresh only (no auto loops). Paste a <code>session_status</code> snapshot and click refresh.</p>
       <p class="small">Expected pattern example: <code>Usage: 5h 86% left ... Day 50% left</code></p>
+      <p class="muted"><strong>Important:</strong> This hosted page is a manual visualizer. For true live pull, use the local app at <code>http://127.0.0.1:8789</code> (manual refresh, no auto loops).</p>
+      <div class="btns"><button onclick="window.open('http://127.0.0.1:8789','_blank')">Open Local Live Gauges</button></div>
       <textarea id="raw" placeholder="Paste session_status text here..."></textarea>
       <div class="btns">
         <button id="refresh">Refresh Gauges</button>
