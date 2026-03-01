@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Solar Caustics — 2026-03-01</title>
+  <style>
+    :root{--bg:#1a0b02;--txt:#fff3e0;--accent:#ff9900}
+    html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font-family:Inter,system-ui,-apple-system,sans-serif}
+    canvas{position:fixed;inset:0;width:100%;height:100%}
+    .hud{position:fixed;left:50%;transform:translateX(-50%);bottom:max(14px,env(safe-area-inset-bottom));text-align:center;padding:12px 18px;border:1px solid rgba(255,153,0,.25);border-radius:12px;background:rgba(26,11,2,.6);backdrop-filter:blur(10px);max-width:min(92vw,760px);pointer-events:none;box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+    h1{margin:0;font-size:clamp(1.1rem,3.8vw,1.4rem);letter-spacing:0.03em;color:#ffb732;text-transform:uppercase}
+    p{margin:.3rem 0 0;opacity:0.8;font-size:clamp(.8rem,3vw,.95rem)}
+    .sig{position:fixed;top:max(10px,env(safe-area-inset-top));right:max(10px,env(safe-area-inset-right));text-decoration:none;color:#ffea00;background:rgba(30,15,5,.7);border:1px solid rgba(255,153,0,.4);padding:8px 11px;border-radius:10px;font-size:.84rem;box-shadow:0 4px 12px rgba(255,100,0,0.2);pointer-events:auto}
+    .sig:hover{background:rgba(50,25,10,.8)}
+  </style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <a class="sig" href="solar-caustics-2026-03-01-signature.html">🧠</a>
+  <div class="hud">
+    <h1>Solar Caustics</h1>
+    <p>Bask in the amber waves. Touch the liquid sun.</p>
+  </div>
+<script>
+const canvas=document.getElementById('c'), ctx=canvas.getContext('2d');
+let w, h, dpr, t=0;
+const pointer={x:0, y:0, active:false, power:0};
+
+function resize(){
+  dpr=Math.min(window.devicePixelRatio||1,2);
+  w=window.innerWidth; h=window.innerHeight;
+  canvas.width=w*dpr; canvas.height=h*dpr;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+
+function onMove(e){
+  const pt = e.touches ? e.touches[0] : e;
+  pointer.x = pt.clientX; pointer.y = pt.clientY;
+  pointer.active = true;
+  pointer.power = 1;
+}
+
+window.addEventListener('resize', resize);
+window.addEventListener('mousemove', onMove);
+window.addEventListener('touchmove', onMove, {passive:false});
+window.addEventListener('touchstart', onMove, {passive:false});
+window.addEventListener('touchend', () => pointer.active = false);
+
+class Wave {
+  constructor(x,y,r,s,a) {
+    this.x=x; this.y=y; this.r=r; this.speed=s; this.alpha=a;
+  }
+  update() { this.r += this.speed; this.alpha -= 0.005; }
+  draw() {
+    if(this.alpha <= 0) return;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+    ctx.lineWidth = 2 + this.r*0.01;
+    ctx.strokeStyle = `rgba(255, ${150 + Math.random()*50}, 0, ${this.alpha * 0.3})`;
+    ctx.stroke();
+  }
+}
+
+const waves = [];
+
+function frame(ms){
+  t = ms * 0.001;
+  pointer.power *= 0.96;
+  
+  const bgGrad = ctx.createRadialGradient(w/2, 0, 0, w/2, h/2, Math.max(w,h));
+  bgGrad.addColorStop(0, '#3a1800');
+  bgGrad.addColorStop(0.5, '#140600');
+  bgGrad.addColorStop(1, '#050200');
+  ctx.fillStyle = bgGrad;
+  ctx.fillRect(0,0,w,h);
+
+  const numRays = 12;
+  const cx = w/2;
+  const cy = -h*0.1;
+  for(let i=0; i<numRays; i++){
+    const angle = (i/numRays) * Math.PI + t*0.1;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + Math.cos(angle)*w*2, cy + Math.sin(angle)*w*2);
+    ctx.lineWidth = w*0.1;
+    ctx.strokeStyle = `rgba(255, 120, 0, ${0.03 + Math.sin(t + i)*0.02})`;
+    ctx.stroke();
+  }
+
+  if (pointer.active && Math.random() > 0.6) {
+    waves.push(new Wave(pointer.x, pointer.y, 10, 3 + Math.random()*3, 0.6));
+  }
+
+  if (!pointer.active && Math.random() > 0.95) {
+    waves.push(new Wave(w/2, h/2, 50, 1.5, 0.4));
+  }
+
+  for(let i=waves.length-1; i>=0; i--){
+    waves[i].update();
+    waves[i].draw();
+    if(waves[i].alpha <= 0) waves.splice(i, 1);
+  }
+
+  if (pointer.power > 0.01) {
+    const glow = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, 150*pointer.power);
+    glow.addColorStop(0, `rgba(255, 200, 50, ${0.4 * pointer.power})`);
+    glow.addColorStop(1, 'rgba(255, 100, 0, 0)');
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(pointer.x, pointer.y, 150*pointer.power, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  requestAnimationFrame(frame);
+}
+
+resize();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
