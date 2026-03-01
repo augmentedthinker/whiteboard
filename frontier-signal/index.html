@@ -70,7 +70,7 @@
   }
 
   async function boot(){
-    const meta = await (await fetch('./reports/reports.json')).json();
+    const meta = await (await fetch('./reports/reports.json?t=' + Date.now(), {cache: 'no-store'})).json();
     meta.reports.forEach(file=>{
       const opt=document.createElement('option');
       opt.value=file; opt.textContent=file.replace('frontier-signal-digest-','').replace('.md','');
