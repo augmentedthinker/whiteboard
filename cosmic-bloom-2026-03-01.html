@@ -15,12 +15,15 @@
     h1{margin:0;font-size:clamp(1rem,3.6vw,1.35rem);letter-spacing:.02em}
     p{margin:.25rem 0 0;color:var(--muted);font-size:clamp(.78rem,2.9vw,.93rem)}
     .top{position:fixed;top:max(10px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);font-size:.78rem;color:#b5c8ef;background:rgba(8,12,30,.35);border:1px solid rgba(153,184,255,.22);padding:6px 10px;border-radius:999px;backdrop-filter: blur(6px)}
+    .analysis-btn{position:fixed;right:max(10px,env(safe-area-inset-right));top:max(10px,env(safe-area-inset-top));text-decoration:none;color:#dbe8ff;background:rgba(12,19,44,.75);border:1px solid rgba(153,184,255,.45);padding:9px 12px;border-radius:10px;font-size:.82rem;backdrop-filter: blur(6px);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+    .analysis-btn:hover{background:rgba(22,33,74,.88)}
   </style>
 </head>
 <body>
   <canvas id="c"></canvas>
   <div class="vignette"></div>
   <div class="top">Saber Artifact · Cosmic Bloom</div>
+  <a class="analysis-btn" href="cosmic-bloom-2026-03-01-prompt-analysis.html">Prompt Analysis</a>
   <div class="hud">
     <h1>Christopher, your focus bends the field.</h1>
     <p>Move your finger/mouse to sculpt gravity. Tap/click to trigger a bloom wave.</p>
