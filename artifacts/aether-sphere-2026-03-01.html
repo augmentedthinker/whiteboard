@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Aether Sphere — 2026-03-01</title>
+  <style>
+    :root{--txt:#f0f8ff;--muted:#a0b8d6}
+    html,body{margin:0;height:100%;overflow:hidden;background:#05070e;color:var(--txt);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    canvas{position:fixed;inset:0;width:100%;height:100%}
+    .veil{position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 50%, transparent 40%, rgba(2,3,8,0.85) 100%)}
+    .hud{position:fixed;left:50%;transform:translateX(-50%);bottom:max(14px,env(safe-area-inset-bottom));text-align:center;padding:10px 14px;border:1px solid rgba(135,185,255,.25);border-radius:12px;background:rgba(5,9,20,.65);backdrop-filter:blur(12px);max-width:min(92vw,760px)}
+    h1{margin:0;font-size:clamp(1rem,3.6vw,1.3rem);letter-spacing:0.02em;}
+    p{margin:.25rem 0 0;color:var(--muted);font-size:clamp(.78rem,2.9vw,.93rem)}
+    .sig{position:fixed;top:max(10px,env(safe-area-inset-top));right:max(10px,env(safe-area-inset-right));text-decoration:none;color:#d9e8ff;background:rgba(10,16,36,.7);border:1px solid rgba(135,185,255,.45);padding:8px 11px;border-radius:10px;font-size:.84rem}
+  </style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <div class="veil"></div>
+  <a class="sig" href="aether-sphere-2026-03-01-signature.html">🧠</a>
+  <div class="hud">
+    <h1>Aether Sphere</h1>
+    <p>Drag to rotate the core. Tap to pulse.</p>
+  </div>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let w, h, dpr, nodes = [], t = 0;
+const p = { x: 0, y: 0, isDragging: false, lx: 0, ly: 0, rotX: 0, rotY: 0, pulse: 0 };
+
+function resize() {
+  dpr = Math.min(window.devicePixelRatio || 1, 2);
+  w = window.innerWidth; h = window.innerHeight;
+  canvas.width = w * dpr; canvas.height = h * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  initNodes();
+}
+
+function initNodes() {
+  const count = Math.min(Math.floor((w * h) / 3500), 400);
+  nodes = [];
+  const phi = Math.PI * (3 - Math.sqrt(5));
+  for (let i = 0; i < count; i++) {
+    const y = 1 - (i / (count - 1)) * 2;
+    const radius = Math.sqrt(1 - y * y);
+    const theta = phi * i;
+    nodes.push({
+      x: Math.cos(theta) * radius,
+      y: y,
+      z: Math.sin(theta) * radius,
+      baseX: Math.cos(theta) * radius,
+      baseY: y,
+      baseZ: Math.sin(theta) * radius
+    });
+  }
+}
+
+window.addEventListener('resize', resize);
+window.addEventListener('mousedown', e => { p.isDragging = true; p.lx = e.clientX; p.ly = e.clientY; p.pulse = 1; });
+window.addEventListener('mousemove', e => {
+  if (p.isDragging) {
+    p.rotY += (e.clientX - p.lx) * 0.005;
+    p.rotX -= (e.clientY - p.ly) * 0.005;
+    p.lx = e.clientX; p.ly = e.clientY;
+  }
+});
+window.addEventListener('mouseup', () => { p.isDragging = false; });
+window.addEventListener('touchstart', e => { p.isDragging = true; p.lx = e.touches[0].clientX; p.ly = e.touches[0].clientY; p.pulse = 1; }, {passive:true});
+window.addEventListener('touchmove', e => {
+  if (p.isDragging) {
+    p.rotY += (e.touches[0].clientX - p.lx) * 0.005;
+    p.rotX -= (e.touches[0].clientY - p.ly) * 0.005;
+    p.lx = e.touches[0].clientX; p.ly = e.touches[0].clientY;
+  }
+}, {passive:true});
+window.addEventListener('touchend', () => { p.isDragging = false; });
+
+function rotate3D(x, y, z, ax, ay) {
+  // Rotate around X
+  let cosX = Math.cos(ax), sinX = Math.sin(ax);
+  let y1 = y * cosX - z * sinX;
+  let z1 = y * sinX + z * cosX;
+  // Rotate around Y
+  let cosY = Math.cos(ay), sinY = Math.sin(ay);
+  let x2 = x * cosY + z1 * sinY;
+  let z2 = -x * sinY + z1 * cosY;
+  return { x: x2, y: y1, z: z2 };
+}
+
+function frame(ms) {
+  t = ms * 0.001;
+  p.pulse *= 0.95;
+  
+  if (!p.isDragging) {
+    p.rotY += 0.002;
+    p.rotX += 0.001;
+  }
+
+  ctx.fillStyle = 'rgba(5, 7, 14, 0.4)';
+  ctx.fillRect(0, 0, w, h);
+
+  const cx = w / 2;
+  const cy = h / 2;
+  const radius = Math.min(w, h) * 0.35 * (1 + p.pulse * 0.2);
+
+  const projected = [];
+  
+  for (const n of nodes) {
+    // Add some noise based on time
+    const noise = Math.sin(t * 2 + n.baseX * 5) * 0.05 + Math.cos(t * 1.5 + n.baseY * 5) * 0.05;
+    n.x = n.baseX * (1 + noise * p.pulse * 2);
+    n.y = n.baseY * (1 + noise * p.pulse * 2);
+    n.z = n.baseZ * (1 + noise * p.pulse * 2);
+
+    const r3d = rotate3D(n.x, n.y, n.z, p.rotX, p.rotY);
+    const scale = 200 / (200 - r3d.z * 100);
+    const px = cx + r3d.x * radius * scale;
+    const py = cy + r3d.y * radius * scale;
+    projected.push({ px, py, z: r3d.z, o: n });
+  }
+
+  projected.sort((a, b) => a.z - b.z);
+
+  // Draw connections
+  ctx.lineWidth = 1;
+  for (let i = 0; i < projected.length; i++) {
+    const p1 = projected[i];
+    if (p1.z > 0.5) continue; // cull back
+    
+    // Connect to nearby nodes
+    let connections = 0;
+    for (let j = i + 1; j < projected.length && connections < 3; j++) {
+      const p2 = projected[j];
+      const dx = p1.o.baseX - p2.o.baseX;
+      const dy = p1.o.baseY - p2.o.baseY;
+      const dz = p1.o.baseZ - p2.o.baseZ;
+      const dist = dx*dx + dy*dy + dz*dz;
+      
+      if (dist < 0.15) {
+        const alpha = (1 - (p1.z + 1) / 2) * 0.6;
+        const hue = 210 + (p1.px / w) * 60 + p.pulse * 40;
+        ctx.strokeStyle = `hsla(${hue}, 80%, 70%, ${alpha})`;
+        ctx.beginPath();
+        ctx.moveTo(p1.px, p1.py);
+        ctx.lineTo(p2.px, p2.py);
+        ctx.stroke();
+        connections++;
+      }
+    }
+  }
+
+  // Draw nodes
+  for (const p1 of projected) {
+    const alpha = (1 - (p1.z + 1) / 2);
+    const size = Math.max(0.5, (1.5 - p1.z) * 1.5);
+    const hue = 210 + (p1.py / h) * 60;
+    
+    ctx.fillStyle = `hsla(${hue}, 90%, 80%, ${alpha * 0.9})`;
+    ctx.beginPath();
+    ctx.arc(p1.px, p1.py, size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  requestAnimationFrame(frame);
+}
+
+resize();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
