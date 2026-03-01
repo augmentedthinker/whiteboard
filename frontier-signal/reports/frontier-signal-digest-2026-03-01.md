@@ -1,44 +1,31 @@
 # Frontier Signal Digest — 2026-03-01
 
-*Generated: 2026-03-01 16:19 EST*
+*Generated: 2026-03-01 17:06 EST*
 
-## 1. How to Make OpenClaw 10x More Powerful
-**Creator:** OpenClaw Community
-**Source:** [https://www.youtube.com/watch?v=0soFIReWb1w](https://www.youtube.com/watch?v=0soFIReWb1w)
+## 1) OpenClaw repo: practical personal-agent stack
+- **Publisher:** OpenClaw (GitHub)
+- **URL:** https://github.com/openclaw/openclaw
+- **Summary:** The OpenClaw repository presents a production-minded personal agent runtime spanning messaging channels, browser automation, voice I/O, and tool orchestration. It emphasizes running on your own devices with direct control over integrations and workflows.
+- **Why it matters:** This is direct infrastructure for shipping visible agent artifacts quickly. It supports Christopher’s credibility runway by enabling repeatable demos and operator-grade automations, not just commentary.
+- **Image:** ![Signal 1](../assets/2026-03-01/signal-1.png)
 
-![How to Make OpenClaw 10x More Powerful](../assets/2026-03-01/signal-1.png)
+## 2) OpenAI Agents guide: modular agent building and deployment
+- **Publisher:** OpenAI Developers
+- **URL:** https://developers.openai.com/api/docs/guides/agents
+- **Summary:** The Agents guide frames agents as systems for open-ended workflows and introduces a modular toolkit approach (AgentKit) for design, deployment, and optimization. The focus is reliable multi-step execution with built-in platform components.
+- **Why it matters:** This raises the baseline for reliable agent implementations and clarifies which pieces can be offloaded to managed primitives. It helps decide where to use hosted agent infrastructure versus local orchestration.
+- **Image:** ![Signal 2](../assets/2026-03-01/signal-2.png)
 
-**Why it matters:**
-- Showcases advanced integrations and workflows for OpenClaw.
-- Directly impacts toolchain sustainability and automation capabilities.
-- Essential knowledge for pushing the boundaries of what local AI agents can execute.
-
-## 2. OpenClaw viral AI agent - Lex Fridman
-**Creator:** Lex Fridman
-**Source:** [https://www.youtube.com/watch?v=YFjfBk8HI5o](https://www.youtube.com/watch?v=YFjfBk8HI5o)
-
-![OpenClaw viral AI agent](../assets/2026-03-01/signal-2.png)
-
-**Why it matters:**
-- Highlights the mainstream penetration and viral nature of OpenClaw.
-- Provides high-level credibility and exposure for the AI agent ecosystem.
-- Shifts the conversation from niche developer tool to general-purpose computing paradigm.
-
-## 3. OpenClaw Creator: Why 80% Of Apps Will Disappear
-**Creator:** OpenClaw Creator
-**Source:** [https://www.youtube.com/watch?v=4uzGDAoNOZc](https://www.youtube.com/watch?v=4uzGDAoNOZc)
-
-![Why 80% Of Apps Will Disappear](../assets/2026-03-01/signal-3.png)
-
-**Why it matters:**
-- Offers a direct strategic vision from the creator of OpenClaw on the future of software.
-- Validates the vibe-coding and agent-first workflow over traditional app UIs.
-- Signals a massive shift in how we should build and deploy tools moving forward.
+## 3) VS Code updates: stronger built-in agent loop for coding
+- **Publisher:** Microsoft / VS Code
+- **URL:** https://code.visualstudio.com/updates
+- **Summary:** Recent VS Code updates highlight agent-centric capabilities including message queueing, hooks for lifecycle events, and compatibility with external config patterns. These are concrete upgrades to day-to-day coding with AI copilots.
+- **Why it matters:** This directly improves vibe-coding throughput: less waiting, better control points, and smoother iteration. For shipping cadence, these workflow gains compound quickly over a week.
+- **Image:** ![Signal 3](../assets/2026-03-01/signal-3.png)
 
 ---
 
 ## Operator Notes
-
-- **Action 1:** Review the "10x More Powerful" workflow to see if any new toolchain integrations can be adopted immediately.
-- **Action 2:** Leverage the mainstream momentum to position our own artifacts as cutting-edge agent implementations.
-- **Action 3:** Shift development focus away from traditional UI building toward pure API and agent-executable scripts.
+- Build one public mini-artifact this week using OpenClaw as orchestration glue and document setup-to-output time.
+- Run an A/B test: hosted-agent-heavy workflow vs local-agent-heavy workflow for the same coding task.
+- Keep source quality discipline: official docs/repos first, social commentary second.

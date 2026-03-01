@@ -6,18 +6,15 @@ import os from 'node:os';
 function tryLoadGeminiKey() {
   if (process.env.GEMINI_API_KEY) return process.env.GEMINI_API_KEY;
 
-  // 1) Private local secrets file
   try {
     const secretsPath = path.join(os.homedir(), '.config', 'openclaw', 'secrets.env');
     if (fsSync.existsSync(secretsPath)) {
       const txt = fsSync.readFileSync(secretsPath, 'utf8');
-      const m = txt.match(/^\s*GEMINI_API_KEY\s*=\s*["']?([^"'
-]+)["']?\s*$/m);
+      const m = txt.match(/^\s*GEMINI_API_KEY\s*=\s*["']?([^"'\n\r]+)["']?\s*$/m);
       if (m?.[1]) return m[1].trim();
     }
   } catch {}
 
-  // 2) OpenClaw auth profile for atlas-signal-desk
   try {
     const authPath = path.join(os.homedir(), '.openclaw', 'agents', 'atlas-signal-desk', 'agent', 'auth-profiles.json');
     if (fsSync.existsSync(authPath)) {
@@ -36,64 +33,53 @@ if (!API_KEY) {
   process.exit(1);
 }
 
-// Extract arguments: node generate_images.mjs <model> <prompt> <output_path>
 const [, , model, prompt, outPath] = process.argv;
-
 if (!model || !prompt || !outPath) {
   console.error('Usage: node generate_images.mjs <model> <prompt> <output_path>');
   process.exit(1);
 }
 
 async function generateImage() {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:predict?key=${API_KEY}`;
-  
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${API_KEY}`;
   const payload = {
-    instances: [
-      { prompt: prompt }
-    ],
-    parameters: {
-      sampleCount: 1,
-      aspectRatio: '1:1'
-    }
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: { responseModalities: ['TEXT', 'IMAGE'] }
   };
 
-  try {
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
-    });
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
 
-    if (!res.ok) {
-      const err = await res.text();
-      console.error(`API Error (${res.status}):`, err);
-      process.exit(1);
-    }
-
-    const data = await res.json();
-    const b64 = data?.predictions?.[0]?.bytesBase64Encoded;
-    if (!b64) {
-      console.error('No base64 image data returned in response:', JSON.stringify(data).slice(0, 500));
-      process.exit(1);
-    }
-
-    const buf = Buffer.from(b64, 'base64');
-    
-    if (buf.length < 10240) {
-      console.error(`Generated image is too small (${buf.length} bytes), rejecting.`);
-      process.exit(1);
-    }
-    
-    await fs.mkdir(path.dirname(outPath), { recursive: true });
-    await fs.writeFile(outPath, buf);
-    console.log(`Image successfully generated and saved to ${outPath}`);
-    
-  } catch (e) {
-    console.error('Fetch/Execution error:', e.message);
+  if (!res.ok) {
+    const err = await res.text();
+    console.error(`API Error (${res.status}): ${err}`);
     process.exit(1);
   }
+
+  const data = await res.json();
+  const parts = data?.candidates?.[0]?.content?.parts || [];
+  const imgPart = parts.find(p => p.inlineData?.data || p.inline_data?.data);
+  const b64 = imgPart?.inlineData?.data || imgPart?.inline_data?.data;
+
+  if (!b64) {
+    console.error('No base64 image data returned:', JSON.stringify(data).slice(0, 1500));
+    process.exit(1);
+  }
+
+  const buf = Buffer.from(b64, 'base64');
+  if (buf.length < 10240) {
+    console.error(`Generated image is too small (${buf.length} bytes), rejecting.`);
+    process.exit(1);
+  }
+
+  await fs.mkdir(path.dirname(outPath), { recursive: true });
+  await fs.writeFile(outPath, buf);
+  console.log(`Image successfully generated and saved to ${outPath}`);
 }
 
-generateImage();
+generateImage().catch((e) => {
+  console.error('Fetch/Execution error:', e.message);
+  process.exit(1);
+});
