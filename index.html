@@ -95,6 +95,25 @@
             65% { transform: translateX(130%); opacity: .2; }
             100% { transform: translateX(130%); opacity: 0; }
         }
+        .under-construction { position: relative; overflow: hidden; }
+        .under-construction::after {
+            content: "UNDER CONSTRUCTION";
+            position: absolute;
+            top: 44%; left: -20%; width: 145%;
+            transform: rotate(-12deg);
+            background: repeating-linear-gradient(45deg, #f4d03f 0 14px, #111 14px 22px);
+            color: #111;
+            text-align: center;
+            font-weight: 800;
+            letter-spacing: .12em;
+            padding: 8px 0;
+            border-top: 2px solid rgba(0,0,0,.35);
+            border-bottom: 2px solid rgba(0,0,0,.35);
+            box-shadow: 0 6px 18px rgba(0,0,0,.35);
+            pointer-events: none;
+            z-index: 2;
+        }
+
         #viewer {
             display: none;
             background: rgba(22, 27, 34, 0.95);
@@ -178,7 +197,7 @@
                 <small>Manual utilities (no background polling loops)</small>
             </div>
 
-            <div class="file-item" onclick="window.open('clawdhub/index.html','_blank')">
+            <div class="file-item under-construction" onclick="window.open('clawdhub/index.html','_blank')">
                 <strong>🦞 CLAWDHUB</strong><br>
                 <small>Archive of OpenClaw power-ups, tutorials, and implementations.</small>
             </div>
