@@ -62,6 +62,11 @@
         <option value="Charon">Voice: Gemini Charon (Deep)</option>
       </select>
     </div>
+    <div class="row" style="margin-top: 8px;">
+      <input id="geminiKeyInput" type="password" placeholder="Optional Gemini API key for premium voices" />
+      <button id="saveKeyBtn" class="mini-btn" type="button">Save Key</button>
+      <button id="clearKeyBtn" class="mini-btn" type="button">Clear</button>
+    </div>
     <div id="status" style="margin-top: 8px;">Lab ready. Click floor to move Junior.</div>
   </div>
 
@@ -120,7 +125,11 @@
     const cameraEl = document.querySelector('a-camera') || document.querySelector('[camera]');
     const leftHand = document.getElementById('leftHand');
     const rightHand = document.getElementById('rightHand');
-    const geminiKey = (localStorage.getItem('gemini_api_key') || window.GEMINI_API_KEY || '').trim();
+    let geminiKey = (localStorage.getItem('gemini_api_key') || window.GEMINI_API_KEY || '').trim();
+    const geminiKeyInput = document.getElementById('geminiKeyInput');
+    const saveKeyBtn = document.getElementById('saveKeyBtn');
+    const clearKeyBtn = document.getElementById('clearKeyBtn');
+    const voiceSelect = document.getElementById('voiceSelect');
 
     const capabilities = {
       touch: ('ontouchstart' in window) || navigator.maxTouchPoints > 0,
@@ -148,6 +157,7 @@
         window.speechSynthesis && window.speechSynthesis.speak(u);
         audioUnlocked = true;
         audioBtn.textContent = 'Audio Ready';
+        refreshVoiceStatus();
       } catch(_){}
     }
 
@@ -323,11 +333,52 @@ Keep responses to exactly 1 short conversational sentence.`;
       }
     }
 
+    function refreshVoiceStatus(){
+      const mode = voiceSelect.value;
+      if (mode === 'browser') return;
+      statusEl.textContent = geminiKey
+        ? `Premium voice selected (${mode}) · key loaded`
+        : `Premium voice selected (${mode}) but no key saved — using browser voice fallback`;
+    }
+
+    async function decodeAndPlayAudioFromBase64(b64){
+      const binaryStr = window.atob(b64);
+      const len = binaryStr.length;
+      const bytes = new Uint8Array(len);
+      for(let i=0; i<len; i++) bytes[i] = binaryStr.charCodeAt(i);
+
+      if (audioCtx.state === 'suspended') await audioCtx.resume();
+
+      // Try native decode first (works for WAV/MP3/OGG payloads)
+      try {
+        const decoded = await audioCtx.decodeAudioData(bytes.buffer.slice(0));
+        const source = audioCtx.createBufferSource();
+        source.buffer = decoded;
+        source.connect(audioCtx.destination);
+        source.start();
+        return true;
+      } catch(_) {}
+
+      // Fallback: assume raw PCM L16 mono 24k
+      const sampleRate = 24000;
+      const floats = new Float32Array(bytes.length / 2);
+      const view = new DataView(bytes.buffer);
+      for(let i=0; i<floats.length; i++) floats[i] = view.getInt16(i * 2, true) / 32768.0;
+      const audioBuffer = audioCtx.createBuffer(1, floats.length, sampleRate);
+      audioBuffer.getChannelData(0).set(floats);
+      const source = audioCtx.createBufferSource();
+      source.buffer = audioBuffer;
+      source.connect(audioCtx.destination);
+      source.start();
+      return true;
+    }
+
     async function speak(text){
       const voiceMode = document.getElementById('voiceSelect').value;
       
       if (voiceMode === 'browser' || !geminiKey) {
-          statusEl.textContent = statusEl.textContent + ' · Voice: Browser';
+          if (voiceMode !== 'browser' && !geminiKey) statusEl.textContent = 'Gemini voice selected but no key saved — using browser voice';
+          else statusEl.textContent = statusEl.textContent + ' · Voice: Browser';
           // Fallback to standard browser TTS
           if (!('speechSynthesis' in window)) return;
           const u = new SpeechSynthesisUtterance(text);
@@ -377,31 +428,9 @@ Keep responses to exactly 1 short conversational sentence.`;
           }
           
           if (b64) {
-             // Decode and play PCM audio (Google TTS returns raw L16 PCM by default)
-             // Need to wrap it in a wav header or decode it via AudioContext
-             const binaryStr = window.atob(b64);
-             const len = binaryStr.length;
-             const bytes = new Uint8Array(len);
-             for(let i=0; i<len; i++) bytes[i] = binaryStr.charCodeAt(i);
-             
-             // Decode PCM directly using AudioContext
-             // Google TTS returns 24kHz 16-bit PCM.
-             const numChannels = 1;
-             const sampleRate = 24000;
-             const floats = new Float32Array(bytes.length / 2);
-             const view = new DataView(bytes.buffer);
-             for(let i=0; i<floats.length; i++) {
-                 floats[i] = view.getInt16(i * 2, true) / 32768.0; 
-             }
-             
-             if (audioCtx.state === 'suspended') await audioCtx.resume();
-             const audioBuffer = audioCtx.createBuffer(numChannels, floats.length, sampleRate);
-             audioBuffer.getChannelData(0).set(floats);
-             
-             const source = audioCtx.createBufferSource();
-             source.buffer = audioBuffer;
-             source.connect(audioCtx.destination);
-             source.start();
+             await decodeAndPlayAudioFromBase64(b64);
+          } else {
+             throw new Error('No audio payload returned');
           }
       } catch (err) {
           console.error("Gemini TTS Error:", err);
@@ -437,6 +466,25 @@ Keep responses to exactly 1 short conversational sentence.`;
     };
     audioBtn.onclick = unlockAudio;
 
+    saveKeyBtn.onclick = () => {
+      const v = geminiKeyInput.value.trim();
+      if (!v) return;
+      localStorage.setItem('gemini_api_key', v);
+      geminiKey = v;
+      geminiKeyInput.value = '';
+      statusEl.textContent = 'Gemini key saved locally for this browser.';
+      refreshVoiceStatus();
+    };
+
+    clearKeyBtn.onclick = () => {
+      localStorage.removeItem('gemini_api_key');
+      geminiKey = '';
+      statusEl.textContent = 'Gemini key cleared. Premium voices disabled.';
+      refreshVoiceStatus();
+    };
+
+    voiceSelect.addEventListener('change', refreshVoiceStatus);
+
     async function detectXR(){
       try {
         if (navigator.xr && navigator.xr.isSessionSupported) {
@@ -456,6 +504,7 @@ Keep responses to exactly 1 short conversational sentence.`;
       statusEl.textContent = 'Robot model failed to load; movement + chat still available.';
     });
     detectXR();
+    refreshVoiceStatus();
 
     setInterval(robotBeep, 1200);
   </script>
