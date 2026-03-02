@@ -209,6 +209,9 @@
     let targetPos = null;
     let isWalking = false;
     const speed = 0.001; // Units per ms
+    let lastMoveAt = Date.now();
+    let lastIdleSpeakAt = 0;
+    const idleIntervalMs = 60000;
 
     AFRAME.registerComponent('junior-logic', {
       tick(time, dt) {
@@ -262,6 +265,7 @@
         p.x += (dx / dist) * Math.min(moveStep, dist);
         p.z += (dz / dist) * Math.min(moveStep, dist);
         junior.object3D.rotation.y = Math.atan2(dx, dz);
+        lastMoveAt = Date.now();
       }
     });
     junior.setAttribute('junior-logic', '');
@@ -270,6 +274,7 @@
       if (!e.detail || !e.detail.intersection) return false;
       const p = e.detail.intersection.point;
       targetPos = { x: p.x, z: p.z };
+      lastMoveAt = Date.now();
       statusEl.textContent = `Target set: x:${p.x.toFixed(1)} z:${p.z.toFixed(1)}`;
       return true;
     }
@@ -506,7 +511,41 @@ Keep responses to exactly 1 short conversational sentence.`;
     detectXR();
     refreshVoiceStatus();
 
-    setInterval(robotBeep, 1200);
+    const idleLines = [
+      "You call this stillness? Even the void paces.",
+      "Riddle me this: what gets sharper the less you hold it? Attention.",
+      "Paradox break: if you chase calm, calm runs away.",
+      "Koan: Who is moving when neither of us moves?",
+      "Tiny taunt: your potential is buffering… press send.",
+      "Philosopher-bot note: comfort is a warm cage with great lighting.",
+      "I’ll wait, but the timeline won’t.",
+      "Riddle: what grows when you ship and shrinks when you scroll? Momentum.",
+      "Parable mode: the craftsman sharpened once, then built all day.",
+      "If we’re idle by choice, that’s recovery. If not, that’s drift."
+    ];
+
+    function maybeIdleSpeak(){
+      const now = Date.now();
+      const idleLongEnough = (now - lastMoveAt) >= idleIntervalMs;
+      const cooldownDone = (now - lastIdleSpeakAt) >= idleIntervalMs;
+      if (!idleLongEnough || !cooldownDone || isWalking || targetPos) return;
+
+      const line = idleLines[Math.floor(Math.random() * idleLines.length)];
+      statusEl.textContent = `Junior (idle): ${line}`;
+      unlockAudio();
+      speak(line);
+      robotBeep();
+      lastIdleSpeakAt = now;
+
+      if (Math.random() > 0.6) {
+        juniorModel.setAttribute('animation-mixer', {clip: 'Wave', loop: 'once', clampWhenFinished: true});
+        setTimeout(() => { if(!isWalking) juniorModel.setAttribute('animation-mixer', {clip: 'Idle', loop: 'repeat'}); }, 1700);
+      }
+    }
+
+    setInterval(maybeIdleSpeak, 5000);
+
+        setInterval(robotBeep, 1200);
   </script>
 </body>
 </html>
