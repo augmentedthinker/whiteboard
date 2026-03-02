@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rose's Bluebook App — PRD</title>
+  <style>
+    :root { --bg:#0f1220; --card:#171b2e; --text:#ecf0ff; --muted:#b9c2e8; --accent:#8da2ff; --accent2:#ff9ec7; --border:#2b335a; }
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:radial-gradient(circle at top right,#1d2450,var(--bg) 45%);color:var(--text);line-height:1.6}
+    .wrap{width:min(960px,92vw);margin:32px auto}.hero{background:linear-gradient(145deg,#1a2145,#151a33);border:1px solid var(--border);border-radius:20px;padding:28px;box-shadow:0 12px 40px rgba(0,0,0,.35)}
+    h1{margin:0 0 6px;font-size:clamp(1.4rem,3vw,2rem)}.sub{color:var(--muted);margin:0 0 16px}.note{color:#ffd9ea;background:rgba(255,158,199,.08);border:1px solid rgba(255,158,199,.25);border-radius:12px;padding:10px 12px;margin:14px 0 20px}
+    button{cursor:pointer;border:0;border-radius:12px;padding:12px 18px;font-size:1rem;font-weight:700;color:#0b1028;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 8px 24px rgba(141,162,255,.35)}
+    #viewer{margin-top:18px;display:none;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;overflow-x:auto}
+    #viewer h1,#viewer h2,#viewer h3{line-height:1.25}#viewer code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px}#viewer pre{background:#11162b;border:1px solid var(--border);border-radius:10px;padding:12px;overflow-x:auto}
+    #status{margin-left:10px;color:var(--muted);font-size:.95rem}a{color:#b7c6ff}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <h1>For Rose 💙</h1>
+      <p class="sub">I made this little page so you can read the Bluebook Citation App PRD clearly, with clean formatting.</p>
+      <p class="note">You inspire this build. Thank you for letting me create something meaningful for you.</p>
+      <button id="openBtn">Open PRD</button><span id="status"></span>
+      <article id="viewer"></article>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    const btn=document.getElementById('openBtn'),status=document.getElementById('status'),viewer=document.getElementById('viewer');
+    btn.addEventListener('click',async()=>{btn.disabled=true;status.textContent=' Loading...';try{const res=await fetch('./prd.md',{cache:'no-store'});if(!res.ok)throw new Error('Could not load PRD markdown.');const md=await res.text();viewer.innerHTML=marked.parse(md);viewer.style.display='block';status.textContent=' Ready';btn.textContent='Refresh PRD';}catch(err){status.textContent=' Error loading PRD';alert(err.message);}finally{btn.disabled=false;}});
+  </script>
+</body>
+</html>
