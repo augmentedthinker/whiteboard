@@ -38,7 +38,8 @@
             height: 100%;
             z-index: 0;
             pointer-events: none;
-            opacity: 0.55;
+            opacity: 0.72;
+            mix-blend-mode: screen;
         }
         .container {
             position: relative;
@@ -72,6 +73,28 @@
         }
         .file-item strong { font-size: 1rem; display: inline-block; margin-bottom: 2px; }
         .file-item small { color: #9da7b1; font-size: 0.9rem; }
+        .file-item { position: relative; overflow: hidden; }
+        .file-item::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(110deg, rgba(88,166,255,0.00) 10%, rgba(111,208,255,0.10) 45%, rgba(88,166,255,0.00) 90%);
+            transform: translateX(-120%);
+            animation: cardSweep 7s ease-in-out infinite;
+            pointer-events: none;
+        }
+        .file-item:nth-child(2)::before { animation-delay: .8s; }
+        .file-item:nth-child(3)::before { animation-delay: 1.6s; }
+        .file-item:nth-child(4)::before { animation-delay: 2.4s; }
+        .file-item:nth-child(5)::before { animation-delay: 3.2s; }
+        .file-item:nth-child(6)::before { animation-delay: 4.0s; }
+        .file-item:nth-child(7)::before { animation-delay: 4.8s; }
+        @keyframes cardSweep {
+            0%, 35% { transform: translateX(-130%); opacity: .0; }
+            45% { opacity: .65; }
+            65% { transform: translateX(130%); opacity: .2; }
+            100% { transform: translateX(130%); opacity: 0; }
+        }
         #viewer {
             display: none;
             background: rgba(22, 27, 34, 0.95);
@@ -221,6 +244,32 @@
                     ctx.lineTo(w,y + 26);
                     ctx.stroke();
                 }
+
+                for (let i=0;i<particles.length;i++){
+                    const p = particles[i];
+                    for (let j=i+1;j<particles.length;j++){
+                        const q = particles[j];
+                        const dx=p.x-q.x, dy=p.y-q.y;
+                        const d=Math.hypot(dx,dy);
+                        if (d < 120){
+                            ctx.strokeStyle = `rgba(96, 178, 255, ${0.08*(1-d/120)})`;
+                            ctx.lineWidth = 0.7;
+                            ctx.beginPath();
+                            ctx.moveTo(p.x,p.y);
+                            ctx.lineTo(q.x,q.y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                // diagonal beam drift
+                const beamX = ((t*42) % (w+220)) - 220;
+                const beam = ctx.createLinearGradient(beamX,0,beamX+220,h);
+                beam.addColorStop(0,'rgba(120,200,255,0)');
+                beam.addColorStop(0.5,'rgba(120,200,255,0.14)');
+                beam.addColorStop(1,'rgba(120,200,255,0)');
+                ctx.fillStyle = beam;
+                ctx.fillRect(beamX,0,220,h);
 
                 for (const p of particles){
                     p.x += p.vx;
