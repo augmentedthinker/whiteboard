@@ -119,6 +119,24 @@
         }
 
 
+        
+        .fs-btn {
+            position: fixed;
+            top: max(10px, env(safe-area-inset-top));
+            right: max(10px, env(safe-area-inset-right));
+            z-index: 220;
+            background: rgba(15, 25, 48, 0.82);
+            color: #cfe6ff;
+            border: 1px solid rgba(120,170,255,.55);
+            border-radius: 10px;
+            padding: 8px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            backdrop-filter: blur(6px);
+            touch-action: manipulation;
+        }
+        .fs-btn:active { transform: translateY(1px); }
+
         @media (max-width: 900px) {
             body { background-attachment: scroll; }
         }
@@ -130,6 +148,7 @@
 </head>
 <body>
     <canvas id="ambientFx" aria-hidden="true"></canvas>
+    <button id="fsBtn" class="fs-btn" type="button" aria-label="Toggle fullscreen">⛶ Fullscreen</button>
     <div class="container">
         <header id="header">
             <h1>Remote Viewer</h1>
@@ -177,6 +196,36 @@
     </div>
 
     <script>
+
+        const fsBtn = document.getElementById('fsBtn');
+
+        function isFullscreen() {
+            return !!(document.fullscreenElement || document.webkitFullscreenElement);
+        }
+
+        async function toggleFullscreen() {
+            try {
+                const target = document.documentElement;
+                if (!isFullscreen()) {
+                    if (target.requestFullscreen) await target.requestFullscreen();
+                    else if (target.webkitRequestFullscreen) target.webkitRequestFullscreen();
+                } else {
+                    if (document.exitFullscreen) await document.exitFullscreen();
+                    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                }
+            } catch (_) {}
+            syncFsLabel();
+        }
+
+        function syncFsLabel() {
+            fsBtn.textContent = isFullscreen() ? '🡼 Exit Fullscreen' : '⛶ Fullscreen';
+        }
+
+        fsBtn.addEventListener('click', toggleFullscreen);
+        document.addEventListener('fullscreenchange', syncFsLabel);
+        document.addEventListener('webkitfullscreenchange', syncFsLabel);
+        syncFsLabel();
+
         async function loadMarkdown(filename) {
             const response = await fetch(filename);
             const text = await response.text();
