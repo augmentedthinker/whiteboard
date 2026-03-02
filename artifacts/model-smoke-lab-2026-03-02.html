@@ -16,7 +16,7 @@
     .ghost{background:#1c2844;border:1px solid #38527c}.muted{color:var(--muted)}
     .out{white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.84rem;background:#08101f;border:1px solid #243251;border-radius:10px;padding:10px;max-height:240px;overflow:auto}
     .ok{color:#86efac}.bad{color:#fca5a5}.pill{display:inline-block;padding:3px 8px;border:1px solid #32527a;background:#112240;border-radius:999px;font-size:.75rem}
-    img.preview,video.preview{max-width:100%;border-radius:10px;border:1px solid #314766;margin-top:8px}
+    img.preview{max-width:100%;border-radius:10px;border:1px solid #314766;margin-top:8px}
   </style>
 </head>
 <body>
@@ -32,13 +32,24 @@
         <input id="baseUrl" value="https://generativelanguage.googleapis.com/v1beta" />
       </label>
     </div>
+    <div class="row">
+      <button class="ghost" onclick="listModels()">📚 Fetch Available Models (ListModels)</button>
+      <div id="modelsStatus" class="muted" style="align-self:center"></div>
+    </div>
+    <div id="modelsOut" class="out" style="margin-top:8px;display:none"></div>
     <p><span class="pill">No key persistence</span> <span class="pill">Static page</span> <span class="pill">Raw responses visible</span></p>
   </div>
 
   <div class="card">
     <h2>🖼️ Image Test</h2>
     <div class="row">
-      <label>Model ID <input id="imgModel" value="gemini-3.1-flash-image-preview"></label>
+      <label>Model ID
+        <select id="imgModel">
+          <option>gemini-3.1-flash-image-preview</option>
+          <option>gemini-2.5-flash-image</option>
+          <option>gemini-3-pro-image-preview</option>
+        </select>
+      </label>
       <label>Prompt <input id="imgPrompt" value="Futuristic neon observatory above clouds, cinematic lighting"></label>
     </div>
     <button onclick="runImage()">Run Image Test</button>
@@ -50,7 +61,13 @@
   <div class="card">
     <h2>🗣️ Speech Test</h2>
     <div class="row">
-      <label>Model ID <input id="ttsModel" value="gemini-2.5-flash-preview-tts"></label>
+      <label>Model ID
+        <select id="ttsModel">
+          <option>gemini-2.5-flash-preview-tts</option>
+          <option>gemini-2.5-flash</option>
+          <option>gemini-2.0-flash</option>
+        </select>
+      </label>
       <label>Voice <input id="ttsVoice" value="Kore"></label>
     </div>
     <label>Text <textarea id="ttsText">Build with courage. Ship with taste. Let consistency turn ambition into proof.</textarea></label>
@@ -63,7 +80,14 @@
   <div class="row">
     <div class="card">
       <h2>🎵 Music Test (experimental)</h2>
-      <label>Model ID <input id="musicModel" placeholder="paste model id from Gemini tab"></label>
+      <label>Model ID
+        <select id="musicModel">
+          <option value="">-- choose known / likely model --</option>
+          <option>lyria-002</option>
+          <option>lyria-real-time-exp</option>
+          <option>gemini-2.5-flash</option>
+        </select>
+      </label>
       <label>Prompt <textarea id="musicPrompt">Ambient synthwave with warm pads and subtle arpeggio, 12 seconds.</textarea></label>
       <button onclick="runGeneric('music')">Run Music Smoke Test</button>
       <div id="musicStatus" class="muted" style="margin-top:8px"></div>
@@ -72,7 +96,14 @@
 
     <div class="card">
       <h2>🎬 Video Test (experimental)</h2>
-      <label>Model ID <input id="videoModel" placeholder="paste model id from Gemini tab"></label>
+      <label>Model ID
+        <select id="videoModel">
+          <option value="">-- choose known / likely model --</option>
+          <option>veo-2.0-generate-001</option>
+          <option>veo-3.0-generate-preview</option>
+          <option>gemini-2.5-flash</option>
+        </select>
+      </label>
       <label>Prompt <textarea id="videoPrompt">Slow cinematic flythrough of a luminous crystal canyon at dusk.</textarea></label>
       <button onclick="runGeneric('video')">Run Video Smoke Test</button>
       <div id="videoStatus" class="muted" style="margin-top:8px"></div>
@@ -101,6 +132,20 @@ async function call(model,payload){
   const r=await fetch(url,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});
   const j=await r.json().catch(()=>({}));
   return {ok:r.ok,status:r.status,json:j,url};
+}
+async function listModels(){
+  const key=getKey();
+  if(!key){setStatus('modelsStatus','Missing API key',false);return;}
+  const url=`${base()}/models?key=${encodeURIComponent(key)}`;
+  const r=await fetch(url); const j=await r.json().catch(()=>({}));
+  const out=el('modelsOut'); out.style.display='block'; out.textContent=JSON.stringify(j,null,2);
+  if(!r.ok){setStatus('modelsStatus',`ListModels failed (${r.status})`,false);return;}
+  const names=(j.models||[]).map(m=>m.name?.replace('models/','')).filter(Boolean);
+  ['imgModel','ttsModel','musicModel','videoModel'].forEach(id=>{
+    const sel=el(id); const existing=[...sel.options].map(o=>o.value||o.textContent);
+    names.forEach(n=>{ if(!existing.includes(n)){ const op=document.createElement('option'); op.value=n; op.textContent=n; sel.appendChild(op);} });
+  });
+  setStatus('modelsStatus',`Loaded ${names.length} models into dropdowns`,true);
 }
 
 async function runImage(){

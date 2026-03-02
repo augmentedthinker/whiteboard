@@ -15,21 +15,10 @@
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px;margin-top:12px}
     .card{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;overflow:hidden;min-height:155px}
     .card h2{font-size:1rem;margin:0 0 8px}
-    .tape{
-      position:absolute;
-      top:44%;left:-22%;width:150%;
-      transform:rotate(-12deg);
-      background:repeating-linear-gradient(45deg,#f4d03f 0 14px,#111 14px 22px);
-      color:#111;
-      text-align:center;
-      font-weight:800;
-      letter-spacing:.12em;
-      padding:8px 0;
-      border-top:2px solid rgba(0,0,0,.35);
-      border-bottom:2px solid rgba(0,0,0,.35);
-      box-shadow:0 6px 18px rgba(0,0,0,.35);
-    }
+    .btn{display:inline-block;margin-top:8px;padding:8px 10px;border-radius:9px;border:1px solid #3a5f8f;background:#203247;color:#d8ecff;text-decoration:none;font-weight:700}
+    .tape{position:absolute;top:44%;left:-22%;width:150%;transform:rotate(-12deg);background:repeating-linear-gradient(45deg,#f4d03f 0 14px,#111 14px 22px);color:#111;text-align:center;font-weight:800;letter-spacing:.12em;padding:8px 0;border-top:2px solid rgba(0,0,0,.35);border-bottom:2px solid rgba(0,0,0,.35);box-shadow:0 6px 18px rgba(0,0,0,.35)}
     .status{display:inline-block;margin-top:8px;padding:4px 8px;border-radius:999px;background:#2a1f03;color:#ffd452;border:1px solid #60490c;font-size:.8rem}
+    .status.live{background:#0f2a1a;color:#8df2bf;border-color:#286b47}
     .note{margin-top:14px;padding:12px;border:1px dashed #3b4b5c;border-radius:10px;background:#111822}
   </style>
 </head>
@@ -37,9 +26,16 @@
   <div class="wrap">
     <a class="back" href="../index.html">← Back to Remote Viewer</a>
     <h1>🧰 Tools</h1>
-    <p class="muted">Local tools are temporarily disabled from this page while we finalize a reliable one-click launch flow.</p>
+    <p class="muted">Hosted tools that are one-click reliable appear as live. Local-only tools stay gated with construction tape.</p>
 
     <div class="grid">
+      <section class="card">
+        <h2>🧪 Model Smoke Lab (Live)</h2>
+        <p class="muted">Manual API-key test bench for image, speech, music, and video model IDs with raw response inspection.</p>
+        <span class="status live">Live</span><br>
+        <a class="btn" href="../artifacts/model-smoke-lab-2026-03-02.html" target="_blank" rel="noopener">Open Tool</a>
+      </section>
+
       <section class="card" aria-disabled="true">
         <h2>🛰️ Gemini Ping Checker (Local)</h2>
         <p class="muted">Local HTML works manually, but browser security blocks reliable launch from hosted Remote Viewer.</p>
@@ -56,7 +52,7 @@
     </div>
 
     <div class="note muted">
-      We’ll re-enable buttons only when they work as true one-click actions.
+      We’ll re-enable local buttons when they behave as true one-click actions from hosted Remote Viewer.
     </div>
   </div>
 </body>
