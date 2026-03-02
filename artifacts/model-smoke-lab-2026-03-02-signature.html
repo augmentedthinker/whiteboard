@@ -1,0 +1,16 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Signature — Model Smoke Lab</title><style>body{font-family:system-ui;background:#0a1020;color:#dbeafe;padding:18px;max-width:900px;margin:auto}h1{color:#7dd3fc}pre{white-space:pre-wrap;background:#111a31;border:1px solid #293a5a;border-radius:10px;padding:12px}a{color:#93c5fd}</style></head><body>
+<h1>🧠 Signature — Model Smoke Lab (2026-03-02)</h1>
+<p><strong>1) Initiating prompt:</strong></p>
+<pre>"...test model IDs for video, music, speech, image using our API key... maybe create an app that allows testing each model... manual API key input... little demo for each type..."</pre>
+<p><strong>2) Exact model IDs used in build:</strong></p>
+<ul>
+<li>No fixed model IDs hardcoded for music/video (user inputs in UI).</li>
+<li>Default image field: <code>gemini-3.1-flash-image-preview</code></li>
+<li>Default speech field: <code>gemini-2.5-flash-preview-tts</code></li>
+</ul>
+<p><strong>3) Exact generation prompts/inputs:</strong> prompts are editable in UI and logged in response output for each run.</p>
+<p><strong>4) Direction rationale:</strong> Prioritized a practical smoke-test harness over pure aesthetics: one page, manual key input, raw API output visibility, quick pass/fail signal.</p>
+<p><strong>5) Technical notes:</strong> direct <code>generateContent</code> calls to v1beta with per-lane response modalities; speech lane wraps PCM (L16) into WAV for browser playback.</p>
+<p><strong>6) Runtime safety:</strong> static page; key entered manually; not persisted to disk by page logic.</p>
+<p><a href="./model-smoke-lab-2026-03-02.html">→ Open artifact</a></p>
+</body></html>
