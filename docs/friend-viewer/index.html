@@ -3,30 +3,77 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Remote Viewer | Friend Viewer</title>
+  <title>Friend Viewer | Shared Docs</title>
   <style>
-    :root { --bg:#0d1117; --panel:#161b22; --border:#30363d; --text:#c9d1d9; --accent:#58a6ff; }
+    :root {
+      --bg:#0c1224;
+      --panel:#131c36;
+      --panel2:#10172d;
+      --border:#2b396b;
+      --text:#eaf0ff;
+      --muted:#b4c0ea;
+      --accent:#8fb0ff;
+      --accent2:#ff9ec7;
+    }
     *{box-sizing:border-box}
-    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);padding:max(12px,env(safe-area-inset-top)) 12px max(16px,env(safe-area-inset-bottom));}
-    .container{max-width:900px;margin:0 auto}
-    h1{margin:0;color:var(--accent);font-size:clamp(1.35rem,4vw,2rem)}
-    p{margin:.35rem 0 1rem;opacity:.92}
-    .back{display:inline-block;margin-bottom:14px;text-decoration:none;color:var(--accent);border:1px solid var(--border);border-radius:10px;padding:10px 14px;background:#202733}
-    .item{background:linear-gradient(135deg, rgba(28, 35, 46, 0.95), rgba(20, 27, 38, 0.92));border:1px solid rgba(136, 174, 255, 0.35);border-radius:12px;padding:14px;margin-bottom:10px;cursor:pointer}
-    .item:hover{border-color:rgba(136,174,255,0.55)}
-    small{color:#9da7b1}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      color:var(--text);
+      background:radial-gradient(circle at top right,#202f63,var(--bg) 48%);
+      min-height:100vh;
+      line-height:1.6;
+      padding:max(14px,env(safe-area-inset-top)) 12px max(18px,env(safe-area-inset-bottom));
+    }
+    .container{max-width:980px;margin:0 auto}
+    .hero{
+      background:linear-gradient(145deg,var(--panel),var(--panel2));
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:20px;
+      box-shadow:0 14px 34px rgba(0,0,0,.35);
+    }
+    h1{margin:0 0 6px;font-size:clamp(1.35rem,4.5vw,2.1rem)}
+    .sub{margin:0;color:var(--muted)}
+
+    .section-title{
+      margin:18px 4px 10px;
+      color:#c7d6ff;
+      font-size:.9rem;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+      opacity:.9;
+    }
+    .item{
+      background:linear-gradient(140deg, rgba(34,46,86,.92), rgba(24,34,66,.9));
+      border:1px solid rgba(153,181,255,.42);
+      border-radius:14px;
+      padding:14px;
+      cursor:pointer;
+      transition:.2s;
+    }
+    .item:hover{transform:translateY(-1px);border-color:rgba(153,181,255,.65)}
+    .item strong{display:inline-block;font-size:1.03rem;margin-bottom:2px}
+    .item small{color:#b7c3e8}
+
+    @media (min-width:760px){
+      .hero{padding:28px}
+      .item{padding:16px}
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <a class="back" href="../../index.html">← Back to Remote Viewer</a>
-    <h1>🤝 Friend Viewer</h1>
-    <p>A share-ready portal for documents you want other people to review.</p>
+  <main class="container">
+    <section class="hero">
+      <h1>🤝 Friend Viewer</h1>
+      <p class="sub">A public-facing landing page for sharing project documents and reviews with colleagues, friends, and clients.</p>
+    </section>
 
+    <div class="section-title">Available Document Portals</div>
     <div class="item" onclick="window.location.href='../rose-prd/'">
       <strong>💌 Rose Bluebook App Plan</strong><br>
-      <small>Project plan viewer + PDF export option.</small>
+      <small>View the full project document in a clean reading format, with optional PDF export.</small>
     </div>
-  </div>
+  </main>
 </body>
 </html>
