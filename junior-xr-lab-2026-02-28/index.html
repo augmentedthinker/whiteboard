@@ -23,6 +23,8 @@
     }
 
     .row { display:flex; gap:8px; align-items:center; }
+    .hud.compact .row:not(.always-visible), .hud.compact #status { display:none; }
+    .mini-btn { background:#12214c; color:#cfe3ff; border:1px solid #6d90ff; border-radius:8px; padding:6px 8px; font-size:12px; }
     input { flex:1; background:#111a33; color:#e9efff; border:1px solid #3f5fc2; border-radius:10px; padding:10px; font-size:16px; pointer-events: auto; }
     button { background:#1a2d66; color:#fff; border:1px solid #6d90ff; border-radius:10px; padding:10px 12px; font-weight:700; cursor: pointer; pointer-events: auto; }
     #status { color:#b8caff; font-size:12px; margin-top:6px; }
@@ -32,7 +34,11 @@
 </head>
 <body>
   <div class="hint">Click floor to move Junior. Viewport optimized for desktop + Quest.</div>
-  <div class="hud">
+  <div class="hud" id="hud">
+    <div class="row always-visible" style="justify-content:space-between; margin-bottom:8px;">
+      <button id="compactBtn" class="mini-btn" type="button">Compact HUD: Off</button>
+      <button id="audioBtn" class="mini-btn" type="button">Enable Audio</button>
+    </div>
     <div class="row" style="margin-bottom: 8px;">
       <select id="actionSelect" style="flex:1; background:#111a33; color:#e9efff; border:1px solid #3f5fc2; border-radius:10px; padding:8px; font-size:14px; pointer-events: auto;">
         <option value="">-- Choose an action --</option>
@@ -59,12 +65,12 @@
     <div id="status" style="margin-top: 8px;">Lab ready. Click floor to move Junior.</div>
   </div>
 
-  <a-scene shadow="type: pcfsoft" renderer="colorManagement:true; physicallyCorrectLights:true" xr-mode-ui="enabled: true"
+  <a-scene id="scene" shadow="type: pcfsoft" renderer="colorManagement:true; physicallyCorrectLights:true; antialias:true" xr-mode-ui="enabled: true"
            webxr="optionalFeatures: local-floor, bounded-floor, hit-test, dom-overlay; overlayElement: body"
            background="color: #0b0f18" cursor="rayOrigin: mouse" raycaster="objects: .clickable">
 
-    <a-assets>
-      <a-asset-item id="robotModel" src="https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/RobotExpressive/RobotExpressive.glb"></a-asset-item>
+    <a-assets id="assets">
+      <a-asset-item id="robotModel" timeout="15000" src="https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/RobotExpressive/RobotExpressive.glb"></a-asset-item>
       <img id="space1" src="assets/window-space-1.png" />
       <img id="space2" src="assets/window-space-2.png" />
       <img id="space3" src="assets/window-space-3.png" />
@@ -75,8 +81,8 @@
 
     <a-entity id="rig" position="0 0 2.2">
       <a-camera look-controls="pointerLockEnabled: false" wasd-controls-enabled="false" position="0 1.6 0"></a-camera>
-      <a-entity id="leftHand" laser-controls="hand: left" raycaster="objects: .clickable" line="color: #7fc0ff; opacity: 0.9"></a-entity>
-      <a-entity id="rightHand" laser-controls="hand: right" raycaster="objects: .clickable" line="color: #d2a3ff; opacity: 0.9"></a-entity>
+      <a-entity id="leftHand" class="controller" laser-controls="hand: left" raycaster="objects: .clickable" line="color: #7fc0ff; opacity: 0.9"></a-entity>
+      <a-entity id="rightHand" class="controller" laser-controls="hand: right" raycaster="objects: .clickable" line="color: #d2a3ff; opacity: 0.9"></a-entity>
     </a-entity>
 
     
@@ -105,6 +111,23 @@
 
   <script>
     const statusEl = document.getElementById('status');
+    const hudEl = document.getElementById('hud');
+    const compactBtn = document.getElementById('compactBtn');
+    const audioBtn = document.getElementById('audioBtn');
+    const sceneEl = document.getElementById('scene');
+    const assetsEl = document.getElementById('assets');
+    const rigEl = document.getElementById('rig');
+    const cameraEl = document.querySelector('a-camera') || document.querySelector('[camera]');
+    const leftHand = document.getElementById('leftHand');
+    const rightHand = document.getElementById('rightHand');
+    const geminiKey = (localStorage.getItem('gemini_api_key') || window.GEMINI_API_KEY || '').trim();
+
+    const capabilities = {
+      touch: ('ontouchstart' in window) || navigator.maxTouchPoints > 0,
+      mobile: /Android|iPhone|iPad|iPod/i.test(navigator.userAgent),
+      xr: !!(navigator.xr)
+    };
+    let xrSupported = false;
     const userInput = document.getElementById('userInput');
     const sendBtn = document.getElementById('sendBtn');
     const junior = document.getElementById('junior');
@@ -117,6 +140,16 @@
     const antennaLight2 = document.getElementById('antennaLight2');
 
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    let audioUnlocked = false;
+    async function unlockAudio(){
+      try {
+        if (audioCtx.state === 'suspended') await audioCtx.resume();
+        const u = new SpeechSynthesisUtterance('');
+        window.speechSynthesis && window.speechSynthesis.speak(u);
+        audioUnlocked = true;
+        audioBtn.textContent = 'Audio Ready';
+      } catch(_){}
+    }
 
     function flashBeepLights(dist){
       const nearFactor = Math.max(0, Math.min(1, 1 - (dist / 6)));
@@ -143,9 +176,11 @@
       if (audioCtx.state !== 'running') return;
       const scene = document.querySelector('a-scene');
       if (!scene || !scene.camera) return;
-      const camPos = scene.camera.el.object3D.position;
-      const rb = junior.object3D.position;
-      const dist = Math.hypot(camPos.x - rb.x, camPos.z - rb.z);
+      const camWorld = new THREE.Vector3();
+      const botWorld = new THREE.Vector3();
+      (cameraEl && cameraEl.object3D ? cameraEl.object3D : rigEl.object3D).getWorldPosition(camWorld);
+      junior.object3D.getWorldPosition(botWorld);
+      const dist = Math.hypot(camWorld.x - botWorld.x, camWorld.z - botWorld.z);
       const vol = Math.max(0.01, Math.min(0.16, 0.22 / (dist * dist)));
       const freq = 640 + Math.random()*460;
       const osc = audioCtx.createOscillator();
@@ -175,13 +210,14 @@
           
           // GAZE TRACKING (Works on mobile/desktop/VR)
           // Always try to face the active camera when idle
-          const cameraEl = document.querySelector('a-camera') || document.querySelector('[camera]');
           if (cameraEl && cameraEl.object3D) {
-             const camPos = cameraEl.object3D.position;
-             const botPos = junior.object3D.position;
+             const camWorld = new THREE.Vector3();
+             const botWorld = new THREE.Vector3();
+             cameraEl.object3D.getWorldPosition(camWorld);
+             junior.object3D.getWorldPosition(botWorld);
              // Calculate angle to camera
-             const dx = camPos.x - botPos.x;
-             const dz = camPos.z - botPos.z;
+             const dx = camWorld.x - botWorld.x;
+             const dz = camWorld.z - botWorld.z;
              const targetRotY = Math.atan2(dx, dz);
              
              // Smooth rotation (slerp-like)
@@ -220,18 +256,26 @@
     });
     junior.setAttribute('junior-logic', '');
 
-    navPlane.addEventListener('mousedown', (e) => {
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      if (!e.detail || !e.detail.intersection) return;
+    function setMoveTargetFromIntersection(e){
+      if (!e.detail || !e.detail.intersection) return false;
       const p = e.detail.intersection.point;
       targetPos = { x: p.x, z: p.z };
       statusEl.textContent = `Target set: x:${p.x.toFixed(1)} z:${p.z.toFixed(1)}`;
+      return true;
+    }
+    navPlane.addEventListener('mousedown', (e) => { unlockAudio(); setMoveTargetFromIntersection(e); });
+    navPlane.addEventListener('click', (e) => { unlockAudio(); setMoveTargetFromIntersection(e); });
+    navPlane.addEventListener('touchstart', (e) => { unlockAudio(); setMoveTargetFromIntersection(e); }, {passive:true});
+    [leftHand, rightHand].forEach(hand => {
+      if (!hand) return;
+      hand.addEventListener('triggerdown', unlockAudio);
+      hand.addEventListener('selectstart', (e)=>{ unlockAudio(); setMoveTargetFromIntersection(e); });
     });
 
     // Chat Logic + Keyword Animation + Pollinations AI
     async function respond(msg){
       if (!msg) return;
-      statusEl.textContent = 'Thinking...';
+      statusEl.textContent = `Heard: ${msg} · Thinking...`; robotBeep();
       
       const textLower = msg.toLowerCase();
       let animTime = 0;
@@ -249,7 +293,7 @@
       }
       
       if (animTime > 0) {
-          setTimeout(() => { if(!isMoving) juniorModel.setAttribute('animation-mixer', {clip: 'Idle', loop: 'repeat'}); }, animTime);
+          setTimeout(() => { if(!isWalking) juniorModel.setAttribute('animation-mixer', {clip: 'Idle', loop: 'repeat'}); }, animTime);
       }
 
       // Live AI Generation via Pollinations (No API Key Required)
@@ -271,10 +315,11 @@ Keep responses to exactly 1 short conversational sentence.`;
         // Auto-animate if AI is excited or asking a question
         if (aiText.includes('!') && animTime === 0) {
             juniorModel.setAttribute('animation-mixer', {clip: 'Jump', loop: 'once', clampWhenFinished: true});
-            setTimeout(() => { if(!isMoving) juniorModel.setAttribute('animation-mixer', {clip: 'Idle', loop: 'repeat'}); }, 1500);
+            setTimeout(() => { if(!isWalking) juniorModel.setAttribute('animation-mixer', {clip: 'Idle', loop: 'repeat'}); }, 1500);
         }
       } catch (e) {
-        statusEl.textContent = `Junior: I heard you say "${msg}", but my brain connection is fuzzy right now.`;
+        statusEl.textContent = `Junior: I heard "${msg}" — brain link fuzzy, running local fallback.`;
+        speak(`I heard ${msg}, but my network brain is fuzzy right now.`);
       }
     }
 
@@ -282,6 +327,7 @@ Keep responses to exactly 1 short conversational sentence.`;
       const voiceMode = document.getElementById('voiceSelect').value;
       
       if (voiceMode === 'browser' || !geminiKey) {
+          statusEl.textContent = statusEl.textContent + ' · Voice: Browser';
           // Fallback to standard browser TTS
           if (!('speechSynthesis' in window)) return;
           const u = new SpeechSynthesisUtterance(text);
@@ -292,6 +338,7 @@ Keep responses to exactly 1 short conversational sentence.`;
       }
 
       // Premium Gemini TTS Logic
+      statusEl.textContent = statusEl.textContent + ` · Voice: Gemini ${voiceMode}`;
       try {
           // Using the current reliable TTS model
           const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${geminiKey}`;
@@ -367,14 +414,14 @@ Keep responses to exactly 1 short conversational sentence.`;
     sendBtn.onclick = () => {
       const msg = userInput.value.trim();
       if(!msg) return;
-      respond(msg);
+      unlockAudio(); respond(msg);
       userInput.value = '';
     };
     
     document.getElementById('actionSelect').addEventListener('change', (e) => {
       const val = e.target.value;
       if (val) {
-        respond(val);
+        unlockAudio(); respond(val);
         e.target.value = ''; // reset dropdown
       }
     });
@@ -382,6 +429,33 @@ Keep responses to exactly 1 short conversational sentence.`;
     userInput.onkeydown = (e) => {
       if(e.key === 'Enter') sendBtn.click();
     };
+
+
+    compactBtn.onclick = () => {
+      hudEl.classList.toggle('compact');
+      compactBtn.textContent = `Compact HUD: ${hudEl.classList.contains('compact') ? 'On' : 'Off'}`;
+    };
+    audioBtn.onclick = unlockAudio;
+
+    async function detectXR(){
+      try {
+        if (navigator.xr && navigator.xr.isSessionSupported) {
+          xrSupported = await navigator.xr.isSessionSupported('immersive-vr');
+        }
+      } catch(_) { xrSupported = false; }
+      const mode = capabilities.mobile ? 'mobile' : 'desktop';
+      statusEl.textContent = `Lab ready · ${mode}${capabilities.touch ? ' touch':''}${xrSupported ? ' · XR ready' : ' · XR unavailable'}`;
+      if (capabilities.mobile || xrSupported) {
+        sceneEl.setAttribute('renderer', 'colorManagement:true; physicallyCorrectLights:true; antialias:false');
+        sceneEl.setAttribute('shadow', 'type: pcfsoft; enabled: false');
+      }
+    }
+
+    assetsEl.addEventListener('timeout', () => { statusEl.textContent = 'Asset timeout: fallback mode active.'; });
+    document.getElementById('robotModel').addEventListener('error', () => {
+      statusEl.textContent = 'Robot model failed to load; movement + chat still available.';
+    });
+    detectXR();
 
     setInterval(robotBeep, 1200);
   </script>
