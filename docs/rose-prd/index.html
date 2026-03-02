@@ -68,6 +68,15 @@
     #viewer table{display:block;overflow:auto;width:100%;border-collapse:collapse}
     #viewer th,#viewer td{border:1px solid #33406e;padding:8px;vertical-align:top;text-align:left}
 
+    
+    @media print {
+      .topbar,.hero{display:none !important;}
+      body{background:#fff;color:#000;font-size:12pt;line-height:1.45;}
+      .doc-wrap{max-width:none;padding:0;}
+      #viewer{display:block !important;column-count:1 !important;color:#000;}
+      #viewer a{color:#000;text-decoration:underline;}
+    }
+
     @media (min-width: 900px){
       .doc-wrap{padding:0 10px 24px}
       #viewer{column-count:2;column-fill:balance}
@@ -81,6 +90,7 @@
     <div class="topbar-inner">
       <a class="link" href="../index.html">← Docs Hub</a>
       <button id="openBtn" class="btn primary">Open / Refresh Document</button>
+      <button id="pdfBtn" class="btn">Download as PDF</button>
       <span id="status"></span>
     </div>
   </div>
@@ -99,6 +109,7 @@
     const btn=document.getElementById('openBtn');
     const status=document.getElementById('status');
     const viewer=document.getElementById('viewer');
+    const pdfBtn=document.getElementById('pdfBtn');
 
     async function openDoc(){
       btn.disabled=true;
@@ -119,6 +130,7 @@
     }
 
     btn.addEventListener('click',openDoc);
+    pdfBtn.addEventListener('click',()=>window.print());
     openDoc();
   </script>
 </body>

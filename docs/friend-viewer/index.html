@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Remote Viewer | Friend Viewer</title>
+  <style>
+    :root { --bg:#0d1117; --panel:#161b22; --border:#30363d; --text:#c9d1d9; --accent:#58a6ff; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);padding:max(12px,env(safe-area-inset-top)) 12px max(16px,env(safe-area-inset-bottom));}
+    .container{max-width:900px;margin:0 auto}
+    h1{margin:0;color:var(--accent);font-size:clamp(1.35rem,4vw,2rem)}
+    p{margin:.35rem 0 1rem;opacity:.92}
+    .back{display:inline-block;margin-bottom:14px;text-decoration:none;color:var(--accent);border:1px solid var(--border);border-radius:10px;padding:10px 14px;background:#202733}
+    .item{background:linear-gradient(135deg, rgba(28, 35, 46, 0.95), rgba(20, 27, 38, 0.92));border:1px solid rgba(136, 174, 255, 0.35);border-radius:12px;padding:14px;margin-bottom:10px;cursor:pointer}
+    .item:hover{border-color:rgba(136,174,255,0.55)}
+    small{color:#9da7b1}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="../../index.html">← Back to Remote Viewer</a>
+    <h1>🤝 Friend Viewer</h1>
+    <p>A share-ready portal for documents you want other people to review.</p>
+
+    <div class="item" onclick="window.location.href='../rose-prd/'">
+      <strong>💌 Rose Bluebook App Plan</strong><br>
+      <small>Project plan viewer + PDF export option.</small>
+    </div>
+  </div>
+</body>
+</html>
