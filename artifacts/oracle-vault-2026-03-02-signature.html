@@ -1,10 +1,92 @@
-<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Signature — Oracle Vault</title><style>body{font-family:system-ui;background:#0d1117;color:#c9d1d9;padding:18px;max-width:760px;margin:auto}a{color:#8fc7ff}</style></head><body>
-<h1>🧠 Signature — Oracle Vault (2026-03-02)</h1>
-<p><strong>Intent:</strong> Build a visually striking daily artifact using generated assets only (no runtime API dependency).</p>
-<ul>
-<li>Generated image via Gemini image model</li>
-<li>Generated voice quote via Gemini TTS model (saved as WAV)</li>
-<li>Animated starfield + color-shift nebula layer in pure client-side canvas</li>
-</ul>
-<p><a href="./oracle-vault-2026-03-02.html">Open artifact</a></p>
-</body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🧠 Signature — Oracle Vault (2026-03-02)</title>
+  <style>
+    :root{--bg:#070b14;--panel:#121a2a;--line:#2b3a52;--txt:#d7e7ff;--muted:#9fb4d4;--accent:#7dd3fc;--hot:#c084fc}
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(circle at 15% 10%,rgba(125,211,252,.14),transparent 38%),radial-gradient(circle at 85% 85%,rgba(192,132,252,.14),transparent 36%),var(--bg);color:var(--txt);font:16px/1.6 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;padding:18px}
+    .wrap{max-width:900px;margin:0 auto}
+    .card{background:linear-gradient(180deg,rgba(18,26,42,.92),rgba(12,18,31,.9));border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:12px;box-shadow:0 14px 40px rgba(0,0,0,.35)}
+    h1,h2{margin:.1rem 0 .5rem}
+    h1{font-size:clamp(1.35rem,3.5vw,2rem);color:var(--accent)}
+    h2{font-size:1.03rem;color:#bfe7ff}
+    .pill{display:inline-block;padding:4px 9px;border-radius:999px;border:1px solid #35527a;background:#12243f;color:#b7dbff;font-size:.78rem;margin-right:6px}
+    code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+    pre{background:#0b1322;border:1px solid #24324a;border-radius:12px;padding:12px;overflow:auto;white-space:pre-wrap}
+    .muted{color:var(--muted)}
+    a{color:#8fd3ff}
+    .grid{display:grid;grid-template-columns:1fr;gap:12px}
+    @media (min-width:820px){.grid{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>🧠 Signature — Oracle Vault (2026-03-02)</h1>
+      <span class="pill">Reproducibility-first</span>
+      <span class="pill">Exact model IDs logged</span>
+      <span class="pill">Prompt lineage captured</span>
+      <p class="muted">This signature captures the exact generation path, why this direction was chosen, and how to recreate or iterate the artifact with minimal ambiguity.</p>
+      <p><a href="./oracle-vault-2026-03-02.html">→ Open Artifact</a></p>
+    </div>
+
+    <div class="grid">
+      <section class="card">
+        <h2>1) Initiating Prompt (from Christopher, verbatim)</h2>
+        <pre>“Okay, so next I have a fun one for you... I want to give you the opportunity to make today's artifact...
+I do want you to generate an AI image... use the Gemini or Google API...
+I also want you to use the Google API to produce a voice snippet... maybe a quote...
+I don't want APIs tied to the hosted artifact, but do use APIs to generate assets...
+incorporate visually stunning animation, maybe video... try to wow me... host live in Today’s Artifacts.”</pre>
+      </section>
+
+      <section class="card">
+        <h2>2) Exact Model IDs Used</h2>
+        <ul>
+          <li><strong>Image generation:</strong> <code>gemini-3.1-flash-image-preview</code></li>
+          <li><strong>Voice generation (TTS):</strong> <code>gemini-2.5-flash-preview-tts</code></li>
+          <li><strong>Artifact assembly/runtime:</strong> static HTML/CSS/JS (no API calls at runtime)</li>
+        </ul>
+      </section>
+    </div>
+
+    <section class="card">
+      <h2>3) Exact Asset Prompts Used</h2>
+      <p><strong>Image prompt (exact):</strong></p>
+      <pre>A breathtaking futuristic observatory at night above clouds, holographic rings, cyan-magenta neon lighting, cinematic atmosphere, detailed concept art</pre>
+      <p><strong>Voice text (exact):</strong></p>
+      <pre>Build with courage. Ship with taste. Let consistency turn ambition into proof.</pre>
+    </section>
+
+    <section class="card">
+      <h2>4) Why this direction?</h2>
+      <p>I interpreted your prompt as a “show me range” request: generated visual asset + generated audio asset + polished interactive presentation, while preserving deployment safety (no live key exposure, no backend dependency). So I chose a cinematic single-page experience that feels high-fidelity quickly and is easy to iterate tomorrow.</p>
+      <p class="muted">Design logic: one emotionally strong scene, one clear quote, one tactile animation layer, and immediate playback controls.</p>
+    </section>
+
+    <section class="card">
+      <h2>5) Technical Build Notes</h2>
+      <ul>
+        <li>Generated image saved as static PNG under <code>artifacts/generated/2026-03-02/observatory.png</code>.</li>
+        <li>TTS returned PCM and was WAV-wrapped for browser-safe playback (<code>quote.wav</code>).</li>
+        <li>Animation: canvas starfield + color drift + scanline overlay (client-only JS).</li>
+        <li>Hosted artifact has no API key, no network dependency beyond serving static files.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>6) Signature Standard Update (going forward)</h2>
+      <p>For future artifacts, signature pages should include by default:</p>
+      <ul>
+        <li>Exact initiating prompt (or full excerpt)</li>
+        <li>Exact model IDs per asset</li>
+        <li>Exact generation prompts/text</li>
+        <li>Interpretation rationale + technical implementation notes</li>
+      </ul>
+    </section>
+  </div>
+</body>
+</html>
