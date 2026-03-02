@@ -198,6 +198,7 @@
             const ctx = canvas.getContext('2d');
             let w=0, h=0, dpr=1, t=0;
             const particles = [];
+            const pointer = {x: 0, y: 0, active: false};
             const count = 34;
 
             function resize(){
@@ -271,6 +272,29 @@
                 ctx.fillStyle = beam;
                 ctx.fillRect(beamX,0,220,h);
 
+                // faint scanline shimmer
+                for (let y=0; y<h; y+=28){
+                    const a = 0.016 + 0.012*Math.sin(t*1.1 + y*0.03);
+                    ctx.strokeStyle = `rgba(110, 170, 255, ${a})`;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(w, y);
+                    ctx.stroke();
+                }
+
+                // cursor halo (mild interactivity)
+                if (pointer.active){
+                    const halo = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, 180);
+                    halo.addColorStop(0, 'rgba(140,220,255,0.22)');
+                    halo.addColorStop(1, 'rgba(140,220,255,0)');
+                    ctx.fillStyle = halo;
+                    ctx.beginPath();
+                    ctx.arc(pointer.x, pointer.y, 180, 0, Math.PI*2);
+                    ctx.fill();
+                }
+
+
                 for (const p of particles){
                     p.x += p.vx;
                     p.y += p.vy + Math.sin((p.x+p.y+t*50)*0.01)*0.05;
@@ -287,6 +311,8 @@
                 requestAnimationFrame(step);
             }
 
+            window.addEventListener('mousemove', (e)=>{ pointer.x = e.clientX; pointer.y = e.clientY; pointer.active = true; });
+            window.addEventListener('touchmove', (e)=>{ const t=e.touches&&e.touches[0]; if(!t) return; pointer.x=t.clientX; pointer.y=t.clientY; pointer.active=true; }, {passive:true});
             window.addEventListener('resize', () => { resize(); seed(); });
             resize();
             seed();
