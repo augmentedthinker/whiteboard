@@ -216,6 +216,9 @@
     const idleIntervalMs = 60000;
     let idleOracleEnabled = false;
     let idleCheckTimer = null;
+    const idleStyles = ['taunt','koan','riddle','paradox','parable'];
+    let idleStyleIndex = 0;
+    const recentIdleLines = [];
 
     AFRAME.registerComponent('junior-logic', {
       tick(time, dt) {
@@ -525,15 +528,34 @@ Keep responses to exactly 1 short conversational sentence.`;
     ];
 
     async function generateIdleLine(){
-      const prompt = "Give one original short line (max 18 words), choose one style at random: taunt, koan, riddle, paradox, or mini parable. No emojis.";
+      const style = idleStyles[idleStyleIndex % idleStyles.length];
+      idleStyleIndex += 1;
+      const nonce = `${Date.now()}-${Math.random().toString(36).slice(2,8)}`;
+      const prompt = `Create one original short ${style}. Max 18 words. No emojis. No reused lines. Nonce:${nonce}`;
       try {
         const res = await fetch(`https://text.pollinations.ai/prompt/${encodeURIComponent(prompt)}`);
         if (!res.ok) throw new Error('idle line api failed');
-        const txt = (await res.text()).trim().replace(/\s+/g,' ');
+        let txt = (await res.text()).trim().replace(/\s+/g,' ');
         if (!txt) throw new Error('empty idle line');
+
+        // lightweight de-duplication against recent outputs
+        const normalized = txt.toLowerCase();
+        if (recentIdleLines.includes(normalized)) {
+          txt = `${txt} (${style})`;
+        }
+        recentIdleLines.push(normalized);
+        if (recentIdleLines.length > 8) recentIdleLines.shift();
         return txt;
       } catch (_) {
-        return idleLocalFallback[Math.floor(Math.random()*idleLocalFallback.length)];
+        // fallback still varied by style
+        const pool = {
+          taunt: "Bold move: waiting for progress to happen by itself.",
+          koan: "When the builder stops searching, the next step appears.",
+          riddle: "What grows faster when shared than when stored?",
+          paradox: "The quickest way forward is often one deliberate pause.",
+          parable: "The mason laid one true stone, and the wall began to trust him."
+        };
+        return pool[style] || idleLocalFallback[Math.floor(Math.random()*idleLocalFallback.length)];
       }
     }
 
@@ -547,7 +569,8 @@ Keep responses to exactly 1 short conversational sentence.`;
       if (!idleLongEnough || !cooldownDone || isWalking || targetPos) return;
 
       const line = await generateIdleLine();
-      statusEl.textContent = `Junior (idle): ${line}`;
+      const styleNow = idleStyles[(idleStyleIndex - 1 + idleStyles.length) % idleStyles.length];
+      statusEl.textContent = `Junior (${styleNow}): ${line}`;
       unlockAudio();
       speak(line);
       robotBeep();
