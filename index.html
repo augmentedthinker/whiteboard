@@ -20,7 +20,7 @@
         * { box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: #000;
+            background: #000 url('assets/main-bg/2026-03-02/remote-viewer-cyborg-right.png') center center / cover no-repeat fixed;
             color: var(--text);
             margin: 0;
             padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
@@ -28,18 +28,6 @@
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
-        }
-        body::after {
-            content: '';
-            position: fixed;
-            right: -40px;
-            top: 0;
-            width: min(52vw, 520px);
-            height: 100vh;
-            background: url('assets/mascot/robot-peek.svg') right center / contain no-repeat;
-            opacity: 0.9;
-            pointer-events: none;
-            z-index: 0;
         }
         .container {
             position: relative;
@@ -134,13 +122,6 @@
         }
         .fs-btn:active { transform: translateY(1px); }
 
-        @media (max-width: 900px) {
-            body::after {
-                width: min(62vw, 360px);
-                right: -70px;
-                opacity: 0.55;
-            }
-        }
 
     </style>
 </head>
