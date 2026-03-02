@@ -7,14 +7,14 @@
   <style>
     :root{--bg:#0b1020;--panel:#121a31;--line:#2b3b5a;--txt:#dbeafe;--muted:#9fb3d6;--accent:#7dd3fc}
     *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--txt);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;padding:14px}
-    .wrap{max-width:1020px;margin:0 auto}.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+    .wrap{max-width:1040px;margin:0 auto}.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
     h1{margin:.2rem 0;color:var(--accent)} h2{margin:.2rem 0 8px;font-size:1.02rem}
     input,textarea,select{width:100%;background:#0a1327;color:#dbeafe;border:1px solid #2e3f63;border-radius:10px;padding:10px;margin-top:6px}
     textarea{min-height:74px} .row{display:grid;gap:10px;grid-template-columns:1fr}
     @media(min-width:900px){.row{grid-template-columns:1fr 1fr}}
-    button{background:linear-gradient(90deg,#2563eb,#7c3aed);color:#fff;border:none;padding:10px 12px;border-radius:10px;font-weight:700;cursor:pointer}
+    button,a.btn{background:linear-gradient(90deg,#2563eb,#7c3aed);color:#fff;border:none;padding:10px 12px;border-radius:10px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
     .ghost{background:#1c2844;border:1px solid #38527c}.muted{color:var(--muted)}
-    .out{white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.84rem;background:#08101f;border:1px solid #243251;border-radius:10px;padding:10px;max-height:240px;overflow:auto}
+    .out{white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.84rem;background:#08101f;border:1px solid #243251;border-radius:10px;padding:10px;max-height:260px;overflow:auto}
     .ok{color:#86efac}.bad{color:#fca5a5}.pill{display:inline-block;padding:3px 8px;border:1px solid #32527a;background:#112240;border-radius:999px;font-size:.75rem}
     img.preview{max-width:100%;border-radius:10px;border:1px solid #314766;margin-top:8px}
   </style>
@@ -23,7 +23,7 @@
 <div class="wrap">
   <div class="card">
     <h1>🧪 Model Smoke Lab</h1>
-    <p class="muted">Manual API-key smoke tests. Key stays in-memory only. Now includes lane-filtered dropdowns + AI advisor.</p>
+    <p class="muted">Manual API-key smoke tests. Now supports lane filtering + manual model override + advisor apply.</p>
     <div class="row">
       <label>Gemini API key <input id="apiKey" type="password" placeholder="AIza..." /></label>
       <label>Base API URL <input id="baseUrl" value="https://generativelanguage.googleapis.com/v1beta" /></label>
@@ -32,17 +32,24 @@
       <button class="ghost" onclick="listModels()">📚 Fetch Available Models</button>
       <button class="ghost" onclick="laneFilter()">🧹 Auto-filter dropdowns by lane</button>
     </div>
+    <div class="row">
+      <a class="btn ghost" href="https://ai.google.dev/gemini-api/docs/models" target="_blank" rel="noopener">📖 Open Google Model Docs</a>
+      <button class="ghost" onclick="askAdvisor(true)">🌐 Ask Advisor (include docs context)</button>
+    </div>
     <div id="modelsStatus" class="muted" style="margin-top:8px"></div>
     <div id="modelsOut" class="out" style="margin-top:8px;display:none"></div>
-    <p><span class="pill">No key persistence</span> <span class="pill">Static page</span> <span class="pill">Raw responses visible</span></p>
+    <p><span class="pill">No key persistence</span> <span class="pill">Manual model override enabled</span> <span class="pill">Raw responses visible</span></p>
   </div>
 
   <div class="card">
-    <h2>🧠 Model Advisor (AI chat over current model list)</h2>
+    <h2>🧠 Model Advisor</h2>
     <label>Ask advisor
-      <textarea id="advisorPrompt">Given my currently available models, recommend the best first model to test for image, speech, music, and video. Keep it practical and short.</textarea>
+      <textarea id="advisorPrompt">Given my currently available models, recommend the best first model to test for image, speech, music, and video. Return strict JSON with keys: image, speech, music, video, notes.</textarea>
     </label>
-    <button onclick="askAdvisor()">Ask Advisor</button>
+    <div class="row">
+      <button onclick="askAdvisor(false)">Ask Advisor</button>
+      <button class="ghost" onclick="applyAdvisor()">Apply Advisor Picks to Fields</button>
+    </div>
     <div id="advisorStatus" class="muted" style="margin-top:8px"></div>
     <div id="advisorOut" class="out" style="margin-top:8px"></div>
   </div>
@@ -51,8 +58,9 @@
     <h2>🖼️ Image Test</h2>
     <div class="row">
       <label>Model ID <select id="imgModel"></select></label>
-      <label>Prompt <input id="imgPrompt" value="Futuristic neon observatory above clouds, cinematic lighting"></label>
+      <label>Manual override model ID <input id="imgCustom" placeholder="paste any model id"></label>
     </div>
+    <label>Prompt <input id="imgPrompt" value="Futuristic neon observatory above clouds, cinematic lighting"></label>
     <button onclick="runImage()">Run Image Test</button>
     <div id="imgStatus" class="muted" style="margin-top:8px"></div>
     <img id="imgPreview" class="preview" style="display:none"/>
@@ -63,9 +71,12 @@
     <h2>🗣️ Speech Test</h2>
     <div class="row">
       <label>Model ID <select id="ttsModel"></select></label>
-      <label>Voice <input id="ttsVoice" value="Kore"></label>
+      <label>Manual override model ID <input id="ttsCustom" placeholder="paste any model id"></label>
     </div>
-    <label>Text <textarea id="ttsText">Build with courage. Ship with taste. Let consistency turn ambition into proof.</textarea></label>
+    <div class="row">
+      <label>Voice <input id="ttsVoice" value="Kore"></label>
+      <label>Text <textarea id="ttsText">Build with courage. Ship with taste. Let consistency turn ambition into proof.</textarea></label>
+    </div>
     <button onclick="runSpeech()">Run Speech Test</button>
     <div id="ttsStatus" class="muted" style="margin-top:8px"></div>
     <audio id="ttsAudio" controls style="margin-top:8px;display:none"></audio>
@@ -76,6 +87,7 @@
     <div class="card">
       <h2>🎵 Music Test (experimental)</h2>
       <label>Model ID <select id="musicModel"></select></label>
+      <label>Manual override model ID <input id="musicCustom" placeholder="paste any model id"></label>
       <label>Prompt <textarea id="musicPrompt">Ambient synthwave with warm pads and subtle arpeggio, 12 seconds.</textarea></label>
       <button onclick="runGeneric('music')">Run Music Smoke Test</button>
       <div id="musicStatus" class="muted" style="margin-top:8px"></div>
@@ -85,6 +97,7 @@
     <div class="card">
       <h2>🎬 Video Test (experimental)</h2>
       <label>Model ID <select id="videoModel"></select></label>
+      <label>Manual override model ID <input id="videoCustom" placeholder="paste any model id"></label>
       <label>Prompt <textarea id="videoPrompt">Slow cinematic flythrough of a luminous crystal canyon at dusk.</textarea></label>
       <button onclick="runGeneric('video')">Run Video Smoke Test</button>
       <div id="videoStatus" class="muted" style="margin-top:8px"></div>
@@ -94,7 +107,7 @@
 </div>
 
 <script>
-let modelCache=[];
+let modelCache=[]; let advisorJson=null;
 const FALLBACK={
   image:['gemini-3.1-flash-image-preview','gemini-2.5-flash-image','gemini-3-pro-image-preview'],
   speech:['gemini-2.5-flash-preview-tts','gemini-2.5-flash','gemini-2.0-flash'],
@@ -105,36 +118,21 @@ function getKey(){return document.getElementById('apiKey').value.trim();}
 function base(){return document.getElementById('baseUrl').value.trim().replace(/\/$/,'');}
 function el(id){return document.getElementById(id)}
 function setStatus(id,msg,ok){el(id).innerHTML=`<span class="${ok?'ok':'bad'}">${ok?'✅':'❌'} ${msg}</span>`}
+function modelFor(kind){return (el(kind+'Custom').value||'').trim() || (el(kind+'Model').value||'').trim();}
+function laneOf(name){const n=name.toLowerCase(); if(n.includes('image')) return 'image'; if(n.includes('tts')||n.includes('speech')) return 'speech'; if(n.includes('lyria')||n.includes('music')) return 'music'; if(n.includes('veo')||n.includes('video')) return 'video'; return 'general';}
+function renderSelect(id,list){const s=el(id); s.innerHTML=''; [...new Set(list)].forEach(m=>{if(!m)return; const o=document.createElement('option'); o.value=m;o.textContent=m;s.appendChild(o);});}
+function seed(){renderSelect('imgModel',FALLBACK.image);renderSelect('ttsModel',FALLBACK.speech);renderSelect('musicModel',FALLBACK.music);renderSelect('videoModel',FALLBACK.video);} 
 function b64ToBytes(b64){const bin=atob(b64);const arr=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);return arr;}
 function wavWrap(pcmBytes,sampleRate=24000,channels=1,bits=16){const dataSize=pcmBytes.length,buf=new ArrayBuffer(44+dataSize),v=new DataView(buf);const w=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i));};w(0,'RIFF');v.setUint32(4,36+dataSize,true);w(8,'WAVE');w(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,channels,true);v.setUint32(24,sampleRate,true);v.setUint32(28,sampleRate*channels*(bits/8),true);v.setUint16(32,channels*(bits/8),true);v.setUint16(34,bits,true);w(36,'data');v.setUint32(40,dataSize,true);new Uint8Array(buf,44).set(pcmBytes);return new Blob([buf],{type:'audio/wav'});} 
-function laneOf(name){const n=name.toLowerCase(); if(n.includes('image')) return 'image'; if(n.includes('tts')||n.includes('speech')) return 'speech'; if(n.includes('lyria')||n.includes('music')) return 'music'; if(n.includes('veo')||n.includes('video')) return 'video'; return 'general';}
-function renderSelect(id,list){const s=el(id); s.innerHTML=''; [...new Set(list)].forEach(m=>{const o=document.createElement('option'); o.value=m;o.textContent=m;s.appendChild(o);});}
-function seedFallback(){renderSelect('imgModel',FALLBACK.image);renderSelect('ttsModel',FALLBACK.speech);renderSelect('musicModel',FALLBACK.music);renderSelect('videoModel',FALLBACK.video);} 
 async function call(model,payload){const key=getKey(); if(!key) throw new Error('Missing API key'); const url=`${base()}/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(key)}`; const r=await fetch(url,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)}); const j=await r.json().catch(()=>({})); return {ok:r.ok,status:r.status,json:j,url};}
-async function listModels(){const key=getKey(); if(!key){setStatus('modelsStatus','Missing API key',false);return;} const url=`${base()}/models?key=${encodeURIComponent(key)}`; const r=await fetch(url); const j=await r.json().catch(()=>({})); el('modelsOut').style.display='block'; el('modelsOut').textContent=JSON.stringify(j,null,2); if(!r.ok){setStatus('modelsStatus',`ListModels failed (${r.status})`,false);return;} modelCache=(j.models||[]).map(m=>m.name?.replace('models/','')).filter(Boolean); setStatus('modelsStatus',`Loaded ${modelCache.length} models. Click Auto-filter dropdowns.`,true);}
-function laneFilter(){
-  const all=modelCache.length?modelCache:Object.values(FALLBACK).flat();
-  const image=all.filter(m=>laneOf(m)==='image').concat(FALLBACK.image);
-  const speech=all.filter(m=>laneOf(m)==='speech').concat(FALLBACK.speech);
-  const music=all.filter(m=>laneOf(m)==='music').concat(FALLBACK.music);
-  const video=all.filter(m=>laneOf(m)==='video').concat(FALLBACK.video);
-  renderSelect('imgModel',image); renderSelect('ttsModel',speech); renderSelect('musicModel',music); renderSelect('videoModel',video);
-  setStatus('modelsStatus','Dropdowns filtered by lane (name heuristics + fallback seeds).',true);
-}
-async function askAdvisor(){
-  const out=el('advisorOut'); out.textContent='Thinking...';
-  const pool=modelCache.length?modelCache:Object.values(FALLBACK).flat();
-  const userQ=el('advisorPrompt').value.trim();
-  const prompt=`You are a model-selection advisor. Available models:\n${pool.join(', ')}\n\nTask: ${userQ}\n\nReturn concise recommendations for image, speech, music, and video, with one backup each.`;
-  const res=await call('gemini-2.5-flash',{contents:[{parts:[{text:prompt}]}]});
-  const text=(res.json?.candidates?.[0]?.content?.parts||[]).map(p=>p.text||'').join('\n').trim();
-  out.textContent=text||JSON.stringify(res.json,null,2);
-  setStatus('advisorStatus',res.ok?'Advisor response ready':`Advisor failed (${res.status})`,res.ok);
-}
-async function runImage(){const model=el('imgModel').value.trim(),prompt=el('imgPrompt').value.trim();const out=el('imgOut'); out.textContent='Running...';el('imgPreview').style.display='none';const res=await call(model,{contents:[{parts:[{text:prompt}]}],generationConfig:{responseModalities:['TEXT','IMAGE']}});out.textContent=JSON.stringify(res.json,null,2);const parts=res.json?.candidates?.[0]?.content?.parts||[];const p=parts.find(x=>x.inlineData?.data||x.inline_data?.data);const b64=p?.inlineData?.data||p?.inline_data?.data;const mime=p?.inlineData?.mimeType||p?.inline_data?.mime_type||'image/png';if(res.ok&&b64){el('imgPreview').src=`data:${mime};base64,${b64}`;el('imgPreview').style.display='block';setStatus('imgStatus',`${model} returned image`,true);} else setStatus('imgStatus',`${model} failed (${res.status})`,false);} 
-async function runSpeech(){const model=el('ttsModel').value.trim(),voice=el('ttsVoice').value.trim()||'Kore',text=el('ttsText').value.trim();const out=el('ttsOut');out.textContent='Running...';el('ttsAudio').style.display='none';const res=await call(model,{contents:[{parts:[{text}]}],generationConfig:{responseModalities:['AUDIO'],speechConfig:{voiceConfig:{prebuiltVoiceConfig:{voiceName:voice}}}}});out.textContent=JSON.stringify(res.json,null,2);const parts=res.json?.candidates?.[0]?.content?.parts||[];const p=parts.find(x=>x.inlineData?.data||x.inline_data?.data);const b64=p?.inlineData?.data||p?.inline_data?.data;const mime=p?.inlineData?.mimeType||p?.inline_data?.mime_type||'';if(res.ok&&b64){const bytes=b64ToBytes(b64);const blob=(mime.includes('audio/L16')||mime.includes('audio/pcm')||!mime)?wavWrap(bytes):new Blob([bytes],{type:mime||'audio/wav'});const url=URL.createObjectURL(blob);const a=el('ttsAudio');a.src=url;a.style.display='block';a.play().catch(()=>{});setStatus('ttsStatus',`${model} returned audio (${mime||'wrapped-wav'})`,true);} else setStatus('ttsStatus',`${model} failed (${res.status})`,false);} 
-async function runGeneric(kind){const model=el(kind+'Model').value.trim(),prompt=el(kind+'Prompt').value.trim();const out=el(kind+'Out');out.textContent='Running...';if(!model){setStatus(kind+'Status','Model ID required',false);out.textContent='';return;}const modalities=kind==='video'?['VIDEO']:['AUDIO'];const res=await call(model,{contents:[{parts:[{text:prompt}]}],generationConfig:{responseModalities:modalities}});out.textContent=JSON.stringify(res.json,null,2);setStatus(kind+'Status',res.ok?`${model} responded (${res.status})`:`${model} failed (${res.status})`,res.ok);} 
-seedFallback(); laneFilter();
+async function listModels(){const key=getKey(); if(!key){setStatus('modelsStatus','Missing API key',false);return;} const url=`${base()}/models?key=${encodeURIComponent(key)}`; const r=await fetch(url); const j=await r.json().catch(()=>({})); el('modelsOut').style.display='block'; el('modelsOut').textContent=JSON.stringify(j,null,2); if(!r.ok){setStatus('modelsStatus',`ListModels failed (${r.status})`,false);return;} modelCache=(j.models||[]).map(m=>m.name?.replace('models/','')).filter(Boolean); setStatus('modelsStatus',`Loaded ${modelCache.length} models.`,true); laneFilter();}
+function laneFilter(){const all=modelCache.length?modelCache:Object.values(FALLBACK).flat(); renderSelect('imgModel',all.filter(m=>laneOf(m)==='image').concat(FALLBACK.image)); renderSelect('ttsModel',all.filter(m=>laneOf(m)==='speech').concat(FALLBACK.speech)); renderSelect('musicModel',all.filter(m=>laneOf(m)==='music').concat(FALLBACK.music)); renderSelect('videoModel',all.filter(m=>laneOf(m)==='video').concat(FALLBACK.video)); setStatus('modelsStatus','Lane filter applied. Use manual override for any model not listed.',true);} 
+async function askAdvisor(includeDocs){const out=el('advisorOut'); out.textContent='Thinking...'; const pool=modelCache.length?modelCache:Object.values(FALLBACK).flat(); const userQ=el('advisorPrompt').value.trim(); const docsNote=includeDocs?"Also consider the latest official Gemini models documentation at https://ai.google.dev/gemini-api/docs/models and align recommendations if conflict exists.":""; const prompt=`You are a model-selection advisor. Available models:\n${pool.join(', ')}\n\n${docsNote}\n\nTask: ${userQ}\nReturn strict JSON only with keys: image, speech, music, video, notes.`; const res=await call('gemini-2.5-flash',{contents:[{parts:[{text:prompt}]}]}); const txt=(res.json?.candidates?.[0]?.content?.parts||[]).map(p=>p.text||'').join('\n').trim(); out.textContent=txt||JSON.stringify(res.json,null,2); try{advisorJson=JSON.parse(txt);}catch{advisorJson=null;} setStatus('advisorStatus',res.ok?'Advisor response ready':`Advisor failed (${res.status})`,res.ok);} 
+function applyAdvisor(){if(!advisorJson){setStatus('advisorStatus','No parseable JSON from advisor yet',false); return;} ['image','speech','music','video'].forEach(k=>{const id = k==='speech'?'tts':k; const val=(advisorJson[k]||'').toString().trim(); if(val) el(id+'Custom').value=val;}); setStatus('advisorStatus','Applied advisor picks to manual override fields',true);} 
+async function runImage(){const model=modelFor('img'),prompt=el('imgPrompt').value.trim();const out=el('imgOut'); out.textContent='Running...';el('imgPreview').style.display='none';if(!model){setStatus('imgStatus','Model required',false);return;} const res=await call(model,{contents:[{parts:[{text:prompt}]}],generationConfig:{responseModalities:['TEXT','IMAGE']}});out.textContent=JSON.stringify(res.json,null,2);const parts=res.json?.candidates?.[0]?.content?.parts||[];const p=parts.find(x=>x.inlineData?.data||x.inline_data?.data);const b64=p?.inlineData?.data||p?.inline_data?.data;const mime=p?.inlineData?.mimeType||p?.inline_data?.mime_type||'image/png';if(res.ok&&b64){el('imgPreview').src=`data:${mime};base64,${b64}`;el('imgPreview').style.display='block';setStatus('imgStatus',`${model} returned image`,true);} else setStatus('imgStatus',`${model} failed (${res.status})`,false);} 
+async function runSpeech(){const model=modelFor('tts'),voice=el('ttsVoice').value.trim()||'Kore',text=el('ttsText').value.trim();const out=el('ttsOut');out.textContent='Running...';el('ttsAudio').style.display='none';if(!model){setStatus('ttsStatus','Model required',false);return;} const res=await call(model,{contents:[{parts:[{text}]}],generationConfig:{responseModalities:['AUDIO'],speechConfig:{voiceConfig:{prebuiltVoiceConfig:{voiceName:voice}}}}});out.textContent=JSON.stringify(res.json,null,2);const parts=res.json?.candidates?.[0]?.content?.parts||[];const p=parts.find(x=>x.inlineData?.data||x.inline_data?.data);const b64=p?.inlineData?.data||p?.inline_data?.data;const mime=p?.inlineData?.mimeType||p?.inline_data?.mime_type||'';if(res.ok&&b64){const bytes=b64ToBytes(b64);const blob=(mime.includes('audio/L16')||mime.includes('audio/pcm')||!mime)?wavWrap(bytes):new Blob([bytes],{type:mime||'audio/wav'});const url=URL.createObjectURL(blob);const a=el('ttsAudio');a.src=url;a.style.display='block';a.play().catch(()=>{});setStatus('ttsStatus',`${model} returned audio (${mime||'wrapped-wav'})`,true);} else setStatus('ttsStatus',`${model} failed (${res.status})`,false);} 
+async function runGeneric(kind){const model=modelFor(kind),prompt=el(kind+'Prompt').value.trim();const out=el(kind+'Out');out.textContent='Running...';if(!model){setStatus(kind+'Status','Model required',false);out.textContent='';return;}const modalities=kind==='video'?['VIDEO']:['AUDIO'];const res=await call(model,{contents:[{parts:[{text:prompt}]}],generationConfig:{responseModalities:modalities}});out.textContent=JSON.stringify(res.json,null,2);setStatus(kind+'Status',res.ok?`${model} responded (${res.status})`:`${model} failed (${res.status})`,res.ok);} 
+seed();
 </script>
 </body>
 </html>
