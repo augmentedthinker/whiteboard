@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Citation App Demo | Friend Viewer</title>
+  <style>
+    :root { --bg:#0c1224; --panel:#131c36; --border:#2b396b; --text:#eaf0ff; --muted:#b4c0ea; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--text); background:radial-gradient(circle at top right,#202f63,var(--bg) 48%); min-height:100vh; padding:16px; }
+    .wrap { max-width:980px; margin:0 auto; }
+    .card { background:linear-gradient(145deg,var(--panel),#10172d); border:1px solid var(--border); border-radius:16px; padding:16px; box-shadow:0 14px 34px rgba(0,0,0,.35); }
+    h1 { margin:0 0 8px; font-size:clamp(1.2rem,4vw,2rem); }
+    p { margin:0 0 12px; color:var(--muted); }
+    video { width:100%; border-radius:12px; border:1px solid rgba(153,181,255,.45); background:#000; }
+    .actions { margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; padding:10px 14px; border-radius:10px; border:1px solid rgba(153,181,255,.6); color:#eaf0ff; text-decoration:none; background:rgba(28,40,74,.92); font-weight:600; }
+    .btn:hover { transform:translateY(-1px); }
+    .note { margin-top:10px; font-size:.9rem; color:#c7d6ff; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <h1>📹 Citation App Demo</h1>
+      <p>Quick walkthrough before testing the live app.</p>
+      <video controls preload="metadata" playsinline>
+        <source src="citation-demo.webm" type="video/webm" />
+        Your browser does not support this video format.
+      </video>
+      <div class="actions">
+        <a class="btn" href="https://augmentedthinker.github.io/citation/" target="_blank" rel="noopener noreferrer">Open Citation App ↗</a>
+        <a class="btn" href="./index.html">← Back to Friend Viewer</a>
+      </div>
+      <div class="note">Demo only — verify all citation outputs against official sources.</div>
+    </section>
+  </main>
+</body>
+</html>
