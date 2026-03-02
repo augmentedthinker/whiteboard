@@ -34,7 +34,7 @@
     </div>
     <div class="row">
       <a class="btn ghost" href="https://ai.google.dev/gemini-api/docs/models" target="_blank" rel="noopener">📖 Open Google Model Docs</a>
-      <button class="ghost" onclick="askAdvisor(true)">🌐 Ask Advisor (include docs context)</button>
+      <button class="ghost" onclick="askAdvisor(true)">🌐 </button>
     </div>
     <div id="modelsStatus" class="muted" style="margin-top:8px"></div>
     <div id="modelsOut" class="out" style="margin-top:8px;display:none"></div>
@@ -42,29 +42,25 @@
   </div>
 
   <div class="card">
-    <h2>🧠 Model Advisor</h2>
+    <h2>💬 Chat / Ping Tester (Model-agnostic)</h2>
     <div class="row">
-      <label>Advisor model ID
-        <select id="advisorModel">
-          <option>gemini-2.5-flash</option>
-          <option>gemini-2.0-flash</option>
-          <option>gemini-2.5-pro</option>
-        </select>
+      <label>Chat model ID
+        <select id="chatModel"></select>
       </label>
-      <label>Manual override advisor model ID <input id="advisorCustom" placeholder="optional: paste any model id" /></label>
+      <label>Manual override chat model ID <input id="chatCustom" placeholder="optional: paste any model id" /></label>
     </div>
-    <label>Ask advisor
-      <textarea id="advisorPrompt">Given my currently available models, recommend the best first model to test for image, speech, music, and video. Return strict JSON with keys: image, speech, music, video, notes.</textarea>
+    <label>Chat prompt
+      <textarea id="chatPrompt">Give me a short heartbeat check and one practical suggestion for testing this model.</textarea>
     </label>
     <div class="row">
-      <button onclick="askAdvisor(false)">Ask Advisor</button>
-      <button class="ghost" onclick="applyAdvisor()">Apply Advisor Picks to Fields</button>
+      <button onclick="runChat()">Run Chat Test</button>
+      <button class="ghost" onclick="quickPing()">Quick Ping (minimal)</button>
     </div>
-    <div id="advisorStatus" class="muted" style="margin-top:8px"></div>
-    <div id="advisorOut" class="out" style="margin-top:8px"></div>
+    <div id="chatStatus" class="muted" style="margin-top:8px"></div>
+    <div id="chatOut" class="out" style="margin-top:8px"></div>
   </div>
 
-  <div class="card">
+<div class="card">
     <h2>🖼️ Image Test</h2>
     <div class="row">
       <label>Model ID <select id="imgModel"></select></label>
@@ -117,7 +113,7 @@
 </div>
 
 <script>
-let modelCache=[]; let advisorJson=null;
+let modelCache=[];
 const FALLBACK={
   image:['gemini-3.1-flash-image-preview','gemini-2.5-flash-image','gemini-3-pro-image-preview'],
   speech:['gemini-2.5-flash-preview-tts','gemini-2.5-flash','gemini-2.0-flash'],
@@ -136,13 +132,10 @@ function b64ToBytes(b64){const bin=atob(b64);const arr=new Uint8Array(bin.length
 function wavWrap(pcmBytes,sampleRate=24000,channels=1,bits=16){const dataSize=pcmBytes.length,buf=new ArrayBuffer(44+dataSize),v=new DataView(buf);const w=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i));};w(0,'RIFF');v.setUint32(4,36+dataSize,true);w(8,'WAVE');w(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,channels,true);v.setUint32(24,sampleRate,true);v.setUint32(28,sampleRate*channels*(bits/8),true);v.setUint16(32,channels*(bits/8),true);v.setUint16(34,bits,true);w(36,'data');v.setUint32(40,dataSize,true);new Uint8Array(buf,44).set(pcmBytes);return new Blob([buf],{type:'audio/wav'});} 
 async function call(model,payload){const key=getKey(); if(!key) throw new Error('Missing API key'); const url=`${base()}/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(key)}`; const r=await fetch(url,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)}); const j=await r.json().catch(()=>({})); return {ok:r.ok,status:r.status,json:j,url};}
 async function listModels(){const key=getKey(); if(!key){setStatus('modelsStatus','Missing API key',false);return;} const url=`${base()}/models?key=${encodeURIComponent(key)}`; const r=await fetch(url); const j=await r.json().catch(()=>({})); el('modelsOut').style.display='block'; el('modelsOut').textContent=JSON.stringify(j,null,2); if(!r.ok){setStatus('modelsStatus',`ListModels failed (${r.status})`,false);return;} modelCache=(j.models||[]).map(m=>m.name?.replace('models/','')).filter(Boolean); setStatus('modelsStatus',`Loaded ${modelCache.length} models.`,true); laneFilter();
-  const adv=document.getElementById('advisorModel');
-  const existing=[...adv.options].map(o=>o.value);
-  modelCache.forEach(m=>{ if(!existing.includes(m)){ const op=document.createElement('option'); op.value=m; op.textContent=m; adv.appendChild(op);} });
 }
-function laneFilter(){const all=modelCache.length?modelCache:Object.values(FALLBACK).flat(); renderSelect('imgModel',all.filter(m=>laneOf(m)==='image').concat(FALLBACK.image)); renderSelect('ttsModel',all.filter(m=>laneOf(m)==='speech').concat(FALLBACK.speech)); renderSelect('musicModel',all.filter(m=>laneOf(m)==='music').concat(FALLBACK.music)); renderSelect('videoModel',all.filter(m=>laneOf(m)==='video').concat(FALLBACK.video)); setStatus('modelsStatus','Lane filter applied. Use manual override for any model not listed.',true);} 
-async function askAdvisor(includeDocs){const out=el('advisorOut'); out.textContent='Thinking...'; const pool=modelCache.length?modelCache:Object.values(FALLBACK).flat(); const userQ=el('advisorPrompt').value.trim(); const advisorModel=(el('advisorCustom').value||'').trim() || el('advisorModel').value.trim(); const docsNote=includeDocs?"Also consider the latest official Gemini models documentation at https://ai.google.dev/gemini-api/docs/models and align recommendations if conflict exists.":""; const prompt=`You are a model-selection advisor. Available models:\n${pool.join(', ')}\n\n${docsNote}\n\nTask: ${userQ}\nReturn strict JSON only with keys: image, speech, music, video, notes.`; const res=await call(advisorModel,{contents:[{parts:[{text:prompt}]}]}); const txt=(res.json?.candidates?.[0]?.content?.parts||[]).map(p=>p.text||'').join('\n').trim(); out.textContent=txt||JSON.stringify(res.json,null,2); try{advisorJson=JSON.parse(txt);}catch{advisorJson=null;} setStatus('advisorStatus',res.ok?`Advisor response ready (${advisorModel})`:`Advisor failed (${res.status})`,res.ok);} 
-function applyAdvisor(){if(!advisorJson){setStatus('advisorStatus','No parseable JSON from advisor yet',false); return;} ['image','speech','music','video'].forEach(k=>{const id = k==='speech'?'tts':k; const val=(advisorJson[k]||'').toString().trim(); if(val) el(id+'Custom').value=val;}); setStatus('advisorStatus','Applied advisor picks to manual override fields',true);} 
+function laneFilter(){const all=modelCache.length?modelCache:Object.values(FALLBACK).flat(); renderSelect('imgModel',all.filter(m=>laneOf(m)==='image').concat(FALLBACK.image)); renderSelect('ttsModel',all.filter(m=>laneOf(m)==='speech').concat(FALLBACK.speech)); renderSelect('musicModel',all.filter(m=>laneOf(m)==='music').concat(FALLBACK.music)); renderSelect('videoModel',all.filter(m=>laneOf(m)==='video').concat(FALLBACK.video)); renderSelect('chatModel',all.filter(m=>!m.includes('image')&&!m.includes('tts')&&!m.includes('speech')).concat(['gemini-2.5-flash','gemini-2.0-flash'])); setStatus('modelsStatus','Lane filter applied. Use manual override for any model not listed.',true);} 
+async function runChat(){const model=(el('chatCustom').value||'').trim() || (el('chatModel').value||'').trim(); const prompt=el('chatPrompt').value.trim(); const out=el('chatOut'); out.textContent='Running...'; if(!model){setStatus('chatStatus','Model required',false); return;} const res=await call(model,{contents:[{parts:[{text:prompt}]}]}); out.textContent=JSON.stringify(res.json,null,2); const text=(res.json?.candidates?.[0]?.content?.parts||[]).map(p=>p.text||'').join('\n').trim(); if(text){out.textContent=text+'\n\n--- RAW ---\n'+JSON.stringify(res.json,null,2);} setStatus('chatStatus',res.ok?`Chat test ok (${model})`:`Chat test failed (${res.status})`,res.ok);} 
+async function quickPing(){el('chatPrompt').value='Reply with exactly: PONG'; await runChat();}
 async function runImage(){const model=modelFor('img'),prompt=el('imgPrompt').value.trim();const out=el('imgOut'); out.textContent='Running...';el('imgPreview').style.display='none';if(!model){setStatus('imgStatus','Model required',false);return;} const res=await call(model,{contents:[{parts:[{text:prompt}]}],generationConfig:{responseModalities:['TEXT','IMAGE']}});out.textContent=JSON.stringify(res.json,null,2);const parts=res.json?.candidates?.[0]?.content?.parts||[];const p=parts.find(x=>x.inlineData?.data||x.inline_data?.data);const b64=p?.inlineData?.data||p?.inline_data?.data;const mime=p?.inlineData?.mimeType||p?.inline_data?.mime_type||'image/png';if(res.ok&&b64){el('imgPreview').src=`data:${mime};base64,${b64}`;el('imgPreview').style.display='block';setStatus('imgStatus',`${model} returned image`,true);} else setStatus('imgStatus',`${model} failed (${res.status})`,false);} 
 async function runSpeech(){const model=modelFor('tts'),voice=el('ttsVoice').value.trim()||'Kore',text=el('ttsText').value.trim();const out=el('ttsOut');out.textContent='Running...';el('ttsAudio').style.display='none';if(!model){setStatus('ttsStatus','Model required',false);return;} const res=await call(model,{contents:[{parts:[{text}]}],generationConfig:{responseModalities:['AUDIO'],speechConfig:{voiceConfig:{prebuiltVoiceConfig:{voiceName:voice}}}}});out.textContent=JSON.stringify(res.json,null,2);const parts=res.json?.candidates?.[0]?.content?.parts||[];const p=parts.find(x=>x.inlineData?.data||x.inline_data?.data);const b64=p?.inlineData?.data||p?.inline_data?.data;const mime=p?.inlineData?.mimeType||p?.inline_data?.mime_type||'';if(res.ok&&b64){const bytes=b64ToBytes(b64);const blob=(mime.includes('audio/L16')||mime.includes('audio/pcm')||!mime)?wavWrap(bytes):new Blob([bytes],{type:mime||'audio/wav'});const url=URL.createObjectURL(blob);const a=el('ttsAudio');a.src=url;a.style.display='block';a.play().catch(()=>{});setStatus('ttsStatus',`${model} returned audio (${mime||'wrapped-wav'})`,true);} else setStatus('ttsStatus',`${model} failed (${res.status})`,false);} 
 async function runGeneric(kind){const model=modelFor(kind),prompt=el(kind+'Prompt').value.trim();const out=el(kind+'Out');out.textContent='Running...';if(!model){setStatus(kind+'Status','Model required',false);out.textContent='';return;}const modalities=kind==='video'?['VIDEO']:['AUDIO'];const res=await call(model,{contents:[{parts:[{text:prompt}]}],generationConfig:{responseModalities:modalities}});out.textContent=JSON.stringify(res.json,null,2);setStatus(kind+'Status',res.ok?`${model} responded (${res.status})`:`${model} failed (${res.status})`,res.ok);} 
