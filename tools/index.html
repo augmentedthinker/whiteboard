@@ -13,11 +13,23 @@
     h1{color:var(--accent);margin:8px 0 8px}
     .muted{color:var(--muted)}
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px;margin-top:12px}
-    .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+    .card{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;overflow:hidden;min-height:155px}
     .card h2{font-size:1rem;margin:0 0 8px}
-    .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-    .btn{display:inline-block;text-decoration:none;color:#d6e9ff;border:1px solid #426a98;background:#203247;padding:8px 10px;border-radius:9px;font-size:.92rem}
-    code{font-size:.85rem;background:#0f141c;border:1px solid #26303a;border-radius:8px;padding:2px 6px}
+    .tape{
+      position:absolute;
+      top:44%;left:-22%;width:150%;
+      transform:rotate(-12deg);
+      background:repeating-linear-gradient(45deg,#f4d03f 0 14px,#111 14px 22px);
+      color:#111;
+      text-align:center;
+      font-weight:800;
+      letter-spacing:.12em;
+      padding:8px 0;
+      border-top:2px solid rgba(0,0,0,.35);
+      border-bottom:2px solid rgba(0,0,0,.35);
+      box-shadow:0 6px 18px rgba(0,0,0,.35);
+    }
+    .status{display:inline-block;margin-top:8px;padding:4px 8px;border-radius:999px;background:#2a1f03;color:#ffd452;border:1px solid #60490c;font-size:.8rem}
     .note{margin-top:14px;padding:12px;border:1px dashed #3b4b5c;border-radius:10px;background:#111822}
   </style>
 </head>
@@ -25,31 +37,26 @@
   <div class="wrap">
     <a class="back" href="../index.html">← Back to Remote Viewer</a>
     <h1>🧰 Tools</h1>
-    <p class="muted">This page can safely list <strong>local-only tools</strong>. Links only work when you are on your own machine.</p>
+    <p class="muted">Local tools are temporarily disabled from this page while we finalize a reliable one-click launch flow.</p>
 
     <div class="grid">
-      <section class="card">
+      <section class="card" aria-disabled="true">
         <h2>🛰️ Gemini Ping Checker (Local)</h2>
-        <p class="muted">Single-file local utility for safe manual provider checks.</p>
-        <div class="btns">
-          <a class="btn" href="file:///mnt/chromeos/MyFiles/Downloads/SHARE/core/tools-local/gemini-ping-checker-local.html" target="_blank" rel="noopener">Open local file</a>
-        </div>
-        <p class="muted">Path: <code>/mnt/chromeos/MyFiles/Downloads/SHARE/core/tools-local/gemini-ping-checker-local.html</code></p>
+        <p class="muted">Local HTML works manually, but browser security blocks reliable launch from hosted Remote Viewer.</p>
+        <span class="status">Pending fix</span>
+        <div class="tape">UNDER CONSTRUCTION</div>
       </section>
 
-      <section class="card">
+      <section class="card" aria-disabled="true">
         <h2>🧠 Knowledge Base Studio (Local)</h2>
-        <p class="muted">Local RAG UI (ingest + ask + citations). Start app first, then open local URL.</p>
-        <div class="btns">
-          <a class="btn" href="http://127.0.0.1:8787" target="_blank" rel="noopener">Open localhost:8787</a>
-        </div>
-        <p class="muted">Run: <code>cd /mnt/chromeos/MyFiles/Downloads/SHARE/core/tools-local/knowledge-base-studio && python app.py</code></p>
+        <p class="muted">RAG lane needs a stable local UI launch path from this hub before activation.</p>
+        <span class="status">Pending UI route</span>
+        <div class="tape">UNDER CONSTRUCTION</div>
       </section>
     </div>
 
     <div class="note muted">
-      If a link doesn’t open, the tool probably isn’t running yet (or browser blocks file links from hosted pages).
-      In that case, copy the path/URL manually into your browser.
+      We’ll re-enable buttons only when they work as true one-click actions.
     </div>
   </div>
 </body>
