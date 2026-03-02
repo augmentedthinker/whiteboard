@@ -219,6 +219,7 @@
     const idleStyles = ['taunt','koan','riddle','paradox','parable'];
     let idleStyleIndex = 0;
     const recentIdleLines = [];
+    let isSpeakingNow = false;
 
     AFRAME.registerComponent('junior-logic', {
       tick(time, dt) {
@@ -367,6 +368,7 @@ Keep responses to exactly 1 short conversational sentence.`;
         const source = audioCtx.createBufferSource();
         source.buffer = decoded;
         source.connect(audioCtx.destination);
+        source.onended = () => { isSpeakingNow = false; };
         source.start();
         return true;
       } catch(_) {}
@@ -385,17 +387,35 @@ Keep responses to exactly 1 short conversational sentence.`;
       return true;
     }
 
+    function triggerSpeechEmbodiment(){
+      // "Preaching" vibe: hand/upper-body expressive clip + brighter lights while speaking
+      juniorModel.setAttribute('animation-mixer', {clip: 'Wave', loop: 'once', clampWhenFinished: true});
+      beepLightGreen.setAttribute('material', 'emissiveIntensity: 1.35');
+      beepLightRed.setAttribute('material', 'emissiveIntensity: 0.85');
+      antennaTip.setAttribute('material', 'emissiveIntensity: 1.5');
+      setTimeout(() => {
+        if (!isWalking) juniorModel.setAttribute('animation-mixer', {clip: 'Idle', loop: 'repeat'});
+        beepLightGreen.setAttribute('material', 'emissiveIntensity: 0.15');
+        beepLightRed.setAttribute('material', 'emissiveIntensity: 0.10');
+        antennaTip.setAttribute('material', 'emissiveIntensity: 0.20');
+      }, 1600);
+    }
+
     async function speak(text){
       const voiceMode = document.getElementById('voiceSelect').value;
+      isSpeakingNow = true;
+      triggerSpeechEmbodiment();
       
       if (voiceMode === 'browser' || !geminiKey) {
           if (voiceMode !== 'browser' && !geminiKey) statusEl.textContent = 'Gemini voice selected but no key saved — using browser voice';
           else statusEl.textContent = statusEl.textContent + ' · Voice: Browser';
           // Fallback to standard browser TTS
-          if (!('speechSynthesis' in window)) return;
+          if (!('speechSynthesis' in window)) { isSpeakingNow = false; return; }
           const u = new SpeechSynthesisUtterance(text);
           u.rate = 1.0; u.pitch = 1.0; u.volume = 0.9;
           window.speechSynthesis.cancel();
+          u.onend = () => { isSpeakingNow = false; };
+          u.onerror = () => { isSpeakingNow = false; };
           window.speechSynthesis.speak(u);
           return;
       }
@@ -448,6 +468,8 @@ Keep responses to exactly 1 short conversational sentence.`;
           console.error("Gemini TTS Error:", err);
           // Fallback if network fails
           const u = new SpeechSynthesisUtterance(text);
+          u.onend = () => { isSpeakingNow = false; };
+          u.onerror = () => { isSpeakingNow = false; };
           window.speechSynthesis.speak(u);
       }
     }
@@ -531,7 +553,7 @@ Keep responses to exactly 1 short conversational sentence.`;
       const style = idleStyles[idleStyleIndex % idleStyles.length];
       idleStyleIndex += 1;
       const nonce = `${Date.now()}-${Math.random().toString(36).slice(2,8)}`;
-      const prompt = `Create one original short ${style}. Max 18 words. No emojis. No reused lines. Nonce:${nonce}`;
+      const prompt = `You are Junior, a small robot living in a neon XR lab. Speak from your own perspective to Christopher. Create one original short ${style}. Max 18 words. No emojis. No reused lines. Mention XR/robot/lab vibes naturally when it fits. Nonce:${nonce}`;
       try {
         const res = await fetch(`https://text.pollinations.ai/prompt/${encodeURIComponent(prompt)}`);
         if (!res.ok) throw new Error('idle line api failed');
@@ -566,7 +588,7 @@ Keep responses to exactly 1 short conversational sentence.`;
       const now = Date.now();
       const idleLongEnough = (now - lastMoveAt) >= idleIntervalMs;
       const cooldownDone = (now - lastIdleSpeakAt) >= idleIntervalMs;
-      if (!idleLongEnough || !cooldownDone || isWalking || targetPos) return;
+      if (!idleLongEnough || !cooldownDone || isWalking || targetPos || isSpeakingNow) return;
 
       const line = await generateIdleLine();
       const styleNow = idleStyles[(idleStyleIndex - 1 + idleStyles.length) % idleStyles.length];
