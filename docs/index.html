@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Remote Viewer | Docs Hub</title>
+  <title>Remote Viewer | API Reference</title>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     :root { --bg:#0d1117; --panel:#161b22; --panelHover:#21262d; --border:#30363d; --text:#c9d1d9; --accent:#58a6ff; }
@@ -28,19 +28,13 @@
 <body>
 <div class="container">
   <header>
-    <h1>📚 Docs Hub</h1>
-    <p>Operational docs, contracts, and reference markdown files.</p>
+    <h1>📚 API Reference</h1>
+    <p>Focused API and model-reference markdown files.</p>
   </header>
   <a class="back" href="../index.html">← Back to Remote Viewer</a>
-  <button id="backBtn" class="back-btn" onclick="showList()">← Back to Docs List</button>
+  <button id="backBtn" class="back-btn" onclick="showList()">← Back to API List</button>
 
   <div id="fileList">
-    <div class="section-title">Contracts</div>
-    <div class="file-item" onclick="loadMarkdown('contracts/junior-task-contract-v1.md')">
-      <strong>🤖 Junior Task Contract v1</strong><br>
-      <small>Delegation reliability contract: path lock, auth checks, and reporting.</small>
-    </div>
-
     <div class="section-title">API References</div>
     <div class="file-item" onclick="loadMarkdown('references/ai-model-intelligence.md')">
       <strong>🧭 AI Model Intelligence & Tiered Strategy</strong><br>
@@ -61,23 +55,6 @@
     <div class="file-item" onclick="loadMarkdown('references/chatgpt-plus-codex-usage-quick-reference.md')">
       <strong>💬 ChatGPT Plus + Codex Usage Quick Reference</strong><br>
       <small>Lane clarity for Plus usage versus API/Codex workflows.</small>
-    </div>
-
-    <div class="section-title">Incident + Ops</div>
-    <div class="file-item" onclick="loadMarkdown('ops/incident-report-2026-02-25.md')">
-      <strong>🚨 Incident Report (2026-02-25)</strong><br>
-      <small>Operational incident notes and guardrails from recovery.</small>
-    </div>
-    <div class="file-item" onclick="loadMarkdown('ops/incident-report-2026-02-28-frontier-signal-images.md')">
-      <strong>🛠️ Incident Report (2026-02-28) — Frontier Signal Image Rendering</strong><br>
-      <small>Root-cause and remediation log for broken Signal report images on live page.</small>
-    </div>
-
-
-    <div class="section-title">Summaries</div>
-    <div class="file-item" onclick="loadMarkdown('summaries/2026-02-26-midday-troubleshooting-summary.md')">
-      <strong>🗒️ Midday Troubleshooting Summary (2026-02-26)</strong><br>
-      <small>Timeline and analysis of reliability troubleshooting block.</small>
     </div>
   </div>
 
