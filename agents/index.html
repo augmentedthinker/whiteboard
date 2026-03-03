@@ -44,9 +44,13 @@
     .halo{position:absolute;left:50%;top:47%;transform:translate(-50%,-50%);width:64%;aspect-ratio:1/1;border-radius:999px;background:radial-gradient(circle, color-mix(in oklab, var(--accent) 45%, transparent) 0%, color-mix(in oklab, var(--accent) 22%, transparent) 38%, rgba(0,0,0,0) 70%);filter:blur(1px)}
     .robot{position:absolute;inset:2% 2% 1%;background-size:contain;background-position:center;background-repeat:no-repeat;z-index:2;filter:drop-shadow(0 10px 24px rgba(0,0,0,.55))}
     .nameplate{position:absolute;left:10px;right:10px;bottom:8px;z-index:4;border:1px solid color-mix(in oklab, var(--accent) 32%, #8bcaff);background:rgba(7,14,24,.75);border-radius:10px;padding:7px 9px}
-    .name{font-family:Orbitron,Inter,sans-serif;font-size:clamp(1rem,2.1vw,1.35rem);font-weight:700;letter-spacing:.03em;margin:0;color:color-mix(in oklab, var(--accent) 82%, white);text-shadow:0 0 16px color-mix(in oklab, var(--accent) 45%, transparent)}
-    .role{margin:3px 0 0;color:var(--muted);font-size:.8rem}
+    .name{font-family:Orbitron,Inter,sans-serif;font-size:clamp(1.18rem,2.8vw,1.9rem);font-weight:700;letter-spacing:.08em;margin:0;color:color-mix(in oklab, var(--accent) 86%, white);text-shadow:0 0 18px color-mix(in oklab, var(--accent) 48%, transparent), 0 0 34px color-mix(in oklab, var(--accent) 24%, transparent);animation:namePulse 2.6s ease-in-out infinite}
+    .role{margin:4px 0 0;color:var(--muted);font-size:.83rem;letter-spacing:.02em}
 
+    @keyframes namePulse {
+      0%,100% { transform:translateY(0); opacity:.96; filter:drop-shadow(0 0 0 rgba(0,0,0,0)); }
+      50% { transform:translateY(-1px); opacity:1; filter:drop-shadow(0 0 7px color-mix(in oklab, var(--accent) 30%, transparent)); }
+    }
 
     .nav{position:absolute;top:47%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(10,18,30,.72);color:#d9ecff;display:grid;place-items:center;cursor:pointer;font-size:1.2rem;z-index:10}
     .prev{left:3px}.next{right:3px}
@@ -85,9 +89,9 @@
 
 <script>
 const units=[
- {name:'⚔️ Saber Unit',role:'Operator / Orchestrator Core',accent:'#2f7dff',image:'../assets/agents/2026-03-03/saber-station-blue.png',modules:['Command-chain orchestration across tools and sessions','Rapid implementation via shell/file/browser control','Memory-lane continuity and state protection','Recovery-first troubleshooting under pressure'],skills:['Scope containment that prevents feature drift','High-signal handoffs to specialist agents','Artifact-first execution with tight shipping loops'],powers:['Loop Breaker','Trajectory Lock','Recovery Protocol'],stats:{Power:95,Reliability:92,Speed:84,Precision:90}},
- {name:'🖼️ ImageBot Unit',role:'Visual Synthesis Specialist',accent:'#32e27a',image:'../assets/agents/2026-03-03/imagebot-station-cyan.png',modules:['Prompt-to-render image pipeline management','Variant generation for fast visual exploration','Output naming + path discipline for production','Fallback model routing when generations fail'],skills:['Cinematic composition and framing instincts','Mood-led iteration without style drift','Production-ready output formatting and handoff'],powers:['Vision Forge','Variant Burst','Asset Discipline'],stats:{Power:90,Reliability:86,Speed:92,Precision:91}},
- {name:'🎨 StyleBot Unit',role:'Interface Polish Specialist',accent:'#b26cff',image:'../assets/agents/2026-03-03/stylebot-station-violet.png',modules:['CSS polish gate for readability and hierarchy','Typography presets + contrast tuning workflow','Reusable hero/snippet styling templates','Responsive interface QA across mobile/desktop'],skills:['Premium clarity without overdesign','Mobile-first hierarchy and spacing rhythm','High-impact finish passes that stay practical'],powers:['Clarity Field','Hierarchy Engine','Finish Pass'],stats:{Power:88,Reliability:90,Speed:82,Precision:95}}
+ {name:'SABER UNIT',role:'Operator / Orchestrator Core',accent:'#2f7dff',image:'../assets/agents/2026-03-03/saber-station-blue.png',modules:['Command-chain orchestration across tools and sessions','Rapid implementation via shell/file/browser control','Memory-lane continuity and state protection','Recovery-first troubleshooting under pressure'],skills:['Scope containment that prevents feature drift','High-signal handoffs to specialist agents','Artifact-first execution with tight shipping loops'],powers:['Loop Breaker','Trajectory Lock','Recovery Protocol'],stats:{Power:95,Reliability:92,Speed:84,Precision:90}},
+ {name:'IMAGEBOT UNIT',role:'Visual Synthesis Specialist',accent:'#32e27a',image:'../assets/agents/2026-03-03/imagebot-station-cyan.png',modules:['Prompt-to-render image pipeline management','Variant generation for fast visual exploration','Output naming + path discipline for production','Fallback model routing when generations fail'],skills:['Cinematic composition and framing instincts','Mood-led iteration without style drift','Production-ready output formatting and handoff'],powers:['Vision Forge','Variant Burst','Asset Discipline'],stats:{Power:90,Reliability:86,Speed:92,Precision:91}},
+ {name:'STYLEBOT UNIT',role:'Interface Polish Specialist',accent:'#b26cff',image:'../assets/agents/2026-03-03/stylebot-station-violet.png',modules:['CSS polish gate for readability and hierarchy','Typography presets + contrast tuning workflow','Reusable hero/snippet styling templates','Responsive interface QA across mobile/desktop'],skills:['Premium clarity without overdesign','Mobile-first hierarchy and spacing rhythm','High-impact finish passes that stay practical'],powers:['Clarity Field','Hierarchy Engine','Finish Pass'],stats:{Power:88,Reliability:90,Speed:82,Precision:95}}
 ];
 
 const carousel=document.getElementById('carousel');
