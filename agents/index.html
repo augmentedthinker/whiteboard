@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Remote Viewer | Agents</title>
+  <style>
+    :root { --bg:#0d1117; --panel:#161b22; --panelHover:#21262d; --border:#30363d; --text:#c9d1d9; --accent:#58a6ff; --muted:#9da7b1; }
+    *{box-sizing:border-box}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);margin:0;padding:max(12px,env(safe-area-inset-top)) 12px max(16px,env(safe-area-inset-bottom));line-height:1.55;min-height:100vh}
+    .container{max-width:920px;margin:0 auto}
+    header{border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:14px}
+    h1{color:var(--accent);margin:0;font-size:clamp(1.4rem,3.8vw,2rem)}
+    .sub{margin:6px 0 0;color:var(--muted)}
+    .back-link{display:inline-block;margin:0 0 14px;text-decoration:none;color:var(--accent);border:1px solid var(--border);border-radius:10px;padding:10px 14px;background:var(--panelHover)}
+    .grid{display:grid;gap:12px}
+    .card{background:linear-gradient(135deg, rgba(28, 35, 46, 0.95), rgba(20, 27, 38, 0.92));border:1px solid rgba(136,174,255,.35);border-radius:12px;padding:14px}
+    .card h2{margin:0 0 8px;font-size:1.1rem;color:#9ec7ff}
+    .meta{color:var(--muted);font-size:.9rem;margin-bottom:8px}
+    .pill{display:inline-block;font-size:.78rem;border:1px solid #4b5563;border-radius:999px;padding:3px 8px;background:#1f2937;color:#d1d5db;margin-right:6px}
+    ul{margin:8px 0 0 18px;padding:0}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🤖 Agents</h1>
+      <p class="sub">The active specialist crew inside your OpenClaw workflow.</p>
+    </header>
+
+    <a class="back-link" href="../index.html">← Back to Remote Viewer</a>
+
+    <div class="grid">
+      <section class="card">
+        <h2>⚔️ Main (Saber)</h2>
+        <div class="meta"><span class="pill">Core Operator</span><span class="pill">Continuity + Execution</span></div>
+        <p>Your primary operating partner. Handles strategy-to-action conversion, keeps scope honest, and protects momentum across sessions.</p>
+        <ul>
+          <li>Session continuity and trajectory anchoring</li>
+          <li>Artifact shipping support + quality control</li>
+          <li>Decision pressure-testing without fluff</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>🛰️ Atlas Signal Desk</h2>
+        <div class="meta"><span class="pill">Research/Automation</span><span class="pill">Scheduled Ops</span></div>
+        <p>Purpose-built for feed monitoring, recurring scans, and signal collection workflows. Best for periodic intelligence tasks and structured digests.</p>
+        <ul>
+          <li>Runs scheduled data collection pipelines</li>
+          <li>Assembles reports from defined sources</li>
+          <li>Good for repeatable, operational loops</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>🩺 Surgeon</h2>
+        <div class="meta"><span class="pill">Precision Agent</span><span class="pill">Complex Multi-Step Tasks</span></div>
+        <p>A focused specialist for high-attention tasks that need careful sequencing, deep troubleshooting, or exacting edits.</p>
+        <ul>
+          <li>Surgical debugging and failure analysis</li>
+          <li>Detailed execution plans + controlled interventions</li>
+          <li>Best when stakes are high and scope is narrow</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>🧪 OpenAI-Codex (Legacy Lane)</h2>
+        <div class="meta"><span class="pill">Experimental</span><span class="pill">Model-Specific Workbench</span></div>
+        <p>Legacy/experimental workspace for codex-specific behavior tests and isolated runs. Keep this as a sandbox lane, not default production flow.</p>
+      </section>
+    </div>
+  </div>
+</body>
+</html>
