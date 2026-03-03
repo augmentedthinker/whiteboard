@@ -1,251 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Remote Viewer | Christopher's Artifacts</title>
-    <link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
-    <link rel="apple-touch-icon" href="assets/icons/icon.svg">
-    <link rel="manifest" href="site.webmanifest">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <style>
-        :root {
-            --bg: #0d1117;
-            --panel: #161b22;
-            --panelHover: #21262d;
-            --border: #30363d;
-            --text: #c9d1d9;
-            --accent: #58a6ff;
-        }
-        * { box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: #000 url('assets/main-bg/2026-03-02/junior-xr-lab-bg-clean.png') center center / cover no-repeat fixed;
-            color: var(--text);
-            margin: 0;
-            padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
-            line-height: 1.5;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 860px;
-            margin: 0 auto;
-        }
-        header {
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 14px;
-            margin-bottom: 16px;
-        }
-        h1 { color: var(--accent); margin: 0; font-size: clamp(1.4rem, 3.8vw, 2rem); }
-        header p { margin: 4px 0 0; opacity: 0.9; }
-        .file-list { list-style: none; padding: 0; margin: 0; }
-        .file-item {
-            background: linear-gradient(135deg, rgba(28, 35, 46, 0.95), rgba(20, 27, 38, 0.92));
-            border: 1px solid rgba(136, 174, 255, 0.35);
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: background 0.2s, border-color 0.2s, transform 0.2s;
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
-        }
-        .file-item:hover, .file-item:active {
-            background: linear-gradient(135deg, rgba(34, 43, 56, 0.98), rgba(24, 33, 46, 0.96));
-            border-color: rgba(136, 174, 255, 0.55);
-            transform: translateY(-1px);
-        }
-        .file-item strong { font-size: 1rem; display: inline-block; margin-bottom: 2px; }
-        .file-item small { color: #9da7b1; font-size: 0.9rem; }
-        .under-construction { position: relative; overflow: hidden; }
-        .under-construction::after {
-            content: "UNDER CONSTRUCTION";
-            position: absolute;
-            top: 44%; left: -20%; width: 145%;
-            transform: rotate(-12deg);
-            background: repeating-linear-gradient(45deg, #f4d03f 0 14px, #111 14px 22px);
-            color: #111;
-            text-align: center;
-            font-weight: 800;
-            letter-spacing: .12em;
-            padding: 8px 0;
-            border-top: 2px solid rgba(0,0,0,.35);
-            border-bottom: 2px solid rgba(0,0,0,.35);
-            box-shadow: 0 6px 18px rgba(0,0,0,.35);
-            pointer-events: none;
-            z-index: 2;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Remote Viewer | Command Portal</title>
+  <link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg" />
+  <link rel="apple-touch-icon" href="assets/icons/icon.svg" />
+  <link rel="manifest" href="site.webmanifest" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;600;700&display=swap');
+    :root {
+      --bg:#060b14;
+      --panel:rgba(13,20,33,.78);
+      --border:rgba(130,182,255,.28);
+      --text:#dbe9fb;
+      --muted:#9fb4ce;
+      --accent:#79c5ff;
+      --saber:#2f7dff;
+      --imagebot:#32e27a;
+      --stylebot:#b26cff;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%}
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(90% 80% at 50% -10%, rgba(70,126,215,.28), transparent 62%),
+        linear-gradient(180deg, rgba(6,11,20,.70), rgba(6,11,20,.92)),
+        url('assets/agents/2026-03-03/workshop-bg.png') center/cover fixed;
+      min-height:100vh;
+      padding:max(12px,env(safe-area-inset-top)) 12px max(14px,env(safe-area-inset-bottom));
+    }
+    .container{max-width:1100px;margin:0 auto}
 
-        #viewer {
-            display: none;
-            background: rgba(22, 27, 34, 0.95);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: clamp(14px, 3vw, 24px);
-            margin-top: 12px;
-            overflow-wrap: anywhere;
-        }
-        #viewer img { max-width: 100%; height: auto; }
-        #viewer h1, #viewer h2, #viewer h3 { border-bottom: 1px solid var(--border); padding-bottom: 0.3em; }
-        .back-btn {
-            background: var(--panelHover);
-            color: var(--accent);
-            border: 1px solid var(--border);
-            padding: 10px 14px;
-            border-radius: 10px;
-            cursor: pointer;
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-            touch-action: manipulation;
-        }
+    .hero{
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:16px;
+      background:linear-gradient(155deg, rgba(16,26,42,.9), rgba(11,18,31,.84));
+      box-shadow:0 18px 42px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.05);
+      margin-bottom:12px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:before{content:"";position:absolute;inset:0;background:radial-gradient(90% 110% at 50% 0%, rgba(131,194,255,.18), transparent 58%);pointer-events:none}
+    h1{margin:0;font-family:Orbitron,Inter,sans-serif;font-size:clamp(1.25rem,4vw,2rem);letter-spacing:.05em;color:#e4f2ff}
+    .subtitle{margin:6px 0 0;color:var(--muted);font-size:clamp(.88rem,1.8vw,1rem)}
 
+    .quick-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+    .quick{
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:9px 10px;
+      background:rgba(11,18,30,.62);
+      font-size:.8rem;
+      color:#c8def6;
+    }
+    .quick b{display:block;font-size:.72rem;color:#9ecaff;letter-spacing:.04em;text-transform:uppercase;margin-bottom:2px}
 
-        
-        .fs-btn {
-            position: fixed;
-            top: max(10px, env(safe-area-inset-top));
-            right: max(10px, env(safe-area-inset-right));
-            z-index: 220;
-            background: rgba(15, 25, 48, 0.82);
-            color: #cfe6ff;
-            border: 1px solid rgba(120,170,255,.55);
-            border-radius: 10px;
-            padding: 8px 10px;
-            font-size: 12px;
-            font-weight: 600;
-            backdrop-filter: blur(6px);
-            touch-action: manipulation;
-        }
-        .fs-btn:active { transform: translateY(1px); }
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+    .card{
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:var(--panel);
+      padding:12px;
+      cursor:pointer;
+      transition:.2s transform,.2s border-color,.2s background;
+      min-height:112px;
+    }
+    .card:hover{transform:translateY(-2px);border-color:rgba(162,211,255,.58);background:rgba(16,25,40,.9)}
+    .card strong{display:block;font-size:.92rem;letter-spacing:.02em;margin-bottom:4px;color:#e5f2ff}
+    .card small{color:#a8bdd7;line-height:1.4}
 
+    .stripe{height:3px;border-radius:999px;margin-bottom:8px;background:linear-gradient(90deg,var(--accent),transparent)}
+    .saber .stripe{background:linear-gradient(90deg,var(--saber),transparent)}
+    .imagebot .stripe{background:linear-gradient(90deg,var(--imagebot),transparent)}
+    .stylebot .stripe{background:linear-gradient(90deg,var(--stylebot),transparent)}
 
+    .section-title{margin:14px 0 8px;font-size:.78rem;letter-spacing:.07em;color:#9fc6eb;text-transform:uppercase}
 
-        @media (max-width: 768px) {
-            body {
-                background: #000 url('assets/main-bg/2026-03-02/junior-xr-lab-bg-clean.png') center center / cover no-repeat fixed;
-            }
-            .container {
-                max-width: 100%;
-            }
-        }
+    .fs-btn {
+      position: fixed;
+      top: max(10px, env(safe-area-inset-top));
+      right: max(10px, env(safe-area-inset-right));
+      z-index: 220;
+      background: rgba(15, 25, 48, 0.82);
+      color: #cfe6ff;
+      border: 1px solid rgba(120,170,255,.55);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      backdrop-filter: blur(6px);
+    }
 
-    </style>
+    @media (max-width:760px){
+      .quick-row{grid-template-columns:1fr}
+    }
+  </style>
 </head>
 <body>
-    <button id="fsBtn" class="fs-btn" type="button" aria-label="Toggle fullscreen">⛶ Fullscreen</button>
-    <div class="container">
-        <header id="header">
-            <h1>Remote Viewer</h1>
-            <p>Artifact Explorer</p>
-        </header>
+  <button id="fsBtn" class="fs-btn" type="button">⛶ Fullscreen</button>
+  <div class="container">
+    <section class="hero">
+      <h1>REMOTE VIEWER · COMMAND PORTAL</h1>
+      <p class="subtitle">Central launch surface for artifacts, agents, tooling, and reference lanes. Fast to scan. Fast to ship.</p>
+      <div class="quick-row">
+        <div class="quick"><b>Saber</b>Operator lane · orchestration + execution</div>
+        <div class="quick"><b>ImageBot</b>Visual generation lane · cinematic assets</div>
+        <div class="quick"><b>StyleBot</b>UI polish lane · readability + finish passes</div>
+      </div>
+    </section>
 
-        <button id="backBtn" class="back-btn" style="display:none;" onclick="showList()">← Back to Files</button>
+    <div class="section-title">Primary Lanes</div>
+    <section class="grid">
+      <div class="card" onclick="window.open('today/index.html','_blank')">
+        <div class="stripe"></div>
+        <strong>Today’s Artifacts</strong>
+        <small>Newest outputs first. The live shipping lane.</small>
+      </div>
+      <div class="card saber" onclick="window.open('agents/index.html','_blank')">
+        <div class="stripe"></div>
+        <strong>Agents Workstation Bay</strong>
+        <small>Interactive unit cards, capabilities, and role identity.</small>
+      </div>
+      <div class="card" onclick="window.open('tools/index.html','_blank')">
+        <div class="stripe"></div>
+        <strong>Tools</strong>
+        <small>Manual utilities and operational helpers.</small>
+      </div>
+      <div class="card" onclick="window.open('clawdhub/index.html','_blank')">
+        <div class="stripe"></div>
+        <strong>OpenClaw Hub</strong>
+        <small>Guides, trusted sources, and implementation playbooks.</small>
+      </div>
+    </section>
 
-        <div id="fileList" class="file-list">
-            <div class="file-item" onclick="window.open('today/index.html','_blank')">
-                <strong>📌 TODAY'S ARTIFACTS</strong><br>
-                <small>Open daily projects page (newest artifact stays on top)</small>
-            </div>
-            <div class="file-item" onclick="window.open('junior-xr-lab-2026-02-28/index.html','_blank')">
-                <strong>🥽 JUNIOR XR LAB (2026-02-28)</strong><br>
-                <small>Embodied AI presence experiment in WebXR</small>
-            </div>
+    <div class="section-title">Extended Lanes</div>
+    <section class="grid">
+      <div class="card" onclick="window.open('games/index.html','_blank')">
+        <div class="stripe"></div>
+        <strong>Games</strong>
+        <small>Curated game portal (Good / Maybe / Archive).</small>
+      </div>
+      <div class="card" onclick="window.open('docs/index.html','_blank')">
+        <div class="stripe"></div>
+        <strong>API Reference</strong>
+        <small>Model and API reference documentation.</small>
+      </div>
+      <div class="card" onclick="window.open('ideas/index.html','_blank')">
+        <div class="stripe"></div>
+        <strong>Ideas / Loose Ends</strong>
+        <small>Parking lot for future experiments and notes.</small>
+      </div>
+      <div class="card" onclick="window.open('docs/friend-viewer/index.html','_blank')">
+        <div class="stripe"></div>
+        <strong>Friend Viewer</strong>
+        <small>Share-ready client/colleague portal.</small>
+      </div>
+      <div class="card" onclick="window.open('archive/index.html','_self')">
+        <div class="stripe"></div>
+        <strong>Archived / Needs Work</strong>
+        <small>Projects in storage, recovery, or rework state.</small>
+      </div>
+    </section>
+  </div>
 
-
-
-            <div class="file-item" onclick="window.open('tools/index.html','_blank')">
-                <strong>🧰 TOOLS</strong><br>
-                <small>Manual utilities (no background polling loops)</small>
-            </div>
-            <div class="file-item" onclick="window.open('agents/index.html','_blank')">
-                <strong>🤖 AGENTS</strong><br>
-                <small>Overview of active agents and what each one is for</small>
-            </div>
-
-            <div class="file-item" onclick="window.open('clawdhub/index.html','_blank')">
-                <strong>🦞 OPENCLAW HUB</strong><br>
-                <small>Agent configuration guides, trusted sources, and implementation playbooks.</small>
-            </div>
-            <div class="file-item" onclick="window.open('games/index.html','_blank')">
-                <strong>🎮 GAMES</strong><br>
-                <small>Curated game portal (Good / Maybe / Archive)</small>
-            </div>
-
-            <div class="file-item" onclick="window.open('docs/index.html','_blank')">
-                <strong>📚 API REFERENCE</strong><br>
-                <small>Open API and model-reference markdown docs</small>
-            </div>
-            <div class="file-item" onclick="window.open('ideas/index.html','_blank')">
-                <strong>💡 IDEAS / LOOSE ENDS</strong><br>
-                <small>Parking lot for project ideas and reminders to revisit</small>
-            </div>
-            <div class="file-item" onclick="window.open('docs/friend-viewer/index.html','_blank')">
-                <strong>🤝 FRIEND VIEWER</strong><br>
-                <small>Share-ready portal for colleagues, friends, and clients</small>
-            </div>
-            <div class="file-item" onclick="window.open('archive/index.html','_self')">
-                <strong>🗄️ ARCHIVED / NEEDS WORK</strong><br>
-                <small>Open archived and in-progress artifacts on a dedicated page</small>
-            </div>
-        </div>
-
-        <div id="viewer"></div>
-    </div>
-
-    <script>
-
-        const fsBtn = document.getElementById('fsBtn');
-
-        function isFullscreen() {
-            return !!(document.fullscreenElement || document.webkitFullscreenElement);
+  <script>
+    const fsBtn = document.getElementById('fsBtn');
+    function isFullscreen(){ return !!(document.fullscreenElement || document.webkitFullscreenElement); }
+    async function toggleFullscreen(){
+      try {
+        const target = document.documentElement;
+        if (!isFullscreen()) {
+          if (target.requestFullscreen) await target.requestFullscreen();
+          else if (target.webkitRequestFullscreen) target.webkitRequestFullscreen();
+        } else {
+          if (document.exitFullscreen) await document.exitFullscreen();
+          else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
         }
-
-        async function toggleFullscreen() {
-            try {
-                const target = document.documentElement;
-                if (!isFullscreen()) {
-                    if (target.requestFullscreen) await target.requestFullscreen();
-                    else if (target.webkitRequestFullscreen) target.webkitRequestFullscreen();
-                } else {
-                    if (document.exitFullscreen) await document.exitFullscreen();
-                    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-                }
-            } catch (_) {}
-            syncFsLabel();
-        }
-
-        function syncFsLabel() {
-            fsBtn.textContent = isFullscreen() ? '🡼 Exit Fullscreen' : '⛶ Fullscreen';
-        }
-
-        fsBtn.addEventListener('click', toggleFullscreen);
-        document.addEventListener('fullscreenchange', syncFsLabel);
-        document.addEventListener('webkitfullscreenchange', syncFsLabel);
-        syncFsLabel();
-
-        async function loadMarkdown(filename) {
-            const response = await fetch(filename);
-            const text = await response.text();
-            document.getElementById('fileList').style.display = 'none';
-            document.getElementById('header').style.display = 'none';
-            document.getElementById('backBtn').style.display = 'block';
-            const viewer = document.getElementById('viewer');
-            viewer.style.display = 'block';
-            viewer.innerHTML = marked.parse(text);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function showList() {
-            document.getElementById('fileList').style.display = 'block';
-            document.getElementById('header').style.display = 'block';
-            document.getElementById('backBtn').style.display = 'none';
-            document.getElementById('viewer').style.display = 'none';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    </script>
+      } catch(_) {}
+      fsBtn.textContent = isFullscreen() ? '🡼 Exit Fullscreen' : '⛶ Fullscreen';
+    }
+    fsBtn.addEventListener('click', toggleFullscreen);
+    document.addEventListener('fullscreenchange', ()=>fsBtn.textContent = isFullscreen() ? '🡼 Exit Fullscreen' : '⛶ Fullscreen');
+  </script>
 </body>
 </html>
