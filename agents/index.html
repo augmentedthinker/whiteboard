@@ -3,72 +3,203 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Remote Viewer | Agents</title>
+  <title>Remote Viewer | Agents Loadout</title>
   <style>
-    :root { --bg:#0d1117; --panel:#161b22; --panelHover:#21262d; --border:#30363d; --text:#c9d1d9; --accent:#58a6ff; --muted:#9da7b1; }
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap');
+    :root{
+      --bg:#070d17;
+      --panel:rgba(13,21,34,.8);
+      --line:rgba(152,201,255,.3);
+      --text:#e8f3ff;
+      --muted:#aec2dd;
+      --accent:#89cbff;
+    }
     *{box-sizing:border-box}
-    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(rgba(8,12,20,.68),rgba(8,12,20,.78)), url('../assets/main-bg/2026-03-03/agents-page-bg.png') center center / cover no-repeat fixed;color:var(--text);margin:0;padding:max(12px,env(safe-area-inset-top)) 12px max(16px,env(safe-area-inset-bottom));line-height:1.55;min-height:100vh}
-    .container{max-width:960px;margin:0 auto}
-    header{border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:14px}
-    h1{color:var(--accent);margin:0;font-size:clamp(1.4rem,3.8vw,2rem)}
-    .sub{margin:6px 0 0;color:var(--muted)}
-    .back-link{display:inline-block;margin:0 0 14px;text-decoration:none;color:var(--accent);border:1px solid var(--border);border-radius:10px;padding:10px 14px;background:var(--panelHover)}
-    .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
-    .card{background:linear-gradient(135deg, rgba(28, 35, 46, 0.95), rgba(20, 27, 38, 0.92));border:1px solid rgba(136,174,255,.35);border-radius:12px;padding:14px;cursor:pointer;transition:transform .2s,border-color .2s,background .2s}
-    .card:hover{transform:translateY(-2px);border-color:rgba(136,174,255,.6);background:linear-gradient(135deg, rgba(34,43,56,.98), rgba(24,33,46,.96))}
-    .card h2{margin:0 0 8px;font-size:1.1rem;color:#9ec7ff}
-    .meta{color:var(--muted);font-size:.9rem;margin-bottom:8px}
-    .pill{display:inline-block;font-size:.78rem;border:1px solid #4b5563;border-radius:999px;padding:3px 8px;background:#1f2937;color:#d1d5db;margin-right:6px}
-    ul{margin:8px 0 0 18px;padding:0}
-    .open-hint{margin-top:10px;color:#b8d8ff;font-size:.92rem}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(120% 100% at 50% -10%, rgba(58,102,185,.24), transparent 58%),
+        linear-gradient(180deg, rgba(7,13,23,.86), rgba(7,13,23,.94)),
+        url('../assets/main-bg/2026-03-03/agents-page-bg.png') center/cover fixed;
+      min-height:100vh;
+      padding:max(12px,env(safe-area-inset-top)) 12px max(20px,env(safe-area-inset-bottom));
+    }
+    .container{max-width:1100px;margin:0 auto}
+    .top{margin-bottom:14px}
+    h1{font-family:'Space Grotesk',Inter,sans-serif;margin:0;color:#dff1ff;font-size:clamp(1.5rem,4.2vw,2.3rem);letter-spacing:.02em}
+    .sub{margin:7px 0 0;color:var(--muted);max-width:72ch}
+    .back{display:inline-block;margin-top:12px;text-decoration:none;color:#d9ecff;background:rgba(16,25,39,.65);border:1px solid var(--line);padding:9px 13px;border-radius:999px}
+
+    .arena{display:grid;grid-template-columns:1.2fr .9fr;gap:14px;align-items:start}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+
+    .card{
+      position:relative;overflow:hidden;cursor:pointer;
+      border:1px solid var(--line);border-radius:16px;
+      background:linear-gradient(160deg, rgba(17,28,45,.92), rgba(10,17,28,.88));
+      transition:.22s transform,.22s border-color,.22s box-shadow;
+    }
+    .card:hover{transform:translateY(-2px);border-color:rgba(162,214,255,.55);box-shadow:0 14px 30px rgba(0,0,0,.35)}
+    .card.active{border-color:rgba(188,230,255,.78);box-shadow:0 0 0 1px rgba(183,228,255,.36) inset,0 18px 34px rgba(0,0,0,.42)}
+    .portrait{height:190px;background-size:cover;background-position:center}
+    .body{padding:12px}
+    .name{font-family:'Space Grotesk',Inter,sans-serif;font-size:1.12rem;margin:0 0 2px}
+    .role{font-size:.87rem;color:#a8d6ff;margin:0 0 10px}
+    .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+    .chip{font-size:.72rem;border:1px solid rgba(164,208,255,.34);padding:4px 8px;border-radius:999px;background:rgba(14,22,36,.55);color:#cae6ff}
+
+    .bars{display:grid;gap:8px}
+    .bar{display:grid;grid-template-columns:84px 1fr 26px;gap:8px;align-items:center;font-size:.74rem;color:#c2d8f2}
+    .meter{height:7px;border-radius:999px;background:rgba(92,121,158,.24);overflow:hidden}
+    .fill{height:100%;border-radius:999px;background:linear-gradient(90deg, #62b8ff, #9de2ff)}
+
+    .panel{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:14px;position:sticky;top:10px;backdrop-filter:blur(8px)}
+    .panel h2{margin:0 0 8px;font-family:'Space Grotesk',Inter,sans-serif;color:#dff1ff}
+    .panel p{margin:0 0 12px;color:var(--muted)}
+    .loadout{display:grid;gap:10px}
+    .slot{border:1px solid rgba(145,188,236,.28);border-radius:12px;padding:10px;background:rgba(10,17,28,.45)}
+    .slot h3{margin:0 0 6px;font-size:.88rem;color:#bce2ff;letter-spacing:.02em}
+    .slot ul{margin:0;padding-left:18px;color:#c9dbef;font-size:.88rem}
+    .cta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .btn{font-size:.85rem;color:#d8ebff;text-decoration:none;border:1px solid rgba(166,210,255,.35);padding:8px 11px;border-radius:10px;background:rgba(15,25,38,.62)}
+
+    @media (max-width:980px){.arena{grid-template-columns:1fr}.panel{position:relative;top:0}}
+    @media (max-width:720px){body{background-attachment:scroll}}
   </style>
 </head>
 <body>
   <div class="container">
-    <header>
-      <h1>🤖 Agents</h1>
-      <p class="sub">Specialist lanes for execution. Click any card for the full operating guide.</p>
+    <header class="top">
+      <h1>🤖 Agents Loadout Arena</h1>
+      <p class="sub">Gamified first pass: each agent is embodied as a specialized robot unit with realistic capability stats, tool modules, and mission role. Tap any unit to inspect its build.</p>
+      <a class="back" href="../index.html">← Back to Remote Viewer</a>
     </header>
 
-    <a class="back-link" href="../index.html">← Back to Remote Viewer</a>
+    <section class="arena">
+      <div class="cards" id="cards"></div>
 
-    <div class="grid">
-      <section class="card" onclick="window.open('../artifacts/saber-agent-dashboard-guide-2026-03-03.html','_blank')">
-        <h2>⚔️ Saber</h2>
-        <div class="meta"><span class="pill">Primary Agent</span><span class="pill">Operator</span></div>
-        <p>Strategy, building, troubleshooting, and follow-through in one command chain.</p>
-        <ul>
-          <li>Continuity + execution</li>
-          <li>System orchestration</li>
-          <li>Artifact shipping</li>
-        </ul>
-        <div class="open-hint">→ Open Saber deep-dive guide</div>
-      </section>
+      <aside class="panel">
+        <h2 id="panelName">Select a Unit</h2>
+        <p id="panelRole">Choose an agent card to view specialization loadout.</p>
 
-      <section class="card" onclick="window.open('../artifacts/imagebot-visual-playbook-2026-03-03.html','_blank')">
-        <h2>🖼️ ImageBot</h2>
-        <div class="meta"><span class="pill">Visual Specialist</span><span class="pill">Image/Video Lane</span></div>
-        <p>Dedicated visual production agent for image-first tasks, model routing, and reusable render workflows.</p>
-        <ul>
-          <li>Prompt + render pipelines</li>
-          <li>Multi-model fallback strategy</li>
-          <li>Visual asset output contract</li>
-        </ul>
-        <div class="open-hint">→ Open ImageBot playbook</div>
-      </section>
+        <div class="loadout">
+          <div class="slot">
+            <h3>🧰 Tool Modules</h3>
+            <ul id="tools"></ul>
+          </div>
+          <div class="slot">
+            <h3>🧠 Skill Package</h3>
+            <ul id="skills"></ul>
+          </div>
+          <div class="slot">
+            <h3>⚡ Powers / Mission Strength</h3>
+            <ul id="powers"></ul>
+          </div>
+        </div>
 
-      <section class="card" onclick="window.open('../artifacts/stylebot-css-playbook-2026-03-03.html','_blank')">
-        <h2>🎨 StyleBot</h2>
-        <div class="meta"><span class="pill">CSS Specialist</span><span class="pill">Typography + Polish</span></div>
-        <p>Front-end presentation specialist focused on fonts, hierarchy, spacing, contrast, and visual finish passes.</p>
-        <ul>
-          <li>Header/font styling systems</li>
-          <li>Readability + responsiveness tuning</li>
-          <li>Before/after polish passes</li>
-        </ul>
-        <div class="open-hint">→ Open StyleBot playbook</div>
-      </section>
-    </div>
+        <div class="cta" id="links"></div>
+      </aside>
+    </section>
   </div>
+
+  <script>
+    const agents = [
+      {
+        id:'saber',
+        name:'⚔️ Saber Unit',
+        role:'Operator / Orchestrator Core',
+        image:'../assets/agents/2026-03-03/saber-unit.png',
+        tags:['Primary Agent','Execution','Systems'],
+        stats:{Planning:95, Build:92, Reliability:90},
+        tools:['File + shell ops','Browser control','Memory lanes','Session orchestration'],
+        skills:['Scope control','Cross-agent handoff','Artifact shipping under constraints'],
+        powers:['Trajectory Lock: keeps work aligned to runway','Loop Breaker: converts ideas into shippable steps','Recovery Protocol: stabilizes ops when systems drift'],
+        links:[
+          {label:'Open Saber Guide', href:'../artifacts/saber-agent-dashboard-guide-2026-03-03.html'}
+        ]
+      },
+      {
+        id:'imagebot',
+        name:'🖼️ ImageBot Unit',
+        role:'Visual Synthesis Specialist',
+        image:'../assets/agents/2026-03-03/imagebot-unit.png',
+        tags:['Visual Lane','Render Ops','Cinematic'],
+        stats:{Composition:94, Speed:87, Consistency:89},
+        tools:['Gemini image generation pipeline','Prompt-driven variant rendering','Asset path + naming contract'],
+        skills:['Mood-first visual direction','Model fallback handling','Production-ready output packaging'],
+        powers:['Vision Forge: rapidly creates striking scenes','Variant Burst: spins style options quickly','Asset Discipline: keeps outputs structured for shipping'],
+        links:[
+          {label:'Open ImageBot Playbook', href:'../artifacts/imagebot-visual-playbook-2026-03-03.html'}
+        ]
+      },
+      {
+        id:'stylebot',
+        name:'🎨 StyleBot Unit',
+        role:'Interface Polish Specialist',
+        image:'../assets/agents/2026-03-03/stylebot-unit.png',
+        tags:['UI Polish','Typography','Readability'],
+        stats:{Typography:93, Hierarchy:91, UX Polish:90},
+        tools:['CSS polish gate','Font-pair presets','Hero/UI snippet templates'],
+        skills:['Premium but practical styling','Mobile-first readability','Minimal high-impact visual passes'],
+        powers:['Clarity Field: improves readability instantly','Hierarchy Engine: makes intent obvious at a glance','Finish Pass: upgrades “works” into “feels intentional”'],
+        links:[
+          {label:'Open StyleBot Playbook', href:'../artifacts/stylebot-css-playbook-2026-03-03.html'}
+        ]
+      }
+    ];
+
+    const cards = document.getElementById('cards');
+    const panelName = document.getElementById('panelName');
+    const panelRole = document.getElementById('panelRole');
+    const tools = document.getElementById('tools');
+    const skills = document.getElementById('skills');
+    const powers = document.getElementById('powers');
+    const links = document.getElementById('links');
+
+    function li(text){ const el=document.createElement('li'); el.textContent=text; return el; }
+
+    function selectAgent(id){
+      const agent = agents.find(a=>a.id===id);
+      document.querySelectorAll('.card').forEach(c=>c.classList.toggle('active', c.dataset.id===id));
+      panelName.textContent = agent.name;
+      panelRole.textContent = agent.role;
+
+      tools.innerHTML=''; skills.innerHTML=''; powers.innerHTML=''; links.innerHTML='';
+      agent.tools.forEach(t=>tools.appendChild(li(t)));
+      agent.skills.forEach(s=>skills.appendChild(li(s)));
+      agent.powers.forEach(p=>powers.appendChild(li(p)));
+      agent.links.forEach(l=>{
+        const a=document.createElement('a'); a.className='btn'; a.href=l.href; a.target='_blank'; a.textContent=l.label; links.appendChild(a);
+      });
+    }
+
+    function card(agent){
+      const sec=document.createElement('section');
+      sec.className='card';
+      sec.dataset.id=agent.id;
+      sec.innerHTML=`
+        <div class="portrait" style="background-image:url('${agent.image}')"></div>
+        <div class="body">
+          <h3 class="name">${agent.name}</h3>
+          <p class="role">${agent.role}</p>
+          <div class="chips">${agent.tags.map(t=>`<span class='chip'>${t}</span>`).join('')}</div>
+          <div class="bars">
+            ${Object.entries(agent.stats).map(([k,v])=>`
+              <div class='bar'>
+                <span>${k}</span>
+                <div class='meter'><div class='fill' style='width:${v}%'></div></div>
+                <span>${v}</span>
+              </div>`).join('')}
+          </div>
+        </div>`;
+      sec.onclick=()=>selectAgent(agent.id);
+      return sec;
+    }
+
+    agents.forEach(a=>cards.appendChild(card(a)));
+    selectAgent('saber');
+  </script>
 </body>
 </html>
