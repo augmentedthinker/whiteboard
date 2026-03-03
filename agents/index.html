@@ -6,63 +6,76 @@
   <title>Remote Viewer | Agents Workstation</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap');
-    :root{--text:#eaf4ff;--muted:#b8cce6;--line:rgba(153,214,255,.42);--panel:rgba(7,14,24,.74)}
+    :root{
+      --text:#eaf4ff; --muted:#b9cce6; --line:rgba(153,214,255,.35);
+      --panel:rgba(8,14,25,.78); --chip:rgba(14,23,38,.72);
+    }
     *{box-sizing:border-box}
-    html,body{margin:0;height:100%;overflow:hidden;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text)}
-    body{background:radial-gradient(100% 80% at 50% 0%, rgba(74,126,207,.26), transparent 62%),linear-gradient(180deg, rgba(7,12,22,.64), rgba(4,9,18,.85)),url('../assets/agents/2026-03-03/workshop-bg.png') center/cover no-repeat fixed}
+    html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);overflow:hidden}
+    body{
+      background:
+        radial-gradient(100% 80% at 50% 0%, rgba(74,126,207,.25), transparent 62%),
+        linear-gradient(180deg, rgba(7,12,22,.60), rgba(4,9,18,.84)),
+        url('../assets/agents/2026-03-03/workshop-bg.png') center/cover no-repeat fixed;
+    }
 
     .shell{height:100%;display:grid;grid-template-rows:auto 1fr auto}
-    .top{padding:max(10px,env(safe-area-inset-top)) 14px 8px;display:flex;justify-content:space-between;align-items:center;gap:10px}
-    .title{margin:0;font-family:'Space Grotesk',Inter,sans-serif;font-size:clamp(1.1rem,3.6vw,1.7rem);letter-spacing:.02em}
-    .sub{margin:2px 0 0;color:var(--muted);font-size:clamp(.74rem,2vw,.9rem)}
-    .back{color:#d7ecff;text-decoration:none;border:1px solid var(--line);padding:8px 12px;border-radius:999px;background:rgba(11,20,32,.55);white-space:nowrap;font-size:.85rem}
+    .top{padding:max(8px,env(safe-area-inset-top)) 10px 8px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .title{margin:0;font-family:'Space Grotesk',Inter,sans-serif;font-size:clamp(1rem,4.5vw,1.45rem)}
+    .sub{margin:2px 0 0;color:var(--muted);font-size:clamp(.72rem,2.8vw,.88rem)}
+    .back{color:#d8ecff;text-decoration:none;border:1px solid var(--line);padding:7px 10px;border-radius:999px;background:rgba(10,18,30,.56);white-space:nowrap;font-size:.78rem}
 
-    .carousel-wrap{position:relative;height:100%;overflow:hidden}
-    .carousel{display:flex;width:100%;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-ms-overflow-style:none;scrollbar-width:none}
+    .wrap{position:relative;overflow:hidden}
+    .carousel{height:100%;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-ms-overflow-style:none;scrollbar-width:none;padding:4px 0 10px}
     .carousel::-webkit-scrollbar{display:none}
-    .slide{flex:0 0 100%;width:100%;scroll-snap-align:start;display:grid;place-items:center;padding:10px 12px 16px}
+    .slide{flex:0 0 100%;scroll-snap-align:start;display:grid;place-items:center;padding:0 10px}
 
-    .card{width:min(96vw,1280px);height:min(83vh,880px);position:relative;overflow:hidden;border:1px solid var(--line);border-radius:20px;background:linear-gradient(155deg, rgba(14,24,39,.74), rgba(8,15,25,.62));box-shadow:0 24px 56px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.05)}
+    .card{
+      width:min(96vw,640px);height:min(84vh,860px);
+      border:1px solid var(--line);border-radius:18px;overflow:hidden;
+      background:linear-gradient(160deg, rgba(15,24,38,.90), rgba(8,14,24,.86));
+      box-shadow:0 20px 48px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.05);
+      display:grid;grid-template-rows:auto auto 1fr;
+    }
 
-    /* viewing window apparatus */
-    .view-window{position:absolute;left:2%;right:2%;top:10%;height:56%;border:1px solid rgba(165,218,255,.46);border-radius:18px;background:linear-gradient(180deg, rgba(10,18,31,.46), rgba(7,14,24,.42));box-shadow:inset 0 0 0 2px rgba(113,180,255,.1), inset 0 12px 40px rgba(0,0,0,.28)}
-    .view-window:before,.view-window:after{content:"";position:absolute;width:26px;height:26px;border:2px solid rgba(158,220,255,.62)}
-    .view-window:before{left:10px;top:10px;border-right:none;border-bottom:none}
-    .view-window:after{right:10px;bottom:10px;border-left:none;border-top:none}
-    .robot{position:absolute;left:17%;right:17%;top:6%;bottom:6%;background-size:contain;background-position:center;background-repeat:no-repeat;filter:drop-shadow(0 12px 28px rgba(0,0,0,.5))}
-    .overlay{position:absolute;inset:0;background:radial-gradient(95% 70% at 50% 45%, transparent 36%, rgba(5,10,18,.45) 100%)}
+    .head{padding:10px 12px 6px;border-bottom:1px solid rgba(144,195,246,.18)}
+    .badge{display:inline-block;padding:5px 8px;border-radius:999px;border:1px solid rgba(163,220,255,.5);background:rgba(12,20,32,.62);font-size:.66rem;color:#d3edff;letter-spacing:.04em;text-transform:uppercase}
+    .name{margin:8px 0 2px;font-family:'Space Grotesk',Inter,sans-serif;font-size:clamp(1rem,4vw,1.35rem)}
+    .role{margin:0;color:var(--muted);font-size:.82rem}
 
-    .badge{position:absolute;left:18px;top:16px;padding:7px 10px;border-radius:999px;border:1px solid rgba(163,220,255,.55);background:rgba(12,20,32,.62);font-size:.75rem;color:#d3edff;letter-spacing:.04em;text-transform:uppercase}
-    .name{position:absolute;left:22px;top:68%;margin:0;font-family:'Space Grotesk',Inter,sans-serif;font-size:clamp(1.1rem,3.5vw,2rem)}
-    .role{position:absolute;left:22px;top:74%;margin:0;color:#b7cbe5;font-size:clamp(.82rem,1.8vw,1rem)}
+    .viewport-wrap{padding:10px 10px 0}
+    .viewport{
+      position:relative;height:42vh;min-height:240px;max-height:360px;border-radius:14px;
+      border:1px solid rgba(162,219,255,.45);
+      background:linear-gradient(180deg, rgba(10,18,31,.55), rgba(7,14,24,.44));
+      overflow:hidden;
+    }
+    .viewport:before,.viewport:after{content:"";position:absolute;width:22px;height:22px;border:2px solid rgba(158,220,255,.7);z-index:3}
+    .viewport:before{left:8px;top:8px;border-right:none;border-bottom:none}
+    .viewport:after{right:8px;bottom:8px;border-left:none;border-top:none}
+    .robot{position:absolute;inset:6% 8% 3%;background-size:contain;background-position:center;background-repeat:no-repeat;filter:drop-shadow(0 10px 22px rgba(0,0,0,.52))}
 
-    .hud{position:absolute;left:16px;right:16px;bottom:14px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-    .pane{border:1px solid rgba(149,203,255,.3);background:var(--panel);border-radius:12px;padding:10px}
-    .pane h3{margin:0 0 7px;font-size:.8rem;color:#bfe4ff;letter-spacing:.04em;text-transform:uppercase}
-    .pane ul{margin:0;padding-left:16px;font-size:.8rem;color:#d1e0f3;line-height:1.45}
+    .callouts{position:absolute;left:8px;right:8px;bottom:8px;display:grid;grid-template-columns:1fr 1fr;gap:6px;z-index:4}
+    .tag{font-size:.68rem;color:#d5ebff;background:rgba(8,15,26,.76);border:1px solid rgba(128,206,255,.45);padding:5px 7px;border-radius:8px;text-align:center}
 
-    .callout{position:absolute;border:1px solid rgba(120,204,255,.55);background:rgba(7,15,26,.8);color:#d2ebff;padding:6px 9px;border-radius:10px;font-size:.74rem;max-width:180px;z-index:4}
-    .callout:before{content:"";position:absolute;width:34px;height:1px;background:rgba(120,204,255,.7)}
-    .c1{left:10%;top:17%}.c1:before{left:100%;top:12px}
-    .c2{right:10%;top:18%}.c2:before{right:100%;top:12px}
-    .c3{left:12%;top:41%}.c3:before{left:100%;top:13px}
-    .c4{right:12%;top:42%}.c4:before{right:100%;top:13px}
+    .panes{padding:10px;display:grid;grid-template-columns:1fr;gap:8px;overflow:auto}
+    .pane{border:1px solid rgba(149,203,255,.28);background:var(--panel);border-radius:10px;padding:8px 9px}
+    .pane h3{margin:0 0 5px;font-size:.72rem;color:#bfe4ff;letter-spacing:.04em;text-transform:uppercase}
+    .pane ul{margin:0;padding-left:15px;font-size:.78rem;color:#d1e0f3;line-height:1.38}
 
-    .nav{position:absolute;top:43%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(10,18,30,.72);color:#d9ecff;display:grid;place-items:center;cursor:pointer;font-size:1.3rem;z-index:10}
-    .prev{left:8px}.next{right:8px}
+    .nav{position:absolute;top:45%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(10,18,30,.72);color:#d9ecff;display:grid;place-items:center;cursor:pointer;font-size:1.2rem;z-index:10}
+    .prev{left:4px}.next{right:4px}
 
     .dots{display:flex;justify-content:center;gap:8px;padding:8px 0 max(10px,env(safe-area-inset-bottom))}
-    .dot{width:9px;height:9px;border-radius:999px;background:rgba(167,196,225,.35);border:1px solid rgba(175,219,255,.3)}
+    .dot{width:8px;height:8px;border-radius:999px;background:rgba(167,196,225,.35);border:1px solid rgba(175,219,255,.3)}
     .dot.active{background:#9ed8ff}
 
-    @media (max-width:980px){
-      .card{height:min(86vh,940px)}
-      .view-window{top:9%;height:44%}
-      .robot{left:8%;right:8%}
-      .name{top:56%}.role{top:60%}
-      .hud{grid-template-columns:1fr;top:64%;bottom:auto}
-      .callout{font-size:.67rem;max-width:140px}
-      .c1{left:6%;top:13%}.c2{right:6%;top:13%}.c3{left:7%;top:30%}.c4{right:7%;top:30%}
+    @media (min-width:900px){
+      .card{width:min(78vw,980px);grid-template-rows:auto 1fr;}
+      .middle{display:grid;grid-template-columns:1.1fr .9fr;gap:10px;padding:10px}
+      .viewport-wrap{padding:0}.viewport{height:min(62vh,520px)}
+      .panes{padding:0;align-content:start}
+      .pane ul{font-size:.82rem}
     }
   </style>
 </head>
@@ -71,12 +84,12 @@
   <header class="top">
     <div>
       <h1 class="title">🤖 Agent Workstation Bay</h1>
-      <p class="sub">Swipe or use arrows to cycle units. Same station. Different builds.</p>
+      <p class="sub">Mobile-first carousel • compact cards • swipe left/right</p>
     </div>
-    <a class="back" href="../index.html">← Back to Remote Viewer</a>
+    <a class="back" href="../index.html">← Back</a>
   </header>
 
-  <main class="carousel-wrap">
+  <main class="wrap">
     <button class="nav prev" id="prev">‹</button>
     <button class="nav next" id="next">›</button>
     <section class="carousel" id="carousel"></section>
@@ -86,27 +99,32 @@
 </div>
 
 <script>
-const units = [
-  {name:'⚔️ Saber Unit',role:'Operator / Orchestrator Core',badge:'PRIMARY COMMAND',image:'../assets/agents/2026-03-03/saber-station.png',callouts:['Trajectory Lock Core','Cross-Agent Relay Bus','Build Execution Arms','System Recovery Shield'],modules:['File + shell ops','Browser control','Memory lane continuity','Session orchestration'],skills:['Scope containment','High-signal handoffs','Artifact-first shipping'],powers:['Loop Breaker','Trajectory Lock','Recovery Protocol']},
-  {name:'🖼️ ImageBot Unit',role:'Visual Synthesis Specialist',badge:'VISUAL FORGE',image:'../assets/agents/2026-03-03/imagebot-station.png',callouts:['Optic Capture Cluster','Render Engine Pack','Variant Burst Array','Asset Routing Port'],modules:['Gemini image pipeline','Variant generation','Naming/output contract','Render fallback lane'],skills:['Cinematic composition','Mood iteration','Production-ready asset prep'],powers:['Vision Forge','Variant Burst','Asset Discipline']},
-  {name:'🎨 StyleBot Unit',role:'Interface Polish Specialist',badge:'POLISH ENGINE',image:'../assets/agents/2026-03-03/stylebot-station.png',callouts:['Typography Visor','Hierarchy Mapping Lens','Readability Calibration Arm','Finish-Pass Injector'],modules:['CSS polish gate','Font-pair presets','Hero snippet templates','Responsive tuning tools'],skills:['Premium clarity','Mobile-first hierarchy','High-impact minimal passes'],powers:['Clarity Field','Hierarchy Engine','Finish Pass']}
+const units=[
+ {name:'⚔️ Saber Unit',role:'Operator / Orchestrator Core',badge:'PRIMARY COMMAND',image:'../assets/agents/2026-03-03/saber-station.png',callouts:['Trajectory Lock Core','Cross-Agent Relay Bus','Build Execution Arms','Recovery Shield'],modules:['File + shell ops','Browser control','Memory continuity','Session orchestration'],skills:['Scope containment','High-signal handoffs','Artifact-first shipping'],powers:['Loop Breaker','Trajectory Lock','Recovery Protocol']},
+ {name:'🖼️ ImageBot Unit',role:'Visual Synthesis Specialist',badge:'VISUAL FORGE',image:'../assets/agents/2026-03-03/imagebot-station.png',callouts:['Optic Capture Cluster','Render Engine Pack','Variant Burst Array','Asset Routing Port'],modules:['Gemini image pipeline','Variant generation','Naming/output contract','Render fallback lane'],skills:['Cinematic composition','Mood iteration','Production-ready asset prep'],powers:['Vision Forge','Variant Burst','Asset Discipline']},
+ {name:'🎨 StyleBot Unit',role:'Interface Polish Specialist',badge:'POLISH ENGINE',image:'../assets/agents/2026-03-03/stylebot-station.png',callouts:['Typography Visor','Hierarchy Mapping Lens','Readability Calibrator','Finish-Pass Injector'],modules:['CSS polish gate','Font-pair presets','Hero snippet templates','Responsive tuning tools'],skills:['Premium clarity','Mobile-first hierarchy','Minimal high-impact passes'],powers:['Clarity Field','Hierarchy Engine','Finish Pass']}
 ];
 
 const carousel=document.getElementById('carousel');
 const dots=document.getElementById('dots');
 let index=0;
 
-function pane(title,items){return `<div class='pane'><h3>${title}</h3><ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`;}
+function pane(t,items){return `<div class='pane'><h3>${t}</h3><ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`}
 
 units.forEach((u,i)=>{
-  const slide=document.createElement('article');
-  slide.className='slide';
-  slide.innerHTML=`<section class='card'><div class='view-window'><div class='robot' style="background-image:url('${u.image}')"></div><div class='callout c1'>${u.callouts[0]}</div><div class='callout c2'>${u.callouts[1]}</div><div class='callout c3'>${u.callouts[2]}</div><div class='callout c4'>${u.callouts[3]}</div></div><div class='overlay'></div><div class='badge'>${u.badge}</div><h2 class='name'>${u.name}</h2><p class='role'>${u.role}</p><div class='hud'>${pane('Tool Modules',u.modules)}${pane('Skill Package',u.skills)}${pane('Powers / Mission Strength',u.powers)}</div></section>`;
-  carousel.appendChild(slide);
-  const d=document.createElement('span');d.className='dot'+(i===0?' active':'');dots.appendChild(d);
+  const s=document.createElement('article'); s.className='slide';
+  s.innerHTML=`<section class='card'>
+    <header class='head'><span class='badge'>${u.badge}</span><h2 class='name'>${u.name}</h2><p class='role'>${u.role}</p></header>
+    <div class='middle'>
+      <div class='viewport-wrap'><div class='viewport'><div class='robot' style="background-image:url('${u.image}')"></div><div class='callouts'>${u.callouts.map(c=>`<span class='tag'>${c}</span>`).join('')}</div></div></div>
+      <div class='panes'>${pane('Tool Modules',u.modules)}${pane('Skill Package',u.skills)}${pane('Powers / Mission Strength',u.powers)}</div>
+    </div>
+  </section>`;
+  carousel.appendChild(s);
+  const d=document.createElement('span'); d.className='dot'+(i===0?' active':''); dots.appendChild(d);
 });
 
-function updateDots(){[...dots.children].forEach((d,i)=>d.classList.toggle('active', i===index));}
+function updateDots(){[...dots.children].forEach((d,i)=>d.classList.toggle('active',i===index));}
 function go(i){index=(i+units.length)%units.length;carousel.scrollTo({left:index*carousel.clientWidth,behavior:'smooth'});updateDots();}
 
 document.getElementById('prev').onclick=()=>go(index-1);
@@ -115,7 +133,7 @@ carousel.addEventListener('scroll',()=>{const i=Math.round(carousel.scrollLeft/c
 
 let startX=0;
 carousel.addEventListener('touchstart',e=>startX=e.touches[0].clientX,{passive:true});
-carousel.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-startX;if(Math.abs(dx)>45) go(index+(dx<0?1:-1));},{passive:true});
+carousel.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-startX;if(Math.abs(dx)>40) go(index+(dx<0?1:-1));},{passive:true});
 window.addEventListener('resize',()=>go(index));
 </script>
 </body>
