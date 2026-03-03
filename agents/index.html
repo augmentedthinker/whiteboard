@@ -44,13 +44,8 @@
     .halo{position:absolute;left:50%;top:47%;transform:translate(-50%,-50%);width:64%;aspect-ratio:1/1;border-radius:999px;background:radial-gradient(circle, color-mix(in oklab, var(--accent) 45%, transparent) 0%, color-mix(in oklab, var(--accent) 22%, transparent) 38%, rgba(0,0,0,0) 70%);filter:blur(1px)}
     .robot{position:absolute;inset:2% 2% 1%;background-size:contain;background-position:center;background-repeat:no-repeat;z-index:2;filter:drop-shadow(0 10px 24px rgba(0,0,0,.55))}
     .nameplate{position:absolute;left:10px;right:10px;bottom:8px;z-index:4;border:1px solid color-mix(in oklab, var(--accent) 32%, #8bcaff);background:rgba(7,14,24,.75);border-radius:10px;padding:7px 9px}
-    .name{font-family:Orbitron,Inter,sans-serif;font-size:clamp(1.18rem,2.8vw,1.9rem);font-weight:700;letter-spacing:.08em;margin:0;color:color-mix(in oklab, var(--accent) 86%, white);text-shadow:0 0 18px color-mix(in oklab, var(--accent) 48%, transparent), 0 0 34px color-mix(in oklab, var(--accent) 24%, transparent);animation:namePulse 2.6s ease-in-out infinite}
+    .name{font-family:Orbitron,Inter,sans-serif;font-size:clamp(1.18rem,2.8vw,1.9rem);font-weight:700;letter-spacing:.08em;margin:0;color:color-mix(in oklab, var(--accent) 86%, white);text-shadow:0 0 18px color-mix(in oklab, var(--accent) 48%, transparent), 0 0 34px color-mix(in oklab, var(--accent) 24%, transparent)}
     .role{margin:4px 0 0;color:var(--muted);font-size:.83rem;letter-spacing:.02em}
-
-    @keyframes namePulse {
-      0%,100% { transform:translateY(0); opacity:.96; filter:drop-shadow(0 0 0 rgba(0,0,0,0)); }
-      50% { transform:translateY(-1px); opacity:1; filter:drop-shadow(0 0 7px color-mix(in oklab, var(--accent) 30%, transparent)); }
-    }
 
     .nav{position:absolute;top:47%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(10,18,30,.72);color:#d9ecff;display:grid;place-items:center;cursor:pointer;font-size:1.2rem;z-index:10}
     .prev{left:3px}.next{right:3px}
@@ -123,38 +118,51 @@ function updateDots(){
 }
 
 function jumpToVirtual(idx, smooth=true){
-  virtualIndex = idx;
+  virtualIndex = Math.max(0, Math.min(renderUnits.length - 1, idx));
   carousel.scrollTo({left:virtualIndex*carousel.clientWidth, behavior:smooth?'smooth':'auto'});
   updateDots();
 }
 
-function normalizeIfNeeded(){
-  if (virtualIndex < baseCount) {
-    virtualIndex += baseCount;
-    carousel.scrollTo({left:virtualIndex*carousel.clientWidth, behavior:'auto'});
-  } else if (virtualIndex >= baseCount*2) {
-    virtualIndex -= baseCount;
+function normalizeToMiddleBand(){
+  const base = activeBaseIndex();
+  const middleIdx = baseCount + base;
+  if (virtualIndex !== middleIdx) {
+    virtualIndex = middleIdx;
     carousel.scrollTo({left:virtualIndex*carousel.clientWidth, behavior:'auto'});
   }
 }
 
-document.getElementById('prev').onclick=()=>jumpToVirtual(virtualIndex-1,true);
-document.getElementById('next').onclick=()=>jumpToVirtual(virtualIndex+1,true);
+function step(dir){
+  // seamless wrap prep before moving, so direction always feels continuous
+  if (dir > 0 && virtualIndex >= renderUnits.length - 1) {
+    virtualIndex = baseCount - 1;
+    carousel.scrollTo({left:virtualIndex*carousel.clientWidth, behavior:'auto'});
+  } else if (dir < 0 && virtualIndex <= 0) {
+    virtualIndex = baseCount;
+    carousel.scrollTo({left:virtualIndex*carousel.clientWidth, behavior:'auto'});
+  }
+  jumpToVirtual(virtualIndex + dir, true);
+}
 
+document.getElementById('prev').onclick=()=>step(-1);
+document.getElementById('next').onclick=()=>step(1);
+
+let normalizeTimer;
 carousel.addEventListener('scroll',()=>{
   const i=Math.round(carousel.scrollLeft/carousel.clientWidth);
   if(i!==virtualIndex){
     virtualIndex=i;
     updateDots();
-    normalizeIfNeeded();
   }
+  clearTimeout(normalizeTimer);
+  normalizeTimer = setTimeout(normalizeToMiddleBand, 120);
 });
 
 let sx=0;
 carousel.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
 carousel.addEventListener('touchend',e=>{
   const dx=e.changedTouches[0].clientX-sx;
-  if(Math.abs(dx)>40) jumpToVirtual(virtualIndex + (dx<0?1:-1), true);
+  if(Math.abs(dx)>40) step(dx<0?1:-1);
 },{passive:true});
 
 window.addEventListener('resize',()=>jumpToVirtual(virtualIndex,false));
