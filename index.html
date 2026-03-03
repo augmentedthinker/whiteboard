@@ -64,17 +64,28 @@
       margin-bottom:14px;
     }
     .btn{
-      border:1px solid var(--line);
-      background:var(--panel);
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(178,221,255,.52);
+      background:linear-gradient(160deg, rgba(116,178,242,.22), rgba(82,137,198,.18));
       color:var(--text);
       border-radius:12px;
-      padding:11px 12px;
+      padding:10px 12px;
       cursor:pointer;
       text-align:left;
       transition:.18s transform,.18s background,.18s border-color;
-      backdrop-filter:blur(4px);
+      backdrop-filter:blur(7px);
     }
-    .btn:hover{transform:translateY(-1px);background:var(--panelHover);border-color:rgba(170,216,255,.45)}
+    .btn::after{
+      content:"";
+      position:absolute;inset:0;
+      background:
+        linear-gradient(transparent 96%, rgba(170,215,255,.08) 98%),
+        linear-gradient(90deg, transparent 96%, rgba(170,215,255,.06) 98%);
+      background-size:100% 16px, 16px 100%;
+      pointer-events:none;
+    }
+    .btn:hover{transform:translateY(-1px);background:linear-gradient(160deg, rgba(130,192,252,.3), rgba(93,150,214,.24));border-color:rgba(204,235,255,.65)}
     .btn strong{display:block;font-size:.92rem;margin-bottom:2px}
     .btn small{color:var(--muted);font-size:.8rem}
 
@@ -124,6 +135,21 @@
       font-size: 12px;
       font-weight: 600;
       backdrop-filter: blur(6px);
+    }
+
+    @media (max-width: 760px){
+      .portal-grid{
+        grid-template-columns:1fr;
+        max-width:440px;
+        margin-left:auto;
+        margin-right:auto;
+      }
+      .btn{
+        text-align:center;
+        padding:10px 10px;
+      }
+      .btn strong{font-size:.95rem}
+      .btn small{font-size:.79rem}
     }
   </style>
 </head>
