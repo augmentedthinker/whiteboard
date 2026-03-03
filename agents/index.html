@@ -92,26 +92,69 @@ const units=[
 
 const carousel=document.getElementById('carousel');
 const dots=document.getElementById('dots');
-let index=0;
+const baseCount = units.length;
+const renderUnits = [...units, ...units, ...units];
+let virtualIndex = baseCount; // start in middle band for seamless looping
 
 function panel(title,items){return `<section class='panel'><h3>${title}</h3><ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul></section>`}
 function meters(stats){return `<div class='meters'>${Object.entries(stats).map(([k,v])=>`<div class='meter'><div class='label'><span>${k}</span><span>${v}</span></div><div class='bar'><div class='fill' style='width:${v}%'></div></div></div>`).join('')}</div>`}
 
-units.forEach((u,i)=>{
+renderUnits.forEach((u,i)=>{
   const s=document.createElement('article'); s.className='slide';
   s.innerHTML=`<section class='frame' style='--accent:${u.accent}'>${meters(u.stats)}<section class='grid'>${panel('Tool Modules',u.modules)}<section class='stage'><div class='halo'></div><div class='robot' style="background-image:url('${u.image}')"></div><div class='nameplate'><p class='name'>${u.name}</p><p class='role'>${u.role}</p></div></section>${panel('Skills + Powers', [...u.skills,...u.powers])}</section></section>`;
   carousel.appendChild(s);
+});
+
+units.forEach((_,i)=>{
   const d=document.createElement('span'); d.className='dot'+(i===0?' active':''); dots.appendChild(d);
 });
 
-function updateDots(){[...dots.children].forEach((d,i)=>d.classList.toggle('active',i===index));}
-function go(i){index=(i+units.length)%units.length;carousel.scrollTo({left:index*carousel.clientWidth,behavior:'smooth'});updateDots();}
-document.getElementById('prev').onclick=()=>go(index-1);
-document.getElementById('next').onclick=()=>go(index+1);
-carousel.addEventListener('scroll',()=>{const i=Math.round(carousel.scrollLeft/carousel.clientWidth);if(i!==index){index=i;updateDots();}});
-let sx=0;carousel.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
-carousel.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)go(index+(dx<0?1:-1));},{passive:true});
-window.addEventListener('resize',()=>go(index));
+function activeBaseIndex(){
+  return ((virtualIndex % baseCount) + baseCount) % baseCount;
+}
+
+function updateDots(){
+  const active = activeBaseIndex();
+  [...dots.children].forEach((d,i)=>d.classList.toggle('active', i===active));
+}
+
+function jumpToVirtual(idx, smooth=true){
+  virtualIndex = idx;
+  carousel.scrollTo({left:virtualIndex*carousel.clientWidth, behavior:smooth?'smooth':'auto'});
+  updateDots();
+}
+
+function normalizeIfNeeded(){
+  if (virtualIndex < baseCount) {
+    virtualIndex += baseCount;
+    carousel.scrollTo({left:virtualIndex*carousel.clientWidth, behavior:'auto'});
+  } else if (virtualIndex >= baseCount*2) {
+    virtualIndex -= baseCount;
+    carousel.scrollTo({left:virtualIndex*carousel.clientWidth, behavior:'auto'});
+  }
+}
+
+document.getElementById('prev').onclick=()=>jumpToVirtual(virtualIndex-1,true);
+document.getElementById('next').onclick=()=>jumpToVirtual(virtualIndex+1,true);
+
+carousel.addEventListener('scroll',()=>{
+  const i=Math.round(carousel.scrollLeft/carousel.clientWidth);
+  if(i!==virtualIndex){
+    virtualIndex=i;
+    updateDots();
+    normalizeIfNeeded();
+  }
+});
+
+let sx=0;
+carousel.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+carousel.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-sx;
+  if(Math.abs(dx)>40) jumpToVirtual(virtualIndex + (dx<0?1:-1), true);
+},{passive:true});
+
+window.addEventListener('resize',()=>jumpToVirtual(virtualIndex,false));
+requestAnimationFrame(()=>jumpToVirtual(baseCount,false));
 </script>
 </body>
 </html>
