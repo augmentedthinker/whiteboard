@@ -18,9 +18,9 @@
     .back{color:#d8ecff;text-decoration:none;border:1px solid var(--line);padding:7px 10px;border-radius:999px;background:rgba(10,18,30,.56);font-size:.78rem;white-space:nowrap}
 
     .wrap{position:relative;overflow:hidden}
-    .carousel{height:100%;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-ms-overflow-style:none;scrollbar-width:none;padding:4px 0 8px}
-    .carousel::-webkit-scrollbar{display:none}
-    .slide{flex:0 0 100%;scroll-snap-align:start;display:grid;place-items:center;padding:0 8px}
+    .carousel{height:100%;overflow:hidden;position:relative;padding:4px 0 8px;touch-action:pan-y}
+    .track{display:flex;width:300%;height:100%;transform:translateX(-33.3333%)}
+    .slide{flex:0 0 33.3333%;display:grid;place-items:center;padding:0 8px}
 
     .frame{width:min(97vw,1100px);height:min(84vh,880px);border-radius:18px;overflow:hidden;border:1px solid color-mix(in oklab, var(--accent) 35%, white 10%);background:linear-gradient(160deg, rgba(14,22,36,.86), rgba(7,13,23,.82));box-shadow:0 20px 48px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.05);display:grid;grid-template-rows:auto 1fr}
 
@@ -91,65 +91,52 @@ const units=[
 
 const carousel=document.getElementById('carousel');
 const dots=document.getElementById('dots');
-const baseCount = units.length;
-const renderUnits = [...units, ...units, ...units];
-let virtualIndex = baseCount; // start in middle band for seamless looping
+let current = 0;
+let animating = false;
 
 function panel(title,items){return `<section class='panel'><h3>${title}</h3><ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul></section>`}
 function meters(stats){return `<div class='meters'>${Object.entries(stats).map(([k,v])=>`<div class='meter'><div class='label'><span>${k}</span><span>${v}</span></div><div class='bar'><div class='fill' style='width:${v}%'></div></div></div>`).join('')}</div>`}
-
-renderUnits.forEach((u,i)=>{
-  const s=document.createElement('article'); s.className='slide';
-  s.innerHTML=`<section class='frame' style='--accent:${u.accent}'>${meters(u.stats)}<section class='grid'>${panel('Tool Modules',u.modules)}<section class='stage'><div class='halo'></div><div class='robot' style="background-image:url('${u.image}')"></div><div class='nameplate'><p class='name'>${u.name}</p><p class='role'>${u.role}</p></div></section>${panel('Skills + Powers', [...u.skills,...u.powers])}</section></section>`;
-  carousel.appendChild(s);
-});
+function frame(u){return `<section class='frame' style='--accent:${u.accent}'>${meters(u.stats)}<section class='grid'>${panel('Tool Modules',u.modules)}<section class='stage'><div class='halo'></div><div class='robot' style="background-image:url('${u.image}')"></div><div class='nameplate'><p class='name'>${u.name}</p><p class='role'>${u.role}</p></div></section>${panel('Skills + Powers', [...u.skills,...u.powers])}</section></section>`}
 
 units.forEach((_,i)=>{
   const d=document.createElement('span'); d.className='dot'+(i===0?' active':''); dots.appendChild(d);
 });
 
-function activeBaseIndex(){
-  return ((virtualIndex % baseCount) + baseCount) % baseCount;
-}
-
 function updateDots(){
-  const active = activeBaseIndex();
-  [...dots.children].forEach((d,i)=>d.classList.toggle('active', i===active));
+  [...dots.children].forEach((d,i)=>d.classList.toggle('active', i===current));
 }
 
-function jumpToVirtual(idx, smooth=true){
-  virtualIndex = Math.max(0, Math.min(renderUnits.length - 1, idx));
-  carousel.scrollTo({left:virtualIndex*carousel.clientWidth, behavior:smooth?'smooth':'auto'});
+function mod(n,m){ return ((n % m) + m) % m; }
+
+function buildTrack(){
+  const prev = units[mod(current-1, units.length)];
+  const curr = units[current];
+  const next = units[mod(current+1, units.length)];
+  carousel.innerHTML = `<div class='track' id='track'><article class='slide'>${frame(prev)}</article><article class='slide'>${frame(curr)}</article><article class='slide'>${frame(next)}</article></div>`;
+  const track = document.getElementById('track');
+  track.style.transition = 'none';
+  track.style.transform = 'translateX(-33.3333%)';
   updateDots();
 }
 
 function step(dir){
-  // Seamless loop: at edges, instantly continue to next logical item (no reverse travel).
-  if (dir > 0 && virtualIndex >= renderUnits.length - 1) {
-    virtualIndex = baseCount * 2; // wraps C -> A while keeping direction continuity
-    carousel.scrollTo({left:virtualIndex*carousel.clientWidth, behavior:'auto'});
-    updateDots();
-    return;
-  }
-  if (dir < 0 && virtualIndex <= 0) {
-    virtualIndex = baseCount - 1; // wraps A -> C while keeping direction continuity
-    carousel.scrollTo({left:virtualIndex*carousel.clientWidth, behavior:'auto'});
-    updateDots();
-    return;
-  }
-  jumpToVirtual(virtualIndex + dir, true);
+  if(animating) return;
+  animating = true;
+  const track = document.getElementById('track');
+  track.style.transition = 'transform 320ms ease';
+  track.style.transform = dir > 0 ? 'translateX(-66.6666%)' : 'translateX(0%)';
+
+  const done = () => {
+    track.removeEventListener('transitionend', done);
+    current = mod(current + dir, units.length);
+    buildTrack();
+    animating = false;
+  };
+  track.addEventListener('transitionend', done, { once:true });
 }
 
 document.getElementById('prev').onclick=()=>step(-1);
 document.getElementById('next').onclick=()=>step(1);
-
-carousel.addEventListener('scroll',()=>{
-  const i=Math.round(carousel.scrollLeft/carousel.clientWidth);
-  if(i!==virtualIndex){
-    virtualIndex=i;
-    updateDots();
-  }
-});
 
 let sx=0;
 carousel.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
@@ -158,8 +145,7 @@ carousel.addEventListener('touchend',e=>{
   if(Math.abs(dx)>40) step(dx<0?1:-1);
 },{passive:true});
 
-window.addEventListener('resize',()=>jumpToVirtual(virtualIndex,false));
-requestAnimationFrame(()=>jumpToVirtual(baseCount,false));
+buildTrack();
 </script>
 </body>
 </html>
