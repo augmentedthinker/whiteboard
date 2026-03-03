@@ -8,38 +8,42 @@
     :root { --bg:#0d1117; --panel:#161b22; --panelHover:#21262d; --border:#30363d; --text:#c9d1d9; --accent:#58a6ff; --muted:#9da7b1; }
     *{box-sizing:border-box}
     body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);margin:0;padding:max(12px,env(safe-area-inset-top)) 12px max(16px,env(safe-area-inset-bottom));line-height:1.55;min-height:100vh}
-    .container{max-width:920px;margin:0 auto}
+    .container{max-width:940px;margin:0 auto}
     header{border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:14px}
     h1{color:var(--accent);margin:0;font-size:clamp(1.4rem,3.8vw,2rem)}
     .sub{margin:6px 0 0;color:var(--muted)}
     .back-link{display:inline-block;margin:0 0 14px;text-decoration:none;color:var(--accent);border:1px solid var(--border);border-radius:10px;padding:10px 14px;background:var(--panelHover)}
     .grid{display:grid;gap:12px}
     .card{background:linear-gradient(135deg, rgba(28, 35, 46, 0.95), rgba(20, 27, 38, 0.92));border:1px solid rgba(136,174,255,.35);border-radius:12px;padding:14px}
+    .card.hero{cursor:pointer;transition:transform .2s,border-color .2s,background .2s}
+    .card.hero:hover{transform:translateY(-2px);border-color:rgba(136,174,255,.6);background:linear-gradient(135deg, rgba(34,43,56,.98), rgba(24,33,46,.96))}
     .card h2{margin:0 0 8px;font-size:1.1rem;color:#9ec7ff}
     .meta{color:var(--muted);font-size:.9rem;margin-bottom:8px}
     .pill{display:inline-block;font-size:.78rem;border:1px solid #4b5563;border-radius:999px;padding:3px 8px;background:#1f2937;color:#d1d5db;margin-right:6px}
     ul{margin:8px 0 0 18px;padding:0}
+    .open-hint{margin-top:10px;color:#b8d8ff;font-size:.92rem}
   </style>
 </head>
 <body>
   <div class="container">
     <header>
       <h1>🤖 Agents</h1>
-      <p class="sub">The active specialist crew inside your OpenClaw workflow.</p>
+      <p class="sub">Your operator lineup. Right now: one focused lane, no drift.</p>
     </header>
 
     <a class="back-link" href="../index.html">← Back to Remote Viewer</a>
 
     <div class="grid">
-      <section class="card">
+      <section class="card hero" onclick="window.open('../artifacts/saber-agent-dashboard-guide-2026-03-03.html','_blank')">
         <h2>⚔️ Saber</h2>
-        <div class="meta"><span class="pill">Primary Agent</span><span class="pill">Only Active Agent</span></div>
-        <p>Your official single-agent setup. Saber is now the only active lane in OpenClaw for strategy, building, troubleshooting, and follow-through.</p>
+        <div class="meta"><span class="pill">Primary Agent</span><span class="pill">Active Now</span><span class="pill">Single-Lane Setup</span></div>
+        <p>Saber is your execution partner: strategy, builds, troubleshooting, and follow-through in one clean command chain.</p>
         <ul>
-          <li>Continuity + execution in one place</li>
-          <li>No cron side agents or parallel specialist drift</li>
-          <li>Clean command chain: one agent, one source of truth</li>
+          <li>No side-agent noise</li>
+          <li>No cron sprawl</li>
+          <li>One source of truth</li>
         </ul>
+        <div class="open-hint">→ Open Saber deep-dive guide</div>
       </section>
     </div>
   </div>
