@@ -7,107 +7,159 @@
   <style>
     :root{--bg:#0d1117;--panel:#161b22;--border:#30363d;--text:#c9d1d9;--muted:#9da7b1;--accent:#58a6ff}
     *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-    .wrap{max-width:980px;margin:0 auto;padding:20px 14px 40px}
+    .wrap{max-width:1020px;margin:0 auto;padding:20px 14px 40px}
     .hero,.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:14px}
     .hero{margin-bottom:12px} h1{margin:0;color:var(--accent);font-size:clamp(1.35rem,4vw,2rem)} h2{margin:.2rem 0 .6rem;color:#9ec7ff}
+    h3{margin:.8rem 0 .35rem;color:#b9d8ff;font-size:1rem}
     .sub{color:var(--muted);margin:.35rem 0 0} .grid{display:grid;gap:12px;margin-top:12px}
     .pill{display:inline-block;border:1px solid #4b5563;border-radius:999px;padding:2px 8px;font-size:.78rem;color:#d1d5db;background:#1f2937;margin-right:6px}
-    ul{margin:.4rem 0 .2rem 1.05rem;padding:0} code{background:#0b1220;border:1px solid #263044;border-radius:7px;padding:1px 6px}
+    ul,ol{margin:.4rem 0 .2rem 1.05rem;padding:0} code{background:#0b1220;border:1px solid #263044;border-radius:7px;padding:1px 6px}
     .note{border-left:3px solid var(--accent);padding-left:10px;color:#b8d8ff}
-    a{color:#9ec7ff}
+    .mini{color:var(--muted);font-size:.92rem}
   </style>
 </head>
 <body>
   <div class="wrap">
     <section class="hero">
-      <h1>⚔️ Saber Agent Dashboard Guide</h1>
-      <p class="sub">A practical map of the OpenClaw Agent panel for your current single-agent setup.</p>
+      <h1>⚔️ Saber Agent Dashboard Guide (Expanded)</h1>
+      <p class="sub">A practical explanation of what each section means and what it actually allows Saber to do.</p>
       <p><span class="pill">Captured from live Gateway UI</span><span class="pill">Date: 2026-03-03</span><span class="pill">Agent: Saber (main)</span></p>
     </section>
 
     <section class="card">
       <h2>What you’re looking at</h2>
-      <p>The <strong>Agents</strong> page is where you configure how Saber behaves: identity, model, core files, tools, skill allowlist, channel context, and cron relationship.</p>
-      <p class="note">Important: <code>main</code> is the internal technical ID. <strong>Saber</strong> is the display identity name.</p>
+      <p>The <strong>Agents</strong> page is the control room for one agent identity. It determines:</p>
+      <ul>
+        <li>which instructions shape behavior (Files),</li>
+        <li>what actions are allowed (Tools),</li>
+        <li>which specialized instruction packs are available (Skills),</li>
+        <li>how messaging/scheduling context applies (Channels/Cron).</li>
+      </ul>
+      <p class="note">Important: <code>main</code> is the internal ID key. <strong>Saber</strong> is the human-facing identity name.</p>
     </section>
 
     <div class="grid">
       <section class="card">
         <h2>1) Overview tab</h2>
         <ul>
-          <li>Shows workspace path, identity metadata, default status, and active model stack.</li>
-          <li>Primary model + fallback model can be edited here.</li>
-          <li>Use this tab when you want to change behavior globally without touching tool toggles.</li>
+          <li>Shows workspace path, identity metadata, default status, and model stack.</li>
+          <li>Primary model and fallback model(s) are configured here.</li>
+          <li>This tab is your high-level runtime posture: who the agent is + which brain it uses.</li>
         </ul>
       </section>
 
       <section class="card">
         <h2>2) Files tab</h2>
         <ul>
-          <li>Shows the core control files Saber reads from your workspace.</li>
-          <li>Current key files visible: <code>AGENTS.md</code>, <code>SOUL.md</code>, <code>TOOLS.md</code>, <code>IDENTITY.md</code>, <code>USER.md</code>, <code>HEARTBEAT.md</code>, <code>MEMORY.md</code>.</li>
-          <li>This is your “program the operator” panel — edit these and you change how Saber thinks/acts.</li>
+          <li>Shows core behavioral files from the workspace (AGENTS/SOUL/TOOLS/IDENTITY/USER/HEARTBEAT/MEMORY).</li>
+          <li>These files are your “operating constitution.”</li>
+          <li>Changing these changes agent behavior more deeply than changing model alone.</li>
         </ul>
       </section>
 
       <section class="card">
-        <h2>3) Tools tab (most important)</h2>
-        <p>Live status observed: <strong>25/25 enabled</strong>, profile <strong>full</strong>, source <strong>default</strong>.</p>
+        <h2>3) Tools tab (what each permission actually means)</h2>
+        <p>Live status: <strong>25/25 enabled</strong>, profile <strong>full</strong>, source <strong>default</strong>.</p>
+
+        <h3>Files permissions</h3>
         <ul>
-          <li><strong>Files:</strong> read, write, edit, apply_patch</li>
-          <li><strong>Runtime:</strong> exec, process</li>
-          <li><strong>Web:</strong> web_search, web_fetch</li>
-          <li><strong>Memory:</strong> memory_search, memory_get</li>
-          <li><strong>Sessions/agents:</strong> sessions_list/history/send/spawn, subagents, session_status, agents_list</li>
-          <li><strong>UI:</strong> browser, canvas</li>
-          <li><strong>Messaging/media:</strong> message, tts, image</li>
-          <li><strong>Automation/system:</strong> cron, gateway, nodes</li>
+          <li><code>read</code>: can open files and inspect content.</li>
+          <li><code>write</code>: can create/overwrite files.</li>
+          <li><code>edit</code>: can make exact-string surgical edits.</li>
+          <li><code>apply_patch</code>: can apply structured diff-style patches.</li>
         </ul>
-        <p><strong>Quick Presets</strong> are your fast safety modes: Minimal / Coding / Messaging / Full / Inherit.</p>
+        <p class="mini">Effect: lets Saber document, refactor, and ship artifacts in your workspace.</p>
+
+        <h3>Runtime permissions</h3>
+        <ul>
+          <li><code>exec</code>: run shell commands (git, openclaw CLI, scripts).</li>
+          <li><code>process</code>: monitor long-running exec sessions.</li>
+        </ul>
+        <p class="mini">Effect: real system operations, diagnostics, and automation execution.</p>
+
+        <h3>Web permissions</h3>
+        <ul>
+          <li><code>web_search</code>: external search provider queries (when configured).</li>
+          <li><code>web_fetch</code>: fetch readable content from URLs.</li>
+        </ul>
+        <p class="mini">Effect: current-event research and source retrieval.</p>
+
+        <h3>Memory permissions</h3>
+        <ul>
+          <li><code>memory_search</code>: semantic lookup across MEMORY lanes.</li>
+          <li><code>memory_get</code>: read selected lines from memory files.</li>
+        </ul>
+        <p class="mini">Effect: continuity, decisions recall, and anti-repetition context.</p>
+
+        <h3>Session/agent orchestration permissions</h3>
+        <ul>
+          <li><code>sessions_list/history/send</code>: inspect and message other sessions.</li>
+          <li><code>sessions_spawn</code>, <code>subagents</code>: start/manage isolated runs.</li>
+          <li><code>session_status</code>, <code>agents_list</code>: operational visibility.</li>
+        </ul>
+        <p class="mini">Effect: multi-session control and delegation when needed.</p>
+
+        <h3>UI + Messaging + Automation + Media</h3>
+        <ul>
+          <li><code>browser</code>/<code>canvas</code>: automate and inspect web UI surfaces.</li>
+          <li><code>message</code>/<code>tts</code>/<code>image</code>: outbound communication and media handling.</li>
+          <li><code>cron</code>/<code>gateway</code>/<code>nodes</code>: scheduling, gateway controls, and paired device operations.</li>
+        </ul>
+
+        <h3>Quick Presets</h3>
+        <ul>
+          <li><strong>Minimal</strong>: narrow safe surface.</li>
+          <li><strong>Coding</strong>: file/runtime heavy, less messaging emphasis.</li>
+          <li><strong>Messaging</strong>: communication-focused lane.</li>
+          <li><strong>Full</strong>: broad capability (current mode).</li>
+          <li><strong>Inherit</strong>: follow upstream defaults.</li>
+        </ul>
       </section>
 
       <section class="card">
-        <h2>4) Skills tab</h2>
+        <h2>4) Skills tab (what “51/51 enabled” means)</h2>
         <ul>
-          <li>Per-agent skill allowlist.</li>
-          <li>Live snapshot showed <strong>51/51 enabled</strong>.</li>
-          <li>If you disable some skills, this tab becomes your precise specialization filter.</li>
+          <li>Skills are packaged instruction modules (task-specific playbooks).</li>
+          <li><strong>51/51 enabled</strong> means Saber currently inherits all available built-in skills from your installation.</li>
+          <li>If you disable some, this tab becomes a strict allowlist (only checked skills are usable).</li>
         </ul>
+        <p>In your active setup, relevant examples include skills like GitHub ops, weather, healthcheck, session-logs, and custom skill tooling.</p>
+        <p class="mini">Practical rule: keep all enabled while exploring; narrow allowlist when you want a strict production behavior profile.</p>
       </section>
 
       <section class="card">
         <h2>5) Channels tab</h2>
         <ul>
-          <li>Channel connectivity/status snapshot for this agent context.</li>
-          <li>You can verify Telegram health + policy flags (DM/group policy) here.</li>
-          <li>Use this when message delivery feels inconsistent.</li>
+          <li>Shows gateway channel status in this agent context (e.g., Telegram connected state).</li>
+          <li>Exposes policy flags (DM/group policy) that explain routing behavior.</li>
+          <li>Use this first when a message “should have sent but didn’t.”</li>
         </ul>
       </section>
 
       <section class="card">
         <h2>6) Cron Jobs tab</h2>
         <ul>
-          <li>Shows scheduler health and jobs assigned specifically to Saber.</li>
-          <li>Current state: <strong>No jobs assigned to Saber</strong>.</li>
-          <li>You may still see global scheduler job counts from gateway-level context.</li>
+          <li>Shows scheduler health and jobs assigned to the selected agent.</li>
+          <li>Current state in your setup: <strong>No Saber-assigned jobs</strong>.</li>
+          <li>You may still see gateway-level scheduler stats unrelated to Saber jobs.</li>
         </ul>
       </section>
 
       <section class="card">
-        <h2>How to “program” Saber intentionally</h2>
+        <h2>How to program Saber intentionally (recommended pattern)</h2>
         <ol>
-          <li>Define operating behavior in <code>AGENTS.md</code> + <code>SOUL.md</code>.</li>
-          <li>Constrain or expand action surface in <strong>Tools</strong> tab presets.</li>
-          <li>Use <strong>Skills</strong> as a capability allowlist, not a dumping ground.</li>
-          <li>Keep defaults simple: one primary model, one fallback, one active agent.</li>
-          <li>Use Ideas/Lose Ends lane for future systems before turning them into cron.</li>
+          <li>Write operating rules in <code>AGENTS.md</code> and persona/tone in <code>SOUL.md</code>.</li>
+          <li>Keep tools at <strong>Full</strong> during build phases; tighten presets before high-risk automation.</li>
+          <li>Use Skills tab to constrain behavior only when you need reproducible, narrow task lanes.</li>
+          <li>Keep one active agent and minimal cron by default (your current posture).</li>
+          <li>Capture experiments in Ideas/OpenClaw Hub before turning them into scheduled systems.</li>
         </ol>
       </section>
     </div>
 
     <section class="card" style="margin-top:12px">
       <h2>Bottom line</h2>
-      <p>You now have a clean single-agent architecture: <strong>Saber is the operator</strong>, tools are fully enabled, no per-agent cron jobs, and behavior is driven by your workspace control files. This is exactly the right base for building agents intentionally instead of letting automation sprawl.</p>
+      <p>You now have a clean single-agent architecture: <strong>Saber is the operator</strong>, tools are fully enabled, skills are fully available, and scheduling is intentionally sparse. This is the right base for controlled capability growth without automation drift.</p>
     </section>
   </div>
 </body>
