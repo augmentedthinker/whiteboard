@@ -124,17 +124,17 @@ function jumpToVirtual(idx, smooth=true){
 }
 
 function step(dir){
-  // Loop by snapping to an equivalent slide first, then continue same direction.
+  // Seamless loop: at edges, instantly continue to next logical item (no reverse travel).
   if (dir > 0 && virtualIndex >= renderUnits.length - 1) {
-    virtualIndex = baseCount * 2 - 1; // equivalent unit in middle band (less jump)
+    virtualIndex = baseCount * 2; // wraps C -> A while keeping direction continuity
     carousel.scrollTo({left:virtualIndex*carousel.clientWidth, behavior:'auto'});
-    requestAnimationFrame(()=>jumpToVirtual(virtualIndex + 1, true));
+    updateDots();
     return;
   }
   if (dir < 0 && virtualIndex <= 0) {
-    virtualIndex = baseCount; // equivalent unit in middle band
+    virtualIndex = baseCount - 1; // wraps A -> C while keeping direction continuity
     carousel.scrollTo({left:virtualIndex*carousel.clientWidth, behavior:'auto'});
-    requestAnimationFrame(()=>jumpToVirtual(virtualIndex - 1, true));
+    updateDots();
     return;
   }
   jumpToVirtual(virtualIndex + dir, true);
