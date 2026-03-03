@@ -123,23 +123,19 @@ function jumpToVirtual(idx, smooth=true){
   updateDots();
 }
 
-function normalizeToMiddleBand(){
-  const base = activeBaseIndex();
-  const middleIdx = baseCount + base;
-  if (virtualIndex !== middleIdx) {
-    virtualIndex = middleIdx;
-    carousel.scrollTo({left:virtualIndex*carousel.clientWidth, behavior:'auto'});
-  }
-}
-
 function step(dir){
-  // seamless wrap prep before moving, so direction always feels continuous
+  // Loop by snapping to an equivalent slide first, then continue same direction.
   if (dir > 0 && virtualIndex >= renderUnits.length - 1) {
-    virtualIndex = baseCount - 1;
+    virtualIndex = baseCount * 2 - 1; // equivalent unit in middle band (less jump)
     carousel.scrollTo({left:virtualIndex*carousel.clientWidth, behavior:'auto'});
-  } else if (dir < 0 && virtualIndex <= 0) {
-    virtualIndex = baseCount;
+    requestAnimationFrame(()=>jumpToVirtual(virtualIndex + 1, true));
+    return;
+  }
+  if (dir < 0 && virtualIndex <= 0) {
+    virtualIndex = baseCount; // equivalent unit in middle band
     carousel.scrollTo({left:virtualIndex*carousel.clientWidth, behavior:'auto'});
+    requestAnimationFrame(()=>jumpToVirtual(virtualIndex - 1, true));
+    return;
   }
   jumpToVirtual(virtualIndex + dir, true);
 }
@@ -147,15 +143,12 @@ function step(dir){
 document.getElementById('prev').onclick=()=>step(-1);
 document.getElementById('next').onclick=()=>step(1);
 
-let normalizeTimer;
 carousel.addEventListener('scroll',()=>{
   const i=Math.round(carousel.scrollLeft/carousel.clientWidth);
   if(i!==virtualIndex){
     virtualIndex=i;
     updateDots();
   }
-  clearTimeout(normalizeTimer);
-  normalizeTimer = setTimeout(normalizeToMiddleBand, 120);
 });
 
 let sx=0;
