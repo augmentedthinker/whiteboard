@@ -3,203 +3,183 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Remote Viewer | Agents Loadout</title>
+  <title>Remote Viewer | Agents Workstation</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap');
-    :root{
-      --bg:#070d17;
-      --panel:rgba(13,21,34,.8);
-      --line:rgba(152,201,255,.3);
-      --text:#e8f3ff;
-      --muted:#aec2dd;
-      --accent:#89cbff;
-    }
+    :root{--text:#eaf4ff;--muted:#b8cce6;--line:rgba(153,214,255,.42);--panel:rgba(7,14,24,.74);}
     *{box-sizing:border-box}
+    html,body{margin:0;height:100%;overflow:hidden;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text)}
     body{
-      margin:0;
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-      color:var(--text);
       background:
-        radial-gradient(120% 100% at 50% -10%, rgba(58,102,185,.24), transparent 58%),
-        linear-gradient(180deg, rgba(7,13,23,.86), rgba(7,13,23,.94)),
-        url('../assets/main-bg/2026-03-03/agents-page-bg.png') center/cover fixed;
-      min-height:100vh;
-      padding:max(12px,env(safe-area-inset-top)) 12px max(20px,env(safe-area-inset-bottom));
+        radial-gradient(100% 80% at 50% 0%, rgba(74,126,207,.26), transparent 62%),
+        linear-gradient(180deg, rgba(7,12,22,.64), rgba(4,9,18,.85)),
+        url('../assets/agents/2026-03-03/workshop-bg.png') center/cover no-repeat fixed;
     }
-    .container{max-width:1100px;margin:0 auto}
-    .top{margin-bottom:14px}
-    h1{font-family:'Space Grotesk',Inter,sans-serif;margin:0;color:#dff1ff;font-size:clamp(1.5rem,4.2vw,2.3rem);letter-spacing:.02em}
-    .sub{margin:7px 0 0;color:var(--muted);max-width:72ch}
-    .back{display:inline-block;margin-top:12px;text-decoration:none;color:#d9ecff;background:rgba(16,25,39,.65);border:1px solid var(--line);padding:9px 13px;border-radius:999px}
+    .shell{height:100%;display:grid;grid-template-rows:auto 1fr auto}
+    .top{padding:max(10px,env(safe-area-inset-top)) 14px 8px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .title{margin:0;font-family:'Space Grotesk',Inter,sans-serif;font-size:clamp(1.1rem,3.6vw,1.7rem);letter-spacing:.02em}
+    .sub{margin:2px 0 0;color:var(--muted);font-size:clamp(.74rem,2vw,.9rem)}
+    .back{color:#d7ecff;text-decoration:none;border:1px solid var(--line);padding:8px 12px;border-radius:999px;background:rgba(11,20,32,.55);white-space:nowrap;font-size:.85rem}
 
-    .arena{display:grid;grid-template-columns:1.2fr .9fr;gap:14px;align-items:start}
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+    .carousel-wrap{position:relative;height:100%;padding:8px 0 12px}
+    .carousel{
+      display:grid;grid-auto-flow:column;grid-auto-columns:100vw;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+      -ms-overflow-style:none;scrollbar-width:none;
+    }
+    .carousel::-webkit-scrollbar{display:none}
 
+    .slide{scroll-snap-align:center;display:grid;place-items:center;padding:10px 12px 18px}
     .card{
-      position:relative;overflow:hidden;cursor:pointer;
-      border:1px solid var(--line);border-radius:16px;
-      background:linear-gradient(160deg, rgba(17,28,45,.92), rgba(10,17,28,.88));
-      transition:.22s transform,.22s border-color,.22s box-shadow;
+      width:min(96vw,1250px);height:min(82vh,860px);position:relative;overflow:hidden;
+      border:1px solid var(--line);border-radius:20px;
+      background:linear-gradient(155deg, rgba(14,24,39,.74), rgba(8,15,25,.62));
+      box-shadow:0 24px 56px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.05);
+      backdrop-filter:blur(4px);
     }
-    .card:hover{transform:translateY(-2px);border-color:rgba(162,214,255,.55);box-shadow:0 14px 30px rgba(0,0,0,.35)}
-    .card.active{border-color:rgba(188,230,255,.78);box-shadow:0 0 0 1px rgba(183,228,255,.36) inset,0 18px 34px rgba(0,0,0,.42)}
-    .portrait{height:190px;background-size:cover;background-position:center}
-    .body{padding:12px}
-    .name{font-family:'Space Grotesk',Inter,sans-serif;font-size:1.12rem;margin:0 0 2px}
-    .role{font-size:.87rem;color:#a8d6ff;margin:0 0 10px}
-    .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
-    .chip{font-size:.72rem;border:1px solid rgba(164,208,255,.34);padding:4px 8px;border-radius:999px;background:rgba(14,22,36,.55);color:#cae6ff}
+    .robot{position:absolute;inset:0;background-size:contain;background-position:center;background-repeat:no-repeat;filter:drop-shadow(0 12px 28px rgba(0,0,0,.5))}
+    .overlay{position:absolute;inset:0;background:radial-gradient(95% 70% at 50% 45%, transparent 35%, rgba(5,10,18,.48) 100%)}
 
-    .bars{display:grid;gap:8px}
-    .bar{display:grid;grid-template-columns:84px 1fr 26px;gap:8px;align-items:center;font-size:.74rem;color:#c2d8f2}
-    .meter{height:7px;border-radius:999px;background:rgba(92,121,158,.24);overflow:hidden}
-    .fill{height:100%;border-radius:999px;background:linear-gradient(90deg, #62b8ff, #9de2ff)}
+    .badge{position:absolute;left:18px;top:16px;padding:7px 10px;border-radius:999px;border:1px solid rgba(163,220,255,.55);background:rgba(12,20,32,.62);font-size:.75rem;color:#d3edff;letter-spacing:.04em;text-transform:uppercase}
+    .name{position:absolute;left:18px;bottom:124px;margin:0;font-family:'Space Grotesk',Inter,sans-serif;font-size:clamp(1.1rem,3.5vw,2rem)}
+    .role{position:absolute;left:18px;bottom:97px;margin:0;color:#b7cbe5;font-size:clamp(.82rem,1.8vw,1rem)}
 
-    .panel{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:14px;position:sticky;top:10px;backdrop-filter:blur(8px)}
-    .panel h2{margin:0 0 8px;font-family:'Space Grotesk',Inter,sans-serif;color:#dff1ff}
-    .panel p{margin:0 0 12px;color:var(--muted)}
-    .loadout{display:grid;gap:10px}
-    .slot{border:1px solid rgba(145,188,236,.28);border-radius:12px;padding:10px;background:rgba(10,17,28,.45)}
-    .slot h3{margin:0 0 6px;font-size:.88rem;color:#bce2ff;letter-spacing:.02em}
-    .slot ul{margin:0;padding-left:18px;color:#c9dbef;font-size:.88rem}
-    .cta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-    .btn{font-size:.85rem;color:#d8ebff;text-decoration:none;border:1px solid rgba(166,210,255,.35);padding:8px 11px;border-radius:10px;background:rgba(15,25,38,.62)}
+    .hud{position:absolute;left:16px;right:16px;bottom:14px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .pane{border:1px solid rgba(149,203,255,.3);background:var(--panel);border-radius:12px;padding:10px}
+    .pane h3{margin:0 0 7px;font-size:.8rem;color:#bfe4ff;letter-spacing:.04em;text-transform:uppercase}
+    .pane ul{margin:0;padding-left:16px;font-size:.8rem;color:#d1e0f3;line-height:1.45}
 
-    @media (max-width:980px){.arena{grid-template-columns:1fr}.panel{position:relative;top:0}}
-    @media (max-width:720px){body{background-attachment:scroll}}
+    /* anime callout lines */
+    .callout{position:absolute;border:1px solid rgba(120,204,255,.55);background:rgba(7,15,26,.74);color:#d2ebff;padding:6px 9px;border-radius:10px;font-size:.74rem;max-width:210px}
+    .callout:before{content:"";position:absolute;width:48px;height:1px;background:rgba(120,204,255,.7)}
+
+    .c1{left:14px;top:74px}.c1:before{left:100%;top:12px}
+    .c2{right:14px;top:88px}.c2:before{right:100%;top:12px}
+    .c3{left:16px;top:42%}.c3:before{left:100%;top:13px;width:62px}
+    .c4{right:16px;top:42%}.c4:before{right:100%;top:13px;width:62px}
+
+    .nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(10,18,30,.62);color:#d9ecff;display:grid;place-items:center;cursor:pointer;font-size:1.3rem;z-index:5}
+    .prev{left:10px}.next{right:10px}
+
+    .dots{display:flex;justify-content:center;gap:8px;padding:8px 0 max(10px,env(safe-area-inset-bottom))}
+    .dot{width:9px;height:9px;border-radius:999px;background:rgba(167,196,225,.35);border:1px solid rgba(175,219,255,.3)}
+    .dot.active{background:#9ed8ff}
+
+    @media (max-width:980px){
+      .hud{grid-template-columns:1fr}
+      .name{bottom:252px}.role{bottom:228px}
+      .card{height:min(86vh,920px)}
+      .callout{font-size:.68rem;max-width:170px}
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header class="top">
-      <h1>🤖 Agents Loadout Arena</h1>
-      <p class="sub">Gamified first pass: each agent is embodied as a specialized robot unit with realistic capability stats, tool modules, and mission role. Tap any unit to inspect its build.</p>
-      <a class="back" href="../index.html">← Back to Remote Viewer</a>
-    </header>
+<div class="shell">
+  <header class="top">
+    <div>
+      <h1 class="title">🤖 Agent Workstation Bay</h1>
+      <p class="sub">Swipe left/right to bring each unit to the front. Same workshop, swapped robots, tactical UI overlays.</p>
+    </div>
+    <a class="back" href="../index.html">← Back to Remote Viewer</a>
+  </header>
 
-    <section class="arena">
-      <div class="cards" id="cards"></div>
+  <main class="carousel-wrap">
+    <button class="nav prev" id="prev">‹</button>
+    <button class="nav next" id="next">›</button>
+    <section class="carousel" id="carousel"></section>
+  </main>
 
-      <aside class="panel">
-        <h2 id="panelName">Select a Unit</h2>
-        <p id="panelRole">Choose an agent card to view specialization loadout.</p>
+  <footer class="dots" id="dots"></footer>
+</div>
 
-        <div class="loadout">
-          <div class="slot">
-            <h3>🧰 Tool Modules</h3>
-            <ul id="tools"></ul>
-          </div>
-          <div class="slot">
-            <h3>🧠 Skill Package</h3>
-            <ul id="skills"></ul>
-          </div>
-          <div class="slot">
-            <h3>⚡ Powers / Mission Strength</h3>
-            <ul id="powers"></ul>
-          </div>
-        </div>
+<script>
+const units = [
+  {
+    name:'⚔️ Saber Unit', role:'Operator / Orchestrator Core', badge:'PRIMARY COMMAND',
+    image:'../assets/agents/2026-03-03/saber-station.png',
+    callouts:['Trajectory Lock Core','Cross-Agent Relay Bus','Build Execution Arms','System Recovery Shield'],
+    modules:['File + shell ops','Browser control','Memory lane continuity','Session orchestration'],
+    skills:['Scope containment','High-signal handoffs','Artifact-first shipping'],
+    powers:['Loop Breaker','Trajectory Lock','Recovery Protocol']
+  },
+  {
+    name:'🖼️ ImageBot Unit', role:'Visual Synthesis Specialist', badge:'VISUAL FORGE',
+    image:'../assets/agents/2026-03-03/imagebot-station.png',
+    callouts:['Optic Capture Cluster','Render Engine Pack','Variant Burst Array','Asset Routing Port'],
+    modules:['Gemini image pipeline','Variant generation','Naming/output contract','Render fallback lane'],
+    skills:['Cinematic composition','Mood iteration','Production-ready asset prep'],
+    powers:['Vision Forge','Variant Burst','Asset Discipline']
+  },
+  {
+    name:'🎨 StyleBot Unit', role:'Interface Polish Specialist', badge:'POLISH ENGINE',
+    image:'../assets/agents/2026-03-03/stylebot-station.png',
+    callouts:['Typography Visor','Hierarchy Mapping Lens','Readability Calibration Arm','Finish-Pass Injector'],
+    modules:['CSS polish gate','Font-pair presets','Hero snippet templates','Responsive tuning tools'],
+    skills:['Premium clarity','Mobile-first hierarchy','High-impact minimal passes'],
+    powers:['Clarity Field','Hierarchy Engine','Finish Pass']
+  }
+];
 
-        <div class="cta" id="links"></div>
-      </aside>
-    </section>
-  </div>
+const carousel = document.getElementById('carousel');
+const dots = document.getElementById('dots');
+let index = 0;
 
-  <script>
-    const agents = [
-      {
-        id:'saber',
-        name:'⚔️ Saber Unit',
-        role:'Operator / Orchestrator Core',
-        image:'../assets/agents/2026-03-03/saber-unit.png',
-        tags:['Primary Agent','Execution','Systems'],
-        stats:{Planning:95, Build:92, Reliability:90},
-        tools:['File + shell ops','Browser control','Memory lanes','Session orchestration'],
-        skills:['Scope control','Cross-agent handoff','Artifact shipping under constraints'],
-        powers:['Trajectory Lock: keeps work aligned to runway','Loop Breaker: converts ideas into shippable steps','Recovery Protocol: stabilizes ops when systems drift'],
-        links:[
-          {label:'Open Saber Guide', href:'../artifacts/saber-agent-dashboard-guide-2026-03-03.html'}
-        ]
-      },
-      {
-        id:'imagebot',
-        name:'🖼️ ImageBot Unit',
-        role:'Visual Synthesis Specialist',
-        image:'../assets/agents/2026-03-03/imagebot-unit.png',
-        tags:['Visual Lane','Render Ops','Cinematic'],
-        stats:{Composition:94, Speed:87, Consistency:89},
-        tools:['Gemini image generation pipeline','Prompt-driven variant rendering','Asset path + naming contract'],
-        skills:['Mood-first visual direction','Model fallback handling','Production-ready output packaging'],
-        powers:['Vision Forge: rapidly creates striking scenes','Variant Burst: spins style options quickly','Asset Discipline: keeps outputs structured for shipping'],
-        links:[
-          {label:'Open ImageBot Playbook', href:'../artifacts/imagebot-visual-playbook-2026-03-03.html'}
-        ]
-      },
-      {
-        id:'stylebot',
-        name:'🎨 StyleBot Unit',
-        role:'Interface Polish Specialist',
-        image:'../assets/agents/2026-03-03/stylebot-unit.png',
-        tags:['UI Polish','Typography','Readability'],
-        stats:{Typography:93, Hierarchy:91, 'UX Polish':90},
-        tools:['CSS polish gate','Font-pair presets','Hero/UI snippet templates'],
-        skills:['Premium but practical styling','Mobile-first readability','Minimal high-impact visual passes'],
-        powers:['Clarity Field: improves readability instantly','Hierarchy Engine: makes intent obvious at a glance','Finish Pass: upgrades “works” into “feels intentional”'],
-        links:[
-          {label:'Open StyleBot Playbook', href:'../artifacts/stylebot-css-playbook-2026-03-03.html'}
-        ]
-      }
-    ];
+function pane(title, items){
+  return `<div class='pane'><h3>${title}</h3><ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`;
+}
 
-    const cards = document.getElementById('cards');
-    const panelName = document.getElementById('panelName');
-    const panelRole = document.getElementById('panelRole');
-    const tools = document.getElementById('tools');
-    const skills = document.getElementById('skills');
-    const powers = document.getElementById('powers');
-    const links = document.getElementById('links');
+units.forEach((u,i)=>{
+  const slide = document.createElement('article');
+  slide.className='slide';
+  slide.innerHTML = `
+    <section class='card'>
+      <div class='robot' style="background-image:url('${u.image}')"></div>
+      <div class='overlay'></div>
+      <div class='badge'>${u.badge}</div>
+      <h2 class='name'>${u.name}</h2>
+      <p class='role'>${u.role}</p>
 
-    function li(text){ const el=document.createElement('li'); el.textContent=text; return el; }
+      <div class='callout c1'>${u.callouts[0]}</div>
+      <div class='callout c2'>${u.callouts[1]}</div>
+      <div class='callout c3'>${u.callouts[2]}</div>
+      <div class='callout c4'>${u.callouts[3]}</div>
 
-    function selectAgent(id){
-      const agent = agents.find(a=>a.id===id);
-      document.querySelectorAll('.card').forEach(c=>c.classList.toggle('active', c.dataset.id===id));
-      panelName.textContent = agent.name;
-      panelRole.textContent = agent.role;
+      <div class='hud'>
+        ${pane('Tool Modules',u.modules)}
+        ${pane('Skill Package',u.skills)}
+        ${pane('Powers / Mission Strength',u.powers)}
+      </div>
+    </section>`;
+  carousel.appendChild(slide);
 
-      tools.innerHTML=''; skills.innerHTML=''; powers.innerHTML=''; links.innerHTML='';
-      agent.tools.forEach(t=>tools.appendChild(li(t)));
-      agent.skills.forEach(s=>skills.appendChild(li(s)));
-      agent.powers.forEach(p=>powers.appendChild(li(p)));
-      agent.links.forEach(l=>{
-        const a=document.createElement('a'); a.className='btn'; a.href=l.href; a.target='_blank'; a.textContent=l.label; links.appendChild(a);
-      });
-    }
+  const d = document.createElement('span');
+  d.className='dot'+(i===0?' active':'');
+  dots.appendChild(d);
+});
 
-    function card(agent){
-      const sec=document.createElement('section');
-      sec.className='card';
-      sec.dataset.id=agent.id;
-      sec.innerHTML=`
-        <div class="portrait" style="background-image:url('${agent.image}')"></div>
-        <div class="body">
-          <h3 class="name">${agent.name}</h3>
-          <p class="role">${agent.role}</p>
-          <div class="chips">${agent.tags.map(t=>`<span class='chip'>${t}</span>`).join('')}</div>
-          <div class="bars">
-            ${Object.entries(agent.stats).map(([k,v])=>`
-              <div class='bar'>
-                <span>${k}</span>
-                <div class='meter'><div class='fill' style='width:${v}%'></div></div>
-                <span>${v}</span>
-              </div>`).join('')}
-          </div>
-        </div>`;
-      sec.onclick=()=>selectAgent(agent.id);
-      return sec;
-    }
+function updateDots(){
+  [...dots.children].forEach((d,i)=>d.classList.toggle('active', i===index));
+}
 
-    agents.forEach(a=>cards.appendChild(card(a)));
-    selectAgent('saber');
-  </script>
+function go(i){
+  index = (i+units.length)%units.length;
+  carousel.scrollTo({left:index*window.innerWidth, behavior:'smooth'});
+  updateDots();
+}
+
+document.getElementById('prev').onclick=()=>go(index-1);
+document.getElementById('next').onclick=()=>go(index+1);
+
+carousel.addEventListener('scroll',()=>{
+  const i = Math.round(carousel.scrollLeft / window.innerWidth);
+  if(i!==index){index=i;updateDots();}
+});
+
+let startX=0;
+carousel.addEventListener('touchstart',e=>startX=e.touches[0].clientX,{passive:true});
+carousel.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-startX;
+  if(Math.abs(dx)>45) go(index + (dx<0?1:-1));
+},{passive:true});
+</script>
 </body>
 </html>
