@@ -100,6 +100,19 @@
 
     .section-title{margin:14px 0 8px;font-size:.78rem;letter-spacing:.07em;color:#9fc6eb;text-transform:uppercase}
 
+    .guide{
+      border:1px solid rgba(153,214,255,.32);
+      border-radius:14px;
+      background:linear-gradient(160deg, rgba(12,21,35,.85), rgba(9,16,27,.82));
+      padding:12px;
+      margin-bottom:10px;
+    }
+    .guide h3{margin:0 0 6px;font-size:.86rem;color:#d7ecff;letter-spacing:.03em}
+    .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}
+    .step{border:1px solid rgba(132,191,245,.26);border-radius:10px;padding:8px;background:rgba(10,18,30,.55)}
+    .step b{display:block;font-size:.72rem;color:#9ecbff;letter-spacing:.05em;text-transform:uppercase;margin-bottom:2px}
+    .step span{font-size:.79rem;color:#c6d9ef;line-height:1.35}
+
     .fs-btn {
       position: fixed;
       top: max(10px, env(safe-area-inset-top));
@@ -131,10 +144,24 @@
     <section class="hero">
       <h1>REMOTE VIEWER · COMMAND PORTAL</h1>
       <p class="subtitle">Central launch surface for artifacts, agents, tooling, and reference lanes. Fast to scan. Fast to ship.</p>
+      <p class="subtitle" style="margin-top:4px;color:#86d0ff">Tip: start with Today’s Artifacts, then Agents, then Tools.</p>
       <div class="quick-row">
         <div class="quick"><b>Saber</b>Operator lane · orchestration + execution</div>
         <div class="quick"><b>ImageBot</b>Visual generation lane · cinematic assets</div>
         <div class="quick"><b>StyleBot</b>UI polish lane · readability + finish passes</div>
+      </div>
+    </section>
+
+    <section class="guide">
+      <h3>⚡ Start Here (Recommended Flow)</h3>
+      <div class="steps">
+        <div class="step"><b>Step 1</b><span>Open <strong>Today’s Artifacts</strong>
+        <small style='display:block;color:#7fd0ff;font-size:.72rem;margin-top:2px'>Priority: Latest Output</small> for the latest shipped output.</span></div>
+        <div class="step"><b>Step 2</b><span>Jump into <strong>Agents Workstation Bay</strong>
+        <small style='display:block;color:#7fd0ff;font-size:.72rem;margin-top:2px'>Priority: Active Agents</small> to inspect active specialist lanes.</span></div>
+        <div class="step"><b>Step 3</b><span>Use <strong>Tools</strong>
+        <small style='display:block;color:#7fd0ff;font-size:.72rem;margin-top:2px'>Priority: Execute</small> or <strong>OpenClaw Hub</strong>
+        <small style='display:block;color:#7fd0ff;font-size:.72rem;margin-top:2px'>Priority: Reference + Playbooks</small> to execute and iterate fast.</span></div>
       </div>
     </section>
 
