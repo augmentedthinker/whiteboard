@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Remote Viewer | Ideas & Loose Ends</title>
+  <style>
+    :root { --bg:#0d1117; --panel:#161b22; --border:#30363d; --text:#c9d1d9; --accent:#58a6ff; --muted:#9da7b1; }
+    *{box-sizing:border-box}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);margin:0;padding:max(12px,env(safe-area-inset-top)) 12px max(16px,env(safe-area-inset-bottom));line-height:1.5;min-height:100vh}
+    .container{max-width:860px;margin:0 auto}
+    header{border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:16px}
+    h1{color:var(--accent);margin:0;font-size:clamp(1.4rem,3.8vw,2rem)}
+    header p{margin:4px 0 0;color:var(--muted)}
+    .back-link{display:inline-block;margin:0 0 12px;text-decoration:none;color:var(--accent);border:1px solid var(--border);border-radius:10px;padding:10px 14px;background:#21262d}
+    .note-card{background:linear-gradient(135deg, rgba(28, 35, 46, 0.95), rgba(20, 27, 38, 0.92));border:1px solid rgba(136,174,255,.35);border-radius:12px;padding:16px;margin-bottom:12px}
+    .note-card h2{margin:0 0 8px;color:#9ec7ff;font-size:1.1rem}
+    .meta{font-size:.88rem;color:var(--muted);margin-bottom:10px}
+    ul{margin:8px 0 0 18px}
+    .status{display:inline-block;font-size:.8rem;padding:3px 8px;border-radius:999px;border:1px solid #4b5563;color:#d1d5db;background:#1f2937}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>💡 Ideas & Loose Ends</h1>
+      <p>Quick parking lot for concepts we want to revisit and implement deliberately.</p>
+    </header>
+
+    <a class="back-link" href="../index.html">← Back to Remote Viewer</a>
+
+    <div class="note-card">
+      <h2>ClawHub as an Implementation Intelligence Layer</h2>
+      <div class="meta">Added: 2026-03-03 · Status: <span class="status">Parked / Next Up</span></div>
+      <p>Idea: Create a dedicated place in Remote Viewer to archive high-signal OpenClaw learning from YouTube, X, and articles — then convert each insight into concrete actions we can test and adopt.</p>
+      <ul>
+        <li>Store source links + short why-it-matters summary</li>
+        <li>Tag by topic (skills, automation, memory, browser relay, etc.)</li>
+        <li>Add one executable "next action" per entry</li>
+        <li>Track status: untested → tested → adopted</li>
+      </ul>
+      <p><strong>First pass intention:</strong> avoid building a giant system; start with simple entries that force implementation.</p>
+    </div>
+  </div>
+</body>
+</html>
