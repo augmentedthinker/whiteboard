@@ -7,14 +7,20 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
-    :root{--bg:#070b14;--panel:#101726;--text:#dbe7ff;--muted:#93a4c4;--line:#2a3857;--accent:#9fc9ff;--accent-strong:#dbeaff}
+    /*
+      StyleBot v2 polish pass
+      Date: 2026-03-03
+      Scope: stronger epic-fantasy hero treatment while preserving 1-screen storyboard layout + 4-card grid.
+    */
+    :root{--bg:#070b14;--panel:#101726;--text:#dbe7ff;--muted:#93a4c4;--line:#2a3857;--accent:#9fc9ff;--accent-strong:#edf4ff}
     *{box-sizing:border-box}
     body{margin:0;background:radial-gradient(circle at top,#14233f 0%,#070b14 55%);color:var(--text);font:16px/1.5 "Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
     .wrap{max-width:1400px;margin:0 auto;padding:18px 14px 24px}
-    .hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#1a2b4b 0%,#0f1a31 55%,#0b1325 100%);border:1px solid #324366;border-radius:16px;padding:16px 20px 15px;margin-bottom:14px;text-align:center;box-shadow:inset 0 0 0 1px rgba(187,215,255,.12),0 8px 30px rgba(3,8,18,.28)}
-    .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 120% at 50% 0%,rgba(142,188,255,.14),transparent 58%);pointer-events:none}
-    h1{position:relative;margin:0;font:700 clamp(1.45rem,3.9vw,2.45rem)/1.08 "Cinzel",serif;color:var(--accent-strong);letter-spacing:.075em;text-transform:uppercase;text-shadow:0 0 1px rgba(223,237,255,.45),0 0 14px rgba(122,183,255,.22),0 3px 14px rgba(0,0,0,.45)}
-    .sub{position:relative;margin:8px auto 0;max-width:74ch;color:#b3c5e6;font-size:clamp(.82rem,1.4vw,.98rem);line-height:1.35;letter-spacing:.02em;font-weight:500}
+    .hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#1b2a4d 0%,#0f1a31 55%,#0b1222 100%);border:1px solid rgba(140,184,255,.35);border-radius:16px;padding:16px 20px 14px;margin-bottom:14px;text-align:center;box-shadow:0 18px 42px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06)}
+    .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 0%,rgba(138,182,255,.18),transparent 60%);pointer-events:none}
+    .hero::after{content:"";position:absolute;left:12%;right:12%;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(210,229,255,.65),transparent);opacity:.45;pointer-events:none}
+    h1{position:relative;z-index:1;margin:0;font:700 clamp(1.55rem,4.1vw,2.7rem)/1.04 "Cinzel",serif;color:var(--accent-strong);letter-spacing:.09em;text-transform:uppercase;text-shadow:0 2px 0 rgba(0,0,0,.35),0 0 24px rgba(122,183,255,.24),0 6px 18px rgba(0,0,0,.38)}
+    .sub{position:relative;z-index:1;color:#c6d6f2;max-width:820px;margin:8px auto 0;line-height:1.5;letter-spacing:.018em;font-weight:500;font-size:clamp(.82rem,1.35vw,.98rem)}
     .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
     .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
     .card img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
