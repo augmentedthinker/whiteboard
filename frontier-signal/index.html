@@ -50,6 +50,11 @@
       <select id="reportSelect"></select>
       <a id="openRaw" class="btn" target="_blank" rel="noopener">Open raw markdown</a>
     </div>
+    <div class="row">
+      <label for="sourceSelect">Current source feeds:</label>
+      <select id="sourceSelect"></select>
+      <a id="openSource" class="btn" target="_blank" rel="noopener">Open source URL</a>
+    </div>
   </section>
   <section id="report" class="panel">Loading report…</section>
 </div>
@@ -57,6 +62,8 @@
   const select = document.getElementById('reportSelect');
   const reportEl = document.getElementById('report');
   const rawLink = document.getElementById('openRaw');
+  const sourceSelect = document.getElementById('sourceSelect');
+  const openSource = document.getElementById('openSource');
 
   async function loadReport(file){
     const path = `./reports/${file}`;
@@ -79,6 +86,21 @@
     select.value = meta.latest;
     await loadReport(meta.latest);
     select.addEventListener('change', ()=> loadReport(select.value));
+
+    const sourceMeta = await (await fetch('./sources.json?t=' + Date.now(), {cache: 'no-store'})).json();
+    sourceMeta.sources.forEach(src=>{
+      const opt = document.createElement('option');
+      opt.value = src.url;
+      opt.textContent = `${src.name} (${src.type})`;
+      sourceSelect.appendChild(opt);
+    });
+    if (sourceMeta.sources.length) {
+      sourceSelect.value = sourceMeta.sources[0].url;
+      openSource.href = sourceMeta.sources[0].url;
+    }
+    sourceSelect.addEventListener('change', ()=> {
+      openSource.href = sourceSelect.value;
+    });
   }
   boot();
 </script>
