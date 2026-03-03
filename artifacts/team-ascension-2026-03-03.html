@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Team Ascension — 2026-03-03</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;700&display=swap');
+    :root{
+      --text:#ecf5ff;
+      --muted:#b9c9df;
+      --glass:rgba(10,16,28,.52);
+      --line:rgba(173,218,255,.26);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:#030711;color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;overflow:hidden}
+    .scene{position:fixed;inset:0;background:
+      radial-gradient(120% 100% at 50% -10%, rgba(123,179,255,.24), transparent 58%),
+      linear-gradient(180deg, rgba(3,8,18,.38), rgba(3,8,18,.75)),
+      url('./generated/2026-03-03/team-ascension-bg.png') center/cover no-repeat;
+      transform:scale(1.03);
+      filter:saturate(1.12) contrast(1.05);
+    }
+    .vignette{position:fixed;inset:0;background:radial-gradient(110% 80% at 50% 40%, transparent 35%, rgba(0,0,0,.6) 100%)}
+    canvas{position:fixed;inset:0;width:100%;height:100%}
+    .hud{position:fixed;left:50%;transform:translateX(-50%);bottom:max(18px,env(safe-area-inset-bottom));width:min(960px,92vw);padding:16px 18px;border-radius:16px;background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(10px) saturate(1.15);box-shadow:0 20px 50px rgba(0,0,0,.38)}
+    h1{margin:0 0 6px;font-family:'Space Grotesk',Inter,sans-serif;letter-spacing:.02em;font-size:clamp(1.2rem,3.2vw,2rem)}
+    p{margin:0;color:var(--muted);font-size:clamp(.86rem,1.8vw,1rem);line-height:1.45}
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .chip{font-size:.72rem;color:#cde6ff;border:1px solid rgba(168,216,255,.3);padding:6px 9px;border-radius:999px;background:rgba(8,14,24,.45)}
+    .back{position:fixed;top:max(12px,env(safe-area-inset-top));left:12px;padding:8px 12px;border-radius:999px;border:1px solid var(--line);text-decoration:none;color:#d7ecff;background:rgba(8,13,22,.55);font-size:.88rem}
+  </style>
+</head>
+<body>
+  <div class="scene" id="scene"></div>
+  <canvas id="stars"></canvas>
+  <div class="vignette"></div>
+
+  <a class="back" href="../today/index.html">← Today</a>
+
+  <section class="hud">
+    <h1>Team Ascension</h1>
+    <p>A Saber + ImageBot + StyleBot collaboration: cinematic generated world, reactive particle field, and premium readability polish tuned for mobile and desktop.</p>
+    <div class="chips">
+      <span class="chip">Move pointer / tilt phone</span>
+      <span class="chip">Tap for pulse burst</span>
+      <span class="chip">No APIs at runtime</span>
+    </div>
+  </section>
+
+  <script>
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    const scene = document.getElementById('scene');
+
+    let w=0,h=0,dpr=Math.min(window.devicePixelRatio||1,2);
+    let mx=0,my=0,tx=0,ty=0;
+    const particles=[];
+    const P=160;
+
+    function resize(){
+      w=window.innerWidth;h=window.innerHeight;
+      canvas.width=Math.floor(w*dpr);canvas.height=Math.floor(h*dpr);
+      canvas.style.width=w+'px';canvas.style.height=h+'px';
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      if(!particles.length){
+        for(let i=0;i<P;i++)particles.push(newParticle());
+      }
+    }
+
+    function newParticle(burst=false,x=w*.5,y=h*.5){
+      const a=Math.random()*Math.PI*2;
+      const r=burst?Math.random()*120:Math.random()*Math.min(w,h)*.48;
+      const speed=burst?(Math.random()*2+1.2):(Math.random()*.18+.04);
+      return {
+        x: burst?x+Math.cos(a)*r:Math.random()*w,
+        y: burst?y+Math.sin(a)*r:Math.random()*h,
+        z: Math.random()*1,
+        vx: Math.cos(a)*speed,
+        vy: Math.sin(a)*speed,
+        life: burst?90+Math.random()*60:99999,
+        burst
+      }
+    }
+
+    function burst(x,y){
+      for(let i=0;i<46;i++)particles.push(newParticle(true,x,y));
+    }
+
+    function draw(){
+      requestAnimationFrame(draw);
+      tx += (mx-tx)*0.04; ty += (my-ty)*0.04;
+      scene.style.transform = `translate(${tx*0.012}px, ${ty*0.012}px) scale(1.04)`;
+
+      ctx.clearRect(0,0,w,h);
+      const g=ctx.createLinearGradient(0,0,0,h);
+      g.addColorStop(0,'rgba(26,49,88,.14)');g.addColorStop(1,'rgba(4,10,20,.3)');
+      ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+
+      for(let i=particles.length-1;i>=0;i--){
+        const p=particles[i];
+        p.x += p.vx + tx*0.00025;
+        p.y += p.vy + ty*0.00025;
+        if(p.burst){p.vx*=0.986;p.vy*=0.986;p.life--;}
+        if(p.x<-80||p.x>w+80||p.y<-80||p.y>h+80||p.life<=0){
+          particles.splice(i,1);
+          if(!p.burst) particles.push(newParticle());
+          continue;
+        }
+        const alpha = p.burst ? Math.max(0,p.life/150) : (0.22 + p.z*0.58);
+        const radius = p.burst ? 1.2 + Math.random()*1.8 : .5 + p.z*1.8;
+        const hue = p.burst ? 195+Math.random()*40 : 200+Math.sin((p.x+p.y)*0.002)*25;
+        ctx.beginPath();
+        ctx.fillStyle = `hsla(${hue}, 95%, ${p.burst?72:78}%, ${alpha})`;
+        ctx.shadowBlur = p.burst?16:8;
+        ctx.shadowColor = `hsla(${hue}, 100%, 70%, ${alpha})`;
+        ctx.arc(p.x,p.y,radius,0,Math.PI*2);
+        ctx.fill();
+      }
+      ctx.shadowBlur=0;
+    }
+
+    window.addEventListener('mousemove',e=>{mx=(e.clientX-w/2);my=(e.clientY-h/2)});
+    window.addEventListener('touchmove',e=>{
+      const t=e.touches[0];
+      if(!t) return;
+      mx=(t.clientX-w/2);my=(t.clientY-h/2);
+    },{passive:true});
+    window.addEventListener('deviceorientation',e=>{
+      mx=(e.gamma||0)*9;
+      my=(e.beta||0)*5;
+    });
+    window.addEventListener('click',e=>burst(e.clientX,e.clientY));
+    window.addEventListener('touchstart',e=>{const t=e.touches[0];if(t) burst(t.clientX,t.clientY);},{passive:true});
+    window.addEventListener('resize',resize);
+
+    resize();
+    draw();
+  </script>
+</body>
+</html>
