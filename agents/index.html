@@ -31,9 +31,10 @@
     .fill{height:100%;border-radius:999px;background:linear-gradient(90deg, color-mix(in oklab, var(--accent) 75%, #8fcfff), #e8f7ff)}
 
     .grid{display:grid;grid-template-columns:1fr;gap:8px;padding:10px;height:100%}
-    .panel{border:1px solid color-mix(in oklab, var(--accent) 30%, #8bcaff);border-radius:12px;background:var(--panel);padding:8px 9px}
-    .panel h3{margin:0 0 5px;font-size:.72rem;color:color-mix(in oklab, var(--accent) 72%, white);text-transform:uppercase;letter-spacing:.04em}
-    .panel ul{margin:0;padding-left:16px;font-size:.78rem;line-height:1.4;color:#d0e0f2}
+    .panel{position:relative;border:1px solid color-mix(in oklab, var(--accent) 30%, #8bcaff);border-radius:12px;background:linear-gradient(165deg, rgba(9,16,28,.9), rgba(8,14,25,.82));padding:10px 10px 12px;overflow:hidden}
+    .panel::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 90% 10%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 50%),linear-gradient(transparent 97%, rgba(126,190,245,.08) 98%),linear-gradient(90deg, transparent 97%, rgba(126,190,245,.06) 98%);background-size:auto, 100% 18px, 18px 100%;pointer-events:none}
+    .panel h3{position:relative;z-index:1;margin:0 0 7px;font-size:.74rem;color:color-mix(in oklab, var(--accent) 72%, white);text-transform:uppercase;letter-spacing:.05em}
+    .panel ul{position:relative;z-index:1;margin:0;padding-left:16px;font-size:.84rem;line-height:1.55;color:#d7e7f8}
 
     .stage{position:relative;border:1px solid color-mix(in oklab, var(--accent) 35%, #9ad6ff);border-radius:14px;min-height:250px;background:linear-gradient(180deg, rgba(11,19,32,.45), rgba(8,14,24,.5));overflow:hidden}
     .stage:before,.stage:after{content:"";position:absolute;z-index:3;width:22px;height:22px;border:2px solid color-mix(in oklab, var(--accent) 65%, #b4e7ff)}
@@ -41,17 +42,11 @@
     .stage:after{right:8px;bottom:8px;border-left:none;border-top:none}
 
     .halo{position:absolute;left:50%;top:47%;transform:translate(-50%,-50%);width:64%;aspect-ratio:1/1;border-radius:999px;background:radial-gradient(circle, color-mix(in oklab, var(--accent) 45%, transparent) 0%, color-mix(in oklab, var(--accent) 22%, transparent) 38%, rgba(0,0,0,0) 70%);filter:blur(1px)}
-    .robot{position:absolute;inset:8% 14% 6%;background-size:contain;background-position:center;background-repeat:no-repeat;z-index:2;filter:drop-shadow(0 10px 24px rgba(0,0,0,.55))}
+    .robot{position:absolute;inset:2% 2% 1%;background-size:contain;background-position:center;background-repeat:no-repeat;z-index:2;filter:drop-shadow(0 10px 24px rgba(0,0,0,.55))}
     .nameplate{position:absolute;left:10px;right:10px;bottom:8px;z-index:4;border:1px solid color-mix(in oklab, var(--accent) 32%, #8bcaff);background:rgba(7,14,24,.75);border-radius:10px;padding:7px 9px}
-    .name{font-family:Orbitron,Inter,sans-serif;font-size:.9rem;margin:0;color:color-mix(in oklab, var(--accent) 80%, white)}
-    .role{margin:2px 0 0;color:var(--muted);font-size:.74rem}
+    .name{font-family:Orbitron,Inter,sans-serif;font-size:clamp(1rem,2.1vw,1.35rem);font-weight:700;letter-spacing:.03em;margin:0;color:color-mix(in oklab, var(--accent) 82%, white);text-shadow:0 0 16px color-mix(in oklab, var(--accent) 45%, transparent)}
+    .role{margin:3px 0 0;color:var(--muted);font-size:.8rem}
 
-    .callout{position:absolute;z-index:4;font-size:.66rem;color:#d6ecff;background:rgba(9,16,27,.78);border:1px solid color-mix(in oklab, var(--accent) 45%, #82ccff);padding:4px 6px;border-radius:8px;max-width:132px;text-align:center}
-    .callout:before{content:"";position:absolute;width:20px;height:1px;background:color-mix(in oklab, var(--accent) 72%, #8fd6ff)}
-    .c1{left:6%;top:16%}.c1:before{left:100%;top:10px}
-    .c2{right:6%;top:18%}.c2:before{right:100%;top:10px}
-    .c3{left:7%;top:40%}.c3:before{left:100%;top:10px}
-    .c4{right:7%;top:42%}.c4:before{right:100%;top:10px}
 
     .nav{position:absolute;top:47%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(10,18,30,.72);color:#d9ecff;display:grid;place-items:center;cursor:pointer;font-size:1.2rem;z-index:10}
     .prev{left:3px}.next{right:3px}
@@ -64,9 +59,7 @@
       .frame{width:min(95vw,1280px)}
       .grid{grid-template-columns:.92fr 1.2fr .92fr}
       .stage{min-height:0;height:100%}
-      .robot{inset:9% 10% 8%}
-      .callout{max-width:180px;font-size:.72rem}
-      .c1{left:4%;top:13%}.c2{right:4%;top:14%}.c3{left:5%;top:39%}.c4{right:5%;top:40%}
+      .robot{inset:2% 2% 1%}
       .panel ul{font-size:.82rem}
     }
   </style>
@@ -92,9 +85,9 @@
 
 <script>
 const units=[
- {name:'⚔️ Saber Unit',role:'Operator / Orchestrator Core',accent:'#4ea1ff',image:'../assets/agents/2026-03-03/saber-station-blue.png',callouts:['Trajectory Lock Core','Cross-Agent Relay Bus','Build Execution Arms','Recovery Shield'],modules:['File + shell ops','Browser control','Memory continuity','Session orchestration'],skills:['Scope containment','High-signal handoffs','Artifact-first shipping'],powers:['Loop Breaker','Trajectory Lock','Recovery Protocol'],stats:{Power:95,Reliability:92,Speed:84,Precision:90}},
- {name:'🖼️ ImageBot Unit',role:'Visual Synthesis Specialist',accent:'#42e5ff',image:'../assets/agents/2026-03-03/imagebot-station-cyan.png',callouts:['Optic Capture Cluster','Render Engine Pack','Variant Burst Array','Asset Routing Port'],modules:['Gemini image pipeline','Variant generation','Naming/output contract','Render fallback lane'],skills:['Cinematic composition','Mood iteration','Production-ready output'],powers:['Vision Forge','Variant Burst','Asset Discipline'],stats:{Power:90,Reliability:86,Speed:92,Precision:91}},
- {name:'🎨 StyleBot Unit',role:'Interface Polish Specialist',accent:'#b26cff',image:'../assets/agents/2026-03-03/stylebot-station-violet.png',callouts:['Typography Visor','Hierarchy Mapping Lens','Readability Calibrator','Finish-Pass Injector'],modules:['CSS polish gate','Font presets','Hero snippets','Responsive tuning'],skills:['Premium clarity','Mobile-first hierarchy','Minimal high-impact passes'],powers:['Clarity Field','Hierarchy Engine','Finish Pass'],stats:{Power:88,Reliability:90,Speed:82,Precision:95}}
+ {name:'⚔️ Saber Unit',role:'Operator / Orchestrator Core',accent:'#2f7dff',image:'../assets/agents/2026-03-03/saber-station-blue.png',modules:['Command-chain orchestration across tools and sessions','Rapid implementation via shell/file/browser control','Memory-lane continuity and state protection','Recovery-first troubleshooting under pressure'],skills:['Scope containment that prevents feature drift','High-signal handoffs to specialist agents','Artifact-first execution with tight shipping loops'],powers:['Loop Breaker','Trajectory Lock','Recovery Protocol'],stats:{Power:95,Reliability:92,Speed:84,Precision:90}},
+ {name:'🖼️ ImageBot Unit',role:'Visual Synthesis Specialist',accent:'#32e27a',image:'../assets/agents/2026-03-03/imagebot-station-cyan.png',modules:['Prompt-to-render image pipeline management','Variant generation for fast visual exploration','Output naming + path discipline for production','Fallback model routing when generations fail'],skills:['Cinematic composition and framing instincts','Mood-led iteration without style drift','Production-ready output formatting and handoff'],powers:['Vision Forge','Variant Burst','Asset Discipline'],stats:{Power:90,Reliability:86,Speed:92,Precision:91}},
+ {name:'🎨 StyleBot Unit',role:'Interface Polish Specialist',accent:'#b26cff',image:'../assets/agents/2026-03-03/stylebot-station-violet.png',modules:['CSS polish gate for readability and hierarchy','Typography presets + contrast tuning workflow','Reusable hero/snippet styling templates','Responsive interface QA across mobile/desktop'],skills:['Premium clarity without overdesign','Mobile-first hierarchy and spacing rhythm','High-impact finish passes that stay practical'],powers:['Clarity Field','Hierarchy Engine','Finish Pass'],stats:{Power:88,Reliability:90,Speed:82,Precision:95}}
 ];
 
 const carousel=document.getElementById('carousel');
@@ -106,7 +99,7 @@ function meters(stats){return `<div class='meters'>${Object.entries(stats).map((
 
 units.forEach((u,i)=>{
   const s=document.createElement('article'); s.className='slide';
-  s.innerHTML=`<section class='frame' style='--accent:${u.accent}'>${meters(u.stats)}<section class='grid'>${panel('Tool Modules',u.modules)}<section class='stage'><div class='halo'></div><div class='robot' style="background-image:url('${u.image}')"></div><div class='callout c1'>${u.callouts[0]}</div><div class='callout c2'>${u.callouts[1]}</div><div class='callout c3'>${u.callouts[2]}</div><div class='callout c4'>${u.callouts[3]}</div><div class='nameplate'><p class='name'>${u.name}</p><p class='role'>${u.role}</p></div></section>${panel('Skills + Powers', [...u.skills,...u.powers])}</section></section>`;
+  s.innerHTML=`<section class='frame' style='--accent:${u.accent}'>${meters(u.stats)}<section class='grid'>${panel('Tool Modules',u.modules)}<section class='stage'><div class='halo'></div><div class='robot' style="background-image:url('${u.image}')"></div><div class='nameplate'><p class='name'>${u.name}</p><p class='role'>${u.role}</p></div></section>${panel('Skills + Powers', [...u.skills,...u.powers])}</section></section>`;
   carousel.appendChild(s);
   const d=document.createElement('span'); d.className='dot'+(i===0?' active':''); dots.appendChild(d);
 });
