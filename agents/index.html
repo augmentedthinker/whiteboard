@@ -5,77 +5,89 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Remote Viewer | Agents Workstation</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;600;700&display=swap');
     :root{
-      --text:#eaf4ff; --muted:#b9cce6; --line:rgba(153,214,255,.35);
-      --panel:rgba(8,14,25,.78); --chip:rgba(14,23,38,.72);
+      --text:#eaf5ff; --muted:#b8cae2; --line:rgba(140,204,255,.38);
+      --panel:rgba(7,14,24,.8); --halo:#78d4ff;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);overflow:hidden}
+    html,body{margin:0;height:100%;overflow:hidden;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text)}
     body{
       background:
-        radial-gradient(100% 80% at 50% 0%, rgba(74,126,207,.25), transparent 62%),
-        linear-gradient(180deg, rgba(7,12,22,.60), rgba(4,9,18,.84)),
+        radial-gradient(110% 90% at 50% 0%, rgba(75,130,216,.22), transparent 60%),
+        linear-gradient(180deg, rgba(7,12,22,.58), rgba(4,9,18,.86)),
         url('../assets/agents/2026-03-03/workshop-bg.png') center/cover no-repeat fixed;
     }
 
     .shell{height:100%;display:grid;grid-template-rows:auto 1fr auto}
     .top{padding:max(8px,env(safe-area-inset-top)) 10px 8px;display:flex;justify-content:space-between;align-items:center;gap:10px}
-    .title{margin:0;font-family:'Space Grotesk',Inter,sans-serif;font-size:clamp(1rem,4.5vw,1.45rem)}
+    .title{margin:0;font-family:Orbitron,Inter,sans-serif;font-size:clamp(1rem,4.4vw,1.45rem);letter-spacing:.03em}
     .sub{margin:2px 0 0;color:var(--muted);font-size:clamp(.72rem,2.8vw,.88rem)}
-    .back{color:#d8ecff;text-decoration:none;border:1px solid var(--line);padding:7px 10px;border-radius:999px;background:rgba(10,18,30,.56);white-space:nowrap;font-size:.78rem}
+    .back{color:#d8ecff;text-decoration:none;border:1px solid var(--line);padding:7px 10px;border-radius:999px;background:rgba(10,18,30,.56);font-size:.78rem;white-space:nowrap}
 
     .wrap{position:relative;overflow:hidden}
-    .carousel{height:100%;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-ms-overflow-style:none;scrollbar-width:none;padding:4px 0 10px}
+    .carousel{height:100%;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-ms-overflow-style:none;scrollbar-width:none;padding:4px 0 8px}
     .carousel::-webkit-scrollbar{display:none}
-    .slide{flex:0 0 100%;scroll-snap-align:start;display:grid;place-items:center;padding:0 10px}
+    .slide{flex:0 0 100%;scroll-snap-align:start;display:grid;place-items:center;padding:0 8px}
 
-    .card{
-      width:min(96vw,640px);height:min(84vh,860px);
-      border:1px solid var(--line);border-radius:18px;overflow:hidden;
-      background:linear-gradient(160deg, rgba(15,24,38,.90), rgba(8,14,24,.86));
+    .frame{
+      width:min(97vw,1100px);height:min(84vh,880px);border-radius:18px;overflow:hidden;
+      border:1px solid var(--line);
+      background:linear-gradient(160deg, rgba(14,22,36,.86), rgba(7,13,23,.82));
       box-shadow:0 20px 48px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.05);
-      display:grid;grid-template-rows:auto auto 1fr;
+      display:grid;grid-template-rows:auto 1fr;
     }
 
-    .head{padding:10px 12px 6px;border-bottom:1px solid rgba(144,195,246,.18)}
-    .badge{display:inline-block;padding:5px 8px;border-radius:999px;border:1px solid rgba(163,220,255,.5);background:rgba(12,20,32,.62);font-size:.66rem;color:#d3edff;letter-spacing:.04em;text-transform:uppercase}
-    .name{margin:8px 0 2px;font-family:'Space Grotesk',Inter,sans-serif;font-size:clamp(1rem,4vw,1.35rem)}
-    .role{margin:0;color:var(--muted);font-size:.82rem}
+    .meters{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:10px;border-bottom:1px solid rgba(143,193,246,.2)}
+    .meter{border:1px solid rgba(147,201,255,.26);background:rgba(12,20,33,.55);border-radius:10px;padding:7px}
+    .meter .label{display:flex;justify-content:space-between;font-size:.66rem;color:#bfe2ff;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
+    .bar{height:6px;border-radius:999px;background:rgba(95,124,159,.34);overflow:hidden}
+    .fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#62b8ff,#9de2ff)}
 
-    .viewport-wrap{padding:10px 10px 0}
-    .viewport{
-      position:relative;height:42vh;min-height:240px;max-height:360px;border-radius:14px;
-      border:1px solid rgba(162,219,255,.45);
-      background:linear-gradient(180deg, rgba(10,18,31,.55), rgba(7,14,24,.44));
-      overflow:hidden;
+    .grid{display:grid;grid-template-columns:1fr;gap:8px;padding:10px;height:100%}
+    .panel{border:1px solid rgba(145,198,252,.28);border-radius:12px;background:var(--panel);padding:8px 9px}
+    .panel h3{margin:0 0 5px;font-size:.72rem;color:#bee2ff;text-transform:uppercase;letter-spacing:.04em}
+    .panel ul{margin:0;padding-left:16px;font-size:.78rem;line-height:1.4;color:#d0e0f2}
+
+    .stage{
+      position:relative;border:1px solid rgba(156,216,255,.42);border-radius:14px;
+      min-height:250px;background:linear-gradient(180deg, rgba(11,19,32,.45), rgba(8,14,24,.5));overflow:hidden;
     }
-    .viewport:before,.viewport:after{content:"";position:absolute;width:22px;height:22px;border:2px solid rgba(158,220,255,.7);z-index:3}
-    .viewport:before{left:8px;top:8px;border-right:none;border-bottom:none}
-    .viewport:after{right:8px;bottom:8px;border-left:none;border-top:none}
-    .robot{position:absolute;inset:6% 8% 3%;background-size:contain;background-position:center;background-repeat:no-repeat;filter:drop-shadow(0 10px 22px rgba(0,0,0,.52))}
+    .stage:before,.stage:after{content:"";position:absolute;z-index:3;width:22px;height:22px;border:2px solid rgba(158,220,255,.68)}
+    .stage:before{left:8px;top:8px;border-right:none;border-bottom:none}
+    .stage:after{right:8px;bottom:8px;border-left:none;border-top:none}
 
-    .callouts{position:absolute;left:8px;right:8px;bottom:8px;display:grid;grid-template-columns:1fr 1fr;gap:6px;z-index:4}
-    .tag{font-size:.68rem;color:#d5ebff;background:rgba(8,15,26,.76);border:1px solid rgba(128,206,255,.45);padding:5px 7px;border-radius:8px;text-align:center}
+    .halo{position:absolute;left:50%;top:47%;transform:translate(-50%,-50%);width:64%;aspect-ratio:1/1;border-radius:999px;
+      background:radial-gradient(circle, rgba(120,212,255,.34) 0%, rgba(120,212,255,.16) 38%, rgba(120,212,255,0) 70%);
+      filter:blur(1px);
+    }
+    .robot{position:absolute;inset:8% 14% 6%;background-size:contain;background-position:center;background-repeat:no-repeat;z-index:2;filter:drop-shadow(0 10px 24px rgba(0,0,0,.55))}
+    .nameplate{position:absolute;left:10px;right:10px;bottom:8px;z-index:4;border:1px solid rgba(140,204,255,.4);background:rgba(7,14,24,.75);border-radius:10px;padding:7px 9px}
+    .name{font-family:Orbitron,Inter,sans-serif;font-size:.9rem;margin:0}
+    .role{margin:2px 0 0;color:var(--muted);font-size:.74rem}
 
-    .panes{padding:10px;display:grid;grid-template-columns:1fr;gap:8px;overflow:auto}
-    .pane{border:1px solid rgba(149,203,255,.28);background:var(--panel);border-radius:10px;padding:8px 9px}
-    .pane h3{margin:0 0 5px;font-size:.72rem;color:#bfe4ff;letter-spacing:.04em;text-transform:uppercase}
-    .pane ul{margin:0;padding-left:15px;font-size:.78rem;color:#d1e0f3;line-height:1.38}
+    .callout{position:absolute;z-index:4;font-size:.66rem;color:#d6ecff;background:rgba(9,16,27,.78);border:1px solid rgba(129,206,255,.46);padding:4px 6px;border-radius:8px;max-width:132px;text-align:center}
+    .callout:before{content:"";position:absolute;width:20px;height:1px;background:rgba(129,206,255,.7)}
+    .c1{left:6%;top:16%}.c1:before{left:100%;top:10px}
+    .c2{right:6%;top:18%}.c2:before{right:100%;top:10px}
+    .c3{left:7%;top:40%}.c3:before{left:100%;top:10px}
+    .c4{right:7%;top:42%}.c4:before{right:100%;top:10px}
 
-    .nav{position:absolute;top:45%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(10,18,30,.72);color:#d9ecff;display:grid;place-items:center;cursor:pointer;font-size:1.2rem;z-index:10}
-    .prev{left:4px}.next{right:4px}
+    .nav{position:absolute;top:47%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(10,18,30,.72);color:#d9ecff;display:grid;place-items:center;cursor:pointer;font-size:1.2rem;z-index:10}
+    .prev{left:3px}.next{right:3px}
 
     .dots{display:flex;justify-content:center;gap:8px;padding:8px 0 max(10px,env(safe-area-inset-bottom))}
     .dot{width:8px;height:8px;border-radius:999px;background:rgba(167,196,225,.35);border:1px solid rgba(175,219,255,.3)}
     .dot.active{background:#9ed8ff}
 
     @media (min-width:900px){
-      .card{width:min(78vw,980px);grid-template-rows:auto 1fr;}
-      .middle{display:grid;grid-template-columns:1.1fr .9fr;gap:10px;padding:10px}
-      .viewport-wrap{padding:0}.viewport{height:min(62vh,520px)}
-      .panes{padding:0;align-content:start}
-      .pane ul{font-size:.82rem}
+      .frame{width:min(95vw,1280px)}
+      .grid{grid-template-columns:.92fr 1.2fr .92fr}
+      .stage{min-height:0;height:100%}
+      .robot{inset:9% 10% 8%}
+      .callout{max-width:180px;font-size:.72rem}
+      .c1{left:4%;top:13%}.c2{right:4%;top:14%}.c3{left:5%;top:39%}.c4{right:5%;top:40%}
+      .panel ul{font-size:.82rem}
     }
   </style>
 </head>
@@ -83,8 +95,8 @@
 <div class="shell">
   <header class="top">
     <div>
-      <h1 class="title">🤖 Agent Workstation Bay</h1>
-      <p class="sub">Mobile-first carousel • compact cards • swipe left/right</p>
+      <h1 class="title">AGENT WORKSTATION BAY</h1>
+      <p class="sub">Centered hero + halo + side panels + top attribute meters</p>
     </div>
     <a class="back" href="../index.html">← Back</a>
   </header>
@@ -100,40 +112,47 @@
 
 <script>
 const units=[
- {name:'⚔️ Saber Unit',role:'Operator / Orchestrator Core',badge:'PRIMARY COMMAND',image:'../assets/agents/2026-03-03/saber-station.png',callouts:['Trajectory Lock Core','Cross-Agent Relay Bus','Build Execution Arms','Recovery Shield'],modules:['File + shell ops','Browser control','Memory continuity','Session orchestration'],skills:['Scope containment','High-signal handoffs','Artifact-first shipping'],powers:['Loop Breaker','Trajectory Lock','Recovery Protocol']},
- {name:'🖼️ ImageBot Unit',role:'Visual Synthesis Specialist',badge:'VISUAL FORGE',image:'../assets/agents/2026-03-03/imagebot-station.png',callouts:['Optic Capture Cluster','Render Engine Pack','Variant Burst Array','Asset Routing Port'],modules:['Gemini image pipeline','Variant generation','Naming/output contract','Render fallback lane'],skills:['Cinematic composition','Mood iteration','Production-ready asset prep'],powers:['Vision Forge','Variant Burst','Asset Discipline']},
- {name:'🎨 StyleBot Unit',role:'Interface Polish Specialist',badge:'POLISH ENGINE',image:'../assets/agents/2026-03-03/stylebot-station.png',callouts:['Typography Visor','Hierarchy Mapping Lens','Readability Calibrator','Finish-Pass Injector'],modules:['CSS polish gate','Font-pair presets','Hero snippet templates','Responsive tuning tools'],skills:['Premium clarity','Mobile-first hierarchy','Minimal high-impact passes'],powers:['Clarity Field','Hierarchy Engine','Finish Pass']}
+ {name:'⚔️ Saber Unit',role:'Operator / Orchestrator Core',image:'../assets/agents/2026-03-03/saber-station.png',callouts:['Trajectory Lock Core','Cross-Agent Relay Bus','Build Execution Arms','Recovery Shield'],modules:['File + shell ops','Browser control','Memory continuity','Session orchestration'],skills:['Scope containment','High-signal handoffs','Artifact-first shipping'],powers:['Loop Breaker','Trajectory Lock','Recovery Protocol'],stats:{Power:95,Reliability:92,Speed:84,Precision:90}},
+ {name:'🖼️ ImageBot Unit',role:'Visual Synthesis Specialist',image:'../assets/agents/2026-03-03/imagebot-station.png',callouts:['Optic Capture Cluster','Render Engine Pack','Variant Burst Array','Asset Routing Port'],modules:['Gemini image pipeline','Variant generation','Naming/output contract','Render fallback lane'],skills:['Cinematic composition','Mood iteration','Production-ready output'],powers:['Vision Forge','Variant Burst','Asset Discipline'],stats:{Power:90,Reliability:86,Speed:92,Precision:91}},
+ {name:'🎨 StyleBot Unit',role:'Interface Polish Specialist',image:'../assets/agents/2026-03-03/stylebot-station.png',callouts:['Typography Visor','Hierarchy Mapping Lens','Readability Calibrator','Finish-Pass Injector'],modules:['CSS polish gate','Font presets','Hero snippets','Responsive tuning'],skills:['Premium clarity','Mobile-first hierarchy','Minimal high-impact passes'],powers:['Clarity Field','Hierarchy Engine','Finish Pass'],stats:{Power:88,Reliability:90,Speed:82,Precision:95}}
 ];
 
 const carousel=document.getElementById('carousel');
 const dots=document.getElementById('dots');
 let index=0;
 
-function pane(t,items){return `<div class='pane'><h3>${t}</h3><ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`}
+function panel(title,items){return `<section class='panel'><h3>${title}</h3><ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul></section>`}
+function meters(stats){return `<div class='meters'>${Object.entries(stats).map(([k,v])=>`<div class='meter'><div class='label'><span>${k}</span><span>${v}</span></div><div class='bar'><div class='fill' style='width:${v}%'></div></div></div>`).join('')}</div>`}
 
 units.forEach((u,i)=>{
   const s=document.createElement('article'); s.className='slide';
-  s.innerHTML=`<section class='card'>
-    <header class='head'><span class='badge'>${u.badge}</span><h2 class='name'>${u.name}</h2><p class='role'>${u.role}</p></header>
-    <div class='middle'>
-      <div class='viewport-wrap'><div class='viewport'><div class='robot' style="background-image:url('${u.image}')"></div><div class='callouts'>${u.callouts.map(c=>`<span class='tag'>${c}</span>`).join('')}</div></div></div>
-      <div class='panes'>${pane('Tool Modules',u.modules)}${pane('Skill Package',u.skills)}${pane('Powers / Mission Strength',u.powers)}</div>
-    </div>
-  </section>`;
+  s.innerHTML=`<section class='frame'>
+      ${meters(u.stats)}
+      <section class='grid'>
+        ${panel('Tool Modules',u.modules)}
+        <section class='stage'>
+          <div class='halo'></div>
+          <div class='robot' style="background-image:url('${u.image}')"></div>
+          <div class='callout c1'>${u.callouts[0]}</div>
+          <div class='callout c2'>${u.callouts[1]}</div>
+          <div class='callout c3'>${u.callouts[2]}</div>
+          <div class='callout c4'>${u.callouts[3]}</div>
+          <div class='nameplate'><p class='name'>${u.name}</p><p class='role'>${u.role}</p></div>
+        </section>
+        ${panel('Skills + Powers', [...u.skills,...u.powers])}
+      </section>
+    </section>`;
   carousel.appendChild(s);
   const d=document.createElement('span'); d.className='dot'+(i===0?' active':''); dots.appendChild(d);
 });
 
 function updateDots(){[...dots.children].forEach((d,i)=>d.classList.toggle('active',i===index));}
 function go(i){index=(i+units.length)%units.length;carousel.scrollTo({left:index*carousel.clientWidth,behavior:'smooth'});updateDots();}
-
 document.getElementById('prev').onclick=()=>go(index-1);
 document.getElementById('next').onclick=()=>go(index+1);
 carousel.addEventListener('scroll',()=>{const i=Math.round(carousel.scrollLeft/carousel.clientWidth);if(i!==index){index=i;updateDots();}});
-
-let startX=0;
-carousel.addEventListener('touchstart',e=>startX=e.touches[0].clientX,{passive:true});
-carousel.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-startX;if(Math.abs(dx)>40) go(index+(dx<0?1:-1));},{passive:true});
+let sx=0;carousel.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+carousel.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)go(index+(dx<0?1:-1));},{passive:true});
 window.addEventListener('resize',()=>go(index));
 </script>
 </body>
