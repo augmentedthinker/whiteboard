@@ -48,32 +48,31 @@
         .hero-canvas {
             position: relative;
             width: 100%;
-            height: 70vh;
+            height: 80vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             z-index: 1;
+            background: #000;
         }
 
         .hero-image {
             position: absolute;
             inset: 0;
-            /* Simulating ImageBot generation: high-end Da Vinci anatomical/architectural sketch */
-            background-image: url('https://images.unsplash.com/photo-1605701460142-d6fc9a9d020e?q=80&w=2564&auto=format&fit=crop'); 
-            background-size: cover;
-            background-position: center 30%;
-            opacity: 0.4;
-            mix-blend-mode: luminosity;
-            filter: contrast(1.2) sepia(0.3);
-            transform: scale(1.05);
+            /* Direct, unmistakable visual anchor */
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/22/Da_Vinci_Vitruve_Luc_Viatour.jpg'); 
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center top;
+            opacity: 0.85;
             transition: transform 10s ease-out;
         }
 
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, transparent 40%, var(--ink-black) 100%);
+            background: linear-gradient(to bottom, transparent 30%, var(--ink-black) 90%);
         }
 
         .hero-canvas:hover .hero-image {
