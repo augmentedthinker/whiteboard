@@ -7,54 +7,61 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;600;700&display=swap');
-    :root{--text:#e7f2ff;--muted:#abc0da;--line:rgba(143,201,255,.3);--panel:rgba(10,18,30,.78)}
+    :root{--text:#e7f2ff;--muted:#aec2da;--line:rgba(147,202,255,.34);--panel:rgba(10,18,30,.78)}
     *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);background:linear-gradient(180deg, rgba(6,10,18,.68), rgba(6,10,18,.9)), url('../assets/agents/2026-03-03/workshop-bg.png') center/cover fixed;min-height:100vh;padding:max(10px,env(safe-area-inset-top)) 10px max(12px,env(safe-area-inset-bottom))}
-    .container{max-width:1180px;margin:0 auto}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);background:linear-gradient(180deg, rgba(6,10,18,.68), rgba(6,10,18,.92)), url('../assets/agents/2026-03-03/workshop-bg.png') center/cover fixed;min-height:100vh;padding:max(10px,env(safe-area-inset-top)) 10px max(12px,env(safe-area-inset-bottom))}
+    .container{max-width:1200px;margin:0 auto}
 
     .top{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:12px 13px;margin-bottom:10px}
-    h1{margin:0;font-family:Orbitron,Inter,sans-serif;font-size:clamp(1.05rem,3.8vw,1.55rem);letter-spacing:.05em}
-    .sub{margin:2px 0 0;color:var(--muted);font-size:.84rem}
+    h1{margin:0;font-family:Orbitron,Inter,sans-serif;font-size:clamp(1.02rem,3.7vw,1.5rem);letter-spacing:.05em}
+    .sub{margin:2px 0 0;color:var(--muted);font-size:.83rem}
     .back{color:#cfe7ff;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:7px 10px;background:rgba(12,20,33,.6);font-size:.8rem;white-space:nowrap}
 
-    .agent-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
-    .tab{border:1px solid var(--line);background:rgba(12,20,33,.72);border-radius:12px;padding:10px;cursor:pointer;text-align:left}
-    .tab.active{border-color:rgba(191,229,255,.64);background:rgba(18,30,48,.82)}
-    .tab b{display:block;font-size:.88rem}
-    .tab small{color:var(--muted);font-size:.78rem}
+    .carousel{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;padding-bottom:4px;-ms-overflow-style:none;scrollbar-width:none}
+    .carousel::-webkit-scrollbar{display:none}
 
-    .grid{display:grid;grid-template-columns:1.15fr 1fr;gap:10px}
-    .panel{border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:11px;position:relative;overflow:hidden}
-    .panel:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 97%, rgba(129,184,239,.06) 98%),linear-gradient(90deg, transparent 97%, rgba(129,184,239,.06) 98%);background-size:100% 18px,18px 100%;pointer-events:none}
-    .panel h2{margin:0 0 8px;font-size:.9rem;color:#cce8ff;letter-spacing:.05em;text-transform:uppercase}
+    .card{scroll-snap-align:start;flex:0 0 100%;border:1px solid color-mix(in oklab,var(--accent) 35%, #8bcaff);border-radius:16px;background:linear-gradient(160deg, rgba(14,22,36,.88), rgba(8,14,24,.82));box-shadow:0 14px 30px rgba(0,0,0,.38);overflow:hidden}
+    .meters{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:10px;border-bottom:1px solid color-mix(in oklab,var(--accent) 28%, transparent)}
+    .meter{border:1px solid color-mix(in oklab,var(--accent) 32%, #8ecaff);background:rgba(12,20,33,.55);border-radius:10px;padding:7px}
+    .meter .label{display:flex;justify-content:space-between;font-size:.66rem;color:color-mix(in oklab,var(--accent) 66%, white);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
+    .bar{height:6px;border-radius:999px;background:rgba(95,124,159,.34);overflow:hidden}
+    .fill{height:100%;border-radius:999px;background:linear-gradient(90deg,color-mix(in oklab,var(--accent) 72%,#9ad9ff),#e9f8ff)}
 
-    .robot-wrap{display:grid;grid-template-columns:190px 1fr;gap:10px;align-items:start}
-    .robot{height:220px;border:1px solid var(--line);border-radius:12px;background:#0d1522 center/contain no-repeat}
+    .layout{display:grid;grid-template-columns:1fr;gap:8px;padding:10px}
+    .panel{border:1px solid color-mix(in oklab,var(--accent) 30%, #8bcaff);border-radius:12px;background:rgba(10,17,28,.76);padding:10px;position:relative;overflow:hidden}
+    .panel:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 97%, rgba(126,190,245,.07) 98%),linear-gradient(90deg, transparent 97%, rgba(126,190,245,.05) 98%);background-size:100% 18px, 18px 100%;pointer-events:none}
+    .panel h3{position:relative;z-index:1;margin:0 0 7px;font-size:.75rem;color:color-mix(in oklab,var(--accent) 70%, white);text-transform:uppercase;letter-spacing:.05em}
+    .panel ul{position:relative;z-index:1;margin:0;padding-left:16px;font-size:.83rem;line-height:1.5;color:#d4e5f8}
 
-    .diag-list{display:grid;gap:7px}
-    .diag-item{border:1px solid rgba(147,200,255,.24);border-radius:10px;padding:8px;background:rgba(11,18,30,.62)}
-    .diag-item b{display:block;font-size:.76rem;letter-spacing:.05em;color:#9fd3ff;text-transform:uppercase;margin-bottom:3px}
-    .diag-item span{font-size:.84rem;color:#d2e3f7;line-height:1.4}
+    .stage{position:relative;border:1px solid color-mix(in oklab,var(--accent) 36%, #9ad6ff);border-radius:14px;min-height:265px;background:linear-gradient(180deg, rgba(11,19,32,.45), rgba(8,14,24,.55));overflow:hidden}
+    .stage:before,.stage:after{content:"";position:absolute;z-index:3;width:22px;height:22px;border:2px solid color-mix(in oklab,var(--accent) 64%, #b4e7ff)}
+    .stage:before{left:8px;top:8px;border-right:none;border-bottom:none}
+    .stage:after{right:8px;bottom:8px;border-left:none;border-top:none}
+    .halo{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:66%;aspect-ratio:1/1;border-radius:999px;background:radial-gradient(circle,color-mix(in oklab,var(--accent) 44%, transparent) 0%,color-mix(in oklab,var(--accent) 20%, transparent) 40%,transparent 72%)}
+    .robot{position:absolute;inset:2% 2% 1%;background-size:contain;background-position:center;background-repeat:no-repeat;z-index:2;filter:drop-shadow(0 10px 24px rgba(0,0,0,.55))}
+    .nameplate{position:absolute;left:10px;right:10px;bottom:8px;z-index:4;border:1px solid color-mix(in oklab,var(--accent) 34%, #8bcaff);background:rgba(7,14,24,.78);border-radius:10px;padding:7px 9px}
+    .name{font-family:Orbitron,Inter,sans-serif;font-size:clamp(1.08rem,2.3vw,1.45rem);font-weight:700;letter-spacing:.08em;margin:0;color:color-mix(in oklab,var(--accent) 82%, white)}
+    .role{margin:3px 0 0;color:var(--muted);font-size:.8rem}
 
-    .matrix{width:100%;border-collapse:collapse;font-size:.78rem}
-    .matrix th,.matrix td{border:1px solid rgba(139,195,250,.22);padding:6px 7px;text-align:left;background:rgba(10,16,28,.45)}
-    .matrix th{color:#bfe3ff;font-weight:600}
+    .docs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+    .doc-btn{border:1px solid color-mix(in oklab,var(--accent) 36%, #95d6ff);background:rgba(12,20,33,.62);color:#d8ecff;border-radius:999px;padding:5px 9px;font-size:.73rem;cursor:pointer}
 
-    .docs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
-    .doc-btn{border:1px solid rgba(151,205,255,.34);background:rgba(12,20,33,.62);color:#d8ecff;border-radius:999px;padding:5px 9px;font-size:.74rem;cursor:pointer}
-    .doc-btn:hover{background:rgba(20,33,53,.85)}
-    #viewer{border:1px solid rgba(148,202,255,.28);border-radius:12px;background:rgba(8,14,24,.7);padding:10px;max-height:390px;overflow:auto}
+    #viewer{margin-top:10px;border:1px solid rgba(148,202,255,.28);border-radius:12px;background:rgba(8,14,24,.7);padding:10px;max-height:280px;overflow:auto;display:none}
     #viewer h1,#viewer h2,#viewer h3{margin-top:0;color:#d9eeff}
-    #viewer p,#viewer li{color:#c9def5;font-size:.85rem;line-height:1.45}
+    #viewer p,#viewer li{color:#c9def5;font-size:.84rem;line-height:1.45}
 
-    .run-links{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-    .run-links a{font-size:.73rem;color:#9fd2ff;border:1px solid rgba(151,205,255,.32);border-radius:999px;padding:5px 8px;text-decoration:none;background:rgba(10,17,28,.55)}
+    .dots{display:flex;justify-content:center;gap:8px;margin-top:8px}
+    .dot{width:8px;height:8px;border-radius:999px;background:rgba(167,196,225,.35);border:1px solid rgba(175,219,255,.3)}
+    .dot.active{background:#9ed8ff}
 
-    @media (max-width:980px){
-      .grid{grid-template-columns:1fr}
-      .robot-wrap{grid-template-columns:1fr}
-      .robot{height:200px}
-      .agent-tabs{grid-template-columns:1fr}
+    @media (min-width:960px){
+      .layout{grid-template-columns:.92fr 1.2fr .92fr}
+      .stage{min-height:0;height:100%}
+      .card{flex-basis:calc(50% - 5px)}
+    }
+    @media (max-width:760px){
+      .meters{grid-template-columns:repeat(2,1fr)}
+      .top{align-items:flex-start}
     }
   </style>
 </head>
@@ -63,139 +70,104 @@
     <header class="top">
       <div>
         <h1>Agent Workstation Bay</h1>
-        <p class="sub">Diagnostics + configuration viewer + testing ground</p>
+        <p class="sub">Central hero view + real diagnostics + mobile-ready card scroll</p>
       </div>
       <a class="back" href="../index.html">← Back to Remote Viewer</a>
     </header>
 
-    <section class="agent-tabs" id="tabs"></section>
-
-    <section class="grid">
-      <article class="panel">
-        <h2>Active Agent Diagnostics</h2>
-        <div class="robot-wrap">
-          <div id="robot" class="robot"></div>
-          <div class="diag-list" id="diag"></div>
-        </div>
-
-        <div class="run-links">
-          <a href="../artifacts/saber-agent-dashboard-guide-2026-03-03.html" target="_blank">Saber Guide</a>
-          <a href="../artifacts/imagebot-visual-playbook-2026-03-03.html" target="_blank">ImageBot Playbook</a>
-          <a href="../artifacts/stylebot-css-playbook-2026-03-03.html" target="_blank">StyleBot Playbook</a>
-        </div>
-      </article>
-
-      <article class="panel">
-        <h2>Role Difference Matrix</h2>
-        <table class="matrix">
-          <thead>
-            <tr><th>Dimension</th><th>Saber</th><th>ImageBot</th><th>StyleBot</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Primary lane</td><td>Orchestration</td><td>Visual generation</td><td>UI polish</td></tr>
-            <tr><td>Main output</td><td>Shipped artifacts</td><td>Images/assets</td><td>Readable premium interfaces</td></tr>
-            <tr><td>Key risk</td><td>Scope creep</td><td>Style drift</td><td>Overdesign</td></tr>
-            <tr><td>Success signal</td><td>Momentum + closure</td><td>Production-ready visuals</td><td>Clear hierarchy + UX quality</td></tr>
-          </tbody>
-        </table>
-      </article>
-
-      <article class="panel" style="grid-column:1/-1">
-        <h2>Config Docs (Markdown Viewer)</h2>
-        <div class="docs" id="docButtons"></div>
-        <div id="viewer">Select a document to inspect agent configuration and behavior.</div>
-      </article>
-    </section>
+    <section class="carousel" id="carousel"></section>
+    <div class="dots" id="dots"></div>
+    <div id="viewer"></div>
   </div>
 
   <script>
-    const agents = {
-      saber: {
-        name:'Saber', role:'Operator / Program Manager',
-        image:'../assets/agents/2026-03-03/saber-station-blue.png',
-        diag:[
-          ['Workflow', 'Clarify → orchestrate → integrate → ship'],
-          ['Strength', 'Cross-lane execution with continuity'],
-          ['Primary tools', 'Files, shell, browser, session orchestration'],
-          ['Testing focus', 'Can this lane produce a shippable artifact now?']
-        ],
+    const units=[
+      {
+        key:'saber',
+        name:'SABER UNIT', role:'Operator / Orchestrator Core', accent:'#2f7dff', image:'../assets/agents/2026-03-03/saber-station-blue.png',
+        modules:['Cross-lane orchestration across tools and sessions','Direct execution via shell/file/browser lanes','Continuity + memory protection for long sessions','Blocker resolution and shipping follow-through'],
+        skills:['Scope containment under pressure','High-signal specialist handoffs','Fast integration and release closure'],
+        powers:['Loop Breaker','Trajectory Lock','Recovery Protocol'],
+        stats:{Power:95,Reliability:92,Speed:84,Precision:90},
         profile:'profiles/saber-profile.md'
       },
-      imagebot: {
-        name:'ImageBot', role:'Visual Synthesis Specialist',
-        image:'../assets/agents/2026-03-03/imagebot-station-cyan.png',
-        diag:[
-          ['Workflow', 'Brief → render variants → QA → output handoff'],
-          ['Strength', 'Fast, cinematic visual generation loops'],
-          ['Primary tools', 'Image generation pipelines + path discipline'],
-          ['Testing focus', 'Are outputs production-usable and reusable?']
-        ],
+      {
+        key:'imagebot',
+        name:'IMAGEBOT UNIT', role:'Visual Synthesis Specialist', accent:'#32e27a', image:'../assets/agents/2026-03-03/imagebot-station-cyan.png',
+        modules:['Prompt-to-render visual generation pipeline','Rapid variant generation for direction finding','Asset naming/path discipline for production','Fallback model strategy when outputs fail'],
+        skills:['Cinematic composition control','Mood-consistent iteration','Production-ready handoff formatting'],
+        powers:['Vision Forge','Variant Burst','Asset Discipline'],
+        stats:{Power:90,Reliability:86,Speed:92,Precision:91},
         profile:'profiles/imagebot-profile.md'
       },
-      stylebot: {
-        name:'StyleBot', role:'Interface Polish Specialist',
-        image:'../assets/agents/2026-03-03/stylebot-station-violet.png',
-        diag:[
-          ['Workflow', 'Audit UI → polish pass → responsive verify'],
-          ['Strength', 'Hierarchy/readability upgrades with minimal edits'],
-          ['Primary tools', 'CSS templates, polish gate, typography presets'],
-          ['Testing focus', 'Is UX clearer and more premium on mobile+desktop?']
-        ],
+      {
+        key:'stylebot',
+        name:'STYLEBOT UNIT', role:'Interface Polish Specialist', accent:'#b26cff', image:'../assets/agents/2026-03-03/stylebot-station-violet.png',
+        modules:['Readability + hierarchy polish gate','Typography and contrast tuning presets','Reusable UI snippets for rapid finish passes','Mobile+desktop interface QA workflow'],
+        skills:['Premium clarity without clutter','Practical high-impact visual upgrades','Structured spacing and visual rhythm'],
+        powers:['Clarity Field','Hierarchy Engine','Finish Pass'],
+        stats:{Power:88,Reliability:90,Speed:82,Precision:95},
         profile:'profiles/stylebot-profile.md'
       }
-    };
+    ];
 
-    const tabs = document.getElementById('tabs');
-    const diag = document.getElementById('diag');
-    const robot = document.getElementById('robot');
-    const docButtons = document.getElementById('docButtons');
-    const viewer = document.getElementById('viewer');
+    const carousel=document.getElementById('carousel');
+    const dots=document.getElementById('dots');
+    const viewer=document.getElementById('viewer');
 
-    let active = 'saber';
-
-    function renderTabs(){
-      tabs.innerHTML = '';
-      Object.entries(agents).forEach(([id,a]) => {
-        const b = document.createElement('button');
-        b.className = 'tab' + (id===active ? ' active' : '');
-        b.innerHTML = `<b>${a.name}</b><small>${a.role}</small>`;
-        b.onclick = () => { active = id; renderTabs(); renderDiag(); };
-        tabs.appendChild(b);
-      });
+    function panel(title,items,accent){
+      return `<section class='panel' style='--accent:${accent}'><h3>${title}</h3><ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul></section>`;
+    }
+    function meters(stats,accent){
+      return `<div class='meters' style='--accent:${accent}'>${Object.entries(stats).map(([k,v])=>`<div class='meter'><div class='label'><span>${k}</span><span>${v}</span></div><div class='bar'><div class='fill' style='width:${v}%'></div></div></div>`).join('')}</div>`;
     }
 
-    function renderDiag(){
-      const a = agents[active];
-      robot.style.backgroundImage = `url('${a.image}')`;
-      diag.innerHTML = a.diag.map(([k,v]) => `<div class='diag-item'><b>${k}</b><span>${v}</span></div>`).join('');
-    }
+    units.forEach((u,i)=>{
+      const card=document.createElement('article');
+      card.className='card';
+      card.style.setProperty('--accent', u.accent);
+      card.innerHTML=`
+        ${meters(u.stats,u.accent)}
+        <section class='layout'>
+          ${panel('Tool Modules',u.modules,u.accent)}
+          <section class='stage'>
+            <div class='halo' style='--accent:${u.accent}'></div>
+            <div class='robot' style="background-image:url('${u.image}')"></div>
+            <div class='nameplate'>
+              <p class='name'>${u.name}</p>
+              <p class='role'>${u.role}</p>
+            </div>
+          </section>
+          <section>
+            ${panel('Skills + Powers', [...u.skills,...u.powers],u.accent)}
+            <div class='docs'>
+              <button class='doc-btn' style='--accent:${u.accent}' data-doc='${u.profile}'>Open ${u.name} Profile</button>
+            </div>
+          </section>
+        </section>`;
+      carousel.appendChild(card);
+
+      const d=document.createElement('span'); d.className='dot'+(i===0?' active':''); dots.appendChild(d);
+    });
+
+    carousel.addEventListener('scroll',()=>{
+      const idx=Math.round(carousel.scrollLeft / carousel.clientWidth);
+      [...dots.children].forEach((d,i)=>d.classList.toggle('active', i===idx));
+    });
 
     async function loadDoc(path){
-      const res = await fetch(path);
-      const md = await res.text();
-      viewer.innerHTML = marked.parse(md);
+      const res=await fetch(path);
+      const md=await res.text();
+      viewer.style.display='block';
+      viewer.innerHTML=marked.parse(md);
+      viewer.scrollIntoView({behavior:'smooth',block:'nearest'});
     }
 
-    function renderDocButtons(){
-      const docs = [
-        {label:'Saber Profile', path:agents.saber.profile},
-        {label:'ImageBot Profile', path:agents.imagebot.profile},
-        {label:'StyleBot Profile', path:agents.stylebot.profile}
-      ];
-      docButtons.innerHTML = '';
-      docs.forEach(d => {
-        const btn = document.createElement('button');
-        btn.className = 'doc-btn';
-        btn.textContent = d.label;
-        btn.onclick = () => loadDoc(d.path);
-        docButtons.appendChild(btn);
-      });
-    }
-
-    renderTabs();
-    renderDiag();
-    renderDocButtons();
-    loadDoc(agents.saber.profile);
+    document.addEventListener('click', (e)=>{
+      const btn=e.target.closest('.doc-btn');
+      if(!btn) return;
+      loadDoc(btn.dataset.doc);
+    });
   </script>
 </body>
 </html>
