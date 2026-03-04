@@ -18,9 +18,10 @@
     .back{color:#cfe7ff;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:7px 10px;background:rgba(12,20,33,.6);font-size:.8rem;white-space:nowrap}
 
     .carousel{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;padding-bottom:4px;-ms-overflow-style:none;scrollbar-width:none}
+    .carousel{height:calc(100vh - 104px);}
     .carousel::-webkit-scrollbar{display:none}
 
-    .card{scroll-snap-align:start;flex:0 0 100%;border:1px solid color-mix(in oklab,var(--accent) 35%, #8bcaff);border-radius:16px;background:linear-gradient(160deg, rgba(14,22,36,.88), rgba(8,14,24,.82));box-shadow:0 14px 30px rgba(0,0,0,.38);overflow:hidden}
+    .card{scroll-snap-align:start;flex:0 0 100%;height:100%;border:1px solid color-mix(in oklab,var(--accent) 35%, #8bcaff);border-radius:16px;background:linear-gradient(160deg, rgba(14,22,36,.88), rgba(8,14,24,.82));box-shadow:0 14px 30px rgba(0,0,0,.38);overflow:hidden;display:grid;grid-template-rows:auto 1fr}
     .meters{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:10px;border-bottom:1px solid color-mix(in oklab,var(--accent) 28%, transparent)}
     .meter{border:1px solid color-mix(in oklab,var(--accent) 32%, #8ecaff);background:rgba(12,20,33,.55);border-radius:10px;padding:7px}
     .meter .label{display:flex;justify-content:space-between;font-size:.66rem;color:color-mix(in oklab,var(--accent) 66%, white);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
@@ -55,9 +56,14 @@
     .dot.active{background:#9ed8ff}
 
     @media (min-width:960px){
-      .layout{grid-template-columns:.92fr 1.2fr .92fr}
+      .carousel{height:calc(100vh - 96px)}
+      .layout{grid-template-columns:.92fr 1.2fr .92fr;height:100%}
       .stage{min-height:0;height:100%}
       .card{flex:0 0 100%}
+    }
+    @media (max-width:959px){
+      .carousel{height:auto}
+      .card{height:auto;display:block}
     }
     @media (max-width:760px){
       .meters{grid-template-columns:repeat(2,1fr)}
