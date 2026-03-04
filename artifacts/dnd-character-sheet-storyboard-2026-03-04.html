@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>D&D Character Sheet + Storyboard — 2026-03-04</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;700&display=swap');
+    :root{
+      --bg:#0e0a14; --panel:#171124; --panel2:#1f1730; --line:rgba(196,159,255,.33);
+      --text:#efe7ff; --muted:#b9add8; --accent:#c49fff; --gold:#ffde96; --good:#7ef3b8;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--text);
+      background: radial-gradient(1000px 700px at 10% -10%, #41286f66, transparent 55%),
+                  radial-gradient(900px 600px at 100% 0%, #21406866, transparent 50%),
+                  var(--bg);
+      padding: max(16px, env(safe-area-inset-top)) 12px max(16px, env(safe-area-inset-bottom));}
+    .wrap{max-width:1080px;margin:0 auto;display:grid;gap:12px}
+    .panel{background:linear-gradient(165deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:16px;padding:14px}
+    h1,h2,h3{font-family:Cinzel,serif;margin:0 0 8px;letter-spacing:.02em}
+    .hero h1{font-size:clamp(1.4rem,4.2vw,2.2rem)}
+    .hero p{margin:0;color:var(--muted)}
+    .grid{display:grid;gap:12px;grid-template-columns:1.1fr .9fr}
+    .sheet{display:grid;gap:12px;grid-template-columns:repeat(2,1fr)}
+    .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .stat{padding:10px;border:1px solid var(--line);border-radius:12px;background:#ffffff08;text-align:center}
+    .stat b{display:block;font-size:1.2rem;color:var(--gold)}
+    .kv{display:grid;grid-template-columns:120px 1fr;gap:6px;padding:6px 0;border-bottom:1px dashed #ffffff22}
+    .kv:last-child{border-bottom:none}
+    .kv span{color:var(--muted)}
+    .badges{display:flex;flex-wrap:wrap;gap:8px}
+    .badge{padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:#ffffff08;font-size:.86rem}
+    .story{display:grid;gap:10px}
+    .beat{display:grid;grid-template-columns:36px 1fr;gap:10px;padding:10px;border:1px solid var(--line);border-radius:12px;background:#ffffff06}
+    .dot{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#a677ff,#5ed0ff);font-weight:700;color:#10061f}
+    .beat p{margin:0;color:var(--muted)}
+    .footer{font-size:.88rem;color:#ad9fd0;text-align:center;padding-top:6px}
+    a{color:#cdb1ff}
+    @media (max-width:860px){.grid{grid-template-columns:1fr}.sheet{grid-template-columns:1fr}.stat-grid{grid-template-columns:repeat(2,1fr)}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="panel hero">
+      <h1>⚔️ D&D Character Sheet + Storyboard</h1>
+      <p>A polished one-page artifact that combines a tabletop-ready character profile with a cinematic origin-to-quest storyboard.</p>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <h2>Character Sheet — Kaelith Embervein</h2>
+        <div class="sheet">
+          <div>
+            <div class="kv"><span>Class / Level</span><strong>Sorcerer 5 (Draconic Bloodline)</strong></div>
+            <div class="kv"><span>Race</span><strong>Half-Elf</strong></div>
+            <div class="kv"><span>Background</span><strong>Haunted One</strong></div>
+            <div class="kv"><span>Alignment</span><strong>Chaotic Good</strong></div>
+            <div class="kv"><span>HP / AC / Speed</span><strong>38 / 14 / 30 ft</strong></div>
+            <div class="kv"><span>Proficiency</span><strong>+3</strong></div>
+          </div>
+          <div>
+            <h3>Core Stats</h3>
+            <div class="stat-grid">
+              <div class="stat">STR <b>10</b>(+0)</div>
+              <div class="stat">DEX <b>14</b>(+2)</div>
+              <div class="stat">CON <b>14</b>(+2)</div>
+              <div class="stat">INT <b>12</b>(+1)</div>
+              <div class="stat">WIS <b>11</b>(+0)</div>
+              <div class="stat">CHA <b>18</b>(+4)</div>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-top:12px">Features, Spells, Gear</h3>
+        <div class="badges">
+          <span class="badge">🔥 Fire Bolt</span>
+          <span class="badge">🛡️ Shield</span>
+          <span class="badge">✨ Misty Step</span>
+          <span class="badge">🐉 Draconic Resilience</span>
+          <span class="badge">📜 Arcana +7</span>
+          <span class="badge">🎒 Focus Crystal + Traveler's Pack</span>
+        </div>
+      </article>
+
+      <article class="panel">
+        <h2>Storyboard — 4 Act Arc</h2>
+        <div class="story">
+          <div class="beat"><div class="dot">I</div><div><strong>The Ashen Bell</strong><p>At age twelve, Kaelith rang a temple bell that answered with dragonfire. The village survived; his family did not.</p></div></div>
+          <div class="beat"><div class="dot">II</div><div><strong>Exile and Study</strong><p>He wandered ruin to ruin, learning to control raw power through glyphs, breath discipline, and old draconic chants.</p></div></div>
+          <div class="beat"><div class="dot">III</div><div><strong>The Pact Refused</strong><p>A crimson wyrm offered dominion in exchange for obedience. Kaelith refused, choosing purpose over power.</p></div></div>
+          <div class="beat"><div class="dot">IV</div><div><strong>Quest of Emberglass</strong><p>Now he seeks the Emberglass Crown, an artifact said to bind flame to will—before warlords awaken it first.</p></div></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel">
+      <h2>Session Hook</h2>
+      <p style="margin:0;color:var(--muted)">The party arrives at Black Lantern Keep as skyfire storms begin. Kaelith senses the same resonance from the Ashen Bell—meaning the Emberglass Crown is already near.</p>
+    </section>
+
+    <p class="footer">Built by Saber • Static HTML artifact • Ready for quick share via Remote Viewer</p>
+  </main>
+</body>
+</html>
