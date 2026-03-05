@@ -7,9 +7,25 @@
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;600;700&display=swap');
-    :root{--text:#e7f2ff;--muted:#aec2da;--line:rgba(147,202,255,.34);--panel:rgba(10,18,30,.78)}
+
+    :root{
+      --text:#e7f2ff;
+      --muted:#aec2da;
+      --line:rgba(147,202,255,.32);
+      --panel:rgba(10,18,30,.78);
+      --bg:linear-gradient(180deg, rgba(6,10,18,.68), rgba(6,10,18,.92)), url('../assets/agents/2026-03-03/workshop-bg.png') center/cover fixed;
+    }
+
     *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);background:linear-gradient(180deg, rgba(6,10,18,.68), rgba(6,10,18,.92)), url('../assets/agents/2026-03-03/workshop-bg.png') center/cover fixed;min-height:100vh;padding:max(10px,env(safe-area-inset-top)) 10px max(12px,env(safe-area-inset-bottom))}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      color:var(--text);
+      background:var(--bg);
+      min-height:100vh;
+      padding:max(10px,env(safe-area-inset-top)) 10px max(12px,env(safe-area-inset-bottom));
+    }
+
     .container{max-width:1200px;margin:0 auto}
 
     .top{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid var(--line);border-radius:14px;background:var(--panel);padding:12px 13px;margin-bottom:10px}
@@ -17,40 +33,60 @@
     .sub{margin:2px 0 0;color:var(--muted);font-size:.83rem}
     .back{color:#cfe7ff;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:7px 10px;background:rgba(12,20,33,.6);font-size:.8rem;white-space:nowrap}
 
-    .carousel{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;padding-bottom:4px;-ms-overflow-style:none;scrollbar-width:none}
-    .carousel{height:calc(100vh - 104px);}
+    .carousel{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;padding-bottom:4px;-ms-overflow-style:none;scrollbar-width:none;height:calc(100vh - 104px)}
     .carousel::-webkit-scrollbar{display:none}
 
-    .card{scroll-snap-align:start;flex:0 0 100%;height:100%;border:1px solid color-mix(in oklab,var(--accent) 35%, #8bcaff);border-radius:16px;background:linear-gradient(160deg, rgba(14,22,36,.88), rgba(8,14,24,.82));box-shadow:0 14px 30px rgba(0,0,0,.38);overflow:hidden;display:grid;grid-template-rows:auto 1fr}
-    .meters{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:10px;border-bottom:1px solid color-mix(in oklab,var(--accent) 28%, transparent)}
-    .meter{border:1px solid color-mix(in oklab,var(--accent) 32%, #8ecaff);background:rgba(12,20,33,.55);border-radius:10px;padding:7px}
-    .meter .label{display:flex;justify-content:space-between;font-size:.66rem;color:color-mix(in oklab,var(--accent) 66%, white);text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px}
-    .bar{height:6px;border-radius:999px;background:rgba(95,124,159,.34);overflow:hidden}
-    .fill{height:100%;border-radius:999px;background:linear-gradient(90deg,color-mix(in oklab,var(--accent) 72%,#9ad9ff),#e9f8ff)}
+    .card{
+      scroll-snap-align:start;
+      flex:0 0 100%;
+      height:100%;
+      border:1px solid color-mix(in oklab,var(--accent) 35%, #8bcaff);
+      border-radius:16px;
+      background:linear-gradient(160deg, rgba(14,22,36,.88), rgba(8,14,24,.82));
+      box-shadow:0 14px 30px rgba(0,0,0,.38);
+      overflow:hidden;
+      display:grid;
+      grid-template-rows:auto auto 1fr auto;
+      gap:10px;
+      padding:10px;
+    }
 
-    .layout{display:grid;grid-template-columns:1fr;gap:8px;padding:10px}
-    .panel{border:1px solid color-mix(in oklab,var(--accent) 30%, #8bcaff);border-radius:12px;background:rgba(10,17,28,.76);padding:10px;position:relative;overflow:hidden}
-    .panel:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 97%, rgba(126,190,245,.07) 98%),linear-gradient(90deg, transparent 97%, rgba(126,190,245,.05) 98%);background-size:100% 18px, 18px 100%;pointer-events:none}
-    .panel h3{position:relative;z-index:1;margin:0 0 7px;font-size:.75rem;color:color-mix(in oklab,var(--accent) 70%, white);text-transform:uppercase;letter-spacing:.05em}
-    .panel ul{position:relative;z-index:1;margin:0;padding-left:16px;font-size:.83rem;line-height:1.5;color:#d4e5f8}
+    .agent-header{
+      border:1px solid color-mix(in oklab,var(--accent) 34%, #8bcaff);
+      border-radius:12px;
+      background:rgba(8,14,24,.76);
+      padding:10px;
+    }
+    .name{font-family:Orbitron,Inter,sans-serif;font-size:clamp(1.05rem,2.6vw,1.35rem);letter-spacing:.08em;margin:0;color:color-mix(in oklab,var(--accent) 82%, white)}
+    .role{margin:4px 0 0;color:var(--muted);font-size:.82rem}
 
-    .stage{position:relative;border:1px solid color-mix(in oklab,var(--accent) 36%, #9ad6ff);border-radius:14px;min-height:265px;background:linear-gradient(180deg, rgba(11,19,32,.45), rgba(8,14,24,.55));overflow:hidden}
-    .stage:before,.stage:after{content:"";position:absolute;z-index:3;width:22px;height:22px;border:2px solid color-mix(in oklab,var(--accent) 64%, #b4e7ff)}
-    .stage:before{left:8px;top:8px;border-right:none;border-bottom:none}
-    .stage:after{right:8px;bottom:8px;border-left:none;border-top:none}
+    .stage{position:relative;border:1px solid color-mix(in oklab,var(--accent) 36%, #9ad6ff);border-radius:14px;min-height:280px;background:linear-gradient(180deg, rgba(11,19,32,.45), rgba(8,14,24,.55));overflow:hidden}
     .halo{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:66%;aspect-ratio:1/1;border-radius:999px;background:radial-gradient(circle,color-mix(in oklab,var(--accent) 44%, transparent) 0%,color-mix(in oklab,var(--accent) 20%, transparent) 40%,transparent 72%)}
     .robot{position:absolute;inset:2% 2% 1%;background-size:contain;background-position:center;background-repeat:no-repeat;z-index:2;filter:drop-shadow(0 10px 24px rgba(0,0,0,.55))}
-    .nameplate{position:absolute;left:10px;right:10px;bottom:8px;z-index:4;border:1px solid color-mix(in oklab,var(--accent) 34%, #8bcaff);background:rgba(7,14,24,.78);border-radius:10px;padding:7px 9px}
-    .name{font-family:Orbitron,Inter,sans-serif;font-size:clamp(1.08rem,2.3vw,1.45rem);font-weight:700;letter-spacing:.08em;margin:0;color:color-mix(in oklab,var(--accent) 82%, white)}
-    .role{margin:3px 0 0;color:var(--muted);font-size:.8rem}
 
-    .docs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-    .doc-btn{border:1px solid color-mix(in oklab,var(--accent) 36%, #95d6ff);background:rgba(12,20,33,.62);color:#d8ecff;border-radius:999px;padding:5px 9px;font-size:.73rem;cursor:pointer}
-    .persona-toolbar{margin:8px 0 10px;border:1px solid var(--line);border-radius:12px;background:rgba(8,14,24,.76);padding:10px}
-    .persona-toolbar h2{margin:0 0 8px;font-size:.86rem;letter-spacing:.05em;text-transform:uppercase;color:#d6ecff}
-    .persona-group{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+    .controls{
+      border:1px solid color-mix(in oklab,var(--accent) 30%, #8bcaff);
+      border-radius:12px;
+      background:rgba(10,17,28,.76);
+      padding:10px;
+    }
+    .controls h3{margin:0 0 8px;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:color-mix(in oklab,var(--accent) 70%, white)}
 
-    #viewer{margin-top:10px;border:1px solid rgba(148,202,255,.28);border-radius:12px;background:rgba(8,14,24,.7);padding:10px;max-height:340px;overflow:auto;display:none}
+    .toggle-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+    .mode-btn,.doc-btn{
+      border:1px solid color-mix(in oklab,var(--accent) 34%, #95d6ff);
+      background:rgba(12,20,33,.62);
+      color:#d8ecff;
+      border-radius:999px;
+      padding:6px 10px;
+      font-size:.76rem;
+      cursor:pointer;
+    }
+    .mode-btn.active{background:color-mix(in oklab,var(--accent) 28%, rgba(12,20,33,.62));box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--accent) 65%, white)}
+
+    .docs{display:flex;flex-wrap:wrap;gap:6px}
+
+    #viewer{margin-top:10px;border:1px solid rgba(148,202,255,.28);border-radius:12px;background:rgba(8,14,24,.72);padding:10px;max-height:36vh;overflow:auto;display:none}
     #viewer h1,#viewer h2,#viewer h3{margin-top:0;color:#d9eeff}
     #viewer p,#viewer li{color:#c9def5;font-size:.84rem;line-height:1.45}
 
@@ -58,31 +94,14 @@
     .dot{width:8px;height:8px;border-radius:999px;background:rgba(167,196,225,.35);border:1px solid rgba(175,219,255,.3)}
     .dot.active{background:#9ed8ff}
 
-    @media (min-width:960px){
-      .carousel{height:calc(100vh - 96px)}
-      .layout{grid-template-columns:.92fr 1.2fr .92fr;height:100%}
-      .stage{min-height:0;height:100%}
-      .card{flex:0 0 100%}
-    }
     @media (max-width:959px){
       .carousel{height:auto}
       .card{height:auto;display:flex;flex-direction:column}
-      .layout{order:1;display:flex;flex-direction:column;padding:8px;gap:8px}
-      .meters{order:2}
-      .layout > .stage{
-        order:1;
-        margin:-8px -8px 0 -8px;
-        min-height:300px;
-        border-left:none;
-        border-right:none;
-        border-radius:0;
-      }
-      .layout > .panel:first-child{order:3}
-      .layout > section:last-child{order:4}
+      .stage{min-height:300px}
       .robot{inset:1% 0 1%}
+      #viewer{max-height:42vh}
     }
     @media (max-width:760px){
-      .meters{grid-template-columns:repeat(2,1fr)}
       .top{align-items:flex-start}
     }
   </style>
@@ -92,104 +111,100 @@
     <header class="top">
       <div>
         <h1>Agent Workstation Bay</h1>
-        <p class="sub">Central hero view + real diagnostics + mobile-ready card scroll</p>
+        <p class="sub">Image + real markdown access only (Baseline vs Current Build)</p>
       </div>
       <a class="back" href="../index.html">← Back to Remote Viewer</a>
     </header>
 
-    <section class="persona-toolbar">
-      <h2>Persona File Library</h2>
-      <div class="persona-group" id="baseline-buttons"></div>
-    </section>
-
     <section class="carousel" id="carousel"></section>
     <div class="dots" id="dots"></div>
+
     <div id="viewer"></div>
   </div>
 
   <script>
+    const personaFiles=['AGENTS.md','BOOTSTRAP.md','SOUL.md','IDENTITY.md','USER.md','TOOLS.md','HEARTBEAT.md'];
+
     const units=[
       {
         key:'saber',
-        name:'SABER UNIT', role:'Operator / Orchestrator Core', accent:'#2f7dff', image:'../assets/agents/2026-03-03/saber-station-blue.png',
-        modules:['Cross-lane orchestration across tools and sessions','Direct execution via shell/file/browser lanes','Continuity + memory protection for long sessions','Blocker resolution and shipping follow-through'],
-        skills:['Scope containment under pressure','High-signal specialist handoffs','Fast integration and release closure'],
-        powers:['Loop Breaker','Trajectory Lock','Recovery Protocol'],
-        stats:{Power:95,Reliability:92,Speed:84,Precision:90},
-        profile:'profiles/saber-profile.md',
-        liveBase:'files/saber-live/',
-        originalBase:'files/baseline/'
+        name:'SABER UNIT',
+        role:'Operator / Orchestrator Core',
+        accent:'#2f7dff',
+        image:'../assets/agents/2026-03-03/saber-station-blue.png',
+        baselineBase:'files/baseline/',
+        currentBase:'files/saber-live/'
       },
       {
         key:'imagebot',
-        name:'IMAGEBOT UNIT', role:'Visual Synthesis Specialist', accent:'#32e27a', image:'../assets/agents/2026-03-03/imagebot-station-cyan.png',
-        modules:['Prompt-to-render visual generation pipeline','Rapid variant generation for direction finding','Asset naming/path discipline for production','Fallback model strategy when outputs fail'],
-        skills:['Cinematic composition control','Mood-consistent iteration','Production-ready handoff formatting'],
-        powers:['Vision Forge','Variant Burst','Asset Discipline'],
-        stats:{Power:90,Reliability:86,Speed:92,Precision:91},
-        profile:'profiles/imagebot-profile.md',
-        liveBase:'files/imagebot-live/',
-        originalBase:'files/imagebot-originals/'
+        name:'IMAGEBOT UNIT',
+        role:'Visual Synthesis Specialist',
+        accent:'#32e27a',
+        image:'../assets/agents/2026-03-03/imagebot-station-cyan.png',
+        baselineBase:'files/imagebot-originals/',
+        currentBase:'files/imagebot-live/'
       },
       {
         key:'stylebot',
-        name:'STYLEBOT UNIT', role:'Interface Polish Specialist', accent:'#b26cff', image:'../assets/agents/2026-03-03/stylebot-station-violet.png',
-        modules:['Readability + hierarchy polish gate','Typography and contrast tuning presets','Reusable UI snippets for rapid finish passes','Mobile+desktop interface QA workflow'],
-        skills:['Premium clarity without clutter','Practical high-impact visual upgrades','Structured spacing and visual rhythm'],
-        powers:['Clarity Field','Hierarchy Engine','Finish Pass'],
-        stats:{Power:88,Reliability:90,Speed:82,Precision:95},
-        profile:'profiles/stylebot-profile.md',
-        liveBase:'files/stylebot-live/',
-        originalBase:'files/stylebot-originals/'
+        name:'STYLEBOT UNIT',
+        role:'Interface Polish Specialist',
+        accent:'#b26cff',
+        image:'../assets/agents/2026-03-03/stylebot-station-violet.png',
+        baselineBase:'files/stylebot-originals/',
+        currentBase:'files/stylebot-live/'
       }
     ];
 
     const carousel=document.getElementById('carousel');
     const dots=document.getElementById('dots');
     const viewer=document.getElementById('viewer');
-    const baselineButtons=document.getElementById('baseline-buttons');
-    const personaFiles=['AGENTS.md','BOOTSTRAP.md','SOUL.md','IDENTITY.md','USER.md','TOOLS.md','HEARTBEAT.md'];
 
-    function panel(title,items,accent){
-      return `<section class='panel' style='--accent:${accent}'><h3>${title}</h3><ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul></section>`;
+    function renderDocs(unit, mode, card){
+      const docsWrap=card.querySelector('.docs');
+      const base=mode==='baseline' ? unit.baselineBase : unit.currentBase;
+      docsWrap.innerHTML = personaFiles.map(f=>`<button class='doc-btn' style='--accent:${unit.accent}' data-doc='${base}${f}' data-unit='${unit.key}' data-mode='${mode}'>${f.replace('.md','')}</button>`).join('');
+      card.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active', b.dataset.mode===mode));
     }
-    function meters(stats,accent){
-      return `<div class='meters' style='--accent:${accent}'>${Object.entries(stats).map(([k,v])=>`<div class='meter'><div class='label'><span>${k}</span><span>${v}</span></div><div class='bar'><div class='fill' style='width:${v}%'></div></div></div>`).join('')}</div>`;
-    }
-    function fileButtons(base,label,accent){
-      return `<div class='docs'>${personaFiles.map(f=>`<button class='doc-btn' style='--accent:${accent}' data-doc='${base}${f}'>${label}: ${f.replace('.md','')}</button>`).join('')}</div>`;
-    }
-
-    baselineButtons.innerHTML = fileButtons('files/baseline/','Baseline', '#5ea6ff');
 
     units.forEach((u,i)=>{
       const card=document.createElement('article');
       card.className='card';
-      card.style.setProperty('--accent', u.accent);
+      card.style.setProperty('--accent',u.accent);
       card.innerHTML=`
-        ${meters(u.stats,u.accent)}
-        <section class='layout'>
-          ${panel('Tool Modules',u.modules,u.accent)}
-          <section class='stage'>
-            <div class='halo' style='--accent:${u.accent}'></div>
-            <div class='robot' style="background-image:url('${u.image}')"></div>
-            <div class='nameplate'>
-              <p class='name'>${u.name}</p>
-              <p class='role'>${u.role}</p>
-            </div>
-          </section>
-          <section>
-            ${panel('Skills + Powers', [...u.skills,...u.powers],u.accent)}
-            <div class='docs'>
-              <button class='doc-btn' style='--accent:${u.accent}' data-doc='${u.profile}'>Open ${u.name} Profile</button>
-            </div>
-            ${fileButtons(u.liveBase,'Live',u.accent)}
-            ${fileButtons(u.originalBase,'Original',u.accent)}
-          </section>
-        </section>`;
+        <section class='agent-header'>
+          <p class='name'>${u.name}</p>
+          <p class='role'>${u.role}</p>
+        </section>
+
+        <section class='stage'>
+          <div class='halo' style='--accent:${u.accent}'></div>
+          <div class='robot' style="background-image:url('${u.image}')"></div>
+        </section>
+
+        <section class='controls'>
+          <h3>Mode</h3>
+          <div class='toggle-row'>
+            <button class='mode-btn active' style='--accent:${u.accent}' data-mode='baseline'>Baseline / Original</button>
+            <button class='mode-btn' style='--accent:${u.accent}' data-mode='current'>Current Build</button>
+          </div>
+
+          <h3>Markdown Files</h3>
+          <div class='docs'></div>
+        </section>
+      `;
+
+      card.addEventListener('click', (e)=>{
+        const mb=e.target.closest('.mode-btn');
+        if(!mb) return;
+        renderDocs(u, mb.dataset.mode, card);
+      });
+
+      renderDocs(u,'baseline',card);
       carousel.appendChild(card);
 
-      const d=document.createElement('span'); d.className='dot'+(i===0?' active':''); dots.appendChild(d);
+      const d=document.createElement('span');
+      d.className='dot'+(i===0?' active':'');
+      dots.appendChild(d);
     });
 
     carousel.addEventListener('scroll',()=>{
