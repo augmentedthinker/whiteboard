@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Signature — Sunrise Pulse Hard Mode — 2026-03-05</title>
+<style>body{margin:0;background:#0b1020;color:#dbe8ff;font:15px/1.6 Inter,system-ui,sans-serif;padding:18px}h1,h2{color:#9fd0ff}code,pre{background:#111a33;border:1px solid #2b4169;border-radius:8px}pre{padding:10px;overflow:auto}</style></head>
+<body>
+<h1>🧠 Signature — Sunrise Pulse (Hard Mode Team Relay)</h1>
+<h2>1) Initiating Prompt</h2>
+<pre>"Okay well why don't we start out with a morning greeting I'm some sort of a cool visual experience I want you to utilize every member of the team"</pre>
+
+<h2>2) Exact Model IDs Used</h2>
+<ul>
+  <li>Main orchestrator: <code>openai-codex/gpt-5.3-codex</code></li>
+  <li>Image lane subagent: <code>openai-codex/gpt-5.3-codex</code> (session <code>agent:main:subagent:080c1868-2109-4e41-9f2d-5ce25bf7a94e</code>)</li>
+  <li>Style lane subagent: <code>openai-codex/gpt-5.3-codex</code> (session <code>agent:main:subagent:21ba658a-420c-47cf-9b52-92334212fc2c</code>)</li>
+</ul>
+
+<h2>3) Exact Generation Inputs / Handoffs</h2>
+<h3>Image handoff task</h3>
+<pre>You are ImageBot lane for a fresh run. Ignore prior artifacts. Create from scratch a concise output for this prompt: 'start out with a morning greeting and some sort of a cool visual experience.' Return ONLY: (1) Visual concept name, (2) 6-point visual direction (composition, color, motion, atmosphere, focal hierarchy, mobile behavior), (3) short headline copy, (4) short subheadline copy, (5) one optional microinteraction idea. No code.</pre>
+
+<h3>Style handoff task</h3>
+<pre>You are StyleBot lane for a fresh run. Ignore prior artifacts. Create from scratch a concise output for this prompt: 'start out with a morning greeting and some sort of a cool visual experience.' Return ONLY: (1) Typography system (headline/body/accent), (2) spacing rhythm scale, (3) contrast + readability rules for mobile, (4) card/panel styling guidance, (5) motion-polish guidance, (6) copy tone guidance. No code.</pre>
+
+<h2>4) Direction Rationale</h2>
+<p>This run enforced true relay behavior: visual concept from one subagent lane, polish system from another, then Saber integrated both outputs into a single static experience.</p>
+
+<h2>5) Technical Notes</h2>
+<ul>
+  <li>Static HTML/CSS artifact with sunrise gradient atmosphere and subtle ambient motion.</li>
+  <li>Team output represented through three lane cards and explicit hard-mode labeling.</li>
+  <li>No runtime API dependency; optimized for mobile remote checks.</li>
+</ul>
+
+<h2>6) Runtime Safety Note</h2>
+<p>Static-only; no secrets, no key usage, no backend calls.</p>
+
+<h2>7) Quick Link</h2>
+<p><a href="./sunrise-pulse-hardmode-2026-03-05.html">Open artifact</a></p>
+</body></html>
