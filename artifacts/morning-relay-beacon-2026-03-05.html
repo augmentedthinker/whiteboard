@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Morning Relay Beacon — 2026-03-05</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Inter:wght@400;600;700&display=swap');
+    :root{
+      --bg:#060a14;--panel:rgba(9,17,32,.68);--line:rgba(143,201,255,.33);--text:#dcebff;--muted:#9fb4cf;
+      --saber:#4d88ff;--img:#3de9a8;--style:#be83ff;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;color:var(--text);font-family:Inter,system-ui,sans-serif;background:
+      radial-gradient(70rem 40rem at 12% 0%, rgba(77,136,255,.2), transparent 55%),
+      radial-gradient(50rem 35rem at 85% 6%, rgba(61,233,168,.16), transparent 60%),
+      radial-gradient(45rem 30rem at 60% 88%, rgba(190,131,255,.18), transparent 62%),
+      var(--bg);
+      overflow:hidden;
+    }
+    .scan{position:fixed;inset:-20%;background:repeating-linear-gradient(180deg, rgba(149,212,255,.06) 0 1px, transparent 1px 6px);mix-blend-mode:screen;pointer-events:none;animation:drift 9s linear infinite}
+    @keyframes drift{to{transform:translateY(20px)}}
+    .wrap{max-width:980px;margin:0 auto;padding:22px 14px 18px;position:relative;z-index:2}
+    .panel{border:1px solid var(--line);background:var(--panel);backdrop-filter:blur(8px);border-radius:18px;padding:16px;box-shadow:0 25px 45px rgba(0,0,0,.35)}
+    h1{margin:.1rem 0 .45rem;font-family:Orbitron,Inter,sans-serif;font-size:clamp(1.4rem,5.2vw,2.3rem);letter-spacing:.06em}
+    .subtitle{color:var(--muted);margin:0 0 14px}
+    .grid{display:grid;grid-template-columns:1fr;gap:12px}
+    .team{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .card{border:1px solid var(--line);border-radius:12px;padding:10px;background:rgba(8,14,26,.62)}
+    .card h3{margin:0 0 6px;font-size:.85rem;text-transform:uppercase;letter-spacing:.06em}
+    .card p{margin:0;color:#c5dbf6;font-size:.86rem;line-height:1.45}
+    .saber h3{color:var(--saber)} .imagebot h3{color:var(--img)} .stylebot h3{color:var(--style)}
+    .status{margin-top:8px;font-size:.84rem;color:#b9d1ec}
+    .orbits{position:relative;height:270px;border:1px solid var(--line);border-radius:16px;background:radial-gradient(circle at 50% 55%, rgba(112,167,255,.09), transparent 62%)}
+    .core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:100px;height:100px;border-radius:50%;border:2px solid rgba(177,220,255,.65);display:grid;place-items:center;font:700 .8rem Orbitron;background:rgba(8,15,26,.8);box-shadow:0 0 30px rgba(100,170,255,.28)}
+    .ring{position:absolute;left:50%;top:50%;border:1px dashed rgba(159,211,255,.38);border-radius:999px;transform:translate(-50%,-50%)}
+    .r1{width:160px;height:160px}.r2{width:220px;height:220px}.r3{width:280px;height:280px}
+    .node{position:absolute;width:72px;height:72px;border-radius:50%;display:grid;place-items:center;font:700 .72rem Orbitron;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.65)}
+    .n-saber{background:radial-gradient(circle at 30% 30%, #7fb1ff, #2e58ff);animation:orbit1 8s linear infinite}
+    .n-image{background:radial-gradient(circle at 30% 30%, #99ffd8, #09b97c);animation:orbit2 6.5s linear infinite reverse}
+    .n-style{background:radial-gradient(circle at 30% 30%, #e5c4ff, #8d4cff);animation:orbit3 10s linear infinite}
+    @keyframes orbit1{from{transform:translate(-50%,-50%) rotate(0) translateX(80px) rotate(0)}to{transform:translate(-50%,-50%) rotate(360deg) translateX(80px) rotate(-360deg)}}
+    @keyframes orbit2{from{transform:translate(-50%,-50%) rotate(0) translateX(110px) rotate(0)}to{transform:translate(-50%,-50%) rotate(360deg) translateX(110px) rotate(-360deg)}}
+    @keyframes orbit3{from{transform:translate(-50%,-50%) rotate(0) translateX(140px) rotate(0)}to{transform:translate(-50%,-50%) rotate(360deg) translateX(140px) rotate(-360deg)}}
+    .footer{margin-top:10px;color:#9eb7d4;font-size:.78rem}
+    @media(max-width:780px){.team{grid-template-columns:1fr}.orbits{height:240px}}
+  </style>
+</head>
+<body>
+  <div class="scan"></div>
+  <main class="wrap">
+    <section class="panel">
+      <h1>☀️ Morning Relay Beacon</h1>
+      <p class="subtitle">Good morning, Christopher. Team lane is online: orchestration, visuals, and polish synced for your workday launch.</p>
+
+      <div class="grid">
+        <div class="orbits" aria-label="Tri-lane orbital visualization">
+          <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+          <div class="core">YOU + MISSION</div>
+          <div class="node n-saber" style="left:50%;top:50%">SABER</div>
+          <div class="node n-image" style="left:50%;top:50%">IMAGEBOT</div>
+          <div class="node n-style" style="left:50%;top:50%">STYLEBOT</div>
+        </div>
+
+        <div class="team">
+          <article class="card saber"><h3>Saber // Operator</h3><p>Protect scope, ship artifact, keep trajectory coherent while you’re at work.</p></article>
+          <article class="card imagebot"><h3>ImageBot // Visuals</h3><p>Owns composition language: cinematic mood, color gravity, visual anchor quality.</p></article>
+          <article class="card stylebot"><h3>StyleBot // Polish</h3><p>Owns readability + hierarchy: typography, spacing rhythm, and finish pass standards.</p></article>
+        </div>
+      </div>
+
+      <p class="status">Status pulse: <strong style="color:#9ce7ff">CONNECTED</strong> · Remote lane test running · Next move = send mission.</p>
+      <p class="footer">Built for quick morale + momentum ignition on mobile during shift hours.</p>
+    </section>
+  </main>
+</body>
+</html>
