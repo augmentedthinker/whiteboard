@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Builder's Canvas | Kinetic Clone</title>
+    <style>
+        @font-face {
+            font-family: 'KMR Melange Bold';
+            src: local('Helvetica Neue'), sans-serif; /* Fallback for their custom font */
+            font-weight: bold;
+        }
+
+        :root {
+            --tbp-blue: #003DFF;
+            --tbp-black: #000000;
+            --tbp-white: #ffffff;
+            --tbp-grey: #f2f2f2;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            background-color: var(--tbp-white);
+            color: var(--tbp-black);
+            font-family: 'KMR Melange Bold', 'Helvetica Neue', Arial, sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            z-index: 100;
+            box-sizing: border-box;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            mix-blend-mode: difference;
+            color: white;
+            pointer-events: none;
+        }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 6rem);
+            line-height: 0.9;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 span {
+            color: var(--tbp-blue);
+        }
+
+        /* Infinite Marquee */
+        .marquee-wrapper {
+            width: 100%;
+            overflow: hidden;
+            background: var(--tbp-white);
+            padding: 2rem 0;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .marquee-track {
+            display: flex;
+            white-space: nowrap;
+            animation: marquee 25s linear infinite;
+        }
+
+        .marquee-content {
+            font-size: 8vw;
+            line-height: 1;
+            text-transform: uppercase;
+            padding-right: 2rem;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--tbp-black);
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Portfolio Sticky Stage */
+        .portfolio-section {
+            display: flex;
+            padding: 5rem 2rem;
+            gap: 4rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .portfolio-list {
+            flex: 1;
+            padding-top: 20vh;
+            padding-bottom: 50vh;
+        }
+
+        .portfolio-item {
+            font-size: clamp(3rem, 6vw, 5rem);
+            line-height: 1.2;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: color 0.3s ease, padding-left 0.3s ease;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid transparent;
+        }
+
+        .portfolio-item:hover {
+            color: var(--tbp-blue);
+            padding-left: 20px;
+        }
+
+        .portfolio-stage-container {
+            flex: 1;
+            position: relative;
+        }
+
+        .portfolio-stage {
+            position: sticky;
+            top: 15vh;
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: var(--tbp-grey);
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .stage-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.8s ease;
+            transform: scale(1.05);
+        }
+
+        .stage-img.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        @media (max-width: 992px) {
+            .portfolio-section { flex-direction: column; }
+            .portfolio-stage { display: none; }
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 10rem 2rem;
+            text-align: center;
+            background: var(--tbp-blue);
+            color: var(--tbp-white);
+        }
+
+        .cta-section h2 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            text-transform: uppercase;
+            margin: 0 0 2rem 0;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1.5rem 3rem;
+            background: var(--tbp-white);
+            color: var(--tbp-blue);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div>the builder's canvas</div>
+        <div>Mexico / World</div>
+    </nav>
+
+    <section class="hero">
+        <h1>Designing for those<br>who dare to <span>evolve</span>.</h1>
+    </section>
+
+    <div class="marquee-wrapper">
+        <div class="marquee-track">
+            <div class="marquee-content">We build vessels that hold meaning • Crafted with discipline • Designed to evolve • </div>
+            <div class="marquee-content">We build vessels that hold meaning • Crafted with discipline • Designed to evolve • </div>
+        </div>
+    </div>
+
+    <section class="portfolio-section">
+        <div class="portfolio-list">
+            <div class="portfolio-item" data-img="img1">Hilton</div>
+            <div class="portfolio-item" data-img="img2">Rappi</div>
+            <div class="portfolio-item" data-img="img3">Hey Banco</div>
+            <div class="portfolio-item" data-img="img4">Waygood</div>
+            <div class="portfolio-item" data-img="img5">Pando</div>
+            <div class="portfolio-item" data-img="img1">Waldorf</div>
+            <div class="portfolio-item" data-img="img2">Nuvi+</div>
+        </div>
+        
+        <div class="portfolio-stage-container">
+            <div class="portfolio-stage">
+                <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2600&auto=format&fit=crop" id="img1" class="stage-img active" alt="Project 1">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" id="img2" class="stage-img" alt="Project 2">
+                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop" id="img3" class="stage-img" alt="Project 3">
+                <img src="https://images.unsplash.com/photo-1558442074-3c19857bc1dc?q=80&w=2574&auto=format&fit=crop" id="img4" class="stage-img" alt="Project 4">
+                <img src="https://images.unsplash.com/photo-1635322966219-b75ed372eb01?q=80&w=2664&auto=format&fit=crop" id="img5" class="stage-img" alt="Project 5">
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Start a Project</h2>
+        <a href="#" class="cta-btn">Initialize Sequence</a>
+    </section>
+
+    <script>
+        const items = document.querySelectorAll('.portfolio-item');
+        const images = document.querySelectorAll('.stage-img');
+
+        items.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const targetId = item.getAttribute('data-img');
+                
+                // Hide all
+                images.forEach(img => img.classList.remove('active'));
+                
+                // Show target
+                const targetImg = document.getElementById(targetId);
+                if(targetImg) targetImg.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
