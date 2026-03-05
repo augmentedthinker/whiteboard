@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Builder's Canvas | Studio Clone</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>The Builder's Canvas | Accurate Studio Clone</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #f7f7f5;
-            --text-color: #000000;
-            --accent-color: #ff3300;
-            --border-color: #e0e0de;
+            --bg-color: #f2f2f0;
+            --text-color: #111111;
+            --muted-text: #888888;
+            --border-color: #dcdcdc;
+            --accent-blue: #003dff;
         }
 
         body {
@@ -18,14 +19,9 @@
             padding: 0;
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        ::selection {
-            background-color: var(--text-color);
-            color: var(--bg-color);
         }
 
         /* Nav */
@@ -39,183 +35,193 @@
             align-items: center;
             z-index: 100;
             box-sizing: border-box;
+            background: transparent;
             mix-blend-mode: difference;
-            color: #fff;
+            color: white;
         }
 
         nav .logo {
-            font-weight: 700;
-            font-size: 1.2rem;
+            font-weight: 600;
+            font-size: 1rem;
             letter-spacing: -0.02em;
         }
 
         nav .menu-btn {
             font-weight: 500;
-            font-size: 1rem;
+            font-size: 0.9rem;
             cursor: pointer;
-            text-transform: uppercase;
         }
 
         /* Hero */
         .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 2rem;
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 8vw, 7rem);
-            font-weight: 400;
-            line-height: 0.95;
-            letter-spacing: -0.04em;
-            max-width: 1200px;
-            margin: 0;
-        }
-
-        .hero h1 span {
-            font-style: italic;
-            color: var(--accent-color);
-        }
-
-        /* Marquee Strip */
-        .marquee-strip {
-            width: 100%;
-            border-top: 1px solid var(--text-color);
-            border-bottom: 1px solid var(--text-color);
-            overflow: hidden;
-            white-space: nowrap;
-            padding: 1rem 0;
-            background: var(--text-color);
-            color: var(--bg-color);
-            display: flex;
-            align-items: center;
-        }
-
-        .marquee-content {
-            display: inline-block;
-            font-size: 1.5rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            animation: scroll 20s linear infinite;
-        }
-
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* Project Roster (Hover Reveal) */
-        .roster {
-            padding: 4rem 2rem;
+            padding: 15vh 2rem 5vh;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        .roster-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 2rem 0;
-            border-bottom: 1px solid var(--border-color);
-            position: relative;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .roster-item:hover {
-            border-bottom-color: var(--text-color);
-        }
-
-        .roster-title {
-            font-size: clamp(2rem, 5vw, 4.5rem);
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 6rem);
             font-weight: 500;
+            line-height: 1.05;
             letter-spacing: -0.03em;
+            max-width: 1200px;
             margin: 0;
-            position: relative;
-            z-index: 2;
-            transition: transform 0.3s ease;
+            color: var(--text-color);
         }
 
-        .roster-category {
-            font-size: 1.1rem;
-            font-weight: 400;
-            color: #666;
-            z-index: 2;
+        .hero h1 span {
+            color: var(--muted-text);
         }
 
-        .roster-item:hover .roster-title {
-            transform: translateX(20px);
-        }
-
-        /* Hover Image */
-        .hover-img {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
-            width: 400px;
-            height: 250px;
-            object-fit: cover;
-            opacity: 0;
-            z-index: 1;
-            pointer-events: none;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: grayscale(100%);
-        }
-
-        .roster-item:hover .hover-img {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-            filter: grayscale(0%);
-        }
-
-        @media (max-width: 768px) {
-            .hover-img { display: none; }
-        }
-
-        /* Manifesto Footer */
-        .manifesto {
-            padding: 8rem 2rem;
+        /* Portfolio Split Section */
+        .portfolio-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             max-width: 1400px;
             margin: 0 auto;
+            padding: 4rem 2rem 10rem;
+            position: relative;
         }
 
         @media (max-width: 900px) {
-            .manifesto { grid-template-columns: 1fr; }
+            .portfolio-section {
+                grid-template-columns: 1fr;
+            }
         }
 
-        .manifesto-text p {
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
+        /* Sticky Stage (Right Side) */
+        .portfolio-stage-container {
+            position: relative;
+            height: 100%;
+        }
+
+        .portfolio-stage {
+            position: sticky;
+            top: 8rem;
+            width: 100%;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            border-radius: 4px;
+            background: #e0e0e0;
+        }
+
+        .stage-stack {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .stage-item {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            clip-path: inset(100% 0 0 0);
+            transition: clip-path 700ms cubic-bezier(0.32, 0, 0.7, 1), opacity 300ms linear;
+        }
+
+        .stage-item.is-active {
+            opacity: 1;
+            clip-path: inset(0 0 0 0);
+            z-index: 2;
+        }
+
+        .stage-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Project List (Left Side) */
+        .portfolio-list {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 50vh; /* Allow scrolling past the last item */
+        }
+
+        .list-item {
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            font-weight: 500;
+            letter-spacing: -0.03em;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            color: var(--muted-text);
+            transition: color 0.3s ease, padding-left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .list-item:hover, .list-item.is-active {
+            color: var(--text-color);
+            padding-left: 2rem;
+        }
+
+        .list-item::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            opacity: 0;
+            color: var(--accent-blue);
+            transition: opacity 0.3s ease;
+        }
+
+        .list-item:hover::before, .list-item.is-active::before {
+            opacity: 1;
+        }
+
+        /* Manifesto / Footer */
+        .manifesto-section {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            padding: 8rem 2rem;
+        }
+
+        .manifesto-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        @media (max-width: 900px) {
+            .manifesto-content { grid-template-columns: 1fr; }
+        }
+
+        .manifesto-content h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
             font-weight: 400;
-            line-height: 1.2;
-            margin: 0 0 2rem 0;
+            line-height: 1.1;
+            margin: 0;
             letter-spacing: -0.02em;
         }
 
-        .manifesto-cta {
-            display: inline-block;
-            padding: 1rem 2rem;
-            border: 1px solid var(--text-color);
-            border-radius: 50px;
-            text-transform: uppercase;
-            font-weight: 600;
-            text-decoration: none;
-            color: var(--text-color);
-            transition: all 0.3s ease;
+        .manifesto-content p {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: #aaaaaa;
+            margin-top: 0;
         }
 
-        .manifesto-cta:hover {
-            background: var(--text-color);
+        .btn-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            border: 1px solid var(--bg-color);
+            border-radius: 50px;
             color: var(--bg-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
+
+        .btn-link:hover {
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
     </style>
 </head>
 <body>
@@ -226,52 +232,77 @@
     </nav>
 
     <section class="hero">
-        <h1>Building for those who <span>dare to execute.</span></h1>
+        <h1>Building for those <br><span>who dare to execute.</span></h1>
     </section>
 
-    <div class="marquee-strip">
-        <div class="marquee-content">
-            DESIGN ALONE FADES. SYSTEMS ENDURE. • WE BUILD VESSELS THAT HOLD MEANING • CRAFTED WITH DISCIPLINE • FUELED BY CULTURE • DESIGNED TO EVOLVE • DESIGN ALONE FADES. SYSTEMS ENDURE. • WE BUILD VESSELS THAT HOLD MEANING • CRAFTED WITH DISCIPLINE • FUELED BY CULTURE • DESIGNED TO EVOLVE • 
+    <section class="portfolio-section">
+        <div class="portfolio-list" id="portfolioList">
+            <div class="list-item" data-index="0">Project Neon</div>
+            <div class="list-item" data-index="1">Echo Protocol</div>
+            <div class="list-item" data-index="2">Solaris Forge</div>
+            <div class="list-item" data-index="3">Vanguard Hub</div>
+            <div class="list-item" data-index="4">Quantum Loom</div>
+            <div class="list-item" data-index="5">Horizon Core</div>
+            <div class="list-item" data-index="6">Aether Dynamics</div>
         </div>
-    </div>
 
-    <section class="roster">
-        <a href="#" class="roster-item">
-            <h2 class="roster-title">Project Neon</h2>
-            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop" class="hover-img" alt="Neon">
-            <span class="roster-category">Cybernetics</span>
-        </a>
-        <a href="#" class="roster-item">
-            <h2 class="roster-title">Echo Protocol</h2>
-            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" class="hover-img" alt="Echo">
-            <span class="roster-category">Architecture</span>
-        </a>
-        <a href="#" class="roster-item">
-            <h2 class="roster-title">Solaris Forge</h2>
-            <img src="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=2670&auto=format&fit=crop" class="hover-img" alt="Solaris">
-            <span class="roster-category">Industrial</span>
-        </a>
-        <a href="#" class="roster-item">
-            <h2 class="roster-title">Vanguard Hub</h2>
-            <img src="https://images.unsplash.com/photo-1558442074-3c19857bc1dc?q=80&w=2574&auto=format&fit=crop" class="hover-img" alt="Vanguard">
-            <span class="roster-category">Digital Platform</span>
-        </a>
-        <a href="#" class="roster-item">
-            <h2 class="roster-title">Quantum Loom</h2>
-            <img src="https://images.unsplash.com/photo-1635322966219-b75ed372eb01?q=80&w=2664&auto=format&fit=crop" class="hover-img" alt="Quantum">
-            <span class="roster-category">Systems Design</span>
-        </a>
-    </section>
-
-    <section class="manifesto">
-        <div class="manifesto-text">
-            <p>Hundreds of builders have trusted us to shape their architecture. From rapid prototypes to enduring platforms, our partnerships span systems, cultures, and ambitions. Each one built on trust, clarity, and execution.</p>
-        </div>
-        <div>
-            <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 2rem;">The difference is in the system. Design alone fades. Systems endure. We build vessels that hold meaning; crafted with discipline, fueled by culture, designed to evolve.</p>
-            <a href="#" class="manifesto-cta">Start an Instance</a>
+        <div class="portfolio-stage-container">
+            <div class="portfolio-stage">
+                <div class="stage-stack" id="stageStack">
+                    <!-- Images matching the indices above -->
+                    <div class="stage-item is-active"><img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop" alt="Neon"></div>
+                    <div class="stage-item"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" alt="Echo"></div>
+                    <div class="stage-item"><img src="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=2670&auto=format&fit=crop" alt="Solaris"></div>
+                    <div class="stage-item"><img src="https://images.unsplash.com/photo-1558442074-3c19857bc1dc?q=80&w=2574&auto=format&fit=crop" alt="Vanguard"></div>
+                    <div class="stage-item"><img src="https://images.unsplash.com/photo-1635322966219-b75ed372eb01?q=80&w=2664&auto=format&fit=crop" alt="Quantum"></div>
+                    <div class="stage-item"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" alt="Horizon"></div>
+                    <div class="stage-item"><img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop" alt="Aether"></div>
+                </div>
+            </div>
         </div>
     </section>
 
+    <section class="manifesto-section">
+        <div class="manifesto-content">
+            <div>
+                <h2>Hundreds of builders have trusted us to shape their architecture.</h2>
+                <a href="#" class="btn-link">Start an Instance</a>
+            </div>
+            <div>
+                <p>The difference is in the system. Design alone fades. Systems endure. We build vessels that hold meaning; crafted with discipline, fueled by culture, designed to evolve.</p>
+                <p>From rapid prototypes to enduring platforms, our partnerships span systems, cultures, and ambitions. Each one built on trust, clarity, and execution.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const listItems = document.querySelectorAll('.list-item');
+        const stageItems = document.querySelectorAll('.stage-item');
+        let currentIndex = 0;
+
+        function updateStage(index) {
+            if (index === currentIndex) return;
+            
+            // Remove active class from old
+            listItems[currentIndex].classList.remove('is-active');
+            stageItems[currentIndex].classList.remove('is-active');
+            
+            // Add active class to new
+            currentIndex = index;
+            listItems[currentIndex].classList.add('is-active');
+            stageItems[currentIndex].classList.add('is-active');
+        }
+
+        // Hover functionality
+        listItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                updateStage(index);
+            });
+        });
+
+        // Initialize first item
+        listItems[0].classList.add('is-active');
+    </script>
 </body>
 </html>
