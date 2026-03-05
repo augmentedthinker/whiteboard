@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Good Morning Team Pipeline — 2026-03-05</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;700&display=swap');
+    :root{
+      --bg:#0a1020;--panel:rgba(12,20,36,.74);--line:rgba(157,203,255,.36);
+      --text:#e7f1ff;--muted:#bed0e7;--accent:#9fd2ff;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;font-family:Inter,system-ui,sans-serif;color:var(--text);background:
+      radial-gradient(70rem 45rem at 10% 0%, rgba(72,129,255,.2), transparent 55%),
+      radial-gradient(60rem 30rem at 90% 100%, rgba(255,170,120,.18), transparent 62%),
+      linear-gradient(180deg,#091125 0%, #121f40 45%, #5f3f5b 78%, #a96c66 100%);
+      overflow-x:hidden;
+    }
+
+    /* SABER NOTE: IMAGE_SLOT_HERO_BG placeholder area for Image lane */
+    .hero-bg{position:fixed;inset:0;pointer-events:none;opacity:.42;mix-blend-mode:screen;animation:bgDrift 10s ease-in-out infinite alternate}
+
+    .wrap{max-width:980px;margin:0 auto;padding:24px 12px 24px;position:relative;z-index:2}
+    .hero{border:1px solid var(--line);background:var(--panel);backdrop-filter:blur(9px);border-radius:20px;padding:24px 18px;box-shadow:0 22px 48px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.08)}
+
+    h1{margin:0 0 10px;font-family:'Space Grotesk',Inter,sans-serif;font-weight:700;font-size:clamp(1.55rem,5.6vw,2.75rem);line-height:1.08;letter-spacing:.01em;text-wrap:balance}
+    .sub{margin:0;color:var(--muted);font-size:clamp(.97rem,2.95vw,1.08rem);line-height:1.58;max-width:58ch}
+
+    /* SABER NOTE: STYLE_ZONE_TYPERHYTHM tighten hierarchy and spacing rhythm */
+    .status{margin-top:16px;display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);border-radius:999px;padding:7px 12px;background:rgba(10,17,30,.62);font-size:.82rem;color:#d2e4fb}
+    .dot{width:8px;height:8px;border-radius:50%;background:#7ef7be;box-shadow:0 0 12px #7ef7be;animation:pulse 1.8s ease-in-out infinite}
+
+    .grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:16px}
+    .card{border:1px solid var(--line);border-radius:14px;background:rgba(10,17,30,.62);padding:13px;box-shadow:0 8px 18px rgba(0,0,0,.2)}
+    .card h3{margin:0 0 7px;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:#e1efff}
+    .card p{margin:0;color:#cfe0f8;font-size:.92rem;line-height:1.5}
+
+    /* SABER NOTE: IMAGE_SLOT_INLINE_SCENE hero scene injection target */
+    .scene-slot{margin-top:14px;border:1px solid rgba(157,203,255,.5);border-radius:16px;min-height:170px;display:grid;place-items:center;color:#b9cbe4;font-size:.85rem;background:rgba(8,13,25,.48);overflow:hidden}
+
+    /* SABER NOTE: STYLE_ZONE_BUTTON polish CTA style */
+    .cta{display:inline-block;margin-top:14px;text-decoration:none;color:#e8f4ff;border:1px solid rgba(177,216,255,.56);border-radius:11px;padding:10px 13px;background:linear-gradient(180deg, rgba(22,37,61,.8), rgba(13,23,40,.8));font-size:.92rem;transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease}
+    .cta:hover{transform:translateY(-1px);border-color:#c8e6ff;box-shadow:0 10px 20px rgba(0,0,0,.25)}
+
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.65;transform:scale(.92)}}
+    @keyframes bgDrift{from{transform:translateY(0)}to{transform:translateY(-10px)}}
+
+    @media(min-width:800px){.grid{grid-template-columns:repeat(3,1fr)}}
+  </style>
+</head>
+<body>
+  <div class="hero-bg" id="heroBg">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="width:100%;height:100%;display:block">
+      <defs>
+        <linearGradient id="skyGlow" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#7db5ff" stop-opacity=".28"/>
+          <stop offset="46%" stop-color="#b28dff" stop-opacity=".18"/>
+          <stop offset="78%" stop-color="#ffb58d" stop-opacity=".24"/>
+          <stop offset="100%" stop-color="#ffd7a8" stop-opacity=".14"/>
+        </linearGradient>
+        <radialGradient id="sunBloom" cx="78%" cy="22%" r="32%">
+          <stop offset="0%" stop-color="#ffe8b8" stop-opacity=".95"/>
+          <stop offset="35%" stop-color="#ffc98f" stop-opacity=".45"/>
+          <stop offset="100%" stop-color="#ffb06a" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="beam" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#fff2cb" stop-opacity=".2"/>
+          <stop offset="100%" stop-color="#ffb774" stop-opacity="0"/>
+        </linearGradient>
+        <filter id="soft"><feGaussianBlur stdDeviation="36"/></filter>
+      </defs>
+
+      <rect width="1440" height="900" fill="url(#skyGlow)"/>
+      <ellipse cx="1120" cy="210" rx="360" ry="260" fill="url(#sunBloom)" filter="url(#soft)"/>
+
+      <g opacity=".45">
+        <path d="M-80 760 L360 520 L760 740 L1120 560 L1520 760 L1520 980 L-80 980 Z" fill="#5f6fa6"/>
+        <path d="M-80 800 L270 640 L600 790 L980 650 L1520 820 L1520 980 L-80 980 Z" fill="#8b78a0" opacity=".72"/>
+        <path d="M-80 850 L220 730 L560 860 L940 760 L1520 870 L1520 980 L-80 980 Z" fill="#c17c86" opacity=".62"/>
+      </g>
+
+      <g opacity=".28">
+        <path d="M640 100 L1280 620" stroke="url(#beam)" stroke-width="46" stroke-linecap="round"/>
+        <path d="M720 40 L1380 560" stroke="url(#beam)" stroke-width="28" stroke-linecap="round"/>
+        <path d="M520 140 L1180 700" stroke="url(#beam)" stroke-width="20" stroke-linecap="round"/>
+      </g>
+
+      <g fill="#d4e8ff" opacity=".35">
+        <circle cx="170" cy="160" r="2.2"/><circle cx="260" cy="110" r="1.8"/><circle cx="340" cy="180" r="1.6"/>
+        <circle cx="1210" cy="120" r="1.7"/><circle cx="1290" cy="170" r="2.1"/><circle cx="1130" cy="70" r="1.4"/>
+      </g>
+    </svg>
+  </div>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Good morning — let’s build something beautiful today.</h1>
+      <p class="sub">You’re online, the team is online, and this moment is your clean launch window. One clear move, then momentum.</p>
+
+      <div class="status"><span class="dot"></span> Team Relay Connected</div>
+
+      <div class="scene-slot" id="inlineScene">
+        <div style="width:100%;max-width:940px;border-radius:12px;overflow:hidden;position:relative;line-height:0;background:linear-gradient(180deg,rgba(110,162,255,.2),rgba(255,173,117,.16));box-shadow:inset 0 0 0 1px rgba(196,220,255,.24)">
+          <svg viewBox="0 0 1200 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="width:100%;height:100%;display:block">
+            <defs>
+              <linearGradient id="dawnSky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#5f8fff"/>
+                <stop offset="52%" stop-color="#8d7fc6"/>
+                <stop offset="100%" stop-color="#e09a7c"/>
+              </linearGradient>
+              <radialGradient id="sunCore" cx="76%" cy="38%" r="22%">
+                <stop offset="0%" stop-color="#fff7da"/>
+                <stop offset="45%" stop-color="#ffd6a3" stop-opacity=".92"/>
+                <stop offset="100%" stop-color="#ffbb78" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f4b185" stop-opacity=".4"/>
+                <stop offset="100%" stop-color="#24345f" stop-opacity=".65"/>
+              </linearGradient>
+              <linearGradient id="ridgeA" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#364d83"/>
+                <stop offset="100%" stop-color="#51679b"/>
+              </linearGradient>
+              <linearGradient id="ridgeB" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#6a5b8f"/>
+                <stop offset="100%" stop-color="#8a6a8c"/>
+              </linearGradient>
+            </defs>
+
+            <rect width="1200" height="360" fill="url(#dawnSky)"/>
+            <ellipse cx="920" cy="138" rx="170" ry="110" fill="url(#sunCore)"/>
+
+            <rect y="222" width="1200" height="138" fill="url(#water)"/>
+            <g opacity=".4" stroke="#ffd5aa" stroke-width="2">
+              <path d="M0 248 Q120 238 240 248 T480 248 T720 248 T960 248 T1200 248"/>
+              <path d="M0 268 Q110 260 220 268 T440 268 T660 268 T880 268 T1200 268" opacity=".6"/>
+              <path d="M0 292 Q130 286 260 292 T520 292 T780 292 T1040 292 T1200 292" opacity=".35"/>
+            </g>
+
+            <path d="M-20 240 L220 154 L440 240 L620 170 L830 246 L1040 162 L1220 240 L1220 380 L-20 380 Z" fill="url(#ridgeA)"/>
+            <path d="M-20 272 L180 206 L350 270 L520 210 L720 278 L900 220 L1120 284 L1220 380 L-20 380 Z" fill="url(#ridgeB)" opacity=".86"/>
+
+            <g opacity=".35" fill="#f6d8b9">
+              <ellipse cx="904" cy="224" rx="60" ry="6"/>
+              <ellipse cx="904" cy="238" rx="90" ry="5"/>
+              <ellipse cx="904" cy="252" rx="126" ry="4"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="grid">
+        <article class="card"><h3>Saber</h3><p>Scaffolded structure, copy skeleton, handoff anchors, and final integration lane.</p></article>
+        <article class="card"><h3>ImageBot</h3><p>Will inject scene visuals and atmospheric anchors into marked image slots.</p></article>
+        <article class="card"><h3>StyleBot</h3><p>Will run hierarchy/spacing/contrast/motion polish pass on marked style zones.</p></article>
+      </div>
+
+      <a class="cta" href="../today/index.html">Open Today’s Artifact Gallery</a>
+    </section>
+  </main>
+</body>
+</html>
