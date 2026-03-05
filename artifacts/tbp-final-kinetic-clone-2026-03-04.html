@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Builder's Canvas | Final Kinetic Clone</title>
+    <style>
+        :root {
+            --bg-base: #f4f4f0;
+            --text-base: #111111;
+            --tbp-blue: #003DFF;
+        }
+
+        @font-face {
+            font-family: 'Melange';
+            src: local('Georgia'), serif;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-base);
+            color: var(--text-base);
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            cursor: none; /* Custom cursor */
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            top: 0; left: 0;
+            width: 20px; height: 20px;
+            background: var(--tbp-blue);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background 0.2s;
+            mix-blend-mode: difference;
+        }
+
+        .custom-cursor.hovering {
+            width: 60px; height: 60px;
+            background: #ffffff;
+            mix-blend-mode: difference;
+        }
+
+        /* Spacer */
+        .intro-space {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-size: 3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Parallax Container */
+        .scroll-container {
+            position: relative;
+            min-height: 400vh;
+        }
+
+        /* Sticky Stage */
+        .sticky-stage {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .title-mask {
+            position: absolute;
+            left: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            font-family: 'Melange', serif;
+            font-size: clamp(6rem, 15vw, 15rem);
+            font-weight: normal;
+            color: #ffffff;
+            mix-blend-mode: difference;
+            z-index: 10;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        /* Image Stack */
+        .image-stack {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 60%;
+            height: 100%;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .image-panel {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            clip-path: inset(100% 0 0 0);
+            will-change: clip-path;
+        }
+
+        .image-panel:first-child {
+            clip-path: inset(0 0 0 0);
+        }
+
+        /* Inner image for true parallax */
+        .image-inner {
+            width: 100%; height: 130%; /* Taller for parallax */
+            object-fit: cover;
+            transform: translateY(0);
+            will-change: transform;
+        }
+
+        /* Flobber Button */
+        .flobber {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #4facfe, #00f2fe);
+            box-shadow: 0 10px 30px rgba(0, 100, 255, 0.4);
+            z-index: 100;
+            cursor: pointer;
+            animation: morph 8s ease-in-out infinite, float 4s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        @keyframes morph {
+            0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+            100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Archive List with Animated Underlines */
+        .archive-section {
+            padding: 10rem 4rem;
+            background: var(--bg-base);
+        }
+
+        .archive-title {
+            font-family: 'Melange', serif;
+            font-size: 4rem;
+            margin-bottom: 4rem;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 1rem;
+        }
+
+        .archive-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .archive-item {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 2rem 0;
+            border-bottom: 1px solid #ddd;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* The Animated Underline (white-cta-line style) */
+        .archive-item::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--tbp-blue);
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .archive-item:hover::after {
+            width: 100%;
+        }
+
+        .archive-item span {
+            font-size: 1rem;
+            font-weight: normal;
+            color: #666;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.4s ease;
+        }
+
+        .archive-item:hover span {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="custom-cursor" id="cursor"></div>
+
+    <div class="flobber hover-target">CHAT</div>
+
+    <div class="intro-space">
+        <div>Step 3 & 4</div>
+        <div style="font-size: 1rem; margin-top: 1rem; font-weight: normal; opacity: 0.6;">(Scroll to engage kinetic physics)</div>
+    </div>
+
+    <div class="scroll-container" id="scroll-track">
+        <div class="sticky-stage">
+            <h1 class="title-mask" id="dynamic-title">PROJECT 01</h1>
+            
+            <div class="image-stack" id="image-stack">
+                <div class="image-panel" data-title="HILTON">
+                    <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2600&auto=format&fit=crop" class="image-inner" alt="Img 1">
+                </div>
+                <div class="image-panel" data-title="RAPPI">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" class="image-inner" alt="Img 2">
+                </div>
+                <div class="image-panel" data-title="HEY BANCO">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop" class="image-inner" alt="Img 3">
+                </div>
+                <div class="image-panel" data-title="WALDORF">
+                    <img src="https://images.unsplash.com/photo-1558442074-3c19857bc1dc?q=80&w=2574&auto=format&fit=crop" class="image-inner" alt="Img 4">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="archive-section">
+        <h2 class="archive-title">Archive</h2>
+        <ul class="archive-list">
+            <li class="archive-item hover-target">Pearly <span>Identity / Web</span></li>
+            <li class="archive-item hover-target">BumCo <span>Packaging</span></li>
+            <li class="archive-item hover-target">Waygood <span>Art Direction</span></li>
+            <li class="archive-item hover-target">Creatinology <span>Brand Architecture</span></li>
+        </ul>
+    </div>
+
+    <script>
+        // Custom Cursor Logic
+        const cursor = document.getElementById('cursor');
+        const hoverTargets = document.querySelectorAll('.hover-target, .archive-item');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        hoverTargets.forEach(target => {
+            target.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+            target.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+        });
+
+        // Parallax and Clip-Path Logic
+        const track = document.getElementById('scroll-track');
+        const panels = document.querySelectorAll('.image-panel');
+        const titleMask = document.getElementById('dynamic-title');
+        
+        window.addEventListener('scroll', () => {
+            const trackRect = track.getBoundingClientRect();
+            const trackTop = trackRect.top;
+            const trackHeight = trackRect.height - window.innerHeight;
+            
+            let progress = -trackTop / trackHeight;
+            if (progress < 0) progress = 0;
+            if (progress > 1) progress = 1;
+
+            const totalPanels = panels.length;
+            const panelIndexProgress = progress * (totalPanels - 1);
+            const activeIndex = Math.floor(panelIndexProgress);
+            const fractionalProgress = panelIndexProgress - activeIndex;
+
+            if(activeIndex >= 0 && activeIndex < totalPanels) {
+                const currentTitle = panels[activeIndex].getAttribute('data-title');
+                if (titleMask.innerText !== currentTitle) {
+                    titleMask.innerText = currentTitle;
+                }
+            }
+
+            panels.forEach((panel, index) => {
+                const innerImg = panel.querySelector('.image-inner');
+                
+                if (index < activeIndex) {
+                    panel.style.clipPath = `inset(0 0 0 0)`;
+                    panel.style.zIndex = index;
+                    innerImg.style.transform = `translateY(0%)`;
+                } else if (index === activeIndex) {
+                    panel.style.clipPath = `inset(0 0 0 0)`;
+                    panel.style.zIndex = index;
+                    // Current image parallax effect (moves up slowly)
+                    innerImg.style.transform = `translateY(-${fractionalProgress * 15}%)`;
+                } else if (index === activeIndex + 1) {
+                    const insetBottom = (1 - fractionalProgress) * 100;
+                    panel.style.clipPath = `inset(${insetBottom}% 0 0 0)`;
+                    panel.style.zIndex = index;
+                    // Next image parallax effect (starts lower, moves up to 0)
+                    innerImg.style.transform = `translateY(${15 - (fractionalProgress * 15)}%)`;
+                } else {
+                    panel.style.clipPath = `inset(100% 0 0 0)`;
+                    panel.style.zIndex = index;
+                    innerImg.style.transform = `translateY(15%)`;
+                }
+            });
+        });
+
+        window.dispatchEvent(new Event('scroll'));
+    </script>
+</body>
+</html>
