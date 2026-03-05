@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Middle East Briefing — 2026-03-05</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;700&display=swap');
+    :root{--bg:#060c18;--panel:rgba(11,20,36,.72);--line:rgba(151,203,255,.34);--text:#e5f1ff;--muted:#b4c8e5;--accent:#86c6ff}
+    *{box-sizing:border-box} body{margin:0;color:var(--text);font-family:Inter,system-ui;background:
+      radial-gradient(60rem 34rem at 0% 0%, rgba(74,124,255,.22), transparent 56%),
+      radial-gradient(55rem 30rem at 100% 100%, rgba(255,161,104,.15), transparent 54%),
+      linear-gradient(180deg,#060c18 0%,#0f1a31 45%,#1f2f4d 100%);
+      min-height:100vh}
+    .scan{position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(173,216,255,.05) 0 1px, transparent 1px 6px);mix-blend-mode:soft-light}
+    .wrap{max-width:1180px;margin:0 auto;padding:22px 12px 34px;position:relative;z-index:2}
+    .hero{border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:20px 16px;backdrop-filter:blur(8px);box-shadow:0 18px 42px rgba(0,0,0,.34)}
+    h1{font-family:'Space Grotesk',Inter,sans-serif;margin:0;font-size:clamp(1.5rem,5vw,2.5rem);line-height:1.08}
+    .sub{margin:8px 0 0;color:var(--muted);line-height:1.55;max-width:66ch}
+    .meta{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}.pill{font-size:.76rem;border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:rgba(8,15,27,.55);color:#cfe5ff}
+    .grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}
+    .card{border:1px solid var(--line);border-radius:16px;background:rgba(10,18,33,.68);overflow:hidden;position:relative;box-shadow:0 14px 30px rgba(0,0,0,.28);transition:transform .25s ease,border-color .25s ease}
+    .card:hover{transform:translateY(-2px);border-color:#b8e0ff}
+    .art{height:170px;background:#0c1428;position:relative;overflow:hidden}
+    .art svg{width:100%;height:100%;display:block}
+    .content{padding:14px}
+    .kicker{font-size:.73rem;text-transform:uppercase;letter-spacing:.06em;color:#9ecfff;margin-bottom:6px}
+    .title{font-family:'Space Grotesk',Inter,sans-serif;font-size:1.1rem;line-height:1.25;margin:0 0 8px}
+    .desc{margin:0;color:#c8dbf3;line-height:1.5;font-size:.94rem}
+    .link{display:inline-block;margin-top:10px;color:#9fd1ff;text-decoration:none;border-bottom:1px dashed rgba(159,209,255,.6)}
+    .link:hover{color:#d8eeff}
+    @keyframes drift{from{transform:translateX(-4px)}to{transform:translateX(4px)}}
+    .drift{animation:drift 4.5s ease-in-out infinite alternate}
+    @media(min-width:980px){.grid{grid-template-columns:repeat(3,1fr)}}
+  </style>
+</head>
+<body>
+  <div class="scan"></div>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Middle East Briefing — Top 3</h1>
+      <p class="sub">A quick visual news board for your friend demo. Headlines selected from live Middle East coverage and formatted into a clean, animated briefing view.</p>
+      <div class="meta">
+        <span class="pill">Live briefing style</span>
+        <span class="pill">3 stories</span>
+        <span class="pill">Updated: 2026-03-05</span>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <div class="art">
+          <svg viewBox="0 0 600 260" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6aa2ff"/><stop offset="100%" stop-color="#2b3e70"/></linearGradient></defs><rect width="600" height="260" fill="url(#g1)"/><circle class="drift" cx="430" cy="78" r="78" fill="rgba(255,230,160,.7)"/><path d="M0 220 L120 160 L250 220 L360 170 L470 230 L600 180 L600 260 L0 260 Z" fill="rgba(12,20,38,.72)"/></svg>
+        </div>
+        <div class="content">
+          <div class="kicker">Story 01</div>
+          <h2 class="title">Iran targets headquarters of Iranian Kurdish forces in Iraq</h2>
+          <p class="desc">Reported as a major regional escalation point amid wider conflict spillover concerns.</p>
+          <a class="link" target="_blank" href="https://www.bbc.com/news/articles/c2k88y1147jo">Open source article ↗</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="art">
+          <svg viewBox="0 0 600 260" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9f7dff"/><stop offset="100%" stop-color="#2c2b5e"/></linearGradient></defs><rect width="600" height="260" fill="url(#g2)"/><rect x="90" y="95" width="420" height="95" rx="10" fill="rgba(11,17,34,.45)"/><path class="drift" d="M60 130 Q130 95 210 125 T360 120 T540 130" stroke="#ffe4b1" stroke-width="8" fill="none" stroke-linecap="round"/></svg>
+        </div>
+        <div class="content">
+          <div class="kicker">Story 02</div>
+          <h2 class="title">Israel tells people in large parts of southern Lebanon to leave ahead of attacks</h2>
+          <p class="desc">Coverage highlights civilian displacement patterns and rapidly changing safety conditions.</p>
+          <a class="link" target="_blank" href="https://www.bbc.com/news/articles/cvg11pne0rro">Open source article ↗</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="art">
+          <svg viewBox="0 0 600 260" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ffb07c"/><stop offset="100%" stop-color="#5f3750"/></linearGradient></defs><rect width="600" height="260" fill="url(#g3)"/><g class="drift"><circle cx="170" cy="110" r="48" fill="rgba(255,235,180,.72)"/><circle cx="300" cy="130" r="36" fill="rgba(255,235,180,.55)"/><circle cx="410" cy="100" r="42" fill="rgba(255,235,180,.62)"/></g><rect x="0" y="190" width="600" height="70" fill="rgba(12,18,32,.55)"/></svg>
+        </div>
+        <div class="content">
+          <div class="kicker">Story 03</div>
+          <h2 class="title">First UK government flight to leave Middle East ‘imminently’ after delay</h2>
+          <p class="desc">A key logistics and evacuation update reflecting continued disruption across the region.</p>
+          <a class="link" target="_blank" href="https://www.bbc.com/news/articles/cy4wwd2jlypo">Open source article ↗</a>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
