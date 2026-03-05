@@ -46,8 +46,11 @@
 
     .docs{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
     .doc-btn{border:1px solid color-mix(in oklab,var(--accent) 36%, #95d6ff);background:rgba(12,20,33,.62);color:#d8ecff;border-radius:999px;padding:5px 9px;font-size:.73rem;cursor:pointer}
+    .persona-toolbar{margin:8px 0 10px;border:1px solid var(--line);border-radius:12px;background:rgba(8,14,24,.76);padding:10px}
+    .persona-toolbar h2{margin:0 0 8px;font-size:.86rem;letter-spacing:.05em;text-transform:uppercase;color:#d6ecff}
+    .persona-group{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
 
-    #viewer{margin-top:10px;border:1px solid rgba(148,202,255,.28);border-radius:12px;background:rgba(8,14,24,.7);padding:10px;max-height:280px;overflow:auto;display:none}
+    #viewer{margin-top:10px;border:1px solid rgba(148,202,255,.28);border-radius:12px;background:rgba(8,14,24,.7);padding:10px;max-height:340px;overflow:auto;display:none}
     #viewer h1,#viewer h2,#viewer h3{margin-top:0;color:#d9eeff}
     #viewer p,#viewer li{color:#c9def5;font-size:.84rem;line-height:1.45}
 
@@ -94,6 +97,11 @@
       <a class="back" href="../index.html">← Back to Remote Viewer</a>
     </header>
 
+    <section class="persona-toolbar">
+      <h2>Persona File Library</h2>
+      <div class="persona-group" id="baseline-buttons"></div>
+    </section>
+
     <section class="carousel" id="carousel"></section>
     <div class="dots" id="dots"></div>
     <div id="viewer"></div>
@@ -108,7 +116,9 @@
         skills:['Scope containment under pressure','High-signal specialist handoffs','Fast integration and release closure'],
         powers:['Loop Breaker','Trajectory Lock','Recovery Protocol'],
         stats:{Power:95,Reliability:92,Speed:84,Precision:90},
-        profile:'profiles/saber-profile.md'
+        profile:'profiles/saber-profile.md',
+        liveBase:'files/saber-live/',
+        originalBase:'files/baseline/'
       },
       {
         key:'imagebot',
@@ -117,7 +127,9 @@
         skills:['Cinematic composition control','Mood-consistent iteration','Production-ready handoff formatting'],
         powers:['Vision Forge','Variant Burst','Asset Discipline'],
         stats:{Power:90,Reliability:86,Speed:92,Precision:91},
-        profile:'profiles/imagebot-profile.md'
+        profile:'profiles/imagebot-profile.md',
+        liveBase:'files/imagebot-live/',
+        originalBase:'files/imagebot-originals/'
       },
       {
         key:'stylebot',
@@ -126,13 +138,17 @@
         skills:['Premium clarity without clutter','Practical high-impact visual upgrades','Structured spacing and visual rhythm'],
         powers:['Clarity Field','Hierarchy Engine','Finish Pass'],
         stats:{Power:88,Reliability:90,Speed:82,Precision:95},
-        profile:'profiles/stylebot-profile.md'
+        profile:'profiles/stylebot-profile.md',
+        liveBase:'files/stylebot-live/',
+        originalBase:'files/stylebot-originals/'
       }
     ];
 
     const carousel=document.getElementById('carousel');
     const dots=document.getElementById('dots');
     const viewer=document.getElementById('viewer');
+    const baselineButtons=document.getElementById('baseline-buttons');
+    const personaFiles=['AGENTS.md','BOOTSTRAP.md','SOUL.md','IDENTITY.md','USER.md','TOOLS.md','HEARTBEAT.md'];
 
     function panel(title,items,accent){
       return `<section class='panel' style='--accent:${accent}'><h3>${title}</h3><ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul></section>`;
@@ -140,6 +156,11 @@
     function meters(stats,accent){
       return `<div class='meters' style='--accent:${accent}'>${Object.entries(stats).map(([k,v])=>`<div class='meter'><div class='label'><span>${k}</span><span>${v}</span></div><div class='bar'><div class='fill' style='width:${v}%'></div></div></div>`).join('')}</div>`;
     }
+    function fileButtons(base,label,accent){
+      return `<div class='docs'>${personaFiles.map(f=>`<button class='doc-btn' style='--accent:${accent}' data-doc='${base}${f}'>${label}: ${f.replace('.md','')}</button>`).join('')}</div>`;
+    }
+
+    baselineButtons.innerHTML = fileButtons('files/baseline/','Baseline', '#5ea6ff');
 
     units.forEach((u,i)=>{
       const card=document.createElement('article');
@@ -162,6 +183,8 @@
             <div class='docs'>
               <button class='doc-btn' style='--accent:${u.accent}' data-doc='${u.profile}'>Open ${u.name} Profile</button>
             </div>
+            ${fileButtons(u.liveBase,'Live',u.accent)}
+            ${fileButtons(u.originalBase,'Original',u.accent)}
           </section>
         </section>`;
       carousel.appendChild(card);
@@ -175,10 +198,16 @@
     });
 
     async function loadDoc(path){
-      const res=await fetch(path);
-      const md=await res.text();
-      viewer.style.display='block';
-      viewer.innerHTML=marked.parse(md);
+      try{
+        const res=await fetch(path);
+        if(!res.ok) throw new Error(`Failed to load ${path}`);
+        const md=await res.text();
+        viewer.style.display='block';
+        viewer.innerHTML=marked.parse(md);
+      }catch(err){
+        viewer.style.display='block';
+        viewer.innerHTML=`<h3>File unavailable</h3><p>${path}</p><p>${err.message}</p>`;
+      }
       viewer.scrollIntoView({behavior:'smooth',block:'nearest'});
     }
 
