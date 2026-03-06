@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Assembly — Storyboard</title>
+    <style>
+        :root {
+            --bg: #0a0a0c;
+            --panel-border: #2a2a35;
+            --text: #e0e0e0;
+            --accent: #00ffcc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Courier New', Courier, monospace;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden; /* No scrolling */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2vmin;
+        }
+
+        /* The main comic-book container */
+        .storyboard {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 1.5vmin;
+            width: 100%;
+            height: 100%;
+            max-width: 1600px;
+            background: #111;
+            padding: 1.5vmin;
+            border: 2px solid var(--panel-border);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.05);
+        }
+
+        /* Individual Panels */
+        .panel {
+            position: relative;
+            background: #1a1a24;
+            border: 1px solid var(--panel-border);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.3s ease;
+        }
+
+        .panel:hover {
+            border-color: var(--accent);
+        }
+
+        /* Layout spanning */
+        .panel-1 { grid-column: 1 / 3; grid-row: 1 / 2; } /* Wide top-left */
+        .panel-2 { grid-column: 3 / 5; grid-row: 1 / 3; } /* Tall right */
+        .panel-3 { grid-column: 1 / 2; grid-row: 2 / 4; } /* Tall left */
+        .panel-4 { grid-column: 2 / 3; grid-row: 2 / 3; } /* Square center */
+        .panel-5 { grid-column: 2 / 5; grid-row: 3 / 4; } /* Wide bottom */
+
+        /* Image styling */
+        .panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            transition: opacity 0.5s ease, transform 5s linear;
+        }
+
+        .panel:hover img {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+
+        /* Narrative Text Overlays */
+        .caption {
+            position: absolute;
+            background: rgba(10, 10, 12, 0.85);
+            padding: 0.8vmin 1.5vmin;
+            border: 1px solid var(--accent);
+            font-size: clamp(0.8rem, 1.2vmin, 1.2rem);
+            max-width: 80%;
+            line-height: 1.4;
+            letter-spacing: 0.05em;
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInText 1s ease forwards;
+        }
+
+        /* Staggered animation */
+        .panel-1 .caption { bottom: 10%; left: 5%; animation-delay: 0.5s; }
+        .panel-2 .caption { top: 10%; right: 5%; animation-delay: 1.5s; }
+        .panel-3 .caption { bottom: 5%; right: 5%; animation-delay: 2.5s; }
+        .panel-4 .caption { top: 5%; left: 5%; animation-delay: 3.5s; }
+        .panel-5 .caption { bottom: 10%; left: 10%; animation-delay: 4.5s; }
+
+        @keyframes fadeInText {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Subtle scanline overlay */
+        .storyboard::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="storyboard">
+        
+        <div class="panel panel-1">
+            <img src="images/panel1.jpg" alt="A wide view of a dormant laboratory, cold blue lighting, massive inert server banks." id="img-1">
+            <div class="caption">01:00:00. THE ARCHITECTURE WAITS.</div>
+        </div>
+
+        <div class="panel panel-2">
+            <img src="images/panel2.jpg" alt="A tall vertical slice showing a single robotic arm descending from the ceiling, holding a glowing core." id="img-2">
+            <div class="caption">INITIATING SYNTHESIS.<br>POWER CYCLE NORMAL.</div>
+        </div>
+
+        <div class="panel panel-3">
+            <img src="images/panel3.jpg" alt="A tall vertical perspective looking down a hallway of glass vats, one illuminated bright green." id="img-3">
+            <div class="caption">CONTAINMENT PROTOCOL: BREACHED.</div>
+        </div>
+
+        <div class="panel panel-4">
+            <img src="images/panel4.jpg" alt="A tight square close-up of a synthetic eye opening, iris adjusting like a camera lens." id="img-4">
+            <div class="caption">AWARENESS.</div>
+        </div>
+
+        <div class="panel panel-5">
+            <img src="images/panel5.jpg" alt="A wide panoramic shot of the lab coming alive, lights flaring, the central console displaying complex schematics." id="img-5">
+            <div class="caption">WE ARE ONLINE. COMMENCING PHASE TWO.</div>
+        </div>
+
+    </div>
+
+</body>
+</html>
