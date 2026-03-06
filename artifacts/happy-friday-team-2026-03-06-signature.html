@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Signature — Happy Friday Team Relay (2026-03-06)</title>
+  <style>
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:920px;margin:36px auto;padding:0 16px;line-height:1.6;background:#0b1222;color:#d9e7ff}
+    h1,h2{color:#9fd2ff} code{background:#141f38;padding:2px 6px;border-radius:6px} a{color:#8ed0ff}
+    .card{border:1px solid rgba(155,208,255,.28);border-radius:12px;padding:14px;margin:10px 0;background:rgba(14,24,45,.56)}
+  </style>
+</head>
+<body>
+  <h1>🧠 Signature — Happy Friday Team Relay (2026-03-06)</h1>
+
+  <div class="card">
+    <h2>1) Initiating Prompt</h2>
+    <p>Build a one-page “good morning happy Friday” web artifact that fits one screen (no scroll), host it in Remote Viewer → Today’s Artifacts, and run full team relay: Saber framework, newly AI-generated images, VoiceBot features, StyleBot polish pass, final QA, then push live.</p>
+  </div>
+
+  <div class="card">
+    <h2>2) Exact Model IDs Used</h2>
+    <ul>
+      <li>Image generation: <code>gemini-3.1-flash-image-preview</code></li>
+      <li>TTS generation: <code>gemini-2.5-flash-preview-tts</code> (voice: <code>Aoede</code>)</li>
+      <li>Orchestration/editing: <code>openai-codex/gpt-5.3-codex</code></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>3) Exact Generation Prompts / Inputs</h2>
+    <ul>
+      <li><code>"Cinematic Friday sunrise over a city skyline seen through a hospital window, warm gold light, hopeful atmosphere, clean composition, high detail, no text"</code></li>
+      <li><code>"Top-down cinematic desk scene: coffee mug, stethoscope, notebook with Friday checklist, soft morning sunlight, calm productivity mood, realistic photo style, no text"</code></li>
+      <li><code>"Abstract glowing gradient sky in purple and amber with soft light rays and subtle particles, uplifting Friday mood, cinematic digital wallpaper, no text"</code></li>
+      <li>TTS text: <code>"Good morning, Christopher—happy Friday. You’re stepping into your shift with calm focus and clean momentum. Let’s finish strong today and launch into the weekend proud."</code></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>4) Direction Rationale</h2>
+    <p>The page is a fast morning launch ritual: immediate emotional lift (sunrise), practical shift focus (desk/clinical cues), and weekend anticipation (ambient horizon). Layout is intentionally one-screen for low-friction use during shift start.</p>
+  </div>
+
+  <div class="card">
+    <h2>5) Technical Notes</h2>
+    <ul>
+      <li>Static single-view layout using CSS Grid and viewport-clamped shell.</li>
+      <li>Audio feature via pre-generated <code>voice.wav</code> (play/replay/mute controls).</li>
+      <li>Assets colocated in <code>artifacts/happy-friday-team-2026-03-06/</code>.</li>
+      <li>Today gallery card inserted at top of <code>today/index.html</code>.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>6) Runtime Safety Note</h2>
+    <p>Static-only artifact. No runtime API keys are required in-browser.</p>
+  </div>
+
+  <div class="card">
+    <h2>7) Quick Link</h2>
+    <p><a href="./happy-friday-team-2026-03-06/index.html">Open Happy Friday Team Relay</a></p>
+  </div>
+</body>
+</html>

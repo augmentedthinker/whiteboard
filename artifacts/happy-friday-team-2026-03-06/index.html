@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Friday Team Build — 2026-03-06</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --ink:#eef4ff;
+      --muted:rgba(226,237,255,.78);
+      --panel:rgba(7,12,28,.62);
+      --line:rgba(180,212,255,.34);
+      --accent:#9cd3ff;
+      --accent2:#ffd07a;
+      --ease:cubic-bezier(.22,.61,.36,1);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;overflow:hidden;background:#060c1b;color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+    body{position:relative;display:grid;place-items:center}
+
+    .hero{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.95;filter:saturate(108%) contrast(104%);transform:scale(1.04);animation:heroIn 2.4s var(--ease) forwards}
+    .veil{position:absolute;inset:0;background:radial-gradient(130% 100% at 50% 110%,rgba(2,6,16,.1) 0%,rgba(2,7,20,.58) 60%,rgba(0,0,0,.78) 100%),linear-gradient(180deg,rgba(6,10,22,.24),rgba(6,10,22,.74));}
+
+    .shell{position:relative;z-index:2;width:min(94vw,980px);height:min(92vh,760px);display:grid;grid-template-rows:auto auto 1fr auto;gap:14px;padding:18px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(160deg,rgba(11,18,35,.7),var(--panel));backdrop-filter:blur(10px)}
+
+    .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .chip{font:600 11px/1 Space Grotesk,Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;padding:8px 11px;border-radius:999px;border:1px solid var(--line);background:rgba(10,17,33,.72);color:var(--muted)}
+    .status{font-size:.85rem;color:var(--muted)}
+
+    h1{margin:0;font-family:Space Grotesk,Inter,sans-serif;font-size:clamp(1.6rem,5.2vw,3.3rem);line-height:1.05;letter-spacing:.02em;text-transform:uppercase;text-shadow:0 10px 24px rgba(0,0,0,.35)}
+    .sub{margin:6px 0 0;color:var(--muted);font-size:clamp(.9rem,2vw,1.02rem)}
+
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;min-height:0}
+    .card{position:relative;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:rgba(9,15,30,.65);min-height:140px}
+    .card img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(110%)}
+    .card .label{position:absolute;left:8px;bottom:8px;background:rgba(5,10,22,.7);border:1px solid rgba(203,228,255,.25);padding:5px 8px;border-radius:999px;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase}
+
+    .panel{display:grid;gap:10px;align-content:center;justify-items:start;padding:14px}
+    .panel p{margin:0;color:var(--muted);line-height:1.45}
+    .actions{display:flex;gap:10px;flex-wrap:wrap}
+    button{appearance:none;border:none;border-radius:12px;padding:11px 14px;font-weight:600;cursor:pointer;transition:transform .2s var(--ease),filter .2s var(--ease)}
+    .primary{background:linear-gradient(135deg,#7ec8ff,#b5dcff);color:#071226}
+    .ghost{background:rgba(13,21,39,.8);color:var(--ink);border:1px solid var(--line)}
+    button:active{transform:translateY(1px) scale(.99)}
+
+    .footer{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:.78rem;color:var(--muted)}
+
+    @keyframes heroIn{from{opacity:0;transform:scale(1.08);filter:blur(5px) saturate(90%)}to{opacity:.95;transform:scale(1.03);filter:blur(0) saturate(108%)}}
+
+    @media (max-width:760px){
+      .shell{padding:14px;height:min(95vh,900px);grid-template-rows:auto auto 1fr auto}
+      .grid{grid-template-columns:1fr;grid-template-rows:1fr 1fr 1fr}
+      .card{min-height:110px}
+      .footer{font-size:.72rem}
+    }
+  </style>
+</head>
+<body>
+  <img class="hero" src="hero.jpg" alt="Friday sunrise" />
+  <div class="veil" aria-hidden="true"></div>
+
+  <main class="shell">
+    <div class="top">
+      <div class="chip">Good Morning / Happy Friday</div>
+      <div id="conn" class="status">Connection: Green ●</div>
+    </div>
+
+    <section>
+      <h1>Shift Start. Weekend in Sight.</h1>
+      <p class="sub">Focused work now, clean launch into the weekend later. Team relay build: Saber + ImageBot + VoiceBot + StyleBot.</p>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <img src="panel1.jpg" alt="Friday desk scene" />
+        <span class="label">ImageBot // Focus</span>
+      </article>
+      <article class="card">
+        <img src="panel2.jpg" alt="Weekend horizon visual" />
+        <span class="label">ImageBot // Reward</span>
+      </article>
+      <article class="card panel">
+        <p id="line">Tap voice to kick off your Friday cadence.</p>
+        <div class="actions">
+          <button id="play" class="primary">▶ Play Voice</button>
+          <button id="mute" class="ghost">🔈 Toggle Mute</button>
+        </div>
+      </article>
+    </section>
+
+    <div class="footer">
+      <span>Remote Viewer Artifact · 2026-03-06</span>
+      <a href="../today/index.html" style="color:var(--accent)">← Back to Today</a>
+    </div>
+  </main>
+
+  <script>
+    const audio = new Audio('voice.wav');
+    audio.preload = 'auto';
+    const line = document.getElementById('line');
+    const playBtn = document.getElementById('play');
+    const muteBtn = document.getElementById('mute');
+
+    playBtn.addEventListener('click', async () => {
+      try {
+        await audio.play();
+        line.textContent = 'VoiceBot is live. Friday momentum is active.';
+        playBtn.textContent = '⏸ Pause Voice';
+      } catch {
+        line.textContent = 'Tap again to allow audio playback on this device.';
+      }
+    });
+
+    playBtn.addEventListener('dblclick', () => {
+      audio.pause();
+      audio.currentTime = 0;
+      playBtn.textContent = '▶ Play Voice';
+      line.textContent = 'Voice reset. Ready when you are.';
+    });
+
+    muteBtn.addEventListener('click', () => {
+      audio.muted = !audio.muted;
+      muteBtn.textContent = audio.muted ? '🔇 Unmute' : '🔈 Toggle Mute';
+    });
+
+    audio.addEventListener('ended', () => {
+      playBtn.textContent = '▶ Replay Voice';
+      line.textContent = 'Friday briefing complete. Have a strong shift.';
+    });
+  </script>
+</body>
+</html>
