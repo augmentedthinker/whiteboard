@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Signature | Veo Unicorn Test</title>
+  <style>
+    body{margin:0;background:#0b1222;color:#dbe8ff;font-family:Inter,system-ui,sans-serif}
+    .wrap{max-width:900px;margin:40px auto;padding:0 18px}
+    .card{background:#111a30;border:1px solid rgba(157,201,255,.28);border-radius:14px;padding:20px}
+    h1,h2{margin:0 0 10px} p,li{color:#a8bbe0;line-height:1.55} code{background:#0a1020;border:1px solid rgba(157,201,255,.25);padding:2px 6px;border-radius:6px}
+    a{color:#9fd2ff;text-decoration:none}
+  </style>
+</head>
+<body>
+<main class="wrap">
+<section class="card">
+  <h1>🧠 Signature — Veo Unicorn Through Space Test</h1>
+
+  <h2>1) Initiating Prompt</h2>
+  <p>“Let’s test AI video generation capabilities and create a page in Today’s Artifacts. Make a video of a unicorn flying through space.”</p>
+
+  <h2>2) Exact Model IDs Used</h2>
+  <ul>
+    <li>Video generation: <code>veo-3.0-fast-generate-001</code> (Gemini API long-running predict endpoint)</li>
+  </ul>
+
+  <h2>3) Exact Generation Prompt / Inputs</h2>
+  <ul>
+    <li><code>A unicorn flying through space, cinematic, stars, 5 seconds</code></li>
+    <li>Aspect ratio parameter: <code>16:9</code></li>
+  </ul>
+
+  <h2>4) Direction Rationale</h2>
+  <p>The test intentionally uses a vivid, unmistakable concept (unicorn + space) so success/failure of motion generation is immediately obvious in one glance.</p>
+
+  <h2>5) Technical Notes</h2>
+  <ul>
+    <li>Endpoint method: <code>predictLongRunning</code></li>
+    <li>Operation polled until <code>done: true</code>, then downloaded returned file URI to <code>unicorn-space.mp4</code>.</li>
+    <li>Artifact path: <code>artifacts/veo-unicorn-test-2026-03-06/</code></li>
+  </ul>
+
+  <h2>6) Runtime Safety Note</h2>
+  <p>Artifact is static-only. The hosted page has no runtime API calls or keys; it only serves a generated MP4 file.</p>
+
+  <h2>7) Quick Link</h2>
+  <p><a href="index.html">Launch Veo Unicorn Test</a></p>
+  <p><a href="../../today/index.html">← Back to Today’s Artifacts</a></p>
+</section>
+</main>
+</body>
+</html>
