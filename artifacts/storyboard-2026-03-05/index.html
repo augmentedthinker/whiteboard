@@ -293,10 +293,8 @@
     </div>
 
     <script>
-        // Ensure voices are loaded (Chrome sometimes needs a trigger)
-        window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
-
-        document.querySelectorAll('.panel').forEach(panel => {
+        let currentAudio = null;
+        document.querySelectorAll('.panel').forEach((panel, i) => {
             panel.style.cursor = 'pointer';
             
             // Optional: Visual feedback on click
@@ -305,31 +303,12 @@
             panel.addEventListener('mouseleave', () => panel.style.transform = '');
 
             panel.addEventListener('click', () => {
-                const captionEl = panel.querySelector('.caption');
-                if (!captionEl) return;
-                
-                // Stop any currently playing speech to avoid overlap
-                window.speechSynthesis.cancel();
-                
-                // Extract text, replacing <br> with spaces to avoid weird pauses
-                let text = captionEl.innerHTML.replace(/<br\s*\/?>/gi, ' ').trim();
-                
-                // Create the utterance
-                const utterance = new SpeechSynthesisUtterance(text);
-                
-                // Configure voice to sound slightly more deliberate/systematic
-                utterance.pitch = 0.85; 
-                utterance.rate = 0.9;  
-                utterance.volume = 1;
-                
-                // Try to use a high-quality Google voice if available
-                const voices = window.speechSynthesis.getVoices();
-                const googleVoice = voices.find(v => v.name.includes('Google US English') || v.name.includes('Google UK English Female'));
-                if (googleVoice) {
-                    utterance.voice = googleVoice;
+                if (currentAudio) {
+                    currentAudio.pause();
+                    currentAudio.currentTime = 0;
                 }
-                
-                window.speechSynthesis.speak(utterance);
+                currentAudio = new Audio('audio/panel' + (i + 1) + '.wav');
+                currentAudio.play().catch(e => console.error('Audio play failed:', e));
             });
         });
     </script>
