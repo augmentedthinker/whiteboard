@@ -28,22 +28,10 @@
       padding:max(12px,env(safe-area-inset-top)) 12px max(18px,env(safe-area-inset-bottom));
       position:relative;
       overflow-x:hidden;
-      background:#060b14;
-    }
-
-    .bg-video-wrap{
-      position:fixed;
-      inset:0;
-      z-index:-2;
-      overflow:hidden;
-    }
-
-    .bg-video-wrap video{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      filter:saturate(1.1) contrast(1.05) brightness(.58);
-      transform:scale(1.03);
+      background:
+        linear-gradient(180deg, rgba(5,10,18,.66), rgba(5,10,18,.9)),
+        url('assets/main-bg/2026-03-06/agentic-orchestration-hero.png') center/cover fixed no-repeat;
+      background-color:#060b14;
     }
 
     .bg-overlay{
@@ -164,11 +152,6 @@
   </style>
 </head>
 <body>
-  <div class="bg-video-wrap" aria-hidden="true">
-    <video autoplay muted loop playsinline preload="metadata">
-      <source src="artifacts/veo-unicorn-rider-2026-03-06/unicorn-rainbow-8.mp4" type="video/mp4" />
-    </video>
-  </div>
   <div class="bg-overlay" aria-hidden="true"></div>
 
   <button id="fsBtn" class="fs-btn" type="button">⛶ Fullscreen</button>
