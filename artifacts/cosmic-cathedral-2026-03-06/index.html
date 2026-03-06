@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Cosmic Cathedral — Team Artifact</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap');
+
+    :root {
+      --cc-bg-0: #07090F;
+      --cc-bg-1: #0D1220;
+      --cc-surface: rgba(18,26,43,.72);
+      --cc-surface-2: rgba(25,35,58,.85);
+      --cc-border: #2A3652;
+      --cc-text-1: #F4F7FF;
+      --cc-text-2: #B9C4E0;
+      --cc-text-3: #8C98B7;
+      --cc-cyan: #3DEBFF;
+      --cc-violet: #9B7CFF;
+      --cc-magenta: #FF5FCF;
+      --cc-gold: #FFD166;
+      --cc-ring: color-mix(in srgb, var(--cc-cyan) 65%, white 35%);
+      --cc-shadow-1: 0 8px 24px rgba(2, 6, 20, .45);
+      --cc-shadow-2: 0 20px 44px rgba(2, 6, 20, .6);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--cc-text-1);
+      background: var(--cc-bg-0);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background: #05070c;
+    }
+    .bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.08) contrast(1.05) brightness(.55);
+    }
+    .veil {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(120% 120% at 50% 0%, rgba(155,124,255,.22) 0%, rgba(7,9,15,0) 60%),
+        linear-gradient(180deg, rgba(7,9,15,.15), rgba(7,9,15,.84));
+      pointer-events: none;
+    }
+
+    .progress {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 4px;
+      transform-origin: left;
+      background: linear-gradient(90deg, #3DEBFF 0%, #9B7CFF 52%, #FF5FCF 100%);
+      animation: grow linear;
+      animation-timeline: scroll(root);
+      z-index: 70;
+    }
+    @keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 14px 80px;
+    }
+
+    .hero {
+      min-height: min(72vh, 680px);
+      border: 1px solid color-mix(in srgb, var(--cc-border) 80%, var(--cc-cyan) 20%);
+      border-radius: 22px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--cc-shadow-2);
+      background: linear-gradient(180deg, rgba(8,12,24,.55), rgba(8,12,24,.82));
+      display: grid;
+      align-content: end;
+      padding: clamp(18px, 4vw, 34px);
+      container: hero / inline-size;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 16% 20%, rgba(61,235,255,.18), transparent 28%),
+        radial-gradient(circle at 82% 24%, rgba(155,124,255,.2), transparent 30%),
+        radial-gradient(circle at 60% 78%, rgba(255,95,207,.16), transparent 30%);
+      pointer-events: none;
+    }
+
+    .badge {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--cc-cyan) 35%, transparent);
+      background: rgba(6,10,18,.55);
+      color: #d9f8ff;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      backdrop-filter: blur(8px);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: clamp(2rem, 7.4vw, 5rem);
+      line-height: .94;
+      letter-spacing: -.01em;
+      max-width: 9.5ch;
+      text-wrap: balance;
+      text-shadow: 0 4px 28px rgba(0,0,0,.35);
+    }
+    .aurora {
+      background: linear-gradient(90deg, #3DEBFF 0%, #9B7CFF 52%, #FF5FCF 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: pulse 3.2s ease-in-out infinite alternate;
+    }
+    @keyframes pulse { from { opacity:.86 } to { opacity:1 } }
+
+    .sub {
+      margin: 12px 0 0;
+      max-width: 60ch;
+      color: var(--cc-text-2);
+      font-size: clamp(.95rem, 2.2vw, 1.08rem);
+      line-height: 1.55;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .btn {
+      border: 1px solid var(--cc-border);
+      background: rgba(10,16,29,.65);
+      color: var(--cc-text-1);
+      border-radius: 12px;
+      padding: 10px 14px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .9rem;
+      transition: .2s ease;
+      backdrop-filter: blur(6px);
+    }
+    .btn:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--cc-violet) 55%, white 12%); }
+    .btn.primary {
+      background: linear-gradient(90deg, color-mix(in srgb, var(--cc-cyan) 65%, #061223), color-mix(in srgb, var(--cc-violet) 62%, #081025));
+      border-color: color-mix(in srgb, var(--cc-cyan) 55%, white 10%);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .card {
+      grid-column: span 4;
+      border: 1px solid var(--cc-border);
+      border-radius: 16px;
+      background: var(--cc-surface);
+      padding: 14px;
+      box-shadow: var(--cc-shadow-1);
+      backdrop-filter: blur(8px);
+      container: card / inline-size;
+      transition: .2s ease;
+    }
+    .card:hover { transform: translateY(-2px); background: var(--cc-surface-2); border-color: color-mix(in srgb, var(--cc-cyan) 24%, var(--cc-border)); }
+    .card h3 {
+      margin: 0 0 8px;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: 1.02rem;
+    }
+    .card p { margin: 0; color: var(--cc-text-2); font-size: .92rem; line-height: 1.52; }
+
+    .audio-panel {
+      margin-top: 14px;
+      border: 1px solid var(--cc-border);
+      border-radius: 16px;
+      background: rgba(9,13,24,.72);
+      padding: 12px;
+      display: grid;
+      gap: 8px;
+    }
+    .audio-panel strong { font-size: .95rem; }
+    audio { width: 100%; filter: hue-rotate(185deg) saturate(1.3); }
+
+    .team {
+      margin-top: 14px;
+      border: 1px solid var(--cc-border);
+      border-radius: 16px;
+      background: rgba(9,13,24,.72);
+      padding: 12px;
+    }
+    .team li { color: var(--cc-text-2); margin: 6px 0; }
+
+    .foot {
+      margin-top: 16px;
+      color: var(--cc-text-3);
+      font-size: .84rem;
+    }
+
+    @container card (max-width: 360px) {
+      .card h3 { font-size: .95rem; }
+      .card p { font-size: .86rem; }
+    }
+
+    @media (max-width: 980px) { .card { grid-column: span 6; } }
+    @media (max-width: 720px) { .card { grid-column: span 12; } .hero { min-height: 62vh; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      .aurora, .btn, .card { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"></div>
+  <div class="bg"><img src="bg.png" alt="Cosmic cathedral background" /></div>
+  <div class="veil" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <section class="hero">
+      <span class="badge">Team-mode build • 2026-03-06</span>
+      <h1>Cosmic <span class="aurora">Cathedral</span></h1>
+      <p class="sub">An immersive team artifact inspired by visionary sacred-geometry aesthetics. The image anchor, sonic layer, and UI system were produced in parallel and fused into one shippable experience.</p>
+      <div class="cta-row">
+        <a class="btn" href="../../today/index.html">← Back to Today</a>
+        <a class="btn" href="signature.html">View Signature</a>
+        <button class="btn primary" id="playNarration" type="button">▶ Play narration</button>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h3>Vision Layer</h3>
+        <p>ImageBot generated an original cosmic visual anchor (sacred geometry + luminous anatomy mood) for atmospheric continuity.</p>
+      </article>
+      <article class="card">
+        <h3>Style Layer</h3>
+        <p>StyleBot produced tokenized color/type/motion guidance that shaped this page into a reusable aesthetic system.</p>
+      </article>
+      <article class="card">
+        <h3>Sonic Layer</h3>
+        <p>VoiceBot produced narration to add ritual/cinematic presence beyond static visual browsing.</p>
+      </article>
+    </section>
+
+    <section class="audio-panel">
+      <strong>Voice layer</strong>
+      <audio id="narration" src="narration.wav" controls preload="metadata"></audio>
+    </section>
+
+    <section class="team">
+      <strong>Team contribution trace</strong>
+      <ul>
+        <li><strong>Saber:</strong> orchestration + integration + interaction polish.</li>
+        <li><strong>ImageBot:</strong> generated <code>bg.png</code>.</li>
+        <li><strong>StyleBot:</strong> authored <code>style-guide.md</code> (token schema + motion/component recipes).</li>
+        <li><strong>VoiceBot:</strong> generated <code>narration.wav</code>.</li>
+      </ul>
+    </section>
+
+    <p class="foot">Inspiration translated into original composition. This artifact does not copy or reproduce specific protected works.</p>
+  </main>
+
+  <script>
+    const btn = document.getElementById('playNarration');
+    const audio = document.getElementById('narration');
+    btn.addEventListener('click', async () => {
+      try {
+        if (audio.paused) {
+          await audio.play();
+          btn.textContent = '⏸ Pause narration';
+        } else {
+          audio.pause();
+          btn.textContent = '▶ Play narration';
+        }
+      } catch {}
+    });
+    audio.addEventListener('ended', () => btn.textContent = '▶ Play narration');
+  </script>
+</body>
+</html>
