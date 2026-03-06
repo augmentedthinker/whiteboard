@@ -15,20 +15,45 @@
       --muted:#adc0d8;
       --line:rgba(150,200,255,.28);
       --panel:rgba(11,18,30,.62);
-      --panelHover:rgba(16,26,42,.78);
       --accent:#88ccff;
     }
 
     *{box-sizing:border-box}
     html,body{margin:0}
+
     body{
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       color:var(--text);
-      background:
-        linear-gradient(180deg, rgba(6,10,18,.76), rgba(6,10,18,.92)),
-        url('assets/agents/2026-03-03/workshop-bg.png') center/cover fixed;
       min-height:100vh;
       padding:max(12px,env(safe-area-inset-top)) 12px max(18px,env(safe-area-inset-bottom));
+      position:relative;
+      overflow-x:hidden;
+      background:#060b14;
+    }
+
+    .bg-video-wrap{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      overflow:hidden;
+    }
+
+    .bg-video-wrap video{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      filter:saturate(1.1) contrast(1.05) brightness(.58);
+      transform:scale(1.03);
+    }
+
+    .bg-overlay{
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      background:
+        radial-gradient(circle at 20% 15%, rgba(120,180,255,.2), transparent 36%),
+        linear-gradient(180deg, rgba(5,10,18,.68), rgba(5,10,18,.9));
+      pointer-events:none;
     }
 
     .container{max-width:980px;margin:0 auto}
@@ -41,6 +66,7 @@
       margin-bottom:10px;
       backdrop-filter:blur(6px);
     }
+
     h1{
       margin:0;
       font-family:Orbitron,Inter,sans-serif;
@@ -58,11 +84,13 @@
     }
 
     .portal-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      display:flex;
+      flex-wrap:wrap;
       gap:9px;
       margin-bottom:14px;
+      align-items:flex-start;
     }
+
     .btn{
       position:relative;
       overflow:hidden;
@@ -70,12 +98,21 @@
       background:linear-gradient(160deg, rgba(116,178,242,.22), rgba(82,137,198,.18));
       color:var(--text);
       border-radius:12px;
-      padding:10px 12px;
+      padding:9px 12px;
       cursor:pointer;
       text-align:left;
       transition:.18s transform,.18s background,.18s border-color;
       backdrop-filter:blur(7px);
+      width:auto;
+      min-width:156px;
+      max-width:280px;
+      flex:0 1 auto;
+      display:inline-flex;
+      flex-direction:column;
+      align-items:flex-start;
+      justify-content:center;
     }
+
     .btn::after{
       content:"";
       position:absolute;inset:0;
@@ -85,42 +122,10 @@
       background-size:100% 16px, 16px 100%;
       pointer-events:none;
     }
+
     .btn:hover{transform:translateY(-1px);background:linear-gradient(160deg, rgba(130,192,252,.3), rgba(93,150,214,.24));border-color:rgba(204,235,255,.65)}
     .btn strong{display:block;font-size:.92rem;margin-bottom:2px}
     .btn small{color:var(--muted);font-size:.8rem}
-
-    .story{display:grid;gap:10px}
-    .scene{
-      border:1px solid var(--line);
-      border-radius:14px;
-      overflow:hidden;
-      background:var(--panel);
-      backdrop-filter:blur(5px);
-    }
-    .scene-hero{
-      min-height:160px;
-      background-size:cover;
-      background-position:center;
-      position:relative;
-    }
-    .scene-hero::after{
-      content:"";
-      position:absolute;inset:0;
-      background:linear-gradient(180deg, rgba(4,8,14,.2), rgba(4,8,14,.68));
-    }
-    .scene-body{padding:11px 12px}
-    .scene-body h3{margin:0 0 4px;font-size:1rem;color:#e5f4ff}
-    .scene-body p{margin:0;color:var(--muted);font-size:.88rem;line-height:1.42}
-    .scene-body .open{
-      margin-top:8px;
-      display:inline-block;
-      color:#9fd6ff;
-      font-size:.78rem;
-      border:1px solid rgba(152,210,255,.35);
-      border-radius:999px;
-      padding:4px 8px;
-      background:rgba(10,16,28,.5);
-    }
 
     .fs-btn {
       position: fixed;
@@ -139,21 +144,33 @@
 
     @media (max-width: 760px){
       .portal-grid{
-        grid-template-columns:1fr;
-        max-width:440px;
-        margin-left:auto;
-        margin-right:auto;
+        justify-content:center;
       }
+
       .btn{
-        text-align:center;
-        padding:10px 10px;
+        min-width:unset;
+        width:calc(50% - 6px);
+        max-width:240px;
+        text-align:left;
       }
+
       .btn strong{font-size:.95rem}
       .btn small{font-size:.79rem}
+    }
+
+    @media (max-width: 480px){
+      .btn{width:100%;max-width:460px}
     }
   </style>
 </head>
 <body>
+  <div class="bg-video-wrap" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="metadata">
+      <source src="artifacts/veo-unicorn-rider-2026-03-06/unicorn-rainbow-8.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="bg-overlay" aria-hidden="true"></div>
+
   <button id="fsBtn" class="fs-btn" type="button">⛶ Fullscreen</button>
 
   <div class="container">
@@ -161,7 +178,7 @@
       <h1>Remote Viewer</h1>
     </header>
 
-    <div class="section-title">Portal Buttons</div>
+    <div class="section-title">Navigation</div>
     <section class="portal-grid">
       <button class="btn" onclick="window.open('today/index.html','_blank')"><strong>Today’s Artifacts</strong><small>Latest outputs</small></button>
       <button class="btn" onclick="window.open('agents/index.html','_blank')"><strong>Agents Workstation Bay</strong><small>Specialist units + capabilities</small></button>
@@ -172,36 +189,6 @@
       <button class="btn" onclick="window.open('ideas/index.html','_blank')"><strong>Ideas / Loose Ends</strong><small>Parking lot</small></button>
       <button class="btn" onclick="window.open('docs/friend-viewer/index.html','_blank')"><strong>Friend Viewer</strong><small>Share-ready portal</small></button>
       <button class="btn" onclick="window.open('archive/index.html','_self')"><strong>Archive</strong><small>Needs work / stored</small></button>
-    </section>
-
-    <div class="section-title">Scroll Storyboard</div>
-    <section class="story">
-      <article class="scene" onclick="window.open('today/index.html','_blank')">
-        <div class="scene-hero" style="background-image:url('assets/main-bg/2026-03-03/today-artifacts-bg.png')"></div>
-        <div class="scene-body">
-          <h3>Ship Something</h3>
-          <p>Start with the freshest lane first: today’s artifacts and newest drops.</p>
-          <span class="open">Open Today’s Artifacts →</span>
-        </div>
-      </article>
-
-      <article class="scene" onclick="window.open('agents/index.html','_blank')">
-        <div class="scene-hero" style="background-image:url('assets/agents/2026-03-03/workshop-bg.png')"></div>
-        <div class="scene-body">
-          <h3>Inspect the Team</h3>
-          <p>Jump into the workstation and swap through Saber, ImageBot, and StyleBot.</p>
-          <span class="open">Open Agents Workstation Bay →</span>
-        </div>
-      </article>
-
-      <article class="scene" onclick="window.open('clawdhub/index.html','_blank')">
-        <div class="scene-hero" style="background-image:url('assets/main-bg/2026-03-03/agents-page-bg.png')"></div>
-        <div class="scene-body">
-          <h3>Execute + Reference</h3>
-          <p>Use Tools and OpenClaw Hub to run fast, then deepen with references when needed.</p>
-          <span class="open">Open Execution Lanes →</span>
-        </div>
-      </article>
     </section>
   </div>
 
