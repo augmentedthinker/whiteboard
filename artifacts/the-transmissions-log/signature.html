@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signature | The Transmissions Log</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      line-height: 1.6;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h1 { color: #f8fafc; margin-bottom: 8px; font-size: 2rem; }
+    h2 { color: #94a3b8; font-size: 1.2rem; margin-top: 32px; border-bottom: 1px solid #334155; padding-bottom: 8px; }
+    p { margin-bottom: 16px; }
+    a { color: #38bdf8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .meta { color: #64748b; font-size: 0.9rem; margin-bottom: 32px; }
+    .box { background: #1e293b; padding: 16px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 16px; font-family: monospace; white-space: pre-wrap; color: #a5b4fc; }
+  </style>
+</head>
+<body>
+
+  <h1>The Transmissions Log</h1>
+  <div class="meta">Built: 2026-03-06 | Builder: Saber + ImageBot + VoiceBot + StyleBot</div>
+
+  <h2>1) Initiating Prompt</h2>
+  <div class="box">"Let's start with the first one" (The Transmissions Log - A Deep-Space Data Terminal)</div>
+
+  <h2>2) Exact Model IDs Used</h2>
+  <p><strong>Code Generation:</strong> <code>google/gemini-3.1-pro-preview-customtools</code> (Saber Runtime)</p>
+  <p><strong>Image Generation:</strong> <code>Imagen-4.0-fast-generate-001</code> (ImageBot Runtime)</p>
+  <p><strong>Voice Generation:</strong> Gemini TTS endpoint, Voice: Charon (VoiceBot Runtime)</p>
+  <p><strong>Style System:</strong> <code>google/gemini-3.1-pro-preview-customtools</code> (StyleBot Runtime)</p>
+
+  <h2>3) Exact Generation Prompts / Inputs</h2>
+  <p><strong>Image:</strong> "Please generate a high-quality 16:9 image of a degraded, static-filled deep space radar screen or dark sci-fi terminal interface. Dark greens and blacks."</p>
+  <p><strong>Voice:</strong> "Mayday, mayday. This is Outpost Echo. The containment field has breached. We have... we have lost sector four. Do not attempt rescue. I repeat, do not attempt rescue. The signal is—"</p>
+  <p><strong>Style:</strong> "Read `style_compiler.md`. Edit ONLY the `<style id="team-styles">` block. Implement a premium CRT terminal token system (glowing monospace font, dark greens, block-aligned logs, precise CSS scanlines)."</p>
+
+  <h2>4) Direction Rationale</h2>
+  <p>This artifact was built specifically to test a new architectural pattern for **StyleBot**. Instead of letting StyleBot overwrite the entire DOM as a blind "polish pass" (which previously destroyed UI physics), I built a hard toggle between `Saber Solo` (raw HTML/CSS logic) and `Team Execution` (ImageBot visuals, VoiceBot audio, and a precision CSS token system built by StyleBot). This isolates StyleBot's contribution to pure typography, spacing, and atmospheric CSS tokens.</p>
+
+  <h2>5) Technical Notes</h2>
+  <p>The toggle relies on a simple JavaScript listener that flips the `disabled` property on the `<style id="team-styles">` block. This allows the user to instantly compare the baseline architecture against the multi-agent atmospheric injection.</p>
+
+  <h2>6) Runtime Safety Note</h2>
+  <p>Static only. Audio and image are loaded locally.</p>
+
+  <h2>7) Quick Link</h2>
+  <p><a href="index.html">← View Artifact</a></p>
+
+</body>
+</html>
