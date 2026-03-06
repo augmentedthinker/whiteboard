@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Signature | The Neapolis Directory (Team Execution)</title>
+  <style>
+    :root { --bg:#0b1222; --panel:#111a30; --text:#dbe8ff; --muted:#9fb4d6; --line:rgba(157,201,255,.28); }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
+    .wrap { max-width:900px; margin:40px auto; padding:0 18px; }
+    .card { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:20px; }
+    h1,h2 { margin:0 0 10px; }
+    p,li { color:var(--muted); line-height:1.55; }
+    code { background:#0a1020; border:1px solid var(--line); border-radius:6px; padding:2px 6px; color:#d9f3ff; }
+    a { color:#9fd2ff; text-decoration:none; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <h1>🧠 Signature — The Neapolis Directory (Team Execution)</h1>
+
+      <h2>1) Initiating Prompt</h2>
+      <p>Create a cyberpunk executive roster page for Neapolis Corp using team-mode collaboration, with generated portraits for Valeria Vance, Jaxon Kael, and Dr. Aris Thorne, plus a UI style pass and an audio sting.</p>
+
+      <h2>2) Exact Model IDs Used</h2>
+      <ul>
+        <li>Image generation lane: <code>gemini-2.5-flash-image</code> (via ImageBot script flow)</li>
+        <li>TTS/Audio lane: Google Gemini TTS endpoint (VoiceBot lane; output file: <code>sting.wav</code>)</li>
+        <li>Style lane orchestration/editing: <code>openai-codex/gpt-5.3-codex</code> (StyleBot)</li>
+      </ul>
+
+      <h2>3) Exact Generation Prompts / Inputs</h2>
+      <ul>
+        <li><code>valeria.jpg</code>: "High-quality cyberpunk portrait of a female executive (Valeria Vance), neon cyan lighting, professional but ruthless."</li>
+        <li><code>jaxon.jpg</code>: "High-quality cyberpunk portrait of a male head of security (Jaxon Kael), menacing, stern, red lighting, cyborg elements."</li>
+        <li><code>aris.jpg</code>: "High-quality cyberpunk portrait of a scientist (Dr. Aris Thorne), glowing bio-tech augments, cold blue lighting, clinical."</li>
+      </ul>
+
+      <h2>4) Direction Rationale</h2>
+      <p>The page demonstrates a clean before/after mode toggle: sterile baseline versus stylized team execution. This highlights measurable impact from coordinated lane work (image + style + audio) while keeping structure fixed for side-by-side judgment.</p>
+
+      <h2>5) Technical Notes</h2>
+      <ul>
+        <li>Artifact path: <code>artifacts/the-neapolis-directory-team/</code></li>
+        <li>Static HTML/CSS/JS only; no framework/runtime dependency.</li>
+        <li>Portraits are local raster assets (<code>.jpg</code>) with fixed filenames consumed by <code>index.html</code>.</li>
+        <li>Single-click local audio trigger for intranet sting via <code>sting.wav</code>.</li>
+      </ul>
+
+      <h2>6) Runtime Safety Note</h2>
+      <p>This artifact is static-only and contains no runtime API keys or server calls. It is safe for static hosting (GitHub Pages compatible).</p>
+
+      <h2>7) Quick Link</h2>
+      <p><a href="index.html">Launch The Neapolis Directory (Team Execution)</a></p>
+      <p><a href="../../today/index.html">← Back to Today’s Artifacts</a></p>
+    </section>
+  </main>
+</body>
+</html>
