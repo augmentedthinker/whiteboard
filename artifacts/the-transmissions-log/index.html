@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Transmissions Log</title>
+  <!-- Base styling for Saber Solo (Functional, code-driven) -->
+  <style id="base-styles">
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #111;
+      color: #eee;
+      font-family: monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .toggle-bar {
+      width: 100%;
+      background: #222;
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid #444;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      z-index: 100;
+      position: relative;
+    }
+    
+    .toggle-bar button {
+      background: #333;
+      color: #fff;
+      border: 1px solid #555;
+      padding: 5px 15px;
+      cursor: pointer;
+      font-family: monospace;
+    }
+    
+    .toggle-bar button.active {
+      background: #555;
+      border-color: #fff;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+      position: relative;
+      z-index: 10;
+    }
+
+    .log-entry {
+      border: 1px solid #444;
+      padding: 15px;
+      margin-bottom: 15px;
+      background: #1a1a1a;
+    }
+
+    .log-header {
+      font-weight: bold;
+      border-bottom: 1px dashed #444;
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 10px;
+    }
+    
+    .bg-layer {
+      display: none;
+    }
+  </style>
+
+  <!-- Team Execution Styling (To be populated/enhanced by StyleBot, currently empty scaffold) -->
+  <style id="team-styles" disabled>
+    @import url('https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap');
+
+    :root {
+      /* CRT terminal token schema (math-driven, semantic) */
+      --font-body: 'Share Tech Mono', 'VT323', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --font-heading: 'VT323', 'Share Tech Mono', ui-monospace, monospace;
+
+      --color-bg: hsl(150 34% 4%);
+      --color-surface: hsl(151 30% 7% / 0.9);
+      --color-surface-2: hsl(151 28% 9% / 0.94);
+      --color-border: hsl(156 85% 35% / 0.58);
+      --color-text: hsl(156 100% 76%);
+      --color-text-muted: hsl(156 52% 61%);
+      --color-primary: hsl(156 100% 65%);
+
+      --line-tight: 1.18;
+      --line-normal: 1.5;
+      --line-relaxed: 1.72;
+      --tracking-mono: 0.035em;
+
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+
+      --radius-1: 2px;
+      --radius-2: 4px;
+
+      --glow-1: 0 0 0.45rem hsl(156 100% 62% / 0.28);
+      --glow-2: 0 0 1.1rem hsl(156 100% 58% / 0.24);
+      --glow-3: 0 0 2.4rem hsl(156 100% 52% / 0.16);
+      --text-glow: 0 0 0.25rem hsl(156 100% 72% / 0.72), 0 0 0.65rem hsl(156 100% 62% / 0.48), 0 0 1.2rem hsl(156 100% 50% / 0.26);
+
+      --scanline-step: 3px;
+      --scanline-alpha: 0.13;
+      --phosphor-alpha: 0.09;
+      --vignette-alpha: 0.38;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      letter-spacing: var(--tracking-mono);
+      text-shadow: var(--text-glow);
+    }
+
+    h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      line-height: var(--line-tight);
+      letter-spacing: 0.08em;
+      color: hsl(156 100% 82%);
+      text-shadow: var(--text-glow), 0 0 2rem hsl(156 100% 60% / 0.32);
+      margin-bottom: var(--space-5);
+    }
+
+    .bg-layer {
+      display: block;
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      opacity: 0.56;
+      background:
+        radial-gradient(120% 88% at 50% 8%, hsl(156 90% 55% / var(--phosphor-alpha)), transparent 62%),
+        radial-gradient(130% 95% at 50% 120%, hsl(150 35% 2% / 0.94), hsl(150 40% 1% / 0.98));
+      filter: saturate(1.08) contrast(1.06);
+    }
+
+    .bg-layer::before,
+    .bg-layer::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .bg-layer::before {
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent calc(var(--scanline-step) - 1px),
+          hsl(0 0% 0% / var(--scanline-alpha)) var(--scanline-step)
+        ),
+        linear-gradient(90deg, hsl(0 100% 50% / 0.03), hsl(150 100% 50% / 0.02), hsl(220 100% 50% / 0.03));
+      mix-blend-mode: screen;
+    }
+
+    .bg-layer::after {
+      background: radial-gradient(140% 100% at 50% 50%, transparent 58%, hsl(0 0% 0% / var(--vignette-alpha)) 100%);
+      box-shadow: inset 0 0 3.2rem hsl(156 100% 50% / 0.12);
+    }
+
+    .container {
+      backdrop-filter: blur(1.6px);
+      background: linear-gradient(180deg, hsl(150 30% 5% / 0.52), hsl(150 28% 3% / 0.32));
+      border: 1px solid hsl(156 90% 35% / 0.24);
+      box-shadow: inset 0 0 1.2rem hsl(156 100% 45% / 0.08);
+      border-radius: var(--radius-2);
+    }
+
+    .log-entry {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-1);
+      background: linear-gradient(180deg, var(--color-surface-2), var(--color-surface));
+      box-shadow: var(--glow-1), var(--glow-2), inset 0 0 1.2rem hsl(156 100% 58% / 0.08);
+      line-height: var(--line-relaxed);
+      letter-spacing: var(--tracking-mono);
+    }
+
+    .log-header {
+      border-bottom: 1px solid hsl(156 88% 42% / 0.72);
+      color: hsl(156 100% 86%);
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      line-height: var(--line-normal);
+      text-shadow: var(--text-glow);
+    }
+
+    .log-body,
+    .log-body p {
+      text-align: justify;
+      text-justify: inter-word;
+      color: var(--color-text-muted);
+    }
+
+    audio {
+      filter: grayscale(0.2) sepia(0.25) hue-rotate(72deg) saturate(1.35) contrast(1.25) brightness(0.93);
+      opacity: 0.96;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toggle-bar">
+    <button id="btn-solo" class="active">Saber Solo</button>
+    <button id="btn-team">Team Execution</button>
+    <a href="../../today/index.html" style="color: #fff; text-decoration: none; padding: 5px 10px; font-family: sans-serif; font-size: 14px; margin-left: 20px;">← Gallery</a>
+    <a href="signature.html" style="color: #fff; text-decoration: none; padding: 5px 10px; font-family: sans-serif; font-size: 14px;">🧠 Signature</a>
+  </div>
+
+  <div class="bg-layer" id="bgLayer"></div>
+
+  <div class="container">
+    <h1 style="text-transform: uppercase;">Intercepted Transmissions</h1>
+    
+    <div class="log-entry">
+      <div class="log-header">LOG: ECHO-449 | STATUS: CRITICAL</div>
+      <div class="log-body">
+        <p>The following transmission was intercepted on standard distress frequencies. Audio analysis indicates severe structural degradation in the originating environment.</p>
+        <audio controls src="transmission.wav"></audio>
+      </div>
+    </div>
+    
+    <div class="log-entry">
+      <div class="log-header">LOG: ALPHA-212 | STATUS: DECRYPTING</div>
+      <div class="log-body">
+        <p>Awaiting decryption protocol completion. Secondary telemetry implies massive heat blooms in Sector Four prior to the signal loss.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const btnSolo = document.getElementById('btn-solo');
+    const btnTeam = document.getElementById('btn-team');
+    const teamStyles = document.getElementById('team-styles');
+
+    btnSolo.addEventListener('click', () => {
+      btnSolo.classList.add('active');
+      btnTeam.classList.remove('active');
+      teamStyles.disabled = true;
+    });
+
+    btnTeam.addEventListener('click', () => {
+      btnTeam.classList.add('active');
+      btnSolo.classList.remove('active');
+      teamStyles.disabled = false;
+    });
+  </script>
+</body>
+</html>
