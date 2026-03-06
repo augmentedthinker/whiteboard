@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Stencil Signal — Banksy-Inspired Artifact</title>
+  <style>
+    :root{
+      --wall:#d8d2c8;
+      --ink:#0f0f10;
+      --spray:#df2e2e;
+      --tape:#f5e5a8;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      font-family:"Arial Black", Inter, system-ui, sans-serif;
+      color:var(--ink);
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 12% 15%, rgba(0,0,0,.10), transparent 28%),
+        radial-gradient(circle at 84% 32%, rgba(0,0,0,.08), transparent 24%),
+        linear-gradient(160deg, #ddd7cd, #cec6ba);
+      position:relative;
+      overflow-x:hidden;
+    }
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background-image:
+        repeating-linear-gradient(0deg, rgba(255,255,255,.02), rgba(255,255,255,.02) 2px, transparent 2px, transparent 5px),
+        radial-gradient(rgba(0,0,0,.14) 0.7px, transparent 0.7px);
+      background-size:auto, 2px 2px;
+      opacity:.35;
+      pointer-events:none;
+    }
+    .wrap{max-width:980px;margin:0 auto;padding:18px 14px 80px;position:relative;z-index:1}
+    .tape{
+      display:inline-block;
+      background:var(--tape);
+      color:#272018;
+      font-weight:800;
+      letter-spacing:.08em;
+      padding:7px 12px;
+      transform:rotate(-2deg);
+      box-shadow:0 3px 0 rgba(0,0,0,.15);
+      margin-bottom:8px;
+      font-size:.78rem;
+      text-transform:uppercase;
+    }
+    .hero{
+      border:3px solid rgba(0,0,0,.25);
+      background:rgba(255,255,255,.52);
+      padding:16px;
+      box-shadow:8px 8px 0 rgba(0,0,0,.18);
+      margin-bottom:12px;
+    }
+    h1{
+      margin:4px 0 8px;
+      line-height:.95;
+      text-transform:uppercase;
+      letter-spacing:.03em;
+      font-size:clamp(1.8rem,7vw,4rem);
+    }
+    .strike{display:inline-block;color:var(--spray);transform:rotate(-1.4deg)}
+    .sub{font-family:Inter,system-ui,sans-serif;font-weight:600;max-width:70ch;line-height:1.45}
+
+    .mural{
+      margin-top:10px;
+      border:4px solid rgba(0,0,0,.3);
+      background:rgba(247,243,237,.86);
+      min-height:360px;
+      position:relative;
+      overflow:hidden;
+    }
+    .mural::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(255,255,255,.2), transparent 40%),
+                 repeating-linear-gradient(90deg, rgba(0,0,0,.02), rgba(0,0,0,.02) 1px, transparent 1px, transparent 6px);
+      pointer-events:none;
+    }
+
+    .stencil-figure{
+      position:absolute;
+      left:7%;
+      bottom:14%;
+      width:min(340px,40vw);
+      height:min(380px,48vw);
+      background:var(--ink);
+      clip-path:polygon(36% 4%,49% 0,55% 6%,52% 13%,61% 22%,58% 33%,66% 47%,63% 65%,74% 78%,66% 100%,53% 90%,45% 100%,35% 94%,29% 84%,20% 76%,22% 64%,13% 54%,18% 43%,13% 33%,22% 24%,24% 15%);
+      filter:drop-shadow(8px 7px 0 rgba(0,0,0,.2));
+      opacity:.95;
+    }
+
+    .flower{
+      position:absolute;
+      right:12%;
+      top:20%;
+      width:min(300px,38vw);
+      height:min(260px,34vw);
+      transform:rotate(-7deg);
+    }
+    .petal{position:absolute;border-radius:50%;background:var(--spray);filter:grayscale(.15)}
+    .petal.p1{width:88px;height:88px;left:98px;top:0}
+    .petal.p2{width:82px;height:82px;left:30px;top:54px}
+    .petal.p3{width:84px;height:84px;left:166px;top:60px}
+    .petal.p4{width:80px;height:80px;left:82px;top:118px}
+    .core{position:absolute;width:72px;height:72px;border-radius:50%;left:106px;top:66px;background:#131313;border:8px solid #f2f2f2}
+    .stem{position:absolute;left:136px;top:126px;width:8px;height:120px;background:#131313;transform:rotate(6deg)}
+
+    .quote{
+      position:absolute;
+      right:4%;
+      bottom:7%;
+      max-width:430px;
+      padding:10px 12px;
+      background:rgba(0,0,0,.9);
+      color:#f2f2f2;
+      font:700 clamp(.8rem,2.4vw,1rem)/1.3 Inter,system-ui,sans-serif;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+    }
+
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    a.btn{display:inline-block;text-decoration:none;border:2px solid #111;background:#fff;color:#111;padding:8px 12px;font:700 .86rem Inter,sans-serif}
+
+    .notes{margin-top:12px;border-left:4px solid #111;padding:8px 10px;font:600 .9rem/1.45 Inter,sans-serif;background:rgba(255,255,255,.45)}
+
+    @media (max-width:760px){
+      .mural{min-height:520px}
+      .stencil-figure{left:2%;bottom:8%;width:52vw;height:58vw}
+      .flower{right:6%;top:14%;width:48vw;height:42vw}
+      .quote{left:6%;right:6%;max-width:none}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="tape">Today’s Artifact • Street Protest Aesthetic</div>
+    <section class="hero">
+      <h1>Stencil <span class="strike">Signal</span></h1>
+      <p class="sub">A Banksy-inspired re-imagining: rough wall texture, high-contrast stencil silhouette, minimal red accent, and social-message poster energy—translated into a live web artifact.</p>
+      <div class="actions">
+        <a class="btn" href="../../today/index.html">← Back to Today</a>
+        <a class="btn" href="signature.html">View Signature</a>
+      </div>
+    </section>
+
+    <section class="mural" aria-label="Street-art inspired composition">
+      <div class="stencil-figure" aria-hidden="true"></div>
+      <div class="flower" aria-hidden="true">
+        <div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div>
+        <div class="core"></div><div class="stem"></div>
+      </div>
+      <div class="quote">"Art should comfort the disturbed and disturb the comfortable."</div>
+    </section>
+
+    <div class="notes">Design language used: stencil shapes, distressed surfaces, stark monochrome palette with one rebellion color, poster-grade uppercase typography, and anti-polish composition.</div>
+  </main>
+</body>
+</html>
