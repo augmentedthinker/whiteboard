@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fresh Morning Greeting — StyleBot Pass — 2026-03-06</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{--ink:#f2f7ff;--muted:rgba(229,239,255,.85);--line:rgba(188,220,255,.38);--deep:rgba(6,13,28,.56);--ease:cubic-bezier(.22,.61,.36,1)}
+    *{box-sizing:border-box} html,body{margin:0;height:100%;overflow:hidden;font-family:Inter,system-ui;background:#07101f;color:var(--ink)}
+    body{display:grid;place-items:center;position:relative}
+    .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(110%) contrast(104%);transform:scale(1.04);animation:bgIn 1.6s var(--ease) forwards}
+    .veil{position:absolute;inset:0;background:radial-gradient(120% 85% at 50% 110%,rgba(2,8,21,.1),rgba(4,10,25,.48) 62%,rgba(4,9,23,.66) 100%)}
+    .card{position:relative;z-index:2;width:min(92vw,780px);padding:28px 24px;border-radius:22px;border:1px solid var(--line);background:linear-gradient(165deg,rgba(11,19,38,.68),var(--deep));backdrop-filter:blur(10px) saturate(116%);text-align:center;box-shadow:0 26px 70px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.05)}
+    .chip{display:inline-block;font:700 11px/1 Space Grotesk,sans-serif;letter-spacing:.18em;text-transform:uppercase;padding:8px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+    h1{margin:14px 0 8px;font-family:Space Grotesk,sans-serif;font-size:clamp(2rem,5.8vw,3.25rem);line-height:1.03;text-transform:uppercase;letter-spacing:.02em;text-shadow:0 10px 22px rgba(0,0,0,.34)}
+    p{margin:0 auto;color:var(--muted);max-width:58ch;line-height:1.55}
+    .actions{margin-top:16px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+    button,.swap{border:none;border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer;transition:transform .2s var(--ease),filter .2s var(--ease),box-shadow .2s var(--ease);text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+    button:hover,.swap:hover{transform:translateY(-1px);filter:brightness(1.04)}
+    .primary{background:linear-gradient(135deg,#80cbff,#c4e3ff);color:#071226;box-shadow:0 10px 24px rgba(104,188,255,.28)}
+    .ghost{background:rgba(10,18,34,.86);color:#eef5ff;border:1px solid var(--line)}
+    .swap{background:rgba(12,24,42,.86);color:#bfe4ff;border:1px solid rgba(162,213,255,.45)}
+    .foot{margin-top:14px;font-size:.78rem;color:rgba(225,238,255,.74)}
+    @keyframes bgIn{from{opacity:.35;transform:scale(1.08)}to{opacity:1;transform:scale(1.04)}}
+  </style>
+</head>
+<body>
+  <img class="bg" src="bg.jpg" alt="Morning sunrise" />
+  <div class="veil"></div>
+  <main class="card">
+    <span class="chip">Fresh Morning Greeting · StyleBot Pass</span>
+    <h1>Happy Friday, Christopher</h1>
+    <p id="line">Shift first. Weekend next. Keep it steady and stack one clean win at a time.</p>
+    <div class="actions">
+      <button id="play" class="primary">▶ Play Greeting</button>
+      <button id="mute" class="ghost">🔈 Toggle Mute</button>
+      <a class="swap" href="./index.html">↔ View Base Version</a>
+    </div>
+    <div class="foot">Remote Viewer artifact · 2026-03-06</div>
+  </main>
+  <script>
+    const a = new Audio('voice.wav');
+    const line = document.getElementById('line');
+    document.getElementById('play').onclick = async () => { try { await a.play(); line.textContent='Voice live. You’re in motion.'; } catch { line.textContent='Tap again to allow playback.'; } };
+    document.getElementById('mute').onclick = (e) => { a.muted=!a.muted; e.target.textContent=a.muted?'🔇 Unmute':'🔈 Toggle Mute'; };
+    a.onended = () => line.textContent='Greeting complete. Have a strong shift.';
+  </script>
+</body>
+</html>
