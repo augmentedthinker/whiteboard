@@ -5,16 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Assembly — Storyboard</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syncopate:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syncopate:wght@700&display=swap');
 
         :root {
-            --bg: #030408;
-            --panel-border: rgba(14, 255, 204, 0.15);
-            --panel-border-glow: rgba(14, 255, 204, 0.5);
-            --text: #e0e0e0;
-            --accent: #0effcc;
-            --accent-dim: rgba(14, 255, 204, 0.2);
-            --caption-bg: rgba(3, 4, 8, 0.85);
+            --bg-0: #03050b;
+            --bg-1: #07101f;
+            --surface: #0a1321;
+            --surface-2: #0d1a2d;
+            --text: #c8d6ea;
+            --text-strong: #eef6ff;
+            --accent: #4dffe1;
+            --accent-soft: rgba(77, 255, 225, 0.16);
+            --panel-border: rgba(158, 201, 255, 0.24);
+            --panel-shadow: 0 0.8vmin 2.2vmin rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+            --caption-bg: linear-gradient(135deg, rgba(2, 8, 16, 0.86), rgba(5, 15, 30, 0.72));
+            --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         * {
@@ -23,163 +28,234 @@
             padding: 0;
         }
 
+        html,
         body {
-            background-color: var(--bg);
-            background-image: radial-gradient(circle at 50% 50%, #0a0e1a 0%, #030408 100%);
-            color: var(--text);
-            font-family: 'Share Tech Mono', monospace;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 3vmin;
-        }
-
-        /* The main comic-book container */
-        .storyboard {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            gap: 1.5vmin;
             width: 100%;
             height: 100%;
-            max-width: 1800px;
-            background: transparent;
-            padding: 1vmin;
-            position: relative;
-            z-index: 1;
+            overflow: hidden;
         }
 
-        /* Individual Panels */
+        body {
+            background:
+                radial-gradient(140% 100% at 50% -10%, #102442 0%, transparent 60%),
+                radial-gradient(80% 90% at 85% 75%, #0a2a32 0%, transparent 60%),
+                linear-gradient(160deg, var(--bg-1), var(--bg-0) 65%);
+            color: var(--text);
+            font-family: 'Inter', system-ui, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(10px, 1.8vmin, 26px);
+            position: relative;
+        }
+
+        .storyboard {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            grid-template-rows: repeat(3, minmax(0, 1fr));
+            gap: clamp(8px, 1.15vmin, 20px);
+            width: min(100%, 1760px);
+            height: min(100dvh - clamp(20px, 3.6vmin, 54px), 980px);
+            position: relative;
+            z-index: 1;
+            animation: boardRise 700ms var(--ease-out) both;
+        }
+
         .panel {
             position: relative;
-            background: #080b12;
+            background:
+                linear-gradient(150deg, rgba(21, 38, 65, 0.22), rgba(7, 13, 24, 0.7)),
+                var(--surface);
             border: 1px solid var(--panel-border);
+            border-radius: clamp(8px, 0.8vmin, 16px);
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
+            box-shadow: var(--panel-shadow);
+            transform: translateY(1.2vmin) scale(0.995);
+            opacity: 0;
+            animation: panelBoot 820ms var(--ease-out) forwards;
+            transition: border-color 260ms ease, box-shadow 260ms ease, transform 260ms var(--ease-out), filter 260ms ease;
+            isolation: isolate;
         }
 
-        .panel::before {
+        .panel::before,
+        .panel::after {
             content: '';
             position: absolute;
             inset: 0;
-            box-shadow: inset 0 0 0 1px transparent;
-            transition: box-shadow 0.4s ease;
-            z-index: 5;
             pointer-events: none;
         }
 
+        .panel::before {
+            background: linear-gradient(135deg, rgba(77, 255, 225, 0.2), transparent 36%);
+            opacity: 0;
+            transition: opacity 260ms ease;
+            z-index: 4;
+        }
+
+        .panel::after {
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0.025) 0 2px,
+                transparent 2px 5px
+            );
+            mix-blend-mode: soft-light;
+            opacity: 0.38;
+            z-index: 3;
+        }
+
         .panel:hover {
-            border-color: var(--accent);
-            box-shadow: 0 0 30px var(--accent-dim), inset 0 0 40px rgba(0,0,0,0.6);
-            transform: scale(1.01);
+            border-color: rgba(77, 255, 225, 0.72);
+            box-shadow: 0 1.1vmin 3.1vmin rgba(0, 0, 0, 0.56), 0 0 2.2vmin var(--accent-soft), inset 0 0 0 1px rgba(77, 255, 225, 0.25);
+            transform: translateY(-0.2vmin) scale(1.008);
             z-index: 10;
+            filter: saturate(1.08);
         }
 
         .panel:hover::before {
-            box-shadow: inset 0 0 0 1px var(--accent);
+            opacity: 1;
         }
 
-        /* Layout spanning */
-        .panel-1 { grid-column: 1 / 3; grid-row: 1 / 2; } 
-        .panel-2 { grid-column: 3 / 5; grid-row: 1 / 3; } 
-        .panel-3 { grid-column: 1 / 2; grid-row: 2 / 4; } 
-        .panel-4 { grid-column: 2 / 3; grid-row: 2 / 3; } 
-        .panel-5 { grid-column: 2 / 5; grid-row: 3 / 4; } 
+        .panel-1 { grid-column: 1 / 3; grid-row: 1 / 2; animation-delay: 120ms; }
+        .panel-2 { grid-column: 3 / 5; grid-row: 1 / 3; animation-delay: 260ms; }
+        .panel-3 { grid-column: 1 / 2; grid-row: 2 / 4; animation-delay: 390ms; }
+        .panel-4 { grid-column: 2 / 3; grid-row: 2 / 3; animation-delay: 520ms; }
+        .panel-5 { grid-column: 2 / 5; grid-row: 3 / 4; animation-delay: 670ms; }
 
-        /* Image styling */
         .panel img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.4;
-            filter: grayscale(80%) contrast(1.2) brightness(0.8);
-            transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+            opacity: 0.56;
+            filter: grayscale(72%) contrast(1.14) brightness(0.74) saturate(0.8);
+            transform: scale(1.02);
+            transition: transform 850ms var(--ease-out), filter 480ms ease, opacity 480ms ease;
+            will-change: transform;
         }
 
         .panel:hover img {
-            opacity: 1;
-            filter: grayscale(0%) contrast(1.1) brightness(1.1);
-            transform: scale(1.05);
+            opacity: 0.94;
+            filter: grayscale(18%) contrast(1.07) brightness(0.98) saturate(1.05);
+            transform: scale(1.065);
         }
 
-        /* Narrative Text Overlays */
         .caption {
             position: absolute;
             background: var(--caption-bg);
-            padding: 1vmin 1.5vmin;
+            border: 1px solid rgba(77, 255, 225, 0.34);
             border-left: 3px solid var(--accent);
-            font-size: clamp(0.7rem, 1.1vmin, 1.1rem);
-            max-width: 85%;
-            line-height: 1.5;
-            letter-spacing: 0.1em;
+            border-radius: 0.35rem;
+            padding: 0.7em 0.95em 0.72em;
+            font-size: clamp(0.62rem, 0.92vmin, 0.92rem);
+            line-height: 1.42;
+            letter-spacing: 0.11em;
             text-transform: uppercase;
-            color: var(--accent);
-            text-shadow: 0 0 8px rgba(14, 255, 204, 0.4);
-            backdrop-filter: blur(8px);
-            opacity: 0;
-            transform: translateX(-10px);
-            animation: slideInText 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            font-weight: 600;
+            color: var(--text-strong);
+            max-width: 88%;
+            text-shadow: 0 0 10px rgba(77, 255, 225, 0.35);
+            box-shadow: 0 8px 24px rgba(2, 7, 18, 0.45);
+            backdrop-filter: blur(5px);
             z-index: 6;
+            opacity: 0;
+            transform: translateY(8px);
+            animation: captionIn 620ms var(--ease-out) forwards;
+            transition: border-color 240ms ease, background 240ms ease, box-shadow 240ms ease;
         }
 
-        /* Typing cursor effect on captions */
+        .panel:hover .caption {
+            border-color: rgba(77, 255, 225, 0.8);
+            background: linear-gradient(135deg, rgba(4, 16, 32, 0.9), rgba(6, 20, 37, 0.8));
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.48), 0 0 22px rgba(77, 255, 225, 0.15);
+        }
+
         .caption::after {
             content: '_';
+            margin-left: 0.35em;
+            opacity: 0.8;
             animation: blink 1s step-end infinite;
-            margin-left: 4px;
         }
 
-        @keyframes blink { 50% { opacity: 0; } }
-
-        /* Staggered animation */
-        .panel-1 .caption { bottom: 8%; left: 5%; animation-delay: 0.5s; }
-        .panel-2 .caption { top: 8%; right: 5%; border-left: none; border-right: 3px solid var(--accent); text-align: right; transform: translateX(10px); animation-name: slideInTextRight; animation-delay: 1.5s; }
-        .panel-3 .caption { bottom: 8%; left: 8%; animation-delay: 2.5s; }
-        .panel-4 .caption { top: 8%; left: 8%; animation-delay: 3.5s; }
-        .panel-5 .caption { bottom: 10%; left: 5%; border-left: none; border-bottom: 3px solid var(--accent); transform: translateY(10px); animation-name: slideUpText; animation-delay: 4.5s; }
-
-        @keyframes slideInText {
-            to { opacity: 1; transform: translateX(0); }
+        .panel-1 .caption { bottom: 8%; left: 4.2%; animation-delay: 760ms; }
+        .panel-2 .caption {
+            top: 6.8%;
+            right: 4%;
+            text-align: right;
+            border-left: 1px solid rgba(77, 255, 225, 0.34);
+            border-right: 3px solid var(--accent);
+            animation-delay: 980ms;
         }
-        @keyframes slideInTextRight {
-            to { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes slideUpText {
-            to { opacity: 1; transform: translateY(0); }
+        .panel-3 .caption { bottom: 8%; left: 6%; animation-delay: 1140ms; }
+        .panel-4 .caption { top: 8%; left: 8%; animation-delay: 1320ms; }
+        .panel-5 .caption {
+            left: 4%;
+            bottom: 9%;
+            border-left: 1px solid rgba(77, 255, 225, 0.34);
+            border-bottom: 3px solid var(--accent);
+            animation-delay: 1520ms;
         }
 
-        /* Subtle scanline and vignette overlay */
+        .title-overlay {
+            position: fixed;
+            top: clamp(10px, 1.9vmin, 24px);
+            left: clamp(10px, 2.1vmin, 28px);
+            z-index: 50;
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(0.78rem, 1.12vmin, 1.3rem);
+            color: rgba(188, 225, 255, 0.34);
+            letter-spacing: 0.34em;
+            text-shadow: 0 0 16px rgba(77, 255, 225, 0.25);
+            pointer-events: none;
+            animation: titlePulse 2.6s ease-in-out infinite alternate;
+        }
+
         body::after {
             content: "";
             position: fixed;
             inset: 0;
-            background: 
-                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%), 
-                radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.8) 120%);
+            background:
+                linear-gradient(rgba(22, 26, 33, 0) 50%, rgba(0, 0, 0, 0.18) 50%),
+                radial-gradient(circle at center, transparent 44%, rgba(0, 0, 0, 0.75) 120%);
             background-size: 100% 4px, 100% 100%;
             pointer-events: none;
             z-index: 100;
         }
 
-        /* Title Overlay */
-        .title-overlay {
-            position: fixed;
-            top: 2vmin;
-            left: 3vmin;
-            z-index: 50;
-            font-family: 'Syncopate', sans-serif;
-            font-weight: 700;
-            font-size: clamp(1rem, 1.5vmin, 2rem);
-            color: rgba(255,255,255,0.1);
-            letter-spacing: 0.5em;
-            pointer-events: none;
+        @keyframes boardRise {
+            from { opacity: 0; transform: translateY(0.8vmin) scale(0.995); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes panelBoot {
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes captionIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes blink {
+            50% { opacity: 0.15; }
+        }
+
+        @keyframes titlePulse {
+            from { opacity: 0.7; text-shadow: 0 0 12px rgba(77, 255, 225, 0.15); }
+            to { opacity: 1; text-shadow: 0 0 20px rgba(77, 255, 225, 0.32); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+
+            .panel,
+            .caption {
+                opacity: 1 !important;
+                transform: none !important;
+            }
         }
     </style>
 </head>
