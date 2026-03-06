@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signature | The Alchemist's Grimoire</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #fdf6e3;
+      color: #333;
+      line-height: 1.6;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h1 { color: #5c162e; margin-bottom: 8px; font-size: 2rem; border-bottom: 2px solid #d4af37; padding-bottom: 10px; }
+    h2 { color: #80304c; font-size: 1.2rem; margin-top: 32px; border-bottom: 1px solid #d4af37; padding-bottom: 8px; }
+    p { margin-bottom: 16px; }
+    a { color: #5c162e; text-decoration: none; font-weight: bold; }
+    a:hover { text-decoration: underline; color: #d4af37; }
+    .meta { color: #666; font-size: 0.9rem; margin-bottom: 32px; font-style: italic; }
+    .box { background: #fff; padding: 16px; border-radius: 4px; border: 1px solid #d4af37; margin-bottom: 16px; font-family: monospace; white-space: pre-wrap; color: #333; }
+  </style>
+</head>
+<body>
+
+  <h1>The Alchemist's Grimoire</h1>
+  <div class="meta">Built: 2026-03-06 | Builder: Saber + ImageBot + StyleBot</div>
+
+  <h2>1) Initiating Prompt</h2>
+  <div class="box">"Okay Saber next I want you to move on to the second project that you suggested and you can complete that however you want so use the team if you like"</div>
+
+  <h2>2) Exact Model IDs Used</h2>
+  <p><strong>Code Generation:</strong> <code>google/gemini-3.1-pro-preview-customtools</code> (Saber Runtime)</p>
+  <p><strong>Image Generation:</strong> <code>gemini-2.5-flash-image</code> (ImageBot Runtime)</p>
+  <p><strong>Style System:</strong> <code>openai-codex/gpt-5.3-codex</code> (StyleBot Runtime)</p>
+
+  <h2>3) Exact Generation Prompts / Inputs</h2>
+  <p><strong>Image:</strong> "Please generate a high-quality cinematic illustration of a single page from an ancient alchemist's spellbook. The page should feature a hyper-detailed, glowing alchemical element or crystal synthesis diagram. Warm parchment tones, glowing gold and deep crimson ink. 16:9 aspect ratio."</p>
+  <p><strong>Style:</strong> "Read `style_compiler.md`. Edit ONLY the `<style id="team-styles">` block. Implement a premium, math-driven design system for an ancient alchemical manuscript. Requirements: Premium serif fonts (Cinzel, EB Garamond), drop cap for first paragraph, text-align: justify, spacing rhythm, warm parchment color tokens (crimson ink, gold accents), and make the image visible as an embedded diagram."</p>
+
+  <h2>4) Direction Rationale</h2>
+  <p>This artifact continues the "Saber vs Team" toggle architecture. It tests StyleBot's ability to act as a precision typographer and layout architect for text-heavy editorial designs. By restricting StyleBot to a single CSS block and giving it explicit targets (drop caps, justified text, specific font pairings), we ensure a premium atmospheric injection without risking the underlying DOM structure.</p>
+
+  <h2>5) Technical Notes</h2>
+  <p>The toggle relies on a JavaScript listener that flips the `disabled` property on the `<style id="team-styles">` block. The ImageBot asset is intentionally hidden (`display: none`) in the Saber Solo baseline and revealed by StyleBot's CSS logic.</p>
+
+  <h2>6) Runtime Safety Note</h2>
+  <p>Static only. Image loaded locally.</p>
+
+  <h2>7) Quick Link</h2>
+  <p><a href="index.html">← View Artifact</a></p>
+
+</body>
+</html>
