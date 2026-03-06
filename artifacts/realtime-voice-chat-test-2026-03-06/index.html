@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Realtime Voice Chat Test</title>
+  <style>
+    body{margin:0;background:#0a1220;color:#dbe8ff;font-family:Inter,system-ui,sans-serif;padding:20px}
+    .wrap{max-width:980px;margin:0 auto;display:grid;gap:12px}
+    .card{background:#111b31;border:1px solid rgba(157,201,255,.28);border-radius:12px;padding:14px}
+    input,textarea,button,select{font:inherit}
+    input,textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(157,201,255,.28);background:#0b1324;color:#dbe8ff}
+    button{padding:10px 12px;border-radius:8px;border:1px solid rgba(157,201,255,.28);background:#13223f;color:#dbe8ff;cursor:pointer}
+    .row{display:flex;gap:8px;flex-wrap:wrap}
+    .log{background:#060b16;border:1px solid rgba(157,201,255,.25);padding:10px;border-radius:8px;max-height:320px;overflow:auto;white-space:pre-wrap;font-family:ui-monospace,monospace}
+    .muted{color:#9eb6dc}
+    a{color:#9fd2ff;text-decoration:none}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <section class="card">
+    <h1 style="margin:0 0 8px;">Realtime Voice Chat Test (Speech In / Speech Out)</h1>
+    <p class="muted" style="margin:0;">Test-mode artifact. Direct mode works now with local API key input. Relay mode is scaffolded for OpenClaw backend endpoint when ready.</p>
+  </section>
+
+  <section class="card">
+    <label>Mode</label>
+    <select id="mode">
+      <option value="direct">Direct Gemini WebSocket (enter API key)</option>
+      <option value="relay">Relay HTTP mode (endpoint + token)</option>
+    </select>
+
+    <div id="directBlock" style="margin-top:10px;">
+      <label>Gemini API Key</label>
+      <input id="apiKey" type="password" placeholder="AIza..." />
+    </div>
+
+    <div id="relayBlock" style="display:none;margin-top:10px;">
+      <label>Relay URL (example: https://your-host/api/voice-chat)</label>
+      <input id="relayUrl" type="text" placeholder="https://..." />
+      <label style="margin-top:8px;display:block;">Relay Bearer Token</label>
+      <input id="relayToken" type="password" placeholder="test-token" />
+    </div>
+
+    <div class="row" style="margin-top:10px;">
+      <button id="connectBtn">Connect</button>
+      <button id="disconnectBtn">Disconnect</button>
+      <button id="startMicBtn">Start Mic</button>
+      <button id="stopMicBtn">Stop Mic</button>
+    </div>
+    <p id="status" class="muted" style="margin:8px 0 0;">Disconnected</p>
+  </section>
+
+  <section class="card">
+    <label>Manual Message</label>
+    <textarea id="manual" placeholder="Type message here..."></textarea>
+    <div class="row" style="margin-top:8px;"><button id="sendBtn">Send</button></div>
+  </section>
+
+  <section class="card">
+    <div class="log" id="log"></div>
+    <p style="margin-top:10px;"><a href="signature.html">🧠 Signature</a> · <a href="../../today/index.html">← Back to Today</a></p>
+  </section>
+</main>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const modeEl = $('mode'), statusEl=$('status'), logEl=$('log');
+  let ws=null, recognition=null;
+  const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (Rec) {
+    recognition = new Rec(); recognition.lang='en-US'; recognition.interimResults=false; recognition.continuous=true;
+    recognition.onresult=(e)=>{ const t=e.results[e.results.length-1][0].transcript.trim(); if(t){add('You(mic): '+t); sendText(t);} };
+    recognition.onerror=(e)=>add('Mic error: '+e.error);
+  }
+  function add(t){logEl.textContent += `[${new Date().toLocaleTimeString()}] ${t}\n`; logEl.scrollTop=logEl.scrollHeight;}
+  function speak(t){ const u=new SpeechSynthesisUtterance(t); speechSynthesis.speak(u); }
+
+  modeEl.onchange=()=>{
+    $('directBlock').style.display = modeEl.value==='direct'?'block':'none';
+    $('relayBlock').style.display = modeEl.value==='relay'?'block':'none';
+  };
+
+  function connectDirect(){
+    const key=$('apiKey').value.trim(); if(!key) return add('Enter API key.');
+    const url=`wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=${encodeURIComponent(key)}`;
+    ws=new WebSocket(url);
+    ws.onopen=()=>{statusEl.textContent='Connected (direct)'; add('Connected direct WS'); ws.send(JSON.stringify({setup:{model:'models/gemini-2.5-flash-native-audio-latest',generationConfig:{responseModalities:['TEXT']}}}));};
+    ws.onmessage=(e)=>{add('Server: '+e.data.slice(0,700)); try{const j=JSON.parse(e.data); const parts=j?.serverContent?.modelTurn?.parts||[]; const p=parts.find(x=>x.text); if(p){add('Assistant: '+p.text); speak(p.text);} }catch{}};
+    ws.onclose=()=>{statusEl.textContent='Disconnected'; add('WS closed'); ws=null;};
+    ws.onerror=()=>add('WS error');
+  }
+
+  async function sendRelay(text){
+    const url=$('relayUrl').value.trim(), tok=$('relayToken').value.trim();
+    if(!url||!tok) return add('Set relay URL + token.');
+    const r=await fetch(url,{method:'POST',headers:{'content-type':'application/json','authorization':`Bearer ${tok}`},body:JSON.stringify({text})});
+    const j=await r.json().catch(()=>({}));
+    if(!r.ok) return add('Relay error: '+(j.error||r.status));
+    const out=j.text||JSON.stringify(j); add('Assistant: '+out); speak(out);
+  }
+
+  function sendText(text){
+    if(modeEl.value==='relay') return sendRelay(text);
+    if(!ws||ws.readyState!==1) return add('Not connected.');
+    ws.send(JSON.stringify({clientContent:{turns:[{role:'user',parts:[{text}]}],turnComplete:true}}));
+  }
+
+  $('connectBtn').onclick=()=> modeEl.value==='direct' ? connectDirect() : (statusEl.textContent='Relay mode ready'; add('Relay mode selected. No persistent socket needed.'));
+  $('disconnectBtn').onclick=()=>{ if(ws) ws.close(); statusEl.textContent='Disconnected'; };
+  $('startMicBtn').onclick=()=> recognition ? (recognition.start(), add('Mic started')) : add('SpeechRecognition unsupported');
+  $('stopMicBtn').onclick=()=> recognition && (recognition.stop(), add('Mic stopped'));
+  $('sendBtn').onclick=()=>{ const t=$('manual').value.trim(); if(t){ add('You: '+t); sendText(t);} };
+})();
+</script>
+</body>
+</html>
