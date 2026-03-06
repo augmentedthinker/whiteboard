@@ -1,0 +1,27 @@
+{
+  "checkedAt": "2026-03-06T17:51:31.257Z",
+  "model": "gemini-2.5-flash-native-audio-latest",
+  "modelInfo": {
+    "name": "models/gemini-2.5-flash-native-audio-latest",
+    "methods": [
+      "countTokens",
+      "bidiGenerateContent"
+    ],
+    "description": "Latest release of Gemini 2.5 Flash Native Audio"
+  },
+  "tests": [
+    {
+      "kind": "generateContent (expected unsupported)",
+      "status": 404,
+      "ok": false,
+      "responseSnippet": "{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"models/gemini-2.5-flash-native-audio-latest is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"
+    },
+    {
+      "kind": "predictLongRunning (expected unsupported)",
+      "status": 404,
+      "ok": false,
+      "responseSnippet": "{\n  \"error\": {\n    \"code\": 404,\n    \"message\": \"models/gemini-2.5-flash-native-audio-latest is not found for API version v1beta, or is not supported for predictLongRunning. Call ListModels to see the list of available models and their supported methods.\",\n    \"status\": \"NOT_FOUND\"\n  }\n}\n"
+    }
+  ],
+  "verdict": "Native audio model is visible, but REST one-shot endpoints are not enabled for music generation on this key/project. bidi/live flow likely required."
+}

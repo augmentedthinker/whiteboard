@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Native Audio Realtime Probe | Google API</title>
+  <style>
+    body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0b1222;color:#dbe8ff;font-family:Inter,system-ui,sans-serif;padding:20px}
+    .card{max-width:980px;width:100%;border:1px solid rgba(157,201,255,.28);border-radius:16px;padding:20px;background:rgba(14,24,45,.55)}
+    h1{margin:0 0 10px;font-size:clamp(1.2rem,3vw,1.8rem)}
+    p,li{color:#b7cae6;line-height:1.5}
+    pre{background:#0a1020;border:1px solid rgba(157,201,255,.25);border-radius:8px;padding:12px;overflow:auto}
+    a{color:#9fd2ff;text-decoration:none}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid #efc27d;color:#ffe6c4;background:rgba(190,120,40,.2);font-size:.85rem}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Native Audio Realtime Probe (VoiceBot)</h1>
+    <p><span class="badge">Result: model visible, one-shot REST methods unavailable</span></p>
+
+    <p>This probe tests whether the native-audio model can be used for direct one-shot music generation through normal REST endpoints.</p>
+
+    <ul>
+      <li>Model discovered: <code>gemini-2.5-flash-native-audio-latest</code></li>
+      <li>Supported methods reported by API: <code>countTokens</code>, <code>bidiGenerateContent</code></li>
+      <li>REST tests for <code>generateContent</code> and <code>predictLongRunning</code> both returned 404 unsupported.</li>
+    </ul>
+
+    <h2>Raw probe report</h2>
+    <pre id="report">Loading...</pre>
+
+    <p style="margin-top:14px;"><a href="probe-report.json">Open JSON report</a> · <a href="signature.html">🧠 Signature</a> · <a href="../../today/index.html">← Back to Today’s Artifacts</a></p>
+  </main>
+
+  <script>
+    fetch('probe-report.json')
+      .then(r => r.json())
+      .then(j => document.getElementById('report').textContent = JSON.stringify(j, null, 2))
+      .catch(e => document.getElementById('report').textContent = 'Failed to load report: ' + e.message);
+  </script>
+</body>
+</html>
