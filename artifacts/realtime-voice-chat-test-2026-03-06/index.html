@@ -76,6 +76,7 @@
     recognition.onerror=(e)=>add('Mic error: '+e.error);
   }
   function add(t){logEl.textContent += `[${new Date().toLocaleTimeString()}] ${t}\n`; logEl.scrollTop=logEl.scrollHeight;}
+  add('App initialized. Choose mode, then Connect.');
   function speak(t){ const u=new SpeechSynthesisUtterance(t); speechSynthesis.speak(u); }
 
   modeEl.onchange=()=>{
@@ -84,13 +85,17 @@
   };
 
   function connectDirect(){
-    const key=$('apiKey').value.trim(); if(!key) return add('Enter API key.');
+    const key=$('apiKey').value.trim();
+    if(!key){
+      statusEl.textContent='Missing API key';
+      return add('Enter API key in Direct mode, then tap Connect again.');
+    }
     const url=`wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=${encodeURIComponent(key)}`;
     ws=new WebSocket(url);
-    ws.onopen=()=>{statusEl.textContent='Connected (direct)'; add('Connected direct WS'); ws.send(JSON.stringify({setup:{model:'models/gemini-2.5-flash-native-audio-latest',generationConfig:{responseModalities:['TEXT']}}}));};
+    ws.onopen=()=>{statusEl.textContent='Connected (direct)'; add('Connected direct WS'); ws.send(JSON.stringify({setup:{model:'models/gemini-2.5-flash-native-audio-latest',generationConfig:{responseModalities:['TEXT']}}})); add('Setup sent. Type in Manual Message and tap Send to test.');};
     ws.onmessage=(e)=>{add('Server: '+e.data.slice(0,700)); try{const j=JSON.parse(e.data); const parts=j?.serverContent?.modelTurn?.parts||[]; const p=parts.find(x=>x.text); if(p){add('Assistant: '+p.text); speak(p.text);} }catch{}};
     ws.onclose=()=>{statusEl.textContent='Disconnected'; add('WS closed'); ws=null;};
-    ws.onerror=()=>add('WS error');
+    ws.onerror=(err)=>{statusEl.textContent='WebSocket error'; add('WS error (check API key / model access / network).');};
   }
 
   async function sendRelay(text){
@@ -108,7 +113,7 @@
     ws.send(JSON.stringify({clientContent:{turns:[{role:'user',parts:[{text}]}],turnComplete:true}}));
   }
 
-  $('connectBtn').onclick=()=> modeEl.value==='direct' ? connectDirect() : (statusEl.textContent='Relay mode ready'; add('Relay mode selected. No persistent socket needed.'));
+  $('connectBtn').onclick=()=> modeEl.value==='direct' ? connectDirect() : (statusEl.textContent='Relay mode ready'; add('Relay mode selected. Enter relay URL/token, then send a manual message.'));
   $('disconnectBtn').onclick=()=>{ if(ws) ws.close(); statusEl.textContent='Disconnected'; };
   $('startMicBtn').onclick=()=> recognition ? (recognition.start(), add('Mic started')) : add('SpeechRecognition unsupported');
   $('stopMicBtn').onclick=()=> recognition && (recognition.stop(), add('Mic stopped'));
