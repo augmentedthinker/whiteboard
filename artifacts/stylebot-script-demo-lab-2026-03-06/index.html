@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StyleBot Script Demo Lab — 2026-03-06</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@500;700&family=Orbitron:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    :root{--bg:#070d19;--panel:#111a2d;--line:rgba(156,198,255,.28);--ink:#e8f1ff;--muted:#adc1dd;--good:#8fd2ff}
+    *{box-sizing:border-box} body{margin:0;background:radial-gradient(120% 100% at 50% 0%,#162641 0%,#0a1222 45%,#070d19 100%);color:var(--ink);font-family:Inter,system-ui,sans-serif;padding:18px}
+    .wrap{max-width:1100px;margin:0 auto}
+    h1{font:700 clamp(1.7rem,4.8vw,2.8rem)/1.05 Space Grotesk,sans-serif;margin:0 0 8px}
+    .sub{color:var(--muted);margin:0 0 18px}
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 16px}
+    .btn{border:1px solid var(--line);background:#14213a;color:#dff0ff;border-radius:10px;padding:8px 12px;cursor:pointer;font-weight:700}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+    .card{border:1px solid var(--line);background:linear-gradient(165deg,rgba(21,32,55,.92),rgba(12,20,36,.92));border-radius:14px;padding:12px}
+    .title{font:700 1rem/1.2 Space Grotesk,sans-serif;margin:0 0 8px}
+    .desc{font-size:.9rem;color:var(--muted);margin:0 0 10px}
+    .compare{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .pane{border:1px solid rgba(166,205,255,.2);border-radius:10px;padding:10px;background:rgba(7,12,24,.6)}
+    .lbl{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#b8cff0;margin:0 0 8px}
+    .demo-box{border-radius:10px;padding:14px}
+    .before-font{font-family:Arial,sans-serif;background:#202530}
+    .after-font{font-family:Orbitron,Inter,sans-serif;background:#1b2d4a}
+    .before-type h4{font-size:22px;margin:0 0 6px}.before-type p{font-size:13px;margin:0}
+    .after-type h4{font-size:clamp(1.2rem,3.8vw,1.7rem);margin:0 0 6px}.after-type p{font-size:clamp(.9rem,2.2vw,1rem);margin:0;line-height:1.5}
+    .before-contrast{background:#7ca0c9;color:#8db2d9}
+    .after-contrast{background:#11233d;color:#e7f0ff}
+    .before-space .item{margin:3px 0;padding:5px;background:#24344f}
+    .after-space .item{margin:8px 0;padding:12px;background:#1b2a44}
+    .before-motion .pulse{width:44px;height:44px;border-radius:50%;background:#8fd2ff;animation:spin 300ms linear infinite;margin:auto}
+    .after-motion .pulse{width:44px;height:44px;border-radius:50%;background:#8fd2ff;animation:float 2s ease-in-out infinite;margin:auto}
+    .before-skin button{border:none;background:#666;color:#fff;padding:8px 10px;border-radius:4px}
+    .after-skin button{border:1px solid rgba(173,219,255,.35);background:linear-gradient(135deg,#78c7ff,#bfe3ff);color:#071225;padding:9px 12px;border-radius:10px;font-weight:700;box-shadow:0 8px 16px rgba(100,180,255,.25)}
+    .audit{font-size:.86rem;line-height:1.45;background:#0c1628;border-radius:10px;padding:10px;border:1px solid rgba(170,210,255,.2)}
+    .ok{color:#9ae1b2}.warn{color:#ffd38f}
+    .foot{margin-top:16px;color:#9db2cf;font-size:.82rem}
+    @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>StyleBot Script Demo Lab</h1>
+    <p class="sub">Each panel shows what a StyleBot script changes. Left = before, right = after.</p>
+    <div class="topbar">
+      <a class="btn" href="../../today/index.html">← Back to Today</a>
+      <button class="btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">Top</button>
+    </div>
+
+    <section class="grid">
+      <article class="card">
+        <h3 class="title">1) stylebot-font-loader.mjs</h3>
+        <p class="desc">Swaps generic fonts for a curated vibe preset.</p>
+        <div class="compare">
+          <div class="pane"><p class="lbl">Before</p><div class="demo-box before-font">Generic font header</div></div>
+          <div class="pane"><p class="lbl">After</p><div class="demo-box after-font">Sci-Fi preset applied</div></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3 class="title">2) stylebot-type-scale.mjs</h3>
+        <p class="desc">Adds responsive clamp-based type hierarchy.</p>
+        <div class="compare">
+          <div class="pane before-type"><p class="lbl">Before</p><h4>Heading</h4><p>Tiny body text on mobile.</p></div>
+          <div class="pane after-type"><p class="lbl">After</p><h4>Heading</h4><p>Readable, adaptive body text across devices.</p></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3 class="title">3) stylebot-contrast-guard.mjs</h3>
+        <p class="desc">Fixes weak color contrast for readability.</p>
+        <div class="compare">
+          <div class="pane"><p class="lbl">Before</p><div class="demo-box before-contrast">Hard to read text</div></div>
+          <div class="pane"><p class="lbl">After</p><div class="demo-box after-contrast">AA-friendly readable text</div></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3 class="title">4) stylebot-space-rhythm.mjs</h3>
+        <p class="desc">Normalizes spacing to a clean token rhythm.</p>
+        <div class="compare">
+          <div class="pane before-space"><p class="lbl">Before</p><div class="item">Card A</div><div class="item">Card B</div></div>
+          <div class="pane after-space"><p class="lbl">After</p><div class="item">Card A</div><div class="item">Card B</div></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3 class="title">5) stylebot-motion-tune.mjs</h3>
+        <p class="desc">Replaces harsh motion with subtle micro-interactions.</p>
+        <div class="compare">
+          <div class="pane before-motion"><p class="lbl">Before</p><div class="pulse"></div></div>
+          <div class="pane after-motion"><p class="lbl">After</p><div class="pulse"></div></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3 class="title">6) stylebot-component-skin.mjs</h3>
+        <p class="desc">Applies consistent premium component skinning.</p>
+        <div class="compare">
+          <div class="pane before-skin"><p class="lbl">Before</p><button>Default Button</button></div>
+          <div class="pane after-skin"><p class="lbl">After</p><button>Skinned Button</button></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3 class="title">7) stylebot-page-audit.mjs</h3>
+        <p class="desc">Runs practical quality checks and outputs a summary.</p>
+        <div class="audit">
+          <div><span class="ok">PASS</span> Typography hierarchy</div>
+          <div><span class="ok">PASS</span> Contrast baseline</div>
+          <div><span class="warn">WARN</span> Excess blur stack on 2 components</div>
+          <div><span class="ok">PASS</span> Mobile overflow checks</div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3 class="title">8) stylebot-visual-diff.mjs</h3>
+        <p class="desc">Creates before/after evidence snapshots and delta notes.</p>
+        <div class="audit">
+          <div>• Header contrast: +24%</div>
+          <div>• Button affordance: improved hover + focus</div>
+          <div>• Spacing consistency: normalized to 8px rhythm</div>
+          <div>• Render note: no layout overflow detected</div>
+        </div>
+      </article>
+    </section>
+
+    <p class="foot">Remote Viewer artifact · 2026-03-06 · Demonstration page for StyleBot capability scripts.</p>
+  </div>
+</body>
+</html>
