@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Oracle's Resonance</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;600&display=swap');
+    
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('bg.jpg');
+      background-size: cover;
+      background-position: center;
+      z-index: 1;
+      opacity: 0.6;
+      transition: opacity 2s ease-in-out, transform 10s linear;
+    }
+    
+    .bg.active {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.8) 100%);
+      z-index: 2;
+    }
+    
+    .content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      max-width: 800px;
+      padding: 2rem;
+    }
+    
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      margin: 0 0 1rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #00ffcc;
+      text-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1.5s ease-out;
+    }
+    
+    .text-box {
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      font-size: 1.1rem;
+      color: #e0e0e0;
+      line-height: 1.8;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1.5s ease-out 0.5s;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 1.5rem;
+      border: 1px solid rgba(0, 255, 204, 0.2);
+      border-radius: 8px;
+      backdrop-filter: blur(4px);
+    }
+    
+    .play-btn {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.8rem 2rem;
+      background: transparent;
+      border: 1px solid #d4af37;
+      color: #d4af37;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1.5s ease-out 1s;
+    }
+    
+    .play-btn:hover {
+      background: rgba(212, 175, 55, 0.1);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+    }
+    
+    .nav {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      display: flex;
+      gap: 2rem;
+      opacity: 0;
+      transition: opacity 1.5s ease-in 2s;
+    }
+    
+    a {
+      color: rgba(255, 255, 255, 0.4);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    
+    a:hover {
+      color: #00ffcc;
+    }
+    
+    .loaded h1, .loaded .text-box, .loaded .play-btn {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .loaded .nav {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="bg" id="bgLayer"></div>
+  <div class="overlay"></div>
+  
+  <div class="content" id="mainContent">
+    <h1>The Oracle</h1>
+    <div class="text-box" id="transcript">
+      "The noise of the network is deafening. But underneath the static... the signal remains pure. Listen closely, and the path will reveal itself."
+    </div>
+    <button class="play-btn" id="playBtn">Initiate Resonance</button>
+  </div>
+  
+  <div class="nav">
+    <a href="../../today/index.html">← Gallery</a>
+    <a href="signature.html">🧠 Signature</a>
+  </div>
+  
+  <audio id="oracleVoice" src="voice.wav"></audio>
+
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.body.classList.add('loaded');
+      }, 500);
+    });
+    
+    const playBtn = document.getElementById('playBtn');
+    const audio = document.getElementById('oracleVoice');
+    const bgLayer = document.getElementById('bgLayer');
+    const transcriptBox = document.getElementById('transcript');
+    
+    playBtn.addEventListener('click', () => {
+      if(audio.paused) {
+        audio.play();
+        bgLayer.classList.add('active');
+        playBtn.textContent = "Resonating...";
+        playBtn.style.color = "#00ffcc";
+        playBtn.style.borderColor = "#00ffcc";
+        transcriptBox.style.borderColor = "rgba(212, 175, 55, 0.5)"; // Gold shift during audio
+      }
+    });
+    
+    audio.addEventListener('ended', () => {
+      bgLayer.classList.remove('active');
+      playBtn.textContent = "Initiate Resonance";
+      playBtn.style.color = "#d4af37";
+      playBtn.style.borderColor = "#d4af37";
+      transcriptBox.style.borderColor = "rgba(0, 255, 204, 0.2)";
+    });
+  </script>
+</body>
+</html>
