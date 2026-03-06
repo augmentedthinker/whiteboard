@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Signature | Music Capability Probe</title>
+  <style>
+    body{margin:0;background:#0b1222;color:#dbe8ff;font-family:Inter,system-ui,sans-serif}
+    .wrap{max-width:900px;margin:40px auto;padding:0 18px}
+    .card{background:#111a30;border:1px solid rgba(157,201,255,.28);border-radius:14px;padding:20px}
+    h1,h2{margin:0 0 10px} p,li{color:#a8bbe0;line-height:1.55} code{background:#0a1020;border:1px solid rgba(157,201,255,.25);padding:2px 6px;border-radius:6px}
+    a{color:#9fd2ff;text-decoration:none}
+  </style>
+</head>
+<body>
+<main class="wrap">
+<section class="card">
+  <h1>🧠 Signature — Music/Song API Capability Probe</h1>
+
+  <h2>1) Initiating Prompt</h2>
+  <p>“Is there a music or song AI generation service available at the Google API? If so, do the same sort of test, write a script for VoiceBot, and create an example in Today’s Artifacts.”</p>
+
+  <h2>2) Exact Model IDs Used</h2>
+  <ul>
+    <li>Probe endpoint: <code>v1beta/models</code> listing for current Gemini API key/project</li>
+    <li>Detected audio family: <code>gemini-2.5-flash-native-audio-*</code> (bidi only)</li>
+  </ul>
+
+  <h2>3) Exact Probe Inputs</h2>
+  <ul>
+    <li>VoiceBot script: <code>/home/gagekappes/.openclaw/workspace-voicebot/scripts/probe_music_models.mjs</code></li>
+    <li>Output report: <code>artifacts/music-capability-probe-2026-03-06/probe-report.json</code></li>
+  </ul>
+
+  <h2>4) Direction Rationale</h2>
+  <p>Before promising song generation, we validated model availability directly against live API model discovery for your actual key/project.</p>
+
+  <h2>5) Technical Notes</h2>
+  <ul>
+    <li>Result at test time: no dedicated music model IDs (e.g., Lyria) returned.</li>
+    <li>This is usually access/rollout/project-enabled dependent.</li>
+  </ul>
+
+  <h2>6) Runtime Safety Note</h2>
+  <p>Static artifact only. No API keys are embedded in hosted pages.</p>
+
+  <h2>7) Quick Link</h2>
+  <p><a href="index.html">Launch Music Capability Probe Artifact</a></p>
+  <p><a href="../../today/index.html">← Back to Today’s Artifacts</a></p>
+</section>
+</main>
+</body>
+</html>
