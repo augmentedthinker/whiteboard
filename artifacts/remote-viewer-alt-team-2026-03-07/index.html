@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Remote Viewer Alt Team Pass — 2026-03-07</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;600;700&display=swap');
+    :root {
+      --bg:#05070D; --text:#F3F6FF; --muted:#C7D0E6;
+      --orange:#ff9a56; --orange2:#ffbf92; --blue:#5b8cff;
+      --panel:rgba(8,10,16,.58); --line:rgba(255,154,86,.55);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%}
+    body{
+      font-family:Inter,system-ui,sans-serif;
+      color:var(--text);
+      background:#000;
+      overflow-x:hidden;
+      padding:max(8px,env(safe-area-inset-top)) 12px max(20px,env(safe-area-inset-bottom));
+    }
+
+    .bg{position:fixed;inset:0;display:grid;place-items:center;background:#000;z-index:-3}
+    .bg img{height:100vh;width:auto;max-width:100vw;object-fit:contain;filter:contrast(1.08) saturate(1.06)}
+    .veil{position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.46));}
+    canvas{position:fixed;inset:0;z-index:-1;pointer-events:none}
+
+    .wrap{max-width:980px;margin:0 auto;min-height:calc(100vh - 28px);display:flex;flex-direction:column;justify-content:center;align-items:center}
+    .title-box{
+      width:min(96vw,980px);
+      border:2px solid var(--line);
+      border-radius:18px;
+      background:var(--panel);
+      box-shadow:0 0 0 1px rgba(255,154,86,.24), 0 18px 50px rgba(0,0,0,.45);
+      backdrop-filter: blur(6px);
+      padding:14px 16px;
+      margin-bottom:12px;
+      text-align:center;
+      overflow:hidden;
+    }
+    h1{
+      margin:0;
+      font-family:'Space Grotesk',Inter,sans-serif;
+      font-size:clamp(1.2rem,7.1vw,4rem);
+      letter-spacing:.08em;
+      line-height:1;
+      color:var(--orange);
+      white-space:nowrap;
+      text-transform:uppercase;
+      text-shadow:0 0 20px rgba(91,140,255,.18);
+    }
+
+    .controls{margin-bottom:10px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+    .chip{background:rgba(10,17,32,.76);color:var(--muted);border:1px solid rgba(123,166,255,.45);padding:8px 12px;border-radius:999px;font-size:.9rem;cursor:pointer}
+
+    .stack{display:flex;flex-direction:column;gap:10px;align-items:center}
+    .btn{
+      width:min(88vw,460px);
+      min-height:64px;
+      border-radius:12px;
+      border:2px solid var(--line);
+      background:linear-gradient(165deg, rgba(12,12,14,.72), rgba(22,16,10,.56));
+      color:var(--orange);
+      font-weight:700;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      font-size:1.14rem;
+      display:grid;
+      place-items:center;
+      text-decoration:none;
+      transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+      box-shadow:0 8px 26px rgba(0,0,0,.3);
+    }
+    .btn:hover{transform:translateY(-1px);border-color:var(--orange2);box-shadow:0 12px 28px rgba(0,0,0,.4)}
+
+    .footer{margin-top:14px;font-size:.9rem;color:#c6d5f0;text-align:center}
+    .footer a{color:#95bbff;text-decoration:none;margin:0 8px}
+
+    @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important} }
+  </style>
+</head>
+<body>
+  <div class="bg"><img src="bg.png" alt="" /></div>
+  <div class="veil"></div>
+  <canvas id="fx"></canvas>
+
+  <main class="wrap">
+    <section class="title-box">
+      <h1>REMOTE VIEWER</h1>
+    </section>
+
+    <div class="controls">
+      <button class="chip" id="playIntro">▶ Play Team Intro</button>
+      <button class="chip" id="stopIntro">⏹ Stop</button>
+    </div>
+
+    <section class="stack">
+      <a class="btn" href="../../today/index.html">ARTIFACTS</a>
+      <a class="btn" href="../../agents/index.html">AGENTS</a>
+      <a class="btn" href="../../tools/index.html">TOOLS</a>
+      <a class="btn" href="../../games/index.html">GAMES</a>
+      <a class="btn" href="../../docs/friend-viewer/index.html">SHARE</a>
+      <a class="btn" href="../../archive/index.html">ARCHIVE</a>
+    </section>
+
+    <div class="footer">
+      <a href="../../today/index.html">← Back to Today</a>
+      <a href="signature.html">🧠 Signature</a>
+    </div>
+  </main>
+
+  <audio id="intro" src="intro.wav" preload="auto"></audio>
+  <script>
+    const intro = document.getElementById('intro');
+    document.getElementById('playIntro').addEventListener('click',()=>intro.play().catch(()=>{}));
+    document.getElementById('stopIntro').addEventListener('click',()=>{intro.pause();intro.currentTime=0;});
+
+    const c=document.getElementById('fx'),x=c.getContext('2d');
+    const p=[]; let w=0,h=0;
+    function rs(){w=c.width=innerWidth;h=c.height=innerHeight}
+    addEventListener('resize',rs); rs();
+    for(let i=0;i<36;i++) p.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2+0.7,vx:(Math.random()-.5)*0.16,vy:Math.random()*0.18+0.05,a:Math.random()*0.5+0.15});
+    (function tick(){
+      x.clearRect(0,0,w,h);
+      for(const o of p){
+        o.x+=o.vx; o.y+=o.vy;
+        if(o.y>h+10){o.y=-10;o.x=Math.random()*w}
+        if(o.x<-10)o.x=w+10; if(o.x>w+10)o.x=-10;
+        x.beginPath(); x.fillStyle=`rgba(140,185,255,${o.a})`; x.shadowColor='rgba(91,140,255,.55)'; x.shadowBlur=8; x.arc(o.x,o.y,o.r,0,Math.PI*2); x.fill();
+      }
+      requestAnimationFrame(tick);
+    })();
+  </script>
+</body>
+</html>
