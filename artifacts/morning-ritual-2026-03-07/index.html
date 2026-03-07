@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Morning Ritual — 2026-03-07</title>
+  <style>
+    :root{
+      --bg:#050813;
+      --ink:#e9f2ff;
+      --muted:#aec2e6;
+      --line:rgba(156,203,255,.24);
+      --gold:#ffd47a;
+      --rose:#f8a8a8;
+      --mint:#9cf0d0;
+      --panel:rgba(9,18,36,.62);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(1100px 500px at 15% 0%, rgba(255,212,122,.28), transparent 60%),
+        radial-gradient(900px 460px at 85% 10%, rgba(248,168,168,.2), transparent 64%),
+        radial-gradient(1200px 600px at 50% 100%, rgba(156,240,208,.12), transparent 72%),
+        var(--bg);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+    .sun {
+      position:fixed;
+      top:-160px;
+      left:50%;
+      width:420px;
+      height:420px;
+      transform:translateX(-50%);
+      border-radius:50%;
+      background:radial-gradient(circle at 50% 56%, #fff6d6 0%, #ffd47a 36%, rgba(255,169,110,.55) 54%, rgba(255,169,110,0) 70%);
+      filter:blur(1px);
+      animation:float 8s ease-in-out infinite;
+      pointer-events:none;
+    }
+    @keyframes float { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+    .wrap{max-width:980px;margin:0 auto;padding:28px 18px 70px;position:relative}
+    .hero{padding:26px 20px;border:1px solid var(--line);background:var(--panel);border-radius:18px;backdrop-filter:blur(10px);margin-top:86px}
+    h1{margin:0 0 10px;font-size:clamp(1.7rem,4.8vw,2.9rem);line-height:1.08}
+    .sub{color:var(--muted);margin:0;font-size:1.05rem}
+    .grid{display:grid;gap:16px;margin-top:18px}
+    @media (min-width:840px){.grid{grid-template-columns:1fr 1fr}}
+    .card{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:16px 16px 14px;backdrop-filter:blur(8px)}
+    h2{margin:0 0 8px;font-size:1.06rem;letter-spacing:.2px}
+    p{margin:0 0 12px;line-height:1.55;color:var(--muted)}
+    blockquote{margin:10px 0 12px;padding-left:12px;border-left:3px solid rgba(255,212,122,.55);color:#f5fbff;line-height:1.5}
+    .btn-row{display:flex;gap:10px;flex-wrap:wrap}
+    button{
+      border:1px solid var(--line);
+      background:#0b1733;
+      color:var(--ink);
+      border-radius:11px;
+      padding:9px 12px;
+      font-size:.93rem;
+      cursor:pointer;
+    }
+    button:hover{border-color:rgba(255,212,122,.55)}
+    .affirmations li{margin:8px 0;color:#d6e6ff}
+    .status{margin-top:12px;font-size:.88rem;color:#bcd2f3;opacity:.9;min-height:1.2rem}
+    .footer{margin-top:22px;color:#9ab0d5;font-size:.9rem}
+    a{color:#9fd2ff;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="sun" aria-hidden="true"></div>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Good Morning, Christopher ☀️</h1>
+      <p class="sub">A small sunrise ritual: two grounding quotes, one short parable, and spoken affirmations to set your trajectory for today.</p>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Quote 1 — Agency</h2>
+        <blockquote>"You have power over your mind — not outside events. Realize this, and you will find strength."</blockquote>
+        <p>Use this as your first filter this morning: what’s controllable in the next 90 minutes?</p>
+        <div class="btn-row">
+          <button data-say="You have power over your mind, not outside events. Realize this, and you will find strength.">🔊 Listen</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>Quote 2 — Focus</h2>
+        <blockquote>"Nature does not hurry, yet everything is accomplished."</blockquote>
+        <p>Steady pace beats frantic pace. One finished artifact beats five half-started ideas.</p>
+        <div class="btn-row">
+          <button data-say="Nature does not hurry, yet everything is accomplished.">🔊 Listen</button>
+        </div>
+      </article>
+
+      <article class="card" style="grid-column:1 / -1">
+        <h2>Morning Parable — The Archer at Dawn</h2>
+        <p>An archer arrived before sunrise with three arrows. On the first, he aimed at everything and hit nothing. On the second, he waited for perfect wind and never released. On the third, he chose one tree knot, exhaled once, and let go. The third arrow fed him all day.</p>
+        <p><strong>Reminder:</strong> today only needs one clean release to become a good day.</p>
+        <div class="btn-row">
+          <button data-say="An archer arrived before sunrise with three arrows. On the first, he aimed at everything and hit nothing. On the second, he waited for perfect wind and never released. On the third, he chose one tree knot, exhaled once, and let go. The third arrow fed him all day.">🔊 Listen to Parable</button>
+        </div>
+      </article>
+
+      <article class="card" style="grid-column:1 / -1">
+        <h2>Spoken Morning Affirmations</h2>
+        <ul class="affirmations">
+          <li>I choose completion over noise.</li>
+          <li>I ship proof, not just plans.</li>
+          <li>I can move calmly and still move fast.</li>
+          <li>My next focused block compounds my future.</li>
+        </ul>
+        <div class="btn-row">
+          <button id="playAffirmations">▶️ Play All</button>
+          <button id="stopSpeech">⏹ Stop</button>
+        </div>
+        <div id="status" class="status"></div>
+      </article>
+    </section>
+
+    <p class="footer"><a href="../../today/index.html">← Back to Today’s Artifacts</a></p>
+  </main>
+
+  <script>
+    const statusEl = document.getElementById('status');
+    const hasTTS = 'speechSynthesis' in window;
+
+    const say = (text, opts = {}) => {
+      if (!hasTTS) {
+        statusEl.textContent = 'Speech not supported on this browser/device.';
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = opts.rate ?? 0.94;
+      u.pitch = opts.pitch ?? 1.0;
+      u.volume = opts.volume ?? 1.0;
+      u.onstart = () => statusEl.textContent = 'Speaking…';
+      u.onend = () => statusEl.textContent = 'Done.';
+      u.onerror = () => statusEl.textContent = 'Speech interrupted.';
+      window.speechSynthesis.speak(u);
+    };
+
+    document.querySelectorAll('[data-say]').forEach(btn => {
+      btn.addEventListener('click', () => say(btn.dataset.say));
+    });
+
+    document.getElementById('stopSpeech').addEventListener('click', () => {
+      if (!hasTTS) return;
+      window.speechSynthesis.cancel();
+      statusEl.textContent = 'Stopped.';
+    });
+
+    document.getElementById('playAffirmations').addEventListener('click', () => {
+      const lines = [
+        'I choose completion over noise.',
+        'I ship proof, not just plans.',
+        'I can move calmly and still move fast.',
+        'My next focused block compounds my future.'
+      ];
+
+      if (!hasTTS) {
+        statusEl.textContent = 'Speech not supported on this browser/device.';
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+      statusEl.textContent = 'Speaking affirmations…';
+      let i = 0;
+      const speakNext = () => {
+        if (i >= lines.length) {
+          statusEl.textContent = 'Affirmation sequence complete.';
+          return;
+        }
+        const u = new SpeechSynthesisUtterance(lines[i]);
+        u.rate = 0.9;
+        u.pitch = 1.0;
+        u.onend = () => { i++; setTimeout(speakNext, 280); };
+        u.onerror = () => { statusEl.textContent = 'Speech interrupted.'; };
+        window.speechSynthesis.speak(u);
+      };
+      speakNext();
+    });
+  </script>
+</body>
+</html>
