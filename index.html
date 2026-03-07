@@ -58,6 +58,14 @@
       pointer-events:none;
     }
 
+    #ambientFx{
+      position:fixed;
+      inset:0;
+      z-index:0;
+      pointer-events:none;
+      opacity:.55;
+    }
+
     .container{
       max-width:980px;
       margin:0 auto;
@@ -66,6 +74,8 @@
       flex-direction:column;
       justify-content:center;
       align-items:center;
+      position:relative;
+      z-index:1;
     }
 
     header{
@@ -188,6 +198,7 @@
     <img src="assets/main-bg/2026-03-07/remote-viewer-portrait-black-edge-swirl.png" alt="" />
   </div>
   <div class="bg-overlay" aria-hidden="true"></div>
+  <canvas id="ambientFx" aria-hidden="true"></canvas>
 
   <button id="fsBtn" class="fs-btn" type="button" aria-label="Toggle fullscreen">⛶</button>
 
@@ -208,6 +219,53 @@
 
   <script>
     const fsBtn = document.getElementById('fsBtn');
+    const fxCanvas = document.getElementById('ambientFx');
+    const fx = fxCanvas.getContext('2d');
+    const particles = [];
+
+    function resizeAmbient(){
+      fxCanvas.width = window.innerWidth;
+      fxCanvas.height = window.innerHeight;
+    }
+
+    function initAmbient(){
+      particles.length = 0;
+      const count = Math.max(18, Math.floor(window.innerWidth / 42));
+      for(let i=0;i<count;i++){
+        const isBlue = Math.random() > 0.38;
+        particles.push({
+          x: Math.random() * fxCanvas.width,
+          y: Math.random() * fxCanvas.height,
+          r: Math.random() * 2.2 + 0.7,
+          vx: (Math.random() - 0.5) * 0.18,
+          vy: -(Math.random() * 0.18 + 0.04),
+          a: Math.random() * 0.33 + 0.12,
+          c: isBlue
+            ? `rgba(${70 + Math.floor(Math.random()*35)}, ${130 + Math.floor(Math.random()*60)}, 255, ALPHA)`
+            : `rgba(255, ${125 + Math.floor(Math.random()*45)}, ${70 + Math.floor(Math.random()*35)}, ALPHA)`
+        });
+      }
+    }
+
+    function tickAmbient(){
+      fx.clearRect(0,0,fxCanvas.width,fxCanvas.height);
+      for(const p of particles){
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.y < -12) { p.y = fxCanvas.height + 12; p.x = Math.random() * fxCanvas.width; }
+        if (p.x < -12) p.x = fxCanvas.width + 12;
+        if (p.x > fxCanvas.width + 12) p.x = -12;
+
+        fx.beginPath();
+        fx.fillStyle = p.c.replace('ALPHA', String(p.a));
+        fx.shadowColor = p.c.replace('ALPHA', '0.45');
+        fx.shadowBlur = 10;
+        fx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        fx.fill();
+      }
+      requestAnimationFrame(tickAmbient);
+    }
 
     function isFullscreen(){ return !!(document.fullscreenElement || document.webkitFullscreenElement); }
     async function toggleFullscreen(){
@@ -286,8 +344,17 @@
     });
 
     document.addEventListener('fullscreenchange', ()=>fsBtn.textContent = isFullscreen() ? '🡼' : '⛶');
-    window.addEventListener('load', normalizeButtonWidths);
-    window.addEventListener('resize', normalizeButtonWidths);
+    window.addEventListener('load', () => {
+      resizeAmbient();
+      initAmbient();
+      tickAmbient();
+      normalizeButtonWidths();
+    });
+    window.addEventListener('resize', () => {
+      resizeAmbient();
+      initAmbient();
+      normalizeButtonWidths();
+    });
   </script>
 </body>
 </html>
