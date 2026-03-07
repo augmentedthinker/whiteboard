@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Morning Ritual v2 — 2026-03-07</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;600;700&display=swap');
+
+    :root{
+      --paper:#f8f1df;
+      --ink:#2d2013;
+      --copper:#9a5a2f;
+      --clay:#c97843;
+      --line:rgba(70,36,18,.22);
+      --card:rgba(255,250,241,.78);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;font-family:Manrope,system-ui,sans-serif;color:var(--ink)}
+    body{background:#190f08;overflow-x:hidden}
+
+    .bg{
+      position:fixed;inset:0;z-index:-3;
+      background:url('./bg.png') center/cover no-repeat;
+      transform:scale(1.04);
+      animation:slowZoom 22s ease-in-out infinite alternate;
+    }
+    .veil{position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg, rgba(27,15,8,.42), rgba(19,10,5,.68));}
+    canvas#embers{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.7}
+
+    @keyframes slowZoom { from {transform:scale(1.03)} to {transform:scale(1.09)} }
+
+    .wrap{max-width:980px;margin:0 auto;padding:26px 16px 70px}
+    .hero{
+      margin-top:18px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:24px;
+      background:var(--card);
+      backdrop-filter: blur(6px);
+      box-shadow:0 16px 50px rgba(0,0,0,.24);
+    }
+    h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,3.35rem);margin:0 0 8px;line-height:1.02}
+    .lead{margin:0;color:#573724;font-size:1.05rem}
+
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    button{
+      background:#2d2013;color:#fff;border:1px solid rgba(255,255,255,.2);
+      padding:9px 13px;border-radius:999px;cursor:pointer;font-weight:600;letter-spacing:.2px
+    }
+    button.alt{background:#fff;color:#402818;border:1px solid rgba(64,40,24,.28)}
+    button:hover{transform:translateY(-1px)}
+
+    .grid{display:grid;gap:14px;margin-top:14px}
+    @media (min-width:840px){.grid{grid-template-columns:1fr 1fr}}
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:16px;
+      box-shadow:0 8px 24px rgba(0,0,0,.18)
+    }
+    .card h2{font-family:'DM Serif Display',serif;font-size:1.35rem;margin:0 0 8px}
+    p{margin:0 0 10px;line-height:1.55}
+    blockquote{
+      margin:8px 0 10px;
+      padding:10px 12px;
+      border-left:3px solid var(--clay);
+      background:rgba(255,255,255,.48);
+      border-radius:8px;
+    }
+    ul{margin:8px 0 10px;padding-left:18px}
+    li{margin:8px 0}
+    .status{margin-top:12px;color:#5f3b25;font-size:.93rem;min-height:1.1rem}
+    a{color:var(--copper);text-decoration:none;font-weight:700}
+    .foot{margin-top:16px;color:#ffecd2;font-size:.9rem;text-shadow:0 1px 3px rgba(0,0,0,.65)}
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="veil"></div>
+  <canvas id="embers"></canvas>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Morning Ritual v2</h1>
+      <p class="lead">Fresh image, fresh words, and fresh Gemini voices. Light the day on purpose.</p>
+      <div class="toolbar">
+        <button id="playOpening">▶ Play Opening</button>
+        <button id="playAll" class="alt">▶ Play Full Sequence</button>
+        <button id="stopAll" class="alt">⏹ Stop</button>
+      </div>
+      <div id="status" class="status">Ready.</div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Quote 1 — Direction</h2>
+        <blockquote>“Discipline is choosing between what you want now and what you want most.”</blockquote>
+        <p>Today’s move: choose the “want most” target before the noise starts.
+        </p>
+        <button data-audio="quote1">🔊 Listen</button>
+      </article>
+
+      <article class="card">
+        <h2>Quote 2 — Effort</h2>
+        <blockquote>“A little progress each day compounds into a very different life.”</blockquote>
+        <p>Your edge isn’t intensity alone; it’s repeatability.</p>
+      </article>
+
+      <article class="card" style="grid-column:1/-1">
+        <h2>Parable — The Seed at Dawn</h2>
+        <p>A traveler asked a gardener how to grow a forest. The gardener handed him one seed and said, “Protect this one every day.” Years later, the traveler returned and found shade, fruit, and birdsong. The forest came from many mornings of honoring one seed.</p>
+        <p><strong>Reflection:</strong> what is your “one seed” for this morning block?</p>
+        <button data-audio="parable">🔊 Listen to Parable</button>
+      </article>
+
+      <article class="card" style="grid-column:1/-1">
+        <h2>Affirmations (Gemini Voice)</h2>
+        <ul>
+          <li>I create before I consume.</li>
+          <li>I finish what matters.</li>
+          <li>I move with calm intensity.</li>
+          <li>My work today compounds my future.</li>
+        </ul>
+        <button data-audio="affirmations">🔊 Play Affirmations</button>
+      </article>
+    </section>
+
+    <p class="foot"><a href="../../today/index.html">← Back to Today’s Artifacts</a> · <a href="signature.html">🧠 Signature</a></p>
+  </main>
+
+  <audio id="aOpening" src="opening.wav" preload="auto"></audio>
+  <audio id="aQuote1" src="quote1.wav" preload="auto"></audio>
+  <audio id="aParable" src="parable.wav" preload="auto"></audio>
+  <audio id="aAffirmations" src="affirmations.wav" preload="auto"></audio>
+
+  <script>
+    const statusEl = document.getElementById('status');
+    const audios = {
+      opening: document.getElementById('aOpening'),
+      quote1: document.getElementById('aQuote1'),
+      parable: document.getElementById('aParable'),
+      affirmations: document.getElementById('aAffirmations'),
+    };
+
+    let seq = [];
+    let seqIndex = 0;
+
+    function stopAll(){
+      Object.values(audios).forEach(a => { a.pause(); a.currentTime = 0; });
+      seq = []; seqIndex = 0;
+      statusEl.textContent = 'Stopped.';
+    }
+
+    function playKey(key){
+      stopAll();
+      const a = audios[key];
+      if (!a) return;
+      statusEl.textContent = `Playing ${key}...`;
+      a.play().catch(() => statusEl.textContent = 'Playback blocked. Tap again after interacting.');
+      a.onended = () => statusEl.textContent = 'Done.';
+    }
+
+    function playSequence(keys){
+      stopAll();
+      seq = keys.slice();
+      seqIndex = 0;
+      const playNext = () => {
+        if (seqIndex >= seq.length) {
+          statusEl.textContent = 'Sequence complete.';
+          return;
+        }
+        const key = seq[seqIndex++];
+        const a = audios[key];
+        statusEl.textContent = `Playing ${key} (${seqIndex}/${seq.length})...`;
+        a.onended = playNext;
+        a.play().catch(() => statusEl.textContent = 'Playback blocked. Tap again after interacting.');
+      };
+      playNext();
+    }
+
+    document.getElementById('playOpening').addEventListener('click', () => playKey('opening'));
+    document.getElementById('playAll').addEventListener('click', () => playSequence(['opening','quote1','parable','affirmations']));
+    document.getElementById('stopAll').addEventListener('click', stopAll);
+    document.querySelectorAll('[data-audio]').forEach(btn => btn.addEventListener('click', () => playKey(btn.dataset.audio)));
+
+    // gentle ember particles
+    const c = document.getElementById('embers');
+    const ctx = c.getContext('2d');
+    const particles = [];
+    const count = 44;
+
+    function resize(){ c.width = innerWidth; c.height = innerHeight; }
+    addEventListener('resize', resize); resize();
+
+    for(let i=0;i<count;i++){
+      particles.push({
+        x: Math.random()*c.width,
+        y: Math.random()*c.height,
+        r: Math.random()*2.2+0.7,
+        vx: (Math.random()-.5)*0.18,
+        vy: -(Math.random()*0.35+0.08),
+        a: Math.random()*0.6+0.2
+      });
+    }
+
+    function tick(){
+      ctx.clearRect(0,0,c.width,c.height);
+      for(const p of particles){
+        p.x += p.vx; p.y += p.vy;
+        if(p.y < -10){ p.y = c.height + 8; p.x = Math.random()*c.width; }
+        if(p.x < -10) p.x = c.width+10;
+        if(p.x > c.width+10) p.x = -10;
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(255, 198, 128, ${p.a})`;
+        ctx.shadowColor = 'rgba(255,160,90,.6)';
+        ctx.shadowBlur = 8;
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fill();
+      }
+      requestAnimationFrame(tick);
+    }
+    tick();
+  </script>
+</body>
+</html>
