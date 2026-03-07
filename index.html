@@ -88,12 +88,7 @@
     }
 
     .section-title{
-      margin:12px 2px 8px;
-      font-size:.76rem;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color:#9ec3e7;
-      text-align:center;
+      display:none;
     }
 
     .portal-grid{
@@ -109,9 +104,9 @@
     .btn{
       position:relative;
       overflow:hidden;
-      border:1px solid rgba(178,221,255,.46);
-      background:linear-gradient(160deg, rgba(116,178,242,.14), rgba(82,137,198,.1));
-      color:var(--text);
+      border:2px solid rgba(255,153,86,.85);
+      background:linear-gradient(160deg, rgba(20,20,20,.62), rgba(8,8,8,.62));
+      color:#ff9a56;
       border-radius:12px;
       padding:10px 14px;
       cursor:pointer;
@@ -128,32 +123,28 @@
       white-space:normal;
     }
 
-    .btn::after{
-      content:"";
-      position:absolute;inset:0;
-      background:
-        linear-gradient(transparent 96%, rgba(170,215,255,.08) 98%),
-        linear-gradient(90deg, transparent 96%, rgba(170,215,255,.06) 98%);
-      background-size:100% 16px, 16px 100%;
-      pointer-events:none;
-    }
+    .btn::after{ content:none; }
 
-    .btn:hover{transform:translateY(-1px);background:linear-gradient(160deg, rgba(130,192,252,.3), rgba(93,150,214,.24));border-color:rgba(204,235,255,.65)}
-    .btn strong{display:block;font-size:.92rem;margin-bottom:2px}
-    .btn small{color:var(--muted);font-size:.8rem}
+    .btn:hover{transform:translateY(-1px);background:linear-gradient(160deg, rgba(38,25,17,.78), rgba(16,11,8,.78));border-color:rgba(255,184,132,.95)}
+    .btn strong{display:block;font-size:1.14rem;margin-bottom:0;letter-spacing:.02em}
+    .btn small{display:none}
 
     .fs-btn {
       position: fixed;
       top: max(10px, env(safe-area-inset-top));
       right: max(10px, env(safe-area-inset-right));
       z-index: 220;
-      background: rgba(15, 25, 48, 0.82);
-      color: #cfe6ff;
-      border: 1px solid rgba(120,170,255,.55);
-      border-radius: 10px;
-      padding: 8px 10px;
-      font-size: 12px;
-      font-weight: 600;
+      background: #7fd2ff;
+      color: #0b1a2d;
+      border: 1px solid rgba(201,239,255,.9);
+      border-radius: 999px;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      font-size: 18px;
+      font-weight: 700;
+      display:grid;
+      place-items:center;
       backdrop-filter: blur(6px);
     }
 
@@ -168,8 +159,7 @@
         text-align:left;
       }
 
-      .btn strong{font-size:.95rem}
-      .btn small{font-size:.79rem}
+      .btn strong{font-size:1.12rem}
     }
   </style>
 </head>
@@ -179,21 +169,20 @@
   </div>
   <div class="bg-overlay" aria-hidden="true"></div>
 
-  <button id="fsBtn" class="fs-btn" type="button">⛶ Fullscreen</button>
+  <button id="fsBtn" class="fs-btn" type="button" aria-label="Toggle fullscreen">⛶</button>
 
   <div class="container">
     <header>
       <h1>Remote Viewer</h1>
     </header>
 
-    <div class="section-title">Navigation</div>
     <section class="portal-grid">
-      <button class="btn" onclick="window.open('today/index.html','_blank')"><strong>Today’s Artifacts</strong><small>Latest outputs</small></button>
-      <button class="btn" onclick="window.open('agents/index.html','_blank')"><strong>Agents Workstation Bay</strong><small>Specialist units + capabilities</small></button>
-      <button class="btn" onclick="window.open('tools/index.html','_blank')"><strong>Tools</strong><small>Manual utilities</small></button>
-      <button class="btn" onclick="window.open('games/index.html','_blank')"><strong>Games</strong><small>Curated portal</small></button>
-      <button class="btn" onclick="window.open('docs/friend-viewer/index.html','_blank')"><strong>Friend Viewer</strong><small>Share-ready portal</small></button>
-      <button class="btn" onclick="window.open('archive/index.html','_self')"><strong>Archive</strong><small>Needs work / stored</small></button>
+      <button class="btn" onclick="window.open('today/index.html','_blank')"><strong>Artifacts</strong></button>
+      <button class="btn" onclick="window.open('agents/index.html','_blank')"><strong>Agents</strong></button>
+      <button class="btn" onclick="window.open('tools/index.html','_blank')"><strong>Tools</strong></button>
+      <button class="btn" onclick="window.open('games/index.html','_blank')"><strong>Games</strong></button>
+      <button class="btn" onclick="window.open('docs/friend-viewer/index.html','_blank')"><strong>Share</strong></button>
+      <button class="btn" onclick="window.open('archive/index.html','_self')"><strong>Archive</strong></button>
     </section>
   </div>
 
@@ -212,7 +201,7 @@
           else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
         }
       } catch(_) {}
-      fsBtn.textContent = isFullscreen() ? '🡼 Exit Fullscreen' : '⛶ Fullscreen';
+      fsBtn.textContent = isFullscreen() ? '🡼' : '⛶';
     }
 
     function normalizeButtonWidths(){
@@ -229,7 +218,7 @@
     }
 
     fsBtn.addEventListener('click', toggleFullscreen);
-    document.addEventListener('fullscreenchange', ()=>fsBtn.textContent = isFullscreen() ? '🡼 Exit Fullscreen' : '⛶ Fullscreen');
+    document.addEventListener('fullscreenchange', ()=>fsBtn.textContent = isFullscreen() ? '🡼' : '⛶');
     window.addEventListener('load', normalizeButtonWidths);
     window.addEventListener('resize', normalizeButtonWidths);
   </script>
