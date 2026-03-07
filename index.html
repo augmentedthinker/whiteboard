@@ -63,7 +63,7 @@
       inset:0;
       z-index:0;
       pointer-events:none;
-      opacity:.55;
+      opacity:.92;
     }
 
     .container{
@@ -230,37 +230,52 @@
 
     function initAmbient(){
       particles.length = 0;
-      const count = Math.max(18, Math.floor(window.innerWidth / 42));
+      const count = Math.max(42, Math.floor(window.innerWidth / 18));
+      const center = fxCanvas.width / 2;
+      const spread = fxCanvas.width * 0.2;
+
       for(let i=0;i<count;i++){
-        const isBlue = Math.random() > 0.38;
+        const isBlue = Math.random() > 0.34;
+        const t = (Math.random() + Math.random()) / 2; // center-biased
+        const x = center + (t - 0.5) * spread * 2 + (Math.random() - 0.5) * 18;
         particles.push({
-          x: Math.random() * fxCanvas.width,
+          x,
           y: Math.random() * fxCanvas.height,
-          r: Math.random() * 2.2 + 0.7,
-          vx: (Math.random() - 0.5) * 0.18,
-          vy: -(Math.random() * 0.18 + 0.04),
-          a: Math.random() * 0.33 + 0.12,
+          r: Math.random() * 5.4 + 2.2,
+          vx: (Math.random() - 0.5) * 0.28,
+          vy: -(Math.random() * 0.55 + 0.15),
+          a: Math.random() * 0.5 + 0.28,
           c: isBlue
-            ? `rgba(${70 + Math.floor(Math.random()*35)}, ${130 + Math.floor(Math.random()*60)}, 255, ALPHA)`
-            : `rgba(255, ${125 + Math.floor(Math.random()*45)}, ${70 + Math.floor(Math.random()*35)}, ALPHA)`
+            ? `rgba(${70 + Math.floor(Math.random()*35)}, ${140 + Math.floor(Math.random()*60)}, 255, ALPHA)`
+            : `rgba(255, ${132 + Math.floor(Math.random()*55)}, ${70 + Math.floor(Math.random()*35)}, ALPHA)`
         });
       }
     }
 
     function tickAmbient(){
       fx.clearRect(0,0,fxCanvas.width,fxCanvas.height);
+      const center = fxCanvas.width / 2;
+      const maxDist = fxCanvas.width * 0.45;
+
       for(const p of particles){
         p.x += p.vx;
         p.y += p.vy;
 
-        if (p.y < -12) { p.y = fxCanvas.height + 12; p.x = Math.random() * fxCanvas.width; }
-        if (p.x < -12) p.x = fxCanvas.width + 12;
-        if (p.x > fxCanvas.width + 12) p.x = -12;
+        if (p.y < -18) {
+          const t = (Math.random() + Math.random()) / 2;
+          p.y = fxCanvas.height + 18;
+          p.x = center + (t - 0.5) * fxCanvas.width * 0.4;
+        }
+
+        const dist = Math.abs(p.x - center);
+        const laneFade = Math.max(0, 1 - (dist / maxDist));
+        if (laneFade <= 0.02) continue;
 
         fx.beginPath();
-        fx.fillStyle = p.c.replace('ALPHA', String(p.a));
-        fx.shadowColor = p.c.replace('ALPHA', '0.45');
-        fx.shadowBlur = 10;
+        const alpha = p.a * laneFade;
+        fx.fillStyle = p.c.replace('ALPHA', String(alpha));
+        fx.shadowColor = p.c.replace('ALPHA', String(0.7 * laneFade));
+        fx.shadowBlur = 18;
         fx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         fx.fill();
       }
