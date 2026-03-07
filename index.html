@@ -110,7 +110,7 @@
       border-radius:12px;
       padding:10px 14px;
       cursor:pointer;
-      text-align:left;
+      text-align:center;
       transition:.18s transform,.18s background,.18s border-color;
       backdrop-filter:blur(4px);
       width:auto;
@@ -118,7 +118,7 @@
       max-width:min(88vw,460px);
       display:flex;
       flex-direction:column;
-      align-items:flex-start;
+      align-items:center;
       justify-content:center;
       white-space:normal;
     }
@@ -126,7 +126,7 @@
     .btn::after{ content:none; }
 
     .btn:hover{transform:translateY(-1px);background:linear-gradient(160deg, rgba(38,25,17,.78), rgba(16,11,8,.78));border-color:rgba(255,184,132,.95)}
-    .btn strong{display:block;font-size:1.14rem;margin-bottom:0;letter-spacing:.02em}
+    .btn strong{display:block;font-size:1.14rem;margin-bottom:0;letter-spacing:.04em;text-transform:uppercase}
     .btn small{display:none}
 
     .fs-btn {
@@ -156,7 +156,6 @@
 
       .btn{
         max-width:min(92vw,460px);
-        text-align:left;
       }
 
       .btn strong{font-size:1.12rem}
