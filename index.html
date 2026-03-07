@@ -78,17 +78,19 @@
       width:min(96vw,980px);
       text-align:center;
       box-shadow:0 0 0 1px rgba(255,153,86,.25), 0 8px 28px rgba(0,0,0,.45);
+      overflow:hidden;
     }
 
     h1{
       margin:0;
       font-family:Orbitron,Inter,sans-serif;
-      font-size:clamp(1.45rem,8.2vw,4.2rem);
-      letter-spacing:.12em;
+      font-size:clamp(1.35rem,7.2vw,4.2rem);
+      letter-spacing:.07em;
       text-transform:uppercase;
       color:#ff9a56;
       line-height:1;
       white-space:nowrap;
+      text-align:center;
     }
 
     .section-title{
@@ -138,9 +140,9 @@
       top: max(10px, env(safe-area-inset-top));
       right: max(10px, env(safe-area-inset-right));
       z-index: 220;
-      background: #7fd2ff;
-      color: #0b1a2d;
-      border: 1px solid rgba(201,239,255,.9);
+      background: #2f8cff;
+      color: #eaf5ff;
+      border: 1px solid rgba(126,186,255,.95);
       border-radius: 999px;
       width: 44px;
       height: 44px;
@@ -160,6 +162,17 @@
       .container{
         justify-content:flex-start;
         padding-top:4px;
+      }
+
+      header{
+        width:calc(100vw - 24px);
+        margin-left:auto;
+        margin-right:auto;
+      }
+
+      h1{
+        font-size:clamp(1.2rem,6.8vw,2rem);
+        letter-spacing:.04em;
       }
 
       .btn{
