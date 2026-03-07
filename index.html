@@ -28,7 +28,7 @@
       padding:max(12px,env(safe-area-inset-top)) 12px max(18px,env(safe-area-inset-bottom));
       position:relative;
       overflow-x:hidden;
-      background-color:#060b14;
+      background-color:#000;
     }
 
     .bg-media{
@@ -36,25 +36,25 @@
       inset:0;
       z-index:-2;
       overflow:hidden;
+      display:grid;
+      place-items:center;
+      background:#000;
     }
 
     .bg-media img{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
+      width:auto;
+      height:100vh;
+      max-width:100vw;
+      object-fit:contain;
       object-position:center;
-      filter:saturate(1.08) contrast(1.04) brightness(.92);
+      filter:saturate(1.06) contrast(1.06) brightness(.95);
     }
 
     .bg-overlay{
       position:fixed;
       inset:0;
       z-index:-1;
-      background:
-        radial-gradient(circle at 20% 15%, rgba(120,180,255,.18), transparent 38%),
-        linear-gradient(180deg, rgba(5,10,18,.42), rgba(5,10,18,.62));
+      background:linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.35));
       pointer-events:none;
     }
 
@@ -175,7 +175,7 @@
 </head>
 <body>
   <div class="bg-media" aria-hidden="true">
-    <img src="assets/main-bg/2026-03-06/remote-viewer-philosopher-control-panel-portrait.png" alt="" />
+    <img src="assets/main-bg/2026-03-07/remote-viewer-portrait-black-edge-swirl.png" alt="" />
   </div>
   <div class="bg-overlay" aria-hidden="true"></div>
 
