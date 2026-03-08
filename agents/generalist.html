@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Remote Viewer | Generalist</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800&display=swap');
+    :root{--bg-1:#050914;--bg-2:#0a1427;--panel:rgba(9,16,30,.8);--line:rgba(122,183,255,.24);--line-strong:rgba(122,183,255,.42);--text:#edf5ff;--muted:#a8bdd9;--cyan:#86eaff;--blue:#72aefc;--shadow:0 24px 70px rgba(0,0,0,.48)}
+    *{box-sizing:border-box} html,body{margin:0}
+    body{min-height:100vh;color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:radial-gradient(circle at 18% 18%, rgba(98,168,255,.18), transparent 24%), radial-gradient(circle at 84% 16%, rgba(124,231,255,.12), transparent 20%), linear-gradient(180deg, var(--bg-2), var(--bg-1));padding:max(12px,env(safe-area-inset-top)) 12px max(18px,env(safe-area-inset-bottom));overflow-x:hidden}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);background-size:32px 32px;mask-image:linear-gradient(180deg, rgba(255,255,255,.4), rgba(255,255,255,.08));}
+    .shell{max-width:1160px;margin:0 auto}.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.nav-row{display:flex;flex-wrap:wrap;gap:10px}.chip,.back{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:#e8f4ff;background:rgba(11,22,40,.82);border:1px solid var(--line-strong);box-shadow:var(--shadow)}.back{width:52px;height:52px;border-radius:999px;font-size:1.25rem}.chip{padding:10px 14px;border-radius:999px;font-weight:700;font-size:.92rem}.chip.active{background:linear-gradient(135deg, rgba(141,216,255,.95), rgba(110,160,255,.9));color:#07101d;border-color:rgba(141,216,255,.7)}
+    .hero{display:grid;grid-template-columns:minmax(300px,440px) minmax(320px,1fr);gap:24px;align-items:center;padding:18px;border:1px solid var(--line-strong);border-radius:28px;background:linear-gradient(160deg, rgba(10,18,34,.94), rgba(7,12,24,.8));box-shadow:var(--shadow);overflow:hidden;position:relative}.hero::before{content:"";position:absolute;inset:auto auto -80px -60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle, rgba(98,168,255,.16), transparent 70%);pointer-events:none}.portrait-wrap{display:flex;justify-content:flex-start}.portrait-card{position:relative;width:min(100%,420px);border-radius:26px;border:1px solid rgba(124,231,255,.2);background:radial-gradient(circle at 50% 18%, rgba(124,231,255,.12), transparent 20%), linear-gradient(180deg, rgba(13,24,45,.95), rgba(7,12,24,.94));padding:16px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.03)}.portrait-card::before{content:"";position:absolute;inset:14px;border-radius:20px;border:1px solid rgba(124,231,255,.16);pointer-events:none}.portrait-card img{display:block;width:100%;height:auto;border-radius:18px;filter:drop-shadow(0 18px 40px rgba(0,0,0,.42))}.caption{margin-top:12px;padding:12px 14px;border-radius:16px;background:rgba(8,14,28,.84);border:1px solid rgba(122,183,255,.18);backdrop-filter:blur(10px)}.caption strong{display:block;font-size:1rem;letter-spacing:.08em;text-transform:uppercase}.caption span{display:block;color:var(--muted);font-size:.82rem;margin-top:4px;line-height:1.5}.content{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-height:100%}.eyebrow{margin:0 0 10px;color:var(--cyan);font-size:.74rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}h1{margin:0 0 10px;font-family:Orbitron,Inter,sans-serif;font-size:clamp(2rem,6vw,4.6rem);line-height:.98;letter-spacing:.05em;text-transform:uppercase}.lede{margin:0 0 22px;color:#d4e6fb;font-size:clamp(1rem,2.1vw,1.08rem);line-height:1.7;max-width:48ch}.button-row{display:flex;flex-wrap:wrap;gap:12px}.action{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-width:180px;padding:14px 18px;border-radius:999px;text-decoration:none;background:linear-gradient(135deg, rgba(18,32,56,.95), rgba(12,22,40,.9));border:1px solid var(--line-strong);color:var(--text);font-weight:700;letter-spacing:.04em;box-shadow:0 12px 30px rgba(0,0,0,.26);transition:transform .18s ease,border-color .18s ease,background .18s ease}.action:hover{transform:translateY(-1px);border-color:rgba(134,234,255,.56);background:linear-gradient(135deg, rgba(24,40,68,.98), rgba(14,26,46,.94))}.action small{display:block;font-size:.76rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}.action span{display:flex;flex-direction:column;align-items:flex-start}.action.ready{background:linear-gradient(135deg, rgba(20,58,34,.96), rgba(12,38,23,.92));border-color:rgba(117,235,160,.48);color:#ecfff2}.action.ready small{color:#aef1c2}.note{margin-top:16px;padding:14px 16px;border-radius:18px;background:rgba(11,21,39,.74);border:1px solid rgba(122,183,255,.18);color:var(--muted);line-height:1.7;max-width:64ch}
+    @media (max-width:920px){.hero{grid-template-columns:1fr}.portrait-wrap{justify-content:center}.content{align-items:flex-start}.topbar{flex-direction:column-reverse;align-items:flex-start}}
+    @media (max-width:640px){.button-row{width:100%}.action{width:100%}.topbar{margin-bottom:12px}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="nav-row">
+        <a class="chip" href="index.html">Primary Agent</a>
+        <a class="chip active" href="generalist.html">Generalist</a>
+        <a class="chip" href="user.html">User</a>
+      </div>
+      <a class="back" href="../index.html" aria-label="Back to Remote Viewer">←</a>
+    </header>
+
+    <section class="hero">
+      <div class="portrait-wrap">
+        <div class="portrait-card">
+          <img src="../assets/main-bg/2026-03-08/2026-03-08-14-16-00-primary-agent-hero.png" alt="Portrait used for the Generalist agent" />
+          <div class="caption">
+            <strong>Generalist</strong>
+            <span>Delegation layer · task-bound clone · analytical, calm, reliable</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <p class="eyebrow">Sub-Agent · Delegation Layer</p>
+        <h1>Generalist</h1>
+        <p class="lede">A broad utility clone meant to absorb delegated work from the Primary Agent: investigate, draft, implement, summarize, and report back cleanly.</p>
+        <div class="button-row">
+          <a class="action" href="profiles/generalist-profile.md"><span><small>Profile</small>Role Overview</span></a>
+          <a class="action" href="files/generalist-live/IDENTITY.md"><span><small>Markdown File</small>Identity</span></a>
+          <a class="action" href="files/generalist-live/SOUL.md"><span><small>Markdown File</small>Soul</span></a>
+          <a class="action" href="files/generalist-live/AGENTS.md"><span><small>Markdown File</small>Agents</span></a>
+          <a class="action" href="files/generalist-live/USER.md"><span><small>Markdown File</small>User</span></a>
+          <a class="action" href="files/generalist-live/TOOLS.md"><span><small>Markdown File</small>Tools</span></a>
+          <a class="action ready" href="files/generalist-live/BOOTSTRAP.md"><span><small>Startup</small>Bootstrap</span></a>
+        </div>
+        <div class="note">
+          Generalist is configured as an on-demand delegation agent. In this environment, the profile and files are live now; persistent session binding may still depend on runtime support when it is actually spawned.
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

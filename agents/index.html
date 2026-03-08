@@ -49,6 +49,15 @@
     .action.skill{background:linear-gradient(135deg, rgba(20,58,34,.96), rgba(12,38,23,.92));border-color:rgba(117,235,160,.48);color:#ecfff2}
     .action.skill:hover{border-color:rgba(136,255,179,.76);background:linear-gradient(135deg, rgba(26,76,44,.98), rgba(14,48,28,.94))}
     .action.skill small{color:#aef1c2}
+    .subagents{margin-top:22px;padding:18px;border:1px solid var(--line-strong);border-radius:24px;background:linear-gradient(160deg, rgba(10,18,34,.88), rgba(7,12,24,.72));box-shadow:var(--shadow)}
+    .subagents h2{margin:0 0 8px;font-family:Orbitron,Inter,sans-serif;font-size:clamp(1.2rem,3vw,1.8rem);letter-spacing:.06em;text-transform:uppercase}
+    .subagents p{margin:0 0 16px;color:var(--muted);line-height:1.7;max-width:72ch}
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    .agent-card{display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:22px;border:1px solid rgba(122,183,255,.22);background:linear-gradient(160deg, rgba(12,22,40,.9), rgba(9,16,30,.84));text-decoration:none;color:var(--text);box-shadow:0 16px 40px rgba(0,0,0,.22);transition:transform .18s ease,border-color .18s ease}
+    .agent-card:hover{transform:translateY(-2px);border-color:rgba(134,234,255,.5)}
+    .agent-card small{color:var(--cyan);font-size:.76rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+    .agent-card strong{font-size:1.1rem;letter-spacing:.04em}
+    .agent-card span{color:var(--muted);line-height:1.6}
     @media (max-width:920px){.hero{grid-template-columns:1fr}.portrait-wrap{justify-content:center}.content{align-items:flex-start}.topbar{flex-direction:column-reverse;align-items:flex-start}}
     @media (max-width:640px){.button-row{width:100%}.action{width:100%}.topbar{margin-bottom:12px}}
   </style>
@@ -58,6 +67,7 @@
     <header class="topbar">
       <div class="nav-row">
         <a class="chip active" href="index.html">Primary Agent</a>
+        <a class="chip" href="generalist.html">Generalist</a>
         <a class="chip" href="user.html">User</a>
       </div>
       <a class="back" href="../index.html" aria-label="Back to Remote Viewer">←</a>
@@ -122,6 +132,18 @@
             </span>
           </span>
         </div>
+      </div>
+    </section>
+
+    <section class="subagents">
+      <h2>Delegation Agents</h2>
+      <p>Task-bound agents that can be brought in when parallel work, focused research, or scoped implementation would help. Keep the stable center small; use specialists only when they reduce friction.</p>
+      <div class="card-grid">
+        <a class="agent-card" href="generalist.html">
+          <small>Ready Profile</small>
+          <strong>Generalist</strong>
+          <span>Broad utility clone for delegated work: investigate, draft, implement, summarize, and report back cleanly.</span>
+        </a>
       </div>
     </section>
   </main>
