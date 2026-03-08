@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Primary Agent | Identity</title>
+  <style>
+    :root{--bg:#07101d;--panel:#0d1728;--panel2:#101d33;--line:#243a66;--text:#edf5ff;--muted:#a9bfdc;--accent:#8dd8ff;--accent2:#7a92ff}
+    *{box-sizing:border-box} html,body{margin:0}
+    body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:radial-gradient(circle at top right, rgba(141,216,255,.12), transparent 28%),linear-gradient(180deg,#0a1323,#050a14);color:var(--text);min-height:100vh}
+    .topbar{position:sticky;top:0;z-index:10;background:rgba(5,10,20,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .topbar-inner{max-width:1100px;margin:0 auto;padding:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .btn,.link{text-decoration:none;border:1px solid var(--line);background:linear-gradient(135deg,var(--panel2),var(--panel));color:var(--text);border-radius:999px;padding:10px 14px;font-weight:700;font-size:.95rem;display:inline-block}
+    .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#08111f;border:0}
+    #status{color:var(--muted);font-size:.92rem}
+    .hero{max-width:1100px;margin:0 auto;padding:20px 14px 8px}
+    .eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 6px;font-size:clamp(1.4rem,5vw,2.2rem)}
+    .sub{margin:0;color:var(--muted);max-width:70ch;line-height:1.6}
+    .doc-wrap{max-width:1100px;margin:0 auto;padding:0 14px 28px}
+    #viewer{display:none;margin-top:10px;padding:22px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(160deg, rgba(15,25,42,.94), rgba(9,15,28,.92));box-shadow:0 20px 60px rgba(0,0,0,.35)}
+    #viewer h1,#viewer h2,#viewer h3,#viewer h4{line-height:1.28;margin:1.05em 0 .45em}
+    #viewer h1:first-child{margin-top:0}
+    #viewer p,#viewer li{font-size:1.02rem;line-height:1.72}
+    #viewer ul,#viewer ol{padding-left:1.35em}
+    #viewer code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:7px}
+    #viewer pre{background:#091221;border:1px solid #26395f;border-radius:12px;padding:12px;overflow:auto}
+    #viewer blockquote{border-left:3px solid #42649a;margin:0;padding:.2em 0 .2em .9em;color:#dce8ff}
+    @media print {.topbar,.hero{display:none!important} body{background:#fff;color:#000} #viewer{display:block!important;border:0;box-shadow:none;padding:0}}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="link" href="../../agents/index.html">← Primary Agent</a>
+      <button id="openBtn" class="btn primary">Open / Refresh</button>
+      <button id="pdfBtn" class="btn">Download as PDF</button>
+      <span id="status"></span>
+    </div>
+  </div>
+  <header class="hero">
+    <p class="eyebrow">Primary Agent · Identity</p>
+    <h1>Identity File</h1>
+    <p class="sub">A clean reading surface for the defining metadata and role description of the OpenClaw Primary Agent.</p>
+  </header>
+  <main class="doc-wrap"><article id="viewer"></article></main>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    const btn=document.getElementById('openBtn'); const pdfBtn=document.getElementById('pdfBtn'); const status=document.getElementById('status'); const viewer=document.getElementById('viewer');
+    async function openDoc(){ btn.disabled=true; status.textContent='Loading...'; try{ const res=await fetch('./identity.md',{cache:'no-store'}); if(!res.ok) throw new Error('Could not load markdown file.'); const md=await res.text(); viewer.innerHTML=marked.parse(md); viewer.style.display='block'; status.textContent='Ready'; }catch(err){ status.textContent='Error loading document'; alert(err.message);}finally{ btn.disabled=false; } }
+    btn.addEventListener('click',openDoc); pdfBtn.addEventListener('click',()=>window.print()); openDoc();
+  </script>
+</body>
+</html>

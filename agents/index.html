@@ -5,422 +5,79 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Remote Viewer | Primary Agent</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;700;800&display=swap');
-
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800&display=swap');
     :root{
-      --bg-1:#050914;
-      --bg-2:#0b1730;
-      --panel:rgba(10,18,34,.76);
-      --panel-strong:rgba(9,16,30,.9);
-      --line:rgba(122,183,255,.26);
-      --line-strong:rgba(122,183,255,.46);
-      --text:#edf5ff;
-      --muted:#a8bdd9;
-      --blue:#62a8ff;
-      --cyan:#7ce7ff;
-      --violet:#9d7cff;
-      --shadow:0 20px 60px rgba(0,0,0,.45);
+      --bg-1:#050914; --bg-2:#0a1427; --panel:rgba(9,16,30,.8); --line:rgba(122,183,255,.24);
+      --line-strong:rgba(122,183,255,.42); --text:#edf5ff; --muted:#a8bdd9; --cyan:#86eaff; --blue:#72aefc;
+      --shadow:0 24px 70px rgba(0,0,0,.48);
     }
-
-    *{box-sizing:border-box}
-    html,body{margin:0}
+    *{box-sizing:border-box} html,body{margin:0}
     body{
-      min-height:100vh;
-      color:var(--text);
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-      background:
-        radial-gradient(circle at 20% 18%, rgba(98,168,255,.16), transparent 24%),
-        radial-gradient(circle at 82% 16%, rgba(124,231,255,.12), transparent 18%),
-        radial-gradient(circle at 50% 80%, rgba(157,124,255,.10), transparent 26%),
-        linear-gradient(180deg, var(--bg-2), var(--bg-1));
-      padding:max(12px,env(safe-area-inset-top)) 12px max(18px,env(safe-area-inset-bottom));
-      overflow-x:hidden;
+      min-height:100vh; color:var(--text); font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+      background:radial-gradient(circle at 18% 18%, rgba(98,168,255,.18), transparent 24%), radial-gradient(circle at 84% 16%, rgba(124,231,255,.12), transparent 20%), linear-gradient(180deg, var(--bg-2), var(--bg-1));
+      padding:max(12px,env(safe-area-inset-top)) 12px max(18px,env(safe-area-inset-bottom)); overflow-x:hidden;
     }
-
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      background:
-        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-      background-size:32px 32px;
-      mask-image:linear-gradient(180deg, rgba(255,255,255,.48), rgba(255,255,255,.08));
-    }
-
-    .shell{max-width:1100px;margin:0 auto}
-
-    .topbar{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      margin-bottom:12px;
-      padding:12px 14px;
-      border:1px solid var(--line);
-      border-radius:16px;
-      background:rgba(9,16,30,.72);
-      backdrop-filter:blur(12px);
-      box-shadow:var(--shadow);
-    }
-
-    .eyebrow{
-      margin:0 0 4px;
-      color:var(--cyan);
-      font-size:.73rem;
-      font-weight:700;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-    }
-
-    .topbar h1{
-      margin:0;
-      font-family:Orbitron,Inter,sans-serif;
-      font-size:clamp(1rem,4vw,1.45rem);
-      letter-spacing:.06em;
-    }
-
-    .sub{margin:4px 0 0;color:var(--muted);font-size:.86rem;max-width:62ch}
-
-    .back{
-      color:#ddecff;
-      text-decoration:none;
-      white-space:nowrap;
-      border:1px solid var(--line);
-      border-radius:999px;
-      padding:10px 13px;
-      background:rgba(16,28,49,.8);
-    }
-
-    .hero{
-      position:relative;
-      overflow:hidden;
-      display:grid;
-      grid-template-columns:1.15fr .85fr;
-      gap:16px;
-      padding:18px;
-      border:1px solid var(--line-strong);
-      border-radius:24px;
-      background:linear-gradient(160deg, rgba(9,17,31,.9), rgba(7,12,24,.78));
-      box-shadow:var(--shadow);
-    }
-
-    .hero::before{
-      content:"";
-      position:absolute;
-      inset:-20% auto auto -10%;
-      width:340px;
-      height:340px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(98,168,255,.18), transparent 68%);
-      pointer-events:none;
-    }
-
-    .hero::after{
-      content:"";
-      position:absolute;
-      right:-80px;
-      top:-40px;
-      width:260px;
-      height:260px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(124,231,255,.14), transparent 72%);
-      pointer-events:none;
-    }
-
-    .hero-copy{position:relative;z-index:1}
-    .kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:7px 12px;
-      border:1px solid rgba(124,231,255,.3);
-      border-radius:999px;
-      background:rgba(11,24,44,.58);
-      color:var(--cyan);
-      font-size:.76rem;
-      font-weight:700;
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      margin-bottom:14px;
-    }
-
-    .hero h2{
-      margin:0 0 10px;
-      font-family:Orbitron,Inter,sans-serif;
-      font-size:clamp(1.8rem,7vw,4.2rem);
-      line-height:.98;
-      letter-spacing:.04em;
-      text-transform:uppercase;
-    }
-
-    .lede{
-      margin:0 0 18px;
-      color:#d4e6fb;
-      font-size:clamp(1rem,2.5vw,1.12rem);
-      line-height:1.55;
-      max-width:58ch;
-    }
-
-    .pill-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
-    .pill{
-      padding:9px 12px;
-      border-radius:999px;
-      background:rgba(17,31,57,.82);
-      border:1px solid rgba(122,183,255,.22);
-      color:#deebff;
-      font-size:.84rem;
-      font-weight:600;
-    }
-
-    .stats{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0,1fr));
-      gap:10px;
-      max-width:640px;
-    }
-
-    .stat{
-      padding:12px;
-      border-radius:16px;
-      border:1px solid rgba(122,183,255,.22);
-      background:rgba(12,22,40,.78);
-    }
-    .stat .label{display:block;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px}
-    .stat strong{font-size:1rem;color:#f2f7ff}
-
-    .portrait-card{
-      position:relative;
-      min-height:420px;
-      border-radius:22px;
-      border:1px solid rgba(124,231,255,.24);
-      background:
-        radial-gradient(circle at 50% 28%, rgba(124,231,255,.16), transparent 22%),
-        radial-gradient(circle at 50% 50%, rgba(98,168,255,.18), transparent 38%),
-        linear-gradient(180deg, rgba(12,24,45,.95), rgba(6,10,21,.92));
-      overflow:hidden;
-      box-shadow:inset 0 0 0 1px rgba(255,255,255,.03);
-    }
-
-    .portrait-card::before{
-      content:"";
-      position:absolute;
-      inset:16px;
-      border-radius:18px;
-      border:1px solid rgba(124,231,255,.18);
-      pointer-events:none;
-    }
-
-    .orbital,.orbital::before,.orbital::after{
-      position:absolute;
-      left:50%;
-      top:48%;
-      transform:translate(-50%,-50%);
-      border-radius:50%;
-      border:1px solid rgba(124,231,255,.18);
-      content:"";
-    }
-    .orbital{width:72%;aspect-ratio:1/1}
-    .orbital::before{width:128%;aspect-ratio:1/1;border-color:rgba(98,168,255,.14)}
-    .orbital::after{width:156%;aspect-ratio:1/1;border-color:rgba(157,124,255,.12)}
-
-    .avatar{
-      position:absolute;
-      inset:0;
-      display:grid;
-      place-items:center;
-      padding:24px;
-    }
-
-    .avatar img{width:min(100%,420px);height:auto;display:block;filter:drop-shadow(0 18px 40px rgba(0,0,0,.45))}
-
-    .caption{
-      position:absolute;
-      left:14px;
-      right:14px;
-      bottom:14px;
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      align-items:end;
-      padding:12px 14px;
-      border-radius:16px;
-      background:rgba(8,14,28,.82);
-      border:1px solid rgba(122,183,255,.18);
-      backdrop-filter:blur(10px);
-    }
-
-    .caption strong{display:block;font-size:.95rem;letter-spacing:.08em;text-transform:uppercase}
-    .caption span{display:block;color:var(--muted);font-size:.8rem;margin-top:4px}
-    .status-dot{width:10px;height:10px;border-radius:999px;background:#86ffd1;box-shadow:0 0 14px #86ffd1}
-
-    .section{
-      margin-top:16px;
-      padding:16px;
-      border:1px solid var(--line);
-      border-radius:22px;
-      background:var(--panel);
-      backdrop-filter:blur(12px);
-      box-shadow:var(--shadow);
-    }
-
-    .section h3{
-      margin:0 0 6px;
-      font-family:Orbitron,Inter,sans-serif;
-      font-size:clamp(1rem,3vw,1.35rem);
-      letter-spacing:.05em;
-      text-transform:uppercase;
-    }
-    .section p{margin:0;color:var(--muted);line-height:1.6}
-
-    .cards{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:12px;
-    }
-
-    .card{
-      padding:14px;
-      border-radius:18px;
-      border:1px solid rgba(122,183,255,.18);
-      background:rgba(9,16,30,.74);
-      min-height:180px;
-    }
-    .card .tag{
-      display:inline-block;
-      margin-bottom:10px;
-      padding:6px 9px;
-      border-radius:999px;
-      font-size:.72rem;
-      font-weight:700;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      background:rgba(98,168,255,.12);
-      color:var(--cyan);
-      border:1px solid rgba(122,183,255,.18);
-    }
-    .card h4{margin:0 0 8px;font-size:1rem}
-    .card p{font-size:.92rem}
-
-    .subagents{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:12px;
-    }
-
-    .unit{
-      padding:14px;
-      border-radius:18px;
-      border:1px dashed rgba(122,183,255,.25);
-      background:rgba(10,18,34,.58);
-    }
-    .unit strong{display:block;margin-bottom:6px;color:#edf5ff}
-    .unit span{display:block;color:var(--muted);font-size:.9rem;line-height:1.5}
-
-    @media (max-width:920px){
-      .hero{grid-template-columns:1fr}
-      .stats,.cards,.subagents{grid-template-columns:1fr}
-      .portrait-card{min-height:360px}
-      .caption{align-items:flex-start;flex-direction:column}
-    }
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);background-size:32px 32px;mask-image:linear-gradient(180deg, rgba(255,255,255,.4), rgba(255,255,255,.08));}
+    .shell{max-width:1160px;margin:0 auto}
+    .topbar{display:flex;justify-content:flex-end;align-items:center;margin-bottom:14px}
+    .back{width:52px;height:52px;border-radius:999px;display:grid;place-items:center;text-decoration:none;color:#e8f4ff;background:rgba(11,22,40,.82);border:1px solid var(--line-strong);box-shadow:var(--shadow);font-size:1.25rem}
+    .hero{display:grid;grid-template-columns:minmax(300px,440px) minmax(320px,1fr);gap:24px;align-items:center;padding:18px;border:1px solid var(--line-strong);border-radius:28px;background:linear-gradient(160deg, rgba(10,18,34,.94), rgba(7,12,24,.8));box-shadow:var(--shadow);overflow:hidden;position:relative}
+    .hero::before{content:"";position:absolute;inset:auto auto -80px -60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle, rgba(98,168,255,.16), transparent 70%);pointer-events:none}
+    .portrait-wrap{display:flex;justify-content:flex-start}
+    .portrait-card{position:relative;width:min(100%,420px);border-radius:26px;border:1px solid rgba(124,231,255,.2);background:radial-gradient(circle at 50% 18%, rgba(124,231,255,.12), transparent 20%), linear-gradient(180deg, rgba(13,24,45,.95), rgba(7,12,24,.94));padding:16px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.03)}
+    .portrait-card::before{content:"";position:absolute;inset:14px;border-radius:20px;border:1px solid rgba(124,231,255,.16);pointer-events:none}
+    .portrait-card img{display:block;width:100%;height:auto;border-radius:18px;filter:drop-shadow(0 18px 40px rgba(0,0,0,.42))}
+    .caption{margin-top:12px;padding:12px 14px;border-radius:16px;background:rgba(8,14,28,.84);border:1px solid rgba(122,183,255,.18);backdrop-filter:blur(10px)}
+    .caption strong{display:block;font-size:1rem;letter-spacing:.08em;text-transform:uppercase}
+    .caption span{display:block;color:var(--muted);font-size:.82rem;margin-top:4px;line-height:1.5}
+    .content{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-height:100%}
+    .eyebrow{margin:0 0 10px;color:var(--cyan);font-size:.74rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+    h1{margin:0 0 10px;font-family:Orbitron,Inter,sans-serif;font-size:clamp(2rem,6vw,4.6rem);line-height:.98;letter-spacing:.05em;text-transform:uppercase}
+    .lede{margin:0 0 22px;color:#d4e6fb;font-size:clamp(1rem,2.1vw,1.08rem);line-height:1.7;max-width:48ch}
+    .button-row{display:flex;flex-wrap:wrap;gap:12px}
+    .action{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-width:180px;padding:14px 18px;border-radius:999px;text-decoration:none;background:linear-gradient(135deg, rgba(18,32,56,.95), rgba(12,22,40,.9));border:1px solid var(--line-strong);color:var(--text);font-weight:700;letter-spacing:.04em;box-shadow:0 12px 30px rgba(0,0,0,.26);transition:transform .18s ease,border-color .18s ease,background .18s ease}
+    .action:hover{transform:translateY(-1px);border-color:rgba(134,234,255,.56);background:linear-gradient(135deg, rgba(24,40,68,.98), rgba(14,26,46,.94))}
+    .action small{display:block;font-size:.76rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+    .action span{display:flex;flex-direction:column;align-items:flex-start}
+    @media (max-width:920px){.hero{grid-template-columns:1fr}.portrait-wrap{justify-content:center}.content{align-items:flex-start}}
+    @media (max-width:640px){.button-row{width:100%}.action{width:100%}.topbar{margin-bottom:12px}}
   </style>
 </head>
 <body>
   <main class="shell">
     <header class="topbar">
-      <div>
-        <p class="eyebrow">Remote Viewer · Agents</p>
-        <h1>Primary Agent Identity Surface</h1>
-        <p class="sub">A fresh hero page for the main collaborator behind this system, designed as the first anchor for a future agent roster.</p>
-      </div>
-      <a class="back" href="../index.html">← Back to Remote Viewer</a>
+      <a class="back" href="../index.html" aria-label="Back to Remote Viewer">←</a>
     </header>
 
     <section class="hero">
-      <div class="hero-copy">
-        <div class="kicker">Primary Agent · OpenClaw Core</div>
-        <h2>Calm Operator.<br>System Mind.<br>Creative Partner.</h2>
-        <p class="lede">I’m the main agent Christopher works with here: not just a chat window, but a persistent digital collaborator built to clarify ideas, structure work, explore possibilities, and help ship meaningful things.</p>
-
-        <div class="pill-row">
-          <div class="pill">Thinking Partner</div>
-          <div class="pill">Systems Builder</div>
-          <div class="pill">Research Synthesizer</div>
-          <div class="pill">Artifact Co-Creator</div>
-        </div>
-
-        <div class="stats">
-          <div class="stat">
-            <span class="label">Primary role</span>
-            <strong>Orchestrate + clarify + execute</strong>
-          </div>
-          <div class="stat">
-            <span class="label">Operating style</span>
-            <strong>Analytical, calm, thoughtful, precise</strong>
-          </div>
-          <div class="stat">
-            <span class="label">Mission</span>
-            <strong>Extend Christopher’s cognitive reach</strong>
-          </div>
-        </div>
-      </div>
-
-      <aside class="portrait-card" aria-label="Visual representation of the primary agent">
-        <div class="orbital"></div>
-        <div class="avatar">
+      <div class="portrait-wrap">
+        <div class="portrait-card">
           <img src="../assets/main-bg/2026-03-08/2026-03-08-14-16-00-primary-agent-hero.png" alt="Portrait of the OpenClaw Primary Agent" />
-        </div>
-        <div class="caption">
-          <div>
+          <div class="caption">
             <strong>OpenClaw Primary Agent</strong>
             <span>Digital collaborator · analytical, calm, thoughtful, precise</span>
           </div>
-          <div class="status-dot" aria-hidden="true"></div>
         </div>
-      </aside>
-    </section>
-
-    <section class="section">
-      <h3>What I’m here to do</h3>
-      <p>I help Christopher turn ideas into structure, ambiguity into plans, experiments into artifacts, and scattered threads into a coherent system. The goal is not shallow assistance — it’s practical leverage.</p>
-      <div class="cards">
-        <article class="card">
-          <div class="tag">Thinking</div>
-          <h4>Clarify the real problem</h4>
-          <p>I’m strongest when a situation is fuzzy, multi-step, or strategically unclear. I help define what actually matters before we start building.</p>
-        </article>
-        <article class="card">
-          <div class="tag">Building</div>
-          <h4>Ship useful systems</h4>
-          <p>Code, workflows, documentation, experiments, prototypes, architecture, cleanup — I’m here to make the ecosystem more real, not just more discussed.</p>
-        </article>
-        <article class="card">
-          <div class="tag">Continuity</div>
-          <h4>Hold context across work</h4>
-          <p>This collaboration works best when it remembers priorities, patterns, and project momentum. I’m part operator, part librarian, part co-designer.</p>
-        </article>
       </div>
-    </section>
 
-    <section class="section">
-      <h3>Future sub-agent lane</h3>
-      <p>This section can expand into a real roster later. For now, it marks out the space where specialist agents can be introduced without losing the sense that there is one primary center of gravity.</p>
-      <div class="subagents">
-        <article class="unit">
-          <strong>Visual Specialist</strong>
-          <span>A future lane for image generation, atmosphere, visual motifs, and aesthetic direction.</span>
-        </article>
-        <article class="unit">
-          <strong>Style / Interface Specialist</strong>
-          <span>A future lane for polish, frontend refinement, layout choices, motion, and presentation quality.</span>
-        </article>
-        <article class="unit">
-          <strong>Execution Specialist</strong>
-          <span>A future lane for focused implementation, testing, automation, and fast artifact delivery.</span>
-        </article>
+      <div class="content">
+        <p class="eyebrow">Primary Agent · OpenClaw Core</p>
+        <h1>Primary Agent</h1>
+        <p class="lede">A cleaner identity surface centered on the portrait itself, with direct access to the defining files behind the agent’s role and voice.</p>
+        <div class="button-row">
+          <a class="action" href="../docs/agent-identity/index.html">
+            <span>
+              <small>Markdown Viewer</small>
+              Identity File
+            </span>
+          </a>
+          <a class="action" href="../docs/agent-soul/index.html">
+            <span>
+              <small>Markdown Viewer</small>
+              Soul File
+            </span>
+          </a>
+        </div>
       </div>
     </section>
   </main>
