@@ -25,16 +25,21 @@
     .section h2{margin:0 0 6px;font-size:1.08rem;letter-spacing:.06em;text-transform:uppercase}
     .section p{margin:0 0 12px;color:var(--muted);line-height:1.65}
     .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-    .item{display:inline-flex;align-items:center;justify-content:flex-start;min-height:82px;padding:14px 18px;border-radius:22px;text-decoration:none;border:1px solid var(--line);color:var(--text);box-shadow:0 12px 30px rgba(0,0,0,.22)}
-    .item span{display:flex;flex-direction:column;align-items:flex-start}
-    .item small{display:block;margin-bottom:6px;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+    .item{display:inline-flex;align-items:center;justify-content:flex-start;min-height:106px;padding:16px 18px;border-radius:22px;text-decoration:none;border:1px solid var(--line);color:var(--text);box-shadow:0 12px 30px rgba(0,0,0,.22)}
+    .item .stack{display:flex;flex-direction:column;align-items:flex-start;gap:5px}
+    .item small{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+    .title{display:block;font-size:1.08rem;font-weight:800;line-height:1.2}
+    .meta{display:block;font-size:.84rem;color:var(--muted);line-height:1.45}
     .item.live{background:linear-gradient(135deg, rgba(20,58,34,.96), rgba(12,38,23,.92));border-color:rgba(117,235,160,.48);color:#ecfff2}
     .item.live:hover{border-color:rgba(136,255,179,.76)}
     .item.live small{color:#aef1c2}
+    .item.live .meta{color:#cfeeda}
     .item.setup{background:linear-gradient(135deg, rgba(68,44,18,.95), rgba(46,28,10,.92));border-color:rgba(255,183,94,.46);color:#fff0d6}
     .item.setup small{color:#ffd39a}
+    .item.setup .meta{color:#f0d9b7}
     .item.pending{background:linear-gradient(135deg, rgba(35,45,62,.96), rgba(23,30,42,.92));border-color:rgba(153,173,206,.28);color:#e7eefc}
     .item.pending small{color:#b6c7e7}
+    .item.pending .meta{color:#c7d4eb}
     .note{margin-top:20px;padding:16px 18px;border-radius:20px;border:1px solid var(--line);background:linear-gradient(160deg, rgba(15,25,42,.94), rgba(9,15,28,.92));color:var(--muted);line-height:1.7}
     @media (max-width:980px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media (max-width:640px){.grid{grid-template-columns:1fr}}
@@ -45,7 +50,7 @@
   <header class="hero">
     <p class="eyebrow">Primary Agent · Skills & Capabilities Registry</p>
     <h1>Skills & Capabilities</h1>
-    <p class="sub">This registry now separates packaged OpenClaw skills from broader configured capabilities and from previously used capabilities that we have not restored yet. That keeps the mental model cleaner: some things are downloaded skills, some are provider/config-backed abilities, and some are known lanes we still need to reconnect.</p>
+    <p class="sub">This registry now leads with the plain-English job of each capability first, and keeps the technical identifiers secondary underneath.</p>
   </header>
   <main class="wrap">
     <div class="legend">
@@ -58,9 +63,9 @@
       <h2>Configured capabilities</h2>
       <p>These are real working or known abilities connected through configuration or provider wiring rather than purely as packaged downloadable skills.</p>
       <div class="grid">
-        <a class="item live" href="../skills-gemini-search/index.html"><span><small>Configured / Working</small>gemini-web-search</span></a>
-        <a class="item live" href="../skills-google-voices-tts/index.html"><span><small>Configured / Working</small>google-voices-tts</span></a>
-        <a class="item live" href="../skills-veo-video/index.html"><span><small>Configured / Working</small>veo-3-video-generation</span></a>
+        <a class="item live" href="../skills-gemini-search/index.html"><span class="stack"><small>Configured / Working</small><span class="title">Web Search</span><span class="meta">gemini-web-search</span></span></a>
+        <a class="item live" href="../skills-google-voices-tts/index.html"><span class="stack"><small>Configured / Working</small><span class="title">Voice Generation</span><span class="meta">google-voices-tts · Gemini TTS voices</span></span></a>
+        <a class="item live" href="../skills-veo-video/index.html"><span class="stack"><small>Configured / Working</small><span class="title">Video Generation</span><span class="meta">veo-3-video-generation · Veo 3</span></span></a>
       </div>
     </section>
 
@@ -68,9 +73,9 @@
       <h2>Installed skills · working now</h2>
       <p>These are packaged OpenClaw skills we have directly validated in this setup.</p>
       <div class="grid">
-        <a class="item live" href="../skills-github/index.html"><span><small>Installed Skill / Working</small>github</span></a>
-        <a class="item live" href="../skills-image-nano-banana/index.html"><span><small>Installed Skill / Working</small>nano-banana-pro</span></a>
-        <a class="item live" href="../skills-weather/index.html"><span><small>Installed Skill / Working</small>weather</span></a>
+        <a class="item live" href="../skills-github/index.html"><span class="stack"><small>Installed Skill / Working</small><span class="title">GitHub Operations</span><span class="meta">github · gh CLI and repo workflows</span></span></a>
+        <a class="item live" href="../skills-image-nano-banana/index.html"><span class="stack"><small>Installed Skill / Working</small><span class="title">Image Generation</span><span class="meta">nano-banana-pro · Gemini image model</span></span></a>
+        <a class="item live" href="../skills-weather/index.html"><span class="stack"><small>Installed Skill / Working</small><span class="title">Weather Lookup</span><span class="meta">weather · current conditions and forecasts</span></span></a>
       </div>
     </section>
 
@@ -78,7 +83,7 @@
       <h2>Installed skills · blocked / needs setup</h2>
       <p>These are packaged skills that exist locally but still need setup, dependencies, or credentials before they can be promoted.</p>
       <div class="grid">
-        <a class="item setup" href="../skills-gemini/index.html"><span><small>Installed Skill / Needs Setup</small>gemini</span></a>
+        <a class="item setup" href="../skills-gemini/index.html"><span class="stack"><small>Installed Skill / Needs Setup</small><span class="title">Gemini CLI Access</span><span class="meta">gemini · shell wrapper expects local gemini binary</span></span></a>
       </div>
     </section>
 
@@ -86,54 +91,54 @@
       <h2>Installed skills · untested</h2>
       <p>These skills are installed on the machine, but we have not exercised them yet in practice.</p>
       <div class="grid">
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>1password</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>apple-notes</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>apple-reminders</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>bear-notes</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>blogwatcher</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>blucli</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>bluebubbles</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>camsnap</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>canvas</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>clawhub</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>coding-agent</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>discord</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>eightctl</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>gh-issues</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>gifgrep</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>gog</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>goplaces</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>healthcheck</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>himalaya</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>imsg</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>mcporter</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>model-usage</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>nano-pdf</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>notion</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>obsidian</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>openai-image-gen</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>openai-whisper</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>openai-whisper-api</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>openhue</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>oracle</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>ordercli</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>peekaboo</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>sag</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>session-logs</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>sherpa-onnx-tts</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>skill-creator</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>slack</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>songsee</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>sonoscli</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>spotify-player</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>summarize</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>things-mac</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>tmux</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>trello</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>video-frames</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>voice-call</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>wacli</span></span>
-        <span class="item pending" aria-disabled="true"><span><small>Installed Skill / Untested</small>xurl</span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Password Vault</span><span class="meta">1password</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Apple Notes</span><span class="meta">apple-notes</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Apple Reminders</span><span class="meta">apple-reminders</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Bear Notes</span><span class="meta">bear-notes</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Blog Watching</span><span class="meta">blogwatcher</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Bluetooth Control</span><span class="meta">blucli</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">BlueBubbles Messaging</span><span class="meta">bluebubbles</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Camera Snapshot</span><span class="meta">camsnap</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Canvas LMS</span><span class="meta">canvas</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Skill Marketplace</span><span class="meta">clawhub</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Coding Agent</span><span class="meta">coding-agent</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Discord Integration</span><span class="meta">discord</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Eight Sleep Control</span><span class="meta">eightctl</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">GitHub Issue Automation</span><span class="meta">gh-issues</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">GIF Search / Analysis</span><span class="meta">gifgrep</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Google Workspace</span><span class="meta">gog</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Places Search</span><span class="meta">goplaces</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">System Health Check</span><span class="meta">healthcheck</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Email Client</span><span class="meta">himalaya</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">iMessage Access</span><span class="meta">imsg</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Minecraft Server Tools</span><span class="meta">mcporter</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Model Usage Tracking</span><span class="meta">model-usage</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">PDF Processing</span><span class="meta">nano-pdf</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Notion Integration</span><span class="meta">notion</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Obsidian Integration</span><span class="meta">obsidian</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">OpenAI Image Generation</span><span class="meta">openai-image-gen</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Speech-to-Text</span><span class="meta">openai-whisper</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Speech-to-Text API</span><span class="meta">openai-whisper-api</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Hue Lighting</span><span class="meta">openhue</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Oracle Database</span><span class="meta">oracle</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Food Ordering</span><span class="meta">ordercli</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Visual Peek / Inspection</span><span class="meta">peekaboo</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">ElevenLabs Voice Generation</span><span class="meta">sag</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Session Logs</span><span class="meta">session-logs</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Offline Voice Generation</span><span class="meta">sherpa-onnx-tts</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Skill Creation</span><span class="meta">skill-creator</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Slack Integration</span><span class="meta">slack</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Song Recognition</span><span class="meta">songsee</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Sonos Control</span><span class="meta">sonoscli</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Spotify Control</span><span class="meta">spotify-player</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Summarization</span><span class="meta">summarize</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Things App</span><span class="meta">things-mac</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Terminal Multiplexer</span><span class="meta">tmux</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Trello Integration</span><span class="meta">trello</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Video Frame Extraction</span><span class="meta">video-frames</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Voice Calling</span><span class="meta">voice-call</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">WhatsApp CLI</span><span class="meta">wacli</span></span></span>
+        <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">URL Fetching</span><span class="meta">xurl</span></span></span>
       </div>
     </section>
 
