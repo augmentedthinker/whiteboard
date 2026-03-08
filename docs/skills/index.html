@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Primary Agent | Skills Registry</title>
+  <style>
+    :root{--bg:#071018;--panel:#0d1728;--panel2:#101d33;--line:#243a66;--text:#edf5ff;--muted:#a9bfdc;--accent:#8dd8ff;--green:#7df0a2;--green2:#45c56d;--amber:#ffd39a;--amber2:#b97d28;--slate:#90a4c3;--slate2:#44526b;}
+    *{box-sizing:border-box} html,body{margin:0}
+    body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:radial-gradient(circle at top right, rgba(141,216,255,.12), transparent 28%),linear-gradient(180deg,#0a1323,#050a14);color:var(--text);min-height:100vh}
+    .topbar{position:sticky;top:0;z-index:10;background:rgba(5,10,20,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .topbar-inner{max-width:1140px;margin:0 auto;padding:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .btn,.link{text-decoration:none;border:1px solid var(--line);background:linear-gradient(135deg,var(--panel2),var(--panel));color:var(--text);border-radius:999px;padding:10px 14px;font-weight:700;font-size:.95rem;display:inline-block}
+    .hero{max-width:1140px;margin:0 auto;padding:20px 14px 10px}
+    .eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 6px;font-size:clamp(1.5rem,5vw,2.4rem)}
+    .sub{margin:0;color:var(--muted);max-width:78ch;line-height:1.7}
+    .wrap{max-width:1140px;margin:0 auto;padding:0 14px 28px}
+    .legend{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 16px}
+    .pill{padding:10px 14px;border-radius:999px;border:1px solid var(--line);font-weight:700;font-size:.9rem}
+    .pill.live{background:linear-gradient(135deg, rgba(20,58,34,.96), rgba(12,38,23,.92));border-color:rgba(117,235,160,.48);color:#ecfff2}
+    .pill.setup{background:linear-gradient(135deg, rgba(68,44,18,.95), rgba(46,28,10,.92));border-color:rgba(255,183,94,.46);color:#fff0d6}
+    .pill.pending{background:linear-gradient(135deg, rgba(35,45,62,.96), rgba(23,30,42,.92));border-color:rgba(153,173,206,.28);color:#e7eefc}
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .skill-btn{display:inline-flex;align-items:center;justify-content:flex-start;min-height:82px;padding:14px 18px;border-radius:22px;text-decoration:none;border:1px solid var(--line);color:var(--text);box-shadow:0 12px 30px rgba(0,0,0,.22)}
+    .skill-btn span{display:flex;flex-direction:column;align-items:flex-start}
+    .skill-btn small{display:block;margin-bottom:6px;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+    .skill-btn.live{background:linear-gradient(135deg, rgba(20,58,34,.96), rgba(12,38,23,.92));border-color:rgba(117,235,160,.48);color:#ecfff2}
+    .skill-btn.live:hover{border-color:rgba(136,255,179,.76)}
+    .skill-btn.live small{color:#aef1c2}
+    .skill-btn.setup{background:linear-gradient(135deg, rgba(68,44,18,.95), rgba(46,28,10,.92));border-color:rgba(255,183,94,.46);color:#fff0d6}
+    .skill-btn.setup small{color:#ffd39a}
+    .skill-btn.pending{background:linear-gradient(135deg, rgba(35,45,62,.96), rgba(23,30,42,.92));border-color:rgba(153,173,206,.28);color:#e7eefc}
+    .skill-btn.pending small{color:#b6c7e7}
+    .note{margin-top:18px;padding:16px 18px;border-radius:20px;border:1px solid var(--line);background:linear-gradient(160deg, rgba(15,25,42,.94), rgba(9,15,28,.92));color:var(--muted);line-height:1.7}
+    @media (max-width:980px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:640px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="topbar"><div class="topbar-inner"><a class="link" href="../../agents/index.html">← Primary Agent</a></div></div>
+  <header class="hero">
+    <p class="eyebrow">Primary Agent · Skills Registry</p>
+    <h1>Installed Skills</h1>
+    <p class="sub">This page tracks the skills currently installed in the local OpenClaw environment. Green means we have actually validated the skill in this setup. Amber means it is installed and may be usable, but we have not given it a real smoke test yet. Slate means installed but unverified and likely needing credentials, local apps, hardware, or workflow setup.</p>
+  </header>
+  <main class="wrap">
+    <div class="legend">
+      <div class="pill live">Green · Working / validated</div>
+      <div class="pill setup">Amber · Installed / likely usable / needs testing</div>
+      <div class="pill pending">Slate · Installed / unverified</div>
+    </div>
+    <section class="grid">
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>1password</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>apple-notes</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>apple-reminders</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>bear-notes</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>blogwatcher</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>blucli</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>bluebubbles</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>camsnap</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>canvas</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>clawhub</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>coding-agent</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>discord</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>eightctl</span></span>
+          <span class="skill-btn setup" aria-disabled="true"><span><small>Installed / Likely Usable</small>gemini</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>gh-issues</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>gifgrep</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>github</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>gog</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>goplaces</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>healthcheck</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>himalaya</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>imsg</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>mcporter</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>model-usage</span></span>
+          <a class="skill-btn live" href="../skills-image-nano-banana/index.html"><span><small>Working</small>nano-banana-pro</span></a>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>nano-pdf</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>notion</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>obsidian</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>openai-image-gen</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>openai-whisper</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>openai-whisper-api</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>openhue</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>oracle</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>ordercli</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>peekaboo</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>sag</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>session-logs</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>sherpa-onnx-tts</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>skill-creator</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>slack</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>songsee</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>sonoscli</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>spotify-player</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>summarize</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>things-mac</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>tmux</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>trello</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>video-frames</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>voice-call</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>wacli</span></span>
+          <span class="skill-btn setup" aria-disabled="true"><span><small>Installed / Likely Usable</small>weather</span></span>
+          <span class="skill-btn pending" aria-disabled="true"><span><small>Installed / Unverified</small>xurl</span></span>
+    </section>
+    <div class="note">
+      Right now, the only skill we have directly validated end-to-end is <strong>nano-banana-pro</strong> for image generation. I also know Gemini-backed web search is enabled in the broader tool configuration, but this registry is focused on installed skill packages and whether we have actually exercised them in practice.
+    </div>
+  </main>
+</body>
+</html>
