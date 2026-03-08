@@ -19,8 +19,12 @@
     }
     body::before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);background-size:32px 32px;mask-image:linear-gradient(180deg, rgba(255,255,255,.4), rgba(255,255,255,.08));}
     .shell{max-width:1160px;margin:0 auto}
-    .topbar{display:flex;justify-content:flex-end;align-items:center;margin-bottom:14px}
-    .back{width:52px;height:52px;border-radius:999px;display:grid;place-items:center;text-decoration:none;color:#e8f4ff;background:rgba(11,22,40,.82);border:1px solid var(--line-strong);box-shadow:var(--shadow);font-size:1.25rem}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+    .nav-row{display:flex;flex-wrap:wrap;gap:10px}
+    .chip,.back{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:#e8f4ff;background:rgba(11,22,40,.82);border:1px solid var(--line-strong);box-shadow:var(--shadow)}
+    .back{width:52px;height:52px;border-radius:999px;font-size:1.25rem}
+    .chip{padding:10px 14px;border-radius:999px;font-weight:700;font-size:.92rem}
+    .chip.active{background:linear-gradient(135deg, rgba(141,216,255,.95), rgba(110,160,255,.9));color:#07101d;border-color:rgba(141,216,255,.7)}
     .hero{display:grid;grid-template-columns:minmax(300px,440px) minmax(320px,1fr);gap:24px;align-items:center;padding:18px;border:1px solid var(--line-strong);border-radius:28px;background:linear-gradient(160deg, rgba(10,18,34,.94), rgba(7,12,24,.8));box-shadow:var(--shadow);overflow:hidden;position:relative}
     .hero::before{content:"";position:absolute;inset:auto auto -80px -60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle, rgba(98,168,255,.16), transparent 70%);pointer-events:none}
     .portrait-wrap{display:flex;justify-content:flex-start}
@@ -42,13 +46,17 @@
     .action.placeholder{background:linear-gradient(135deg, rgba(68,44,18,.95), rgba(46,28,10,.92));border-color:rgba(255,183,94,.46);color:#fff0d6}
     .action.placeholder:hover{border-color:rgba(255,204,120,.72);background:linear-gradient(135deg, rgba(88,58,22,.98), rgba(58,36,12,.94))}
     .action.placeholder small{color:#ffd39a}
-    @media (max-width:920px){.hero{grid-template-columns:1fr}.portrait-wrap{justify-content:center}.content{align-items:flex-start}}
+    @media (max-width:920px){.hero{grid-template-columns:1fr}.portrait-wrap{justify-content:center}.content{align-items:flex-start}.topbar{flex-direction:column-reverse;align-items:flex-start}}
     @media (max-width:640px){.button-row{width:100%}.action{width:100%}.topbar{margin-bottom:12px}}
   </style>
 </head>
 <body>
   <main class="shell">
     <header class="topbar">
+      <div class="nav-row">
+        <a class="chip active" href="index.html">Primary Agent</a>
+        <a class="chip" href="user.html">User</a>
+      </div>
       <a class="back" href="../index.html" aria-label="Back to Remote Viewer">←</a>
     </header>
 
