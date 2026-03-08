@@ -2,6 +2,10 @@
 ## March 8, 2026
 ## Session window: approximately 2:11 PM – 5:23 PM EDT
 
+## User Prompt
+
+> Well first I want you to give me kind of an extensive discussion primer and I want you to pull the context for that from our end of session summary and also from your recent memories provide an extensive and elaborate kind of a summary of what we've been doing and what you know about me so far
+
 ---
 
 ## Executive Summary
