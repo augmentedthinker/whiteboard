@@ -2,9 +2,9 @@
 ## March 8, 2026
 ## Session window: approximately 2:11 PM – 5:23 PM EDT
 
-## User Prompt
+## Provenance Note
 
-> Well first I want you to give me kind of an extensive discussion primer and I want you to pull the context for that from our end of session summary and also from your recent memories provide an extensive and elaborate kind of a summary of what we've been doing and what you know about me so far
+The exact initiating user prompt for this end-of-session summary was not recoverable from the currently accessible session transcript. The summary file already existed by the earliest point in the available log where it appears. The previously inserted prompt was from the later state-of-the-union analysis request and has been removed to avoid attributing the wrong source prompt here.
 
 ---
 
