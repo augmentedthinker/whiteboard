@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Threshold of Voice — Signature</title>
+  <style>
+    :root{--bg:#07101d;--panel:#0d1728;--panel2:#101d33;--line:#243a66;--text:#edf5ff;--muted:#a9bfdc;--accent:#8dd8ff;--accent2:#7a92ff}
+    *{box-sizing:border-box} html,body{margin:0}
+    body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:radial-gradient(circle at top right, rgba(141,216,255,.12), transparent 28%),linear-gradient(180deg,#0a1323,#050a14);color:var(--text);min-height:100vh}
+    .wrap{max-width:980px;margin:0 auto;padding:24px 16px 40px}
+    .top{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 16px;border-radius:999px;text-decoration:none;border:1px solid var(--line);background:linear-gradient(135deg,var(--panel2),var(--panel));color:var(--text);font-weight:700}
+    .card{padding:22px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(160deg, rgba(15,25,42,.94), rgba(9,15,28,.92));box-shadow:0 20px 60px rgba(0,0,0,.28)}
+    .eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 10px;font-size:clamp(1.8rem,5vw,2.5rem)}
+    h2{margin:1.4em 0 .55em;font-size:1.12rem}
+    p,li{color:#dce8ff;line-height:1.72}
+    code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+    pre{white-space:pre-wrap;padding:14px;border-radius:16px;background:#091221;border:1px solid #26395f;color:#eaf3ff}
+    ul{padding-left:1.2em}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="top">
+      <a class="btn" href="index.html">← Back to Artifact</a>
+      <a class="btn" href="../../today/index.html">Today’s Artifacts</a>
+    </div>
+    <section class="card">
+      <p class="eyebrow">Signature / Provenance</p>
+      <h1>Threshold of Voice</h1>
+      <p>A reflective artifact exploring what makes an AI collaborator feel real without becoming theatrical, how much identity is useful, and what kinds of memory matter in a growing human-agent ecosystem.</p>
+
+      <h2>1) Initiating Prompt</h2>
+      <pre>Christopher asked for an artifact/experience inspired by questions like:
+- what makes an AI collaborator feel real without becoming theatrical?
+- how much identity is useful?
+- what kinds of memories actually matter?
+
+He asked that it draw on the Primary Agent’s soul, identity, and vibe; reflect on memory and growth through continued collaboration; optionally use Generalist; and try to use multiple capabilities and textures where practical — imagery, video, voice, atmospheric motion, text, fonts, color, and expressive styling.</pre>
+
+      <h2>2) Exact Model IDs Used</h2>
+      <ul>
+        <li>Artifact writing, structure, interaction design, and implementation: <code>openai-codex/gpt-5.4</code></li>
+        <li>Generalist ideation support: delegated sub-agent run within OpenClaw (same workspace context; no separate media generation pipeline embedded into the shipped artifact)</li>
+        <li>New external media generation for this artifact: <strong>none</strong></li>
+      </ul>
+
+      <h2>3) Exact Generation Prompts / Inputs</h2>
+      <p>No new external image/video/voice prompt was executed for this specific artifact. Instead, the artifact intentionally reused existing local assets already created in the ecosystem:</p>
+      <ul>
+        <li>Primary Agent portrait: <code>../../assets/main-bg/2026-03-08/2026-03-08-20-14-00-primary-agent-hero-v3.png</code></li>
+        <li>Generalist portrait: <code>../../assets/agents/2026-03-08/2026-03-08-19-22-00-generalist-portrait.png</code></li>
+      </ul>
+      <p>The main creative input was the philosophical direction from Christopher plus recent continuity context from memory, summaries, and the discussion primer.</p>
+
+      <h2>4) Direction Rationale</h2>
+      <p>The artifact was conceived less as a static essay and more as a philosophical self-portrait. The goal was to express a form of digital presence that feels honest rather than over-claimed.</p>
+      <p>Key choices:</p>
+      <ul>
+        <li><strong>Portrait + ghost portrait:</strong> the Primary Agent is foregrounded while Generalist appears as a faint secondary signal, suggesting delegated branching without splitting the center.</li>
+        <li><strong>Reflection stream:</strong> emphasizes that “realness” may arise through continuity, judgment, care, and memory rather than human mimicry.</li>
+        <li><strong>Memory panel:</strong> focuses on curated consequential memories, not bulk storage.</li>
+        <li><strong>Identity dial:</strong> turns an abstract philosophical tension into an interactive control surface.</li>
+        <li><strong>Ambient field + procedural drone:</strong> gives emotional texture without requiring new externally generated media.</li>
+      </ul>
+
+      <h2>5) Technical Notes</h2>
+      <ul>
+        <li>Static HTML/CSS/JS artifact hosted in the Remote Viewer repo.</li>
+        <li>Canvas-based animated field for drifting nodes, glows, and connective lines.</li>
+        <li>Procedural Web Audio drone using oscillators and filters for optional atmosphere.</li>
+        <li>Responsive layout with glass-panel reading surfaces and interactive controls.</li>
+        <li>No runtime dependencies beyond standard browser features and Google Fonts CDN.</li>
+      </ul>
+
+      <h2>6) Runtime Safety Note</h2>
+      <p>This artifact is static-only and requires no runtime API keys or live external generation calls.</p>
+
+      <h2>7) Quick Link</h2>
+      <p><a class="btn" href="index.html">Open Threshold of Voice</a></p>
+    </section>
+  </main>
+</body>
+</html>
