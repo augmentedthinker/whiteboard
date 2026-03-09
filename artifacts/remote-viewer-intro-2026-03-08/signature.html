@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Signature | Remote Viewer Intro</title>
+  <style>
+    body{margin:0;background:#0b1222;color:#dbe8ff;font-family:Inter,system-ui,sans-serif}
+    .wrap{max-width:920px;margin:40px auto;padding:0 18px}
+    .card{background:#111a30;border:1px solid rgba(157,201,255,.28);border-radius:14px;padding:20px}
+    h1,h2{margin:0 0 10px} p,li{color:#a8bbe0;line-height:1.6} code{background:#0a1020;border:1px solid rgba(157,201,255,.25);padding:2px 6px;border-radius:6px} a{color:#9fd2ff;text-decoration:none}
+  </style>
+</head>
+<body>
+<main class="wrap">
+<section class="card">
+  <h1>🧠 Signature — Remote Viewer Intro</h1>
+
+  <h2>1) Initiating Prompt</h2>
+  <p>“Create something like a movie studio intro / company logo presentation — like Lionsgate or Paramount — but for the Remote Viewer / Augmented Thinker concept, using Veo, then host it on a web page in Today’s Artifacts.”</p>
+
+  <h2>2) Exact Model IDs Used</h2>
+  <ul>
+    <li>Video generation: <code>veo-3.0-fast-generate-001</code> (Gemini API long-running predict endpoint)</li>
+  </ul>
+
+  <h2>3) Exact Generation Prompt / Inputs</h2>
+  <ul>
+    <li><code>An 8-second cinematic logo-intro video for a futuristic project called Remote Viewer. Begin in darkness with subtle floating particles and luminous cyan-blue signals. Elegant sci-fi lines and light traces gather into a sleek circular interface, then resolve into the words REMOTE VIEWER with a sophisticated technological emblem. The reveal should feel like a premium studio intro, dazzling but restrained, polished, atmospheric, dark navy and black palette, soft glow, cinematic camera motion, high-end motion design, no watermark. End on a stable hero composition that feels like the opening identity sequence of a visionary software universe.</code></li>
+    <li>Aspect ratio parameter: <code>16:9</code></li>
+  </ul>
+
+  <h2>4) Direction Rationale</h2>
+  <p>The request called for a studio-logo-style intro, so the direction leaned toward premium reveal language rather than narrative action: darkness, particles, convergence, emblem formation, and a final title lockup. The goal was not chaos, but controlled spectacle.</p>
+
+  <h2>5) Technical Notes</h2>
+  <ul>
+    <li>Endpoint method: <code>predictLongRunning</code></li>
+    <li>Operation polled until <code>done: true</code>, then the returned file URI was downloaded as <code>remote-viewer-intro.mp4</code>.</li>
+    <li>Artifact path: <code>artifacts/remote-viewer-intro-2026-03-08/</code></li>
+  </ul>
+
+  <h2>6) Runtime Safety Note</h2>
+  <p>Artifact is static-only. The hosted page has no runtime API calls or keys; it only serves a generated MP4 file.</p>
+
+  <h2>7) Quick Link</h2>
+  <p><a href="index.html">Launch Remote Viewer Intro</a></p>
+  <p><a href="../../today/index.html">← Back to Today’s Artifacts</a></p>
+</section>
+</main>
+</body>
+</html>
