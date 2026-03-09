@@ -79,109 +79,6 @@
       transition:opacity .8s ease, transform .8s ease;
     }
 
-    .container.prelaunch{
-      opacity:0;
-      transform:translateY(10px) scale(.985);
-      pointer-events:none;
-    }
-
-    .opening-sequence{
-      position:fixed;
-      inset:0;
-      z-index:160;
-      background:#000;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:24px;
-      transition:opacity .9s ease, visibility .9s ease;
-    }
-
-    .opening-sequence.hidden{
-      opacity:0;
-      visibility:hidden;
-      pointer-events:none;
-    }
-
-    .opening-stage{
-      width:min(980px,100%);
-      text-align:center;
-    }
-
-    .opening-quote{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      min-height:100vh;
-      gap:22px;
-      transition:opacity .7s ease, transform .7s ease;
-    }
-
-    .opening-quote.hidden,
-    .opening-video.hidden{
-      opacity:0;
-      transform:translateY(10px);
-      pointer-events:none;
-      position:absolute;
-      inset:0;
-    }
-
-    .opening-kicker{
-      color:rgba(127,207,255,.52);
-      font-size:.62rem;
-      font-weight:700;
-      letter-spacing:.26em;
-      text-transform:uppercase;
-      margin:0;
-    }
-
-    .opening-text{
-      margin:0 auto;
-      max-width:28ch;
-      color:rgba(238,246,255,.66);
-      font-size:clamp(.92rem,1.8vw,1.15rem);
-      line-height:1.9;
-      letter-spacing:.03em;
-      font-weight:500;
-      text-shadow:0 0 18px rgba(120,180,255,.08);
-    }
-
-    .opening-text em{
-      color:rgba(142,223,255,.82);
-      font-style:normal;
-    }
-
-    .enter-btn{
-      border:1px solid rgba(126,186,255,.4);
-      background:linear-gradient(135deg, rgba(26,46,78,.95), rgba(10,20,38,.92));
-      color:#eef6ff;
-      border-radius:999px;
-      padding:16px 26px;
-      font-weight:800;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      cursor:pointer;
-      box-shadow:0 16px 40px rgba(0,0,0,.38);
-    }
-
-    .opening-video{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      transition:opacity .7s ease, transform .7s ease;
-    }
-
-    .opening-video video{
-      width:min(1100px,100%);
-      max-height:86vh;
-      border-radius:24px;
-      overflow:hidden;
-      border:1px solid rgba(126,186,255,.18);
-      background:#000;
-      box-shadow:0 30px 90px rgba(0,0,0,.55);
-    }
 
     header{
       border:2px solid rgba(255,153,86,.95);
@@ -341,28 +238,6 @@
     }
     .fs-btn.dragging{cursor:grabbing;}
 
-    .skip-btn{
-      position:fixed;
-      right:max(14px, env(safe-area-inset-right));
-      bottom:max(14px, env(safe-area-inset-bottom));
-      z-index:230;
-      width:54px;
-      height:54px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.22);
-      background:linear-gradient(135deg, rgba(18,30,52,.92), rgba(8,16,30,.92));
-      color:#ecf5ff;
-      display:grid;
-      place-items:center;
-      font-size:1.05rem;
-      font-weight:800;
-      box-shadow:0 14px 32px rgba(0,0,0,.34);
-      backdrop-filter:blur(10px);
-      cursor:pointer;
-      transition:transform .16s ease, border-color .16s ease, opacity .25s ease;
-    }
-    .skip-btn:hover{transform:translateY(-1px);border-color:rgba(141,216,255,.58)}
-    .skip-btn.hidden{opacity:0;pointer-events:none}
 
     @keyframes glintSweep {
       0%, 70%, 100% { transform: translateX(-130%) translateY(0); opacity: 0; }
@@ -407,19 +282,6 @@
 </style>
 </head>
 <body>
-  <div id="openingSequence" class="opening-sequence">
-    <div class="opening-stage">
-      <section id="openingQuote" class="opening-quote">
-        <p class="opening-kicker">Remote Viewer</p>
-        <p class="opening-text">“Artificial intelligence will not simply answer our questions — it will change what it means to <em>have one</em>.”</p>
-        <button id="enterSequenceBtn" class="enter-btn" type="button">Enter</button>
-      </section>
-      <section id="openingVideo" class="opening-video hidden">
-        <video id="introVideo" playsinline preload="auto"></video>
-      </section>
-    </div>
-  </div>
-
   <div class="bg-media" aria-hidden="true">
     <img src="assets/main-bg/2026-03-07/remote-viewer-portrait-black-edge-swirl.png" alt="" />
   </div>
@@ -427,9 +289,8 @@
   <canvas id="ambientFx" aria-hidden="true"></canvas>
 
   <button id="fsBtn" class="fs-btn" type="button" aria-label="Toggle fullscreen">⛶</button>
-  <button id="skipIntroBtn" class="skip-btn" type="button" aria-label="Skip intro to main Remote Viewer menu" title="Skip to main menu">»</button>
 
-  <div id="mainMenu" class="container prelaunch">
+  <div id="mainMenu" class="container">
     <header>
       <h1>Remote Viewer</h1>
     </header>
@@ -451,12 +312,6 @@
     const fxCanvas = document.getElementById('ambientFx');
     const fx = fxCanvas.getContext('2d');
     const particles = [];
-    const openingSequence = document.getElementById('openingSequence');
-    const openingQuote = document.getElementById('openingQuote');
-    const openingVideo = document.getElementById('openingVideo');
-    const introVideo = document.getElementById('introVideo');
-    const enterSequenceBtn = document.getElementById('enterSequenceBtn');
-    const skipIntroBtn = document.getElementById('skipIntroBtn');
     const mainMenu = document.getElementById('mainMenu');
 
     function resizeAmbient(){
@@ -594,47 +449,12 @@
       drag = null;
     });
 
-    function selectIntroVideo(){
-      const portrait = window.matchMedia('(orientation: portrait)').matches || window.innerHeight > window.innerWidth;
-      introVideo.innerHTML = '';
-      const source = document.createElement('source');
-      source.type = 'video/mp4';
-      source.src = portrait
-        ? 'artifacts/remote-viewer-intro-mobile-2026-03-08/remote-viewer-intro-mobile.mp4'
-        : 'artifacts/remote-viewer-intro-2026-03-08/remote-viewer-intro.mp4';
-      introVideo.appendChild(source);
-      introVideo.load();
-    }
-
-    function finishOpeningSequence(){
-      openingSequence.classList.add('hidden');
-      skipIntroBtn.classList.add('hidden');
-      mainMenu.classList.remove('prelaunch');
-    }
-
-    function startOpeningSequence(){
-      selectIntroVideo();
-      openingQuote.classList.add('hidden');
-      openingVideo.classList.remove('hidden');
-      const playAttempt = introVideo.play();
-      if (playAttempt && typeof playAttempt.catch === 'function') {
-        playAttempt.catch(() => {
-          setTimeout(finishOpeningSequence, 9000);
-        });
-      }
-    }
-
-    enterSequenceBtn.addEventListener('click', startOpeningSequence);
-    skipIntroBtn.addEventListener('click', finishOpeningSequence);
-    introVideo.addEventListener('ended', finishOpeningSequence);
-
     document.addEventListener('fullscreenchange', ()=>fsBtn.textContent = isFullscreen() ? '🡼' : '⛶');
     window.addEventListener('load', () => {
       resizeAmbient();
       initAmbient();
       tickAmbient();
       normalizeButtonWidths();
-      selectIntroVideo();
     });
     window.addEventListener('resize', () => {
       resizeAmbient();
