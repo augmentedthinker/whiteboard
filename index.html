@@ -171,15 +171,16 @@
       text-align:center;
       transition:.18s transform,.18s background,.18s border-color;
       backdrop-filter:blur(4px);
-      width:auto;
+      width:min(320px, calc(100vw - 72px));
       min-height:64px;
-      max-width:min(88vw,460px);
+      max-width:320px;
       display:flex;
       flex-direction:column;
       align-items:center;
       justify-content:center;
       white-space:normal;
       box-shadow:0 0 0 1px rgba(255,153,86,.18), 0 10px 20px rgba(0,0,0,.22);
+      flex:0 0 auto;
     }
 
     .btn::after{
@@ -381,26 +382,17 @@
         if (!isFullscreen()) {
           if (target.requestFullscreen) await target.requestFullscreen();
           else if (target.webkitRequestFullscreen) target.webkitRequestFullscreen();
+          try { localStorage.setItem('rvFullscreenPreferred', '1'); } catch(_) {}
         } else {
           if (document.exitFullscreen) await document.exitFullscreen();
           else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+          try { localStorage.setItem('rvFullscreenPreferred', '0'); } catch(_) {}
         }
       } catch(_) {}
       fsBtn.textContent = isFullscreen() ? '🡼' : '⛶';
     }
 
-    function normalizeButtonWidths(){
-      const buttons = [...document.querySelectorAll('.portal-grid .btn')];
-      if (!buttons.length) return;
-
-      buttons.forEach(btn => btn.style.width = 'auto');
-
-      const maxContentWidth = Math.max(...buttons.map(btn => btn.scrollWidth));
-      const maxAllowed = Math.min(Math.floor(window.innerWidth * 0.88), 460);
-      const targetWidth = Math.min(maxContentWidth, maxAllowed);
-
-      buttons.forEach(btn => btn.style.width = `${targetWidth}px`);
-    }
+    function normalizeButtonWidths(){}
 
     let drag = null;
     let moved = false;
@@ -481,6 +473,34 @@
   fab.addEventListener('pointercancel', ()=>{ fab.classList.remove('dragging'); drag=null; });
   fab.addEventListener('click', (e)=>{ if(moved){ e.preventDefault(); moved=false; } });
 
+  const tryApplyFullscreenPreference = async () => {
+    let preferred = false;
+    try { preferred = localStorage.getItem('rvFullscreenPreferred') === '1'; } catch(_) {}
+    if (!preferred) return;
+    const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+    if (isFs) return;
+    try {
+      const target = document.documentElement;
+      if (target.requestFullscreen) await target.requestFullscreen();
+      else if (target.webkitRequestFullscreen) target.webkitRequestFullscreen();
+    } catch(_) {}
+  };
+
+  const armFullscreenCarry = () => {
+    let preferred = false;
+    try { preferred = localStorage.getItem('rvFullscreenPreferred') === '1'; } catch(_) {}
+    if (!preferred) return;
+    const handler = () => {
+      tryApplyFullscreenPreference();
+      window.removeEventListener('pointerdown', handler, true);
+      window.removeEventListener('keydown', handler, true);
+      window.removeEventListener('touchstart', handler, true);
+    };
+    window.addEventListener('pointerdown', handler, true);
+    window.addEventListener('keydown', handler, true);
+    window.addEventListener('touchstart', handler, true);
+  };
+
   const hideBackNav = () => {
     const selectors = 'a,button,.btn,.link,.back';
     document.querySelectorAll(selectors).forEach(el => {
@@ -495,8 +515,8 @@
       }
     });
   };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', hideBackNav, {once:true});
-  else hideBackNav();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => { hideBackNav(); armFullscreenCarry(); }, {once:true});
+  else { hideBackNav(); armFullscreenCarry(); }
 })();
 </script>
 </body>
