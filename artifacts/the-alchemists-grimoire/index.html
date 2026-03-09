@@ -265,8 +265,9 @@
   </style>
 
 <style id="rv-home-fab-style">
-  .rv-home-fab{position:fixed;left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(141,216,255,.7);background:linear-gradient(135deg, rgba(18,31,54,.95), rgba(11,20,36,.92));color:#eef6ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);cursor:grab;touch-action:none;user-select:none;text-decoration:none}
+  .rv-home-fab{position:fixed;left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);cursor:grab;touch-action:none;user-select:none;text-decoration:none}
   .rv-home-fab.dragging{cursor:grabbing}
+  .rv-hidden-back-nav{display:none !important}
 </style>
 </head>
 <body>
@@ -335,6 +336,23 @@
   fab.addEventListener('pointerup', (e)=>{ if(!drag||e.pointerId!==drag.id) return; fab.classList.remove('dragging'); try{fab.releasePointerCapture(e.pointerId);}catch(_){} const wasMoved=moved; drag=null; if(wasMoved) e.preventDefault(); });
   fab.addEventListener('pointercancel', ()=>{ fab.classList.remove('dragging'); drag=null; });
   fab.addEventListener('click', (e)=>{ if(moved){ e.preventDefault(); moved=false; } });
+
+  const hideBackNav = () => {
+    const selectors = 'a,button,.btn,.link,.back';
+    document.querySelectorAll(selectors).forEach(el => {
+      if (el.id === 'rvHomeFab' || el.id === 'fsBtn') return;
+      const text = (el.textContent || '').replace(/\s+/g,' ').trim().toLowerCase();
+      const hrefAttr = (el.getAttribute && (el.getAttribute('href') || '') || '').toLowerCase();
+      const title = (el.getAttribute && (el.getAttribute('title') || '') || '').toLowerCase();
+      const looksBack = text.startsWith('←') || text.startsWith('back to') || text === 'back' || text === 'today’s artifacts' || text === "today's artifacts" || title.includes('back to');
+      const navHref = hrefAttr.includes('../index.html') || hrefAttr.endsWith('/index.html') || hrefAttr === 'index.html';
+      if (looksBack || (navHref && text.includes('back'))) {
+        el.classList.add('rv-hidden-back-nav');
+      }
+    });
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', hideBackNav, {once:true});
+  else hideBackNav();
 })();
 </script>
 </body>
