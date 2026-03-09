@@ -1,0 +1,54 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#08111D"/>
+      <stop offset="1" stop-color="#132745"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1220 190) rotate(119) scale(430 540)">
+      <stop stop-color="#5EDCFF" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#5EDCFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(380 760) rotate(-29) scale(500 380)">
+      <stop stop-color="#FFB36B" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#FFB36B" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="line" x1="300" y1="190" x2="1270" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#90D8FF" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#FFB36B" stop-opacity="0.35"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect width="1600" height="900" fill="url(#glow1)"/>
+  <rect width="1600" height="900" fill="url(#glow2)"/>
+
+  <g opacity="0.45">
+    <circle cx="1190" cy="190" r="3" fill="#90D8FF"/>
+    <circle cx="1265" cy="244" r="4" fill="#90D8FF"/>
+    <circle cx="1315" cy="322" r="3" fill="#90D8FF"/>
+    <circle cx="1364" cy="412" r="4" fill="#90D8FF"/>
+    <circle cx="1286" cy="468" r="3" fill="#90D8FF"/>
+    <circle cx="1180" cy="520" r="4" fill="#90D8FF"/>
+    <circle cx="1084" cy="612" r="3" fill="#90D8FF"/>
+    <circle cx="990" cy="690" r="4" fill="#90D8FF"/>
+    <path d="M1190 190C1230 212 1240 228 1265 244C1290 260 1304 292 1315 322C1328 357 1364 372 1364 412C1364 452 1310 447 1286 468C1236 513 1230 533 1180 520C1126 506 1117 569 1084 612C1050 656 1024 666 990 690" stroke="url(#line)" stroke-width="2" stroke-dasharray="8 12"/>
+  </g>
+
+  <rect x="120" y="108" width="1160" height="684" rx="34" fill="rgba(8,14,24,0.64)" stroke="rgba(144,216,255,0.22)"/>
+  <rect x="160" y="150" width="175" height="38" rx="19" fill="#12233C" stroke="#294970"/>
+  <text x="188" y="175" fill="#90D8FF" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="2.2">CHRISTOPHER &amp; CO.</text>
+
+  <text x="160" y="268" fill="#F3F8FF" font-family="Inter, Arial, sans-serif" font-size="76" font-weight="800">
+    <tspan x="160" dy="0">An AI session doesn’t</tspan>
+    <tspan x="160" dy="94">continue by magic.</tspan>
+    <tspan x="160" dy="94">It rebuilds itself from</tspan>
+    <tspan x="160" dy="94">memory, files, and ritual.</tspan>
+  </text>
+
+  <text x="164" y="668" fill="#B9CAE0" font-family="Inter, Arial, sans-serif" font-size="31" font-weight="500">
+    <tspan x="164" dy="0">Today we turned that idea into a working artifact inside our OpenClaw / Remote Viewer setup.</tspan>
+    <tspan x="164" dy="48">Less chatbot, more environment.</tspan>
+  </text>
+
+  <line x1="160" y1="734" x2="1238" y2="734" stroke="rgba(144,216,255,0.18)"/>
+  <text x="162" y="774" fill="#90D8FF" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="1.8">OPENCLAW · REMOTE VIEWER · SESSION RE-ENTRY · 2026-03-09</text>
+</svg>
