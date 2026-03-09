@@ -128,25 +128,27 @@
     }
 
     .opening-kicker{
-      color:#7fcfff;
-      font-size:.78rem;
-      font-weight:800;
-      letter-spacing:.2em;
+      color:rgba(127,207,255,.52);
+      font-size:.62rem;
+      font-weight:700;
+      letter-spacing:.26em;
       text-transform:uppercase;
       margin:0;
     }
 
     .opening-text{
       margin:0 auto;
-      max-width:20ch;
-      color:#eef6ff;
-      font-size:clamp(1.8rem,5vw,3.3rem);
-      line-height:1.28;
-      letter-spacing:.01em;
+      max-width:28ch;
+      color:rgba(238,246,255,.66);
+      font-size:clamp(.92rem,1.8vw,1.15rem);
+      line-height:1.9;
+      letter-spacing:.03em;
+      font-weight:500;
+      text-shadow:0 0 18px rgba(120,180,255,.08);
     }
 
     .opening-text em{
-      color:#8edfff;
+      color:rgba(142,223,255,.82);
       font-style:normal;
     }
 
@@ -365,13 +367,11 @@
     <div class="opening-stage">
       <section id="openingQuote" class="opening-quote">
         <p class="opening-kicker">Remote Viewer</p>
-        <p class="opening-text">“The interface is not the thing itself — it is the <em>doorway</em> through which attention becomes a world.”</p>
+        <p class="opening-text">“Artificial intelligence will not simply answer our questions — it will change what it means to <em>have one</em>.”</p>
         <button id="enterSequenceBtn" class="enter-btn" type="button">Enter</button>
       </section>
       <section id="openingVideo" class="opening-video hidden">
-        <video id="introVideo" playsinline preload="auto">
-          <source src="artifacts/remote-viewer-intro-2026-03-08/remote-viewer-intro.mp4" type="video/mp4" />
-        </video>
+        <video id="introVideo" playsinline preload="auto"></video>
       </section>
     </div>
   </div>
@@ -547,12 +547,25 @@
       drag = null;
     });
 
+    function selectIntroVideo(){
+      const portrait = window.matchMedia('(orientation: portrait)').matches || window.innerHeight > window.innerWidth;
+      introVideo.innerHTML = '';
+      const source = document.createElement('source');
+      source.type = 'video/mp4';
+      source.src = portrait
+        ? 'artifacts/remote-viewer-intro-mobile-2026-03-08/remote-viewer-intro-mobile.mp4'
+        : 'artifacts/remote-viewer-intro-2026-03-08/remote-viewer-intro.mp4';
+      introVideo.appendChild(source);
+      introVideo.load();
+    }
+
     function finishOpeningSequence(){
       openingSequence.classList.add('hidden');
       mainMenu.classList.remove('prelaunch');
     }
 
     function startOpeningSequence(){
+      selectIntroVideo();
       openingQuote.classList.add('hidden');
       openingVideo.classList.remove('hidden');
       const playAttempt = introVideo.play();
@@ -572,6 +585,7 @@
       initAmbient();
       tickAmbient();
       normalizeButtonWidths();
+      selectIntroVideo();
     });
     window.addEventListener('resize', () => {
       resizeAmbient();
