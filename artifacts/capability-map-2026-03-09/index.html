@@ -26,13 +26,17 @@
     .pill.green{background:linear-gradient(135deg, rgba(57,217,138,.18), rgba(21,115,71,.22)); color:#cffff0; border-color:rgba(57,217,138,.4)}
     .pill.blue{background:linear-gradient(135deg, rgba(97,183,255,.18), rgba(35,94,159,.22)); color:#dff2ff; border-color:rgba(97,183,255,.4)}
     .pill.orange{background:linear-gradient(135deg, rgba(255,179,92,.18), rgba(145,86,23,.22)); color:#fff0d9; border-color:rgba(255,179,92,.42)}
-    .priority-wrap{margin-top:20px;padding:18px;border:1px solid rgba(255,214,140,.24);border-radius:24px;background:linear-gradient(160deg, rgba(56,36,16,.35), rgba(16,12,10,.32));box-shadow:0 14px 34px rgba(0,0,0,.24)}
+    .priority-wrap{margin-top:20px;padding:18px;border:1px solid rgba(255,123,123,.24);border-radius:24px;background:linear-gradient(160deg, rgba(62,18,22,.38), rgba(16,10,12,.32));box-shadow:0 14px 34px rgba(0,0,0,.24)}
     .priority-wrap h2{margin:0 0 8px;font-family:"Space Grotesk",Inter,sans-serif;font-size:1.24rem}
-    .priority-wrap p{margin:0;color:#e8dcc8;line-height:1.7;max-width:78ch}
+    .priority-wrap p{margin:0;color:#f2d6d6;line-height:1.7;max-width:78ch}
     .priority-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
-    .priority-card{padding:16px 16px 14px;border-radius:20px;border:1px solid rgba(255,199,122,.24);background:linear-gradient(160deg, rgba(92,58,21,.56), rgba(34,21,11,.46));box-shadow:0 12px 28px rgba(0,0,0,.18)}
-    .priority-card strong{display:block;font-size:1.02rem;line-height:1.4;margin-bottom:8px;color:#fff4df}
-    .priority-card p{margin:0;color:#f1e3cc;line-height:1.68;font-size:.98rem}
+    details.priority-card{border:1px solid rgba(255,123,123,.34);border-radius:22px;background:linear-gradient(160deg, rgba(94,24,31,.92), rgba(43,13,18,.94));overflow:hidden;box-shadow:0 18px 42px rgba(0,0,0,.22)}
+    details.priority-card[open]{border-color:rgba(255,173,173,.58)}
+    .priority-card summary{padding:18px 18px 16px}
+    .priority-card .title{margin:10px 0 8px;color:#fff2f2}
+    .priority-card .desc{color:#ffdede}
+    .priority-card .body p,.priority-card .body li{color:#fff4f4}
+    .priority-badge{display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;font-weight:800;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(255,140,140,.46);white-space:nowrap;background:linear-gradient(135deg, rgba(255,91,91,.24), rgba(149,35,35,.28));color:#fff0f0}
     .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:20px}
     .lane{padding:18px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(160deg, rgba(14,24,42,.9), rgba(10,18,32,.88));box-shadow:0 14px 34px rgba(0,0,0,.24)}
     .lane h2{margin:0 0 8px;font-family:"Space Grotesk",Inter,sans-serif;font-size:1.2rem}
@@ -85,30 +89,137 @@
       <h2>Christopher’s top priority next-capabilities</h2>
       <p>These are not abstract wishlist items. They are concrete use-cases Christopher appears to want most: agent work that gathers, interprets, packages, and presents information or creative output in a way that feels useful, polished, and easy to consume.</p>
       <div class="priority-grid">
-        <div class="priority-card">
-          <strong>Briefings that become polished visual pages</strong>
-          <p>Research something time-sensitive or local — like what is happening in Washington, D.C. this weekend — then turn it into a styled web page with images, categorization by Christopher’s interests, and clean presentation rather than a plain text dump.</p>
-        </div>
-        <div class="priority-card">
-          <strong>Creative production workflows across platforms</strong>
-          <p>Take an idea like a small batch of songs, use tools like Suno or adjacent workflows to generate outputs, then package them back into a stronger presentation layer — potentially including visual treatment, sequencing, and even lightweight music-video direction.</p>
-        </div>
-        <div class="priority-card">
-          <strong>Recurring AI intelligence briefings</strong>
-          <p>Track meaningful developments from organizations like Anthropic, OpenAI, and Google, then periodically compile concise reports so Christopher can stay current without having to manually sift through everything.</p>
-        </div>
-        <div class="priority-card">
-          <strong>Social-feed synthesis and signal extraction</strong>
-          <p>Review X / Twitter accounts or similar streams Christopher cares about and compress the last few days of discussion into a readable briefing that preserves signal while stripping out noise and repetition.</p>
-        </div>
-        <div class="priority-card">
-          <strong>Promotions / social media support</strong>
-          <p>Act more like a promotional or visibility-oriented collaborator: help package projects, shape posts, propose content, summarize progress, and turn internal work into things that can be shared publicly with more confidence and consistency.</p>
-        </div>
-        <div class="priority-card">
-          <strong>End-of-day packaging of momentum</strong>
-          <p>At the close of a work period, gather what was built, summarize why it matters, and package it into something someone else could quickly understand — whether that is a post, a briefing, a mini landing page, or a daily project digest.</p>
-        </div>
+        <details class="priority-card" open>
+          <summary>
+            <div class="topline">
+              <span class="priority-badge">Top priority</span>
+              <span style="color:#ffcbcb;font-size:.9rem;font-weight:700">Click to expand</span>
+            </div>
+            <div class="title">End-of-day packaging of momentum</div>
+            <p class="desc">At the close of a work period, gather what was built, summarize why it matters, and package it into something someone else could quickly understand.</p>
+          </summary>
+          <div class="body"><div class="body-inner">
+            <h3>What this should become</h3>
+            <ul>
+              <li>A repeatable way to convert daily work into public-facing updates</li>
+              <li>Something that supports visibility, credibility, and demonstration of skill</li>
+              <li>A format that works whether the update is small, medium, or substantial</li>
+              <li>A future scheduled release pattern — potentially one post or package per day</li>
+            </ul>
+            <h3>Why it matters</h3>
+            <p>This appears to be the highest-priority direction because Christopher is shifting toward a more visible, monetized, entrepreneurial identity. The system should help convert creative motion into public proof of work without killing the playfulness of the underlying projects.</p>
+          </div></div>
+        </details>
+
+        <details class="priority-card">
+          <summary>
+            <div class="topline">
+              <span class="priority-badge">Priority use-case</span>
+              <span style="color:#ffcbcb;font-size:.9rem;font-weight:700">Click to expand</span>
+            </div>
+            <div class="title">Briefings that become polished visual pages</div>
+            <p class="desc">Research something time-sensitive or local — like what is happening in Washington, D.C. this weekend — then turn it into a styled web page rather than a plain text dump.</p>
+          </summary>
+          <div class="body"><div class="body-inner">
+            <h3>What that includes</h3>
+            <ul>
+              <li>Find relevant events or happenings</li>
+              <li>Categorize them by Christopher’s interests</li>
+              <li>Add images, structure, and visual hierarchy</li>
+              <li>Produce a reviewable browser-ready briefing</li>
+            </ul>
+            <h3>Why it matters</h3>
+            <p>This would turn research into something much easier and more pleasant to consume.</p>
+          </div></div>
+        </details>
+
+        <details class="priority-card">
+          <summary>
+            <div class="topline">
+              <span class="priority-badge">Priority use-case</span>
+              <span style="color:#ffcbcb;font-size:.9rem;font-weight:700">Click to expand</span>
+            </div>
+            <div class="title">Creative production workflows across platforms</div>
+            <p class="desc">Take an idea like a small batch of songs, use tools like Suno or adjacent workflows to generate outputs, then package them into a stronger presentation layer.</p>
+          </summary>
+          <div class="body"><div class="body-inner">
+            <h3>What that includes</h3>
+            <ul>
+              <li>Generate multiple creative variants</li>
+              <li>Sequence and compare them</li>
+              <li>Add visual treatment or music-video direction</li>
+              <li>Return the results in a polished package</li>
+            </ul>
+            <h3>Why it matters</h3>
+            <p>This would let the system help with actual creative output packaging, not just ideation.</p>
+          </div></div>
+        </details>
+
+        <details class="priority-card">
+          <summary>
+            <div class="topline">
+              <span class="priority-badge">Priority use-case</span>
+              <span style="color:#ffcbcb;font-size:.9rem;font-weight:700">Click to expand</span>
+            </div>
+            <div class="title">Recurring AI intelligence briefings</div>
+            <p class="desc">Track meaningful developments from organizations like Anthropic, OpenAI, and Google, then periodically compile concise reports.</p>
+          </summary>
+          <div class="body"><div class="body-inner">
+            <h3>What that includes</h3>
+            <ul>
+              <li>Watch for meaningful updates from top labs</li>
+              <li>Separate real signal from hype</li>
+              <li>Create digestible briefings at a useful cadence</li>
+              <li>Keep the report focused on what matters for Christopher</li>
+            </ul>
+            <h3>Why it matters</h3>
+            <p>This could become a practical intelligence layer that saves time and improves awareness.</p>
+          </div></div>
+        </details>
+
+        <details class="priority-card">
+          <summary>
+            <div class="topline">
+              <span class="priority-badge">Priority use-case</span>
+              <span style="color:#ffcbcb;font-size:.9rem;font-weight:700">Click to expand</span>
+            </div>
+            <div class="title">Social-feed synthesis and signal extraction</div>
+            <p class="desc">Review X / Twitter accounts or similar streams Christopher cares about and compress the last few days of discussion into a readable briefing.</p>
+          </summary>
+          <div class="body"><div class="body-inner">
+            <h3>What that includes</h3>
+            <ul>
+              <li>Review selected accounts or streams</li>
+              <li>Compress several days of chatter into signal</li>
+              <li>Strip out repetition and low-value noise</li>
+              <li>Preserve what is actually worth knowing</li>
+            </ul>
+            <h3>Why it matters</h3>
+            <p>This would help convert noisy feeds into something more intelligent and less time-consuming.</p>
+          </div></div>
+        </details>
+
+        <details class="priority-card">
+          <summary>
+            <div class="topline">
+              <span class="priority-badge">Priority use-case</span>
+              <span style="color:#ffcbcb;font-size:.9rem;font-weight:700">Click to expand</span>
+            </div>
+            <div class="title">Promotions / social media support</div>
+            <p class="desc">Act more like a promotional collaborator: help package projects, shape posts, and turn internal work into public-facing visibility.</p>
+          </summary>
+          <div class="body"><div class="body-inner">
+            <h3>What that includes</h3>
+            <ul>
+              <li>Propose post ideas and content angles</li>
+              <li>Package work into shareable summaries</li>
+              <li>Increase visibility and credibility over time</li>
+              <li>Support a more consistent public log of what is being built</li>
+            </ul>
+            <h3>Why it matters</h3>
+            <p>This supports the transition from frontier intern technologist toward visible, credible, monetized builder/entrepreneur.</p>
+          </div></div>
+        </details>
       </div>
     </section>
 
