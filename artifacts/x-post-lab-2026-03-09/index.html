@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>X Post Lab</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+    :root{
+      --bg:#07101b; --panel:#0d1728; --panel2:#101d33; --line:#243a66; --text:#edf5ff; --muted:#a9bfdc;
+      --accent:#8dd8ff; --accent2:#7a92ff; --hot:#ff6b6b; --gold:#ffc56b; --good:#5fe3a1;
+    }
+    *{box-sizing:border-box} html,body{margin:0}
+    body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:
+      radial-gradient(circle at top right, rgba(141,216,255,.14), transparent 24%),
+      radial-gradient(circle at 20% 20%, rgba(255,107,107,.08), transparent 20%),
+      linear-gradient(180deg,#081220,#050912);color:var(--text);min-height:100vh}
+    .topbar{position:sticky;top:0;z-index:10;background:rgba(5,10,20,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .topbar-inner{max-width:1180px;margin:0 auto;padding:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .link{color:var(--text);text-decoration:none;border:1px solid var(--line);background:linear-gradient(135deg,var(--panel2),var(--panel));border-radius:999px;padding:10px 14px;font-weight:700;font-size:.95rem;display:inline-flex;align-items:center;gap:8px}
+    .wrap{max-width:1180px;margin:0 auto;padding:20px 14px 36px}
+    .hero{padding:26px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(160deg, rgba(15,25,42,.94), rgba(9,15,28,.92));box-shadow:0 20px 60px rgba(0,0,0,.35)}
+    .eyebrow{margin:0 0 8px;color:var(--accent);font-size:.8rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 10px;font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(1.9rem,5vw,3rem);line-height:1.05}
+    .sub{margin:0;color:var(--muted);max-width:78ch;line-height:1.75}
+    .hero-grid,.grid-2,.templates{display:grid;gap:18px}
+    .hero-grid{grid-template-columns:1.4fr .9fr;margin-top:18px}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:20px}
+    .templates{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:18px}
+    .card,.template,.mini{padding:18px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(160deg, rgba(14,24,42,.92), rgba(9,15,28,.9));box-shadow:0 14px 34px rgba(0,0,0,.24)}
+    .template{position:relative;overflow:hidden}
+    .template::before{content:"";position:absolute;inset:auto -30% 75% auto;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle, rgba(141,216,255,.18), transparent 65%)}
+    .kicker{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(141,216,255,.25);color:#d9efff;background:rgba(141,216,255,.08)}
+    .kicker.hot{border-color:rgba(255,107,107,.3);background:rgba(255,107,107,.1);color:#ffd9d9}
+    .kicker.gold{border-color:rgba(255,197,107,.35);background:rgba(255,197,107,.1);color:#ffefce}
+    .kicker.good{border-color:rgba(95,227,161,.35);background:rgba(95,227,161,.1);color:#d8ffe9}
+    h2{margin:14px 0 8px;font-family:"Space Grotesk",Inter,sans-serif;font-size:1.25rem}
+    h3{margin:14px 0 8px;font-size:1.02rem}
+    p,li{line-height:1.72}
+    p{margin:0;color:#e4efff}
+    ul{margin:10px 0 0;padding-left:1.2em;color:#f1f6ff}
+    .muted{color:var(--muted)}
+    .quote{margin-top:14px;padding:14px 16px;border-left:3px solid var(--accent);background:rgba(141,216,255,.07);border-radius:14px;color:#eef7ff;font-size:.96rem}
+    .sample{margin-top:14px;padding:16px;border:1px dashed rgba(141,216,255,.28);border-radius:18px;background:rgba(255,255,255,.02);white-space:pre-wrap;font-size:.95rem;color:#f3f7ff}
+    .checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+    .mini strong{display:block;margin-bottom:6px;font-size:1rem}
+    .foot{margin-top:22px;padding:18px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(160deg, rgba(14,24,42,.92), rgba(9,15,28,.9));color:var(--muted)}
+    code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#dff3ff}
+    @media (max-width:980px){.hero-grid,.grid-2,.templates,.checklist{grid-template-columns:1fr}}
+  </style>
+  <style id="rv-home-fab-style">
+    .rv-home-fab,.rv-fullscreen-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}
+    .rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}
+    .rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}
+    .rv-home-fab.dragging,.rv-fullscreen-fab.dragging{cursor:grabbing}
+    .rv-hidden-back-nav{display:none !important}
+  </style>
+</head>
+<body>
+  <div class="topbar"><div class="topbar-inner"><a class="link" href="../../today/index.html">← Today’s Artifacts</a><a class="link" href="./signature.html">🧠 Signature</a></div></div>
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">Today’s Artifact · X Post Lab</p>
+      <h1>Build-in-public posts that feel credible, not cringe</h1>
+      <p class="sub">A first concept page for how Christopher &amp; Co. could talk about real work on X: less generic AI hype, more receipts. The strongest lane looks like <strong>short observations + screenshots of real interfaces + links to live artifacts or GitHub</strong>. AI-generated images are optional seasoning, not the meal.</p>
+      <div class="hero-grid">
+        <div class="card">
+          <span class="kicker hot">Working thesis</span>
+          <h2>What seems most promising right now</h2>
+          <ul>
+            <li><strong>Post real things:</strong> screenshots of Remote Viewer, tools, dashboards, games, artifacts, experiments.</li>
+            <li><strong>Keep captions compact:</strong> 1–4 sentences works well for daily motion.</li>
+            <li><strong>Include one proof link:</strong> GitHub, live demo, artifact page, or short clip.</li>
+            <li><strong>Use AI images sparingly:</strong> only when the image itself is the point or the aesthetic is unusually strong.</li>
+            <li><strong>Make OpenClaw part of the story:</strong> it is timely, differentiated, and genuinely what we are building around.</li>
+          </ul>
+          <div class="quote">In practice, credibility probably comes more from <strong>evidence of work</strong> than from polish alone.</div>
+        </div>
+        <div class="card">
+          <span class="kicker gold">Light research signal</span>
+          <h2>Patterns repeatedly recommended in post/thread advice</h2>
+          <ul>
+            <li>Lead with a <strong>hook</strong> or concrete result.</li>
+            <li>Keep the first line easy to parse at a glance.</li>
+            <li>Use a clear <strong>visual anchor</strong> when possible.</li>
+            <li>End with a light <strong>CTA</strong> or link rather than a hard sell.</li>
+            <li>For longer thoughts, use a thread structure: <strong>hook → context → details → takeaway → link</strong>.</li>
+          </ul>
+          <p class="muted" style="margin-top:12px">That matches your instinct: screenshots and demos likely outperform decorative AI imagery for this lane.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid-2">
+      <div class="card">
+        <span class="kicker good">Voice direction</span>
+        <h2>What the account should feel like</h2>
+        <ul>
+          <li>Builder-first, not guru-first</li>
+          <li>Calm confidence instead of hype-man energy</li>
+          <li>Specific over abstract</li>
+          <li>Occasionally philosophical, but anchored in shipped work</li>
+          <li>Curious and experimental, not overbranded</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="kicker">Asset hierarchy</span>
+        <h2>Best media options, in rough order</h2>
+        <ul>
+          <li><strong>#1 — Screenshot collage</strong> of a real project in progress</li>
+          <li><strong>#2 — 10–30 second screen recording</strong> showing interaction</li>
+          <li><strong>#3 — Live link</strong> to artifact/demo/GitHub</li>
+          <li><strong>#4 — Before/after pair</strong> for design or capability improvements</li>
+          <li><strong>#5 — AI image</strong> only when it materially helps the story</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2 style="margin-top:26px">Starter post templates</h2>
+      <div class="templates">
+        <article class="template">
+          <span class="kicker hot">Template 01</span>
+          <h2>Build log + screenshot</h2>
+          <p class="muted">Best for daily momentum and credibility.</p>
+          <div class="sample">Built a new [feature/page/tool] for [project] today.
+
+The goal was simple: [plain-English purpose].
+
+What I like most is [specific result].
+
+[demo link / GitHub / artifact link]</div>
+          <h3>Why it works</h3>
+          <p>Compact, real, easy to sustain. Pair with one strong screenshot of the interface or artifact.</p>
+        </article>
+
+        <article class="template">
+          <span class="kicker hot">Template 02</span>
+          <h2>Artifact drop</h2>
+          <p class="muted">Best when a page, game, or interactive artifact is actually live.</p>
+          <div class="sample">Just shipped a small interactive piece: [artifact name].
+
+Built with [stack/tooling] as part of a larger experiment around [theme].
+
+Live here: [link]
+Code here: [link]</div>
+          <h3>Why it works</h3>
+          <p>Turns an aesthetic or experimental build into a tangible public object with receipts.</p>
+        </article>
+
+        <article class="template">
+          <span class="kicker gold">Template 03</span>
+          <h2>OpenClaw workflow post</h2>
+          <p class="muted">Best when showing how the system itself helps you operate.</p>
+          <div class="sample">One thing I like about building with OpenClaw right now:
+
+I can turn a rough idea into a live page, a memory trail, and a reusable workflow in one session.
+
+Today that looked like: [1 sentence on what happened]
+
+[screenshot/demo link]</div>
+          <h3>Why it works</h3>
+          <p>Rides a real trend while keeping the post grounded in your actual experience rather than generic commentary.</p>
+        </article>
+
+        <article class="template">
+          <span class="kicker gold">Template 04</span>
+          <h2>Micro insight + proof</h2>
+          <p class="muted">Best for a thought worth saying without needing a long thread.</p>
+          <div class="sample">I’m starting to think the most believable AI interfaces won’t feel magical.
+They’ll feel operational.
+
+Less “look what the model said,” more “here’s what the system helped me ship today.”
+
+[proof screenshot/link]</div>
+          <h3>Why it works</h3>
+          <p>Lets you post in your reflective voice while still tethering the thought to visible work.</p>
+        </article>
+
+        <article class="template">
+          <span class="kicker good">Template 05</span>
+          <h2>Before / after</h2>
+          <p class="muted">Best for design, interface, or workflow refinement.</p>
+          <div class="sample">Refined the [page/system] today.
+
+Before: [problem]
+After: [what changed]
+
+Small shift, but it makes the whole thing feel more [clearer/faster/more alive].
+
+[before image] [after image] [link]</div>
+          <h3>Why it works</h3>
+          <p>Shows taste and iteration. Also creates an easy visual story.</p>
+        </article>
+
+        <article class="template">
+          <span class="kicker good">Template 06</span>
+          <h2>Weekly recap thread</h2>
+          <p class="muted">Best when several smaller moves add up to a clearer narrative.</p>
+          <div class="sample">A few things I built / clarified this week:
+
+1. [project move]
+2. [project move]
+3. [project move]
+4. [insight or next direction]
+
+Links below.</div>
+          <h3>Why it works</h3>
+          <p>Helps avoid disappearing between posts while packaging momentum into one more substantial signal.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="grid-2">
+      <div class="card">
+        <span class="kicker">Suggested categories</span>
+        <h2>Content pillars worth testing</h2>
+        <ul>
+          <li><strong>OpenClaw in practice</strong> — workflows, interfaces, command center, remote viewer</li>
+          <li><strong>Shipped artifacts</strong> — pages, small games, interactive experiments</li>
+          <li><strong>System notes</strong> — what works, what breaks, what changed</li>
+          <li><strong>Builder philosophy</strong> — short reflective observations grounded in real work</li>
+          <li><strong>Capability demos</strong> — what the stack can now do that it couldn’t before</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="kicker hot">Avoid this trap</span>
+        <h2>What would make the account feel weaker</h2>
+        <ul>
+          <li>Too many AI-generated images with no shipped object behind them</li>
+          <li>Abstract statements without links, screenshots, or demos</li>
+          <li>Overly polished brand-speak too early</li>
+          <li>Posting about trends more than posting actual work</li>
+          <li>Long threads when a short post plus a screenshot would do</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:20px">
+      <span class="kicker good">Practical posting recipe</span>
+      <h2>A dead-simple daily format</h2>
+      <div class="checklist">
+        <div class="mini"><strong>1. Pick one real thing</strong><p class="muted">Feature, artifact, page, experiment, bugfix, insight.</p></div>
+        <div class="mini"><strong>2. Capture proof</strong><p class="muted">Screenshot, short clip, before/after, live URL.</p></div>
+        <div class="mini"><strong>3. Write 2–4 sentences</strong><p class="muted">What it is, why it matters, what changed.</p></div>
+        <div class="mini"><strong>4. Add one link</strong><p class="muted">Artifact, repo, or demo — not five competing links.</p></div>
+      </div>
+      <div class="quote">If we do this well, the X account becomes less of a marketing channel and more of a visible log of intelligent work.</div>
+    </section>
+
+    <section class="foot">
+      <strong style="display:block;color:#edf5ff;margin-bottom:8px">Next obvious evolution</strong>
+      Turn this from a concept page into an <strong>X post generator/workbench</strong>:
+      a place where I can take today’s shipped work, choose a template, draft 3–5 candidate posts, suggest an image strategy, and package the final result for manual posting.
+    </section>
+  </main>
+
+  <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
+  <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
+  <script id="rv-home-fab-script">
+  (function(){
+    const fab=document.getElementById('rvHomeFab');
+    const fsFab=document.getElementById('rvFullscreenFab');
+    if(!fab || !fsFab) return;
+    const path=location.pathname;
+    const marker='/remote-viewer/';
+    const idx=path.indexOf(marker);
+    const href=idx>=0 ? path.slice(0, idx + marker.length) : '/';
+    fab.setAttribute('href', href);
+    const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+    const placeFromStorage=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;const left=clamp(pos.left ?? (side==='left'?10:maxLeft),6,maxLeft);const top=clamp(pos.top ?? 10,6,maxTop);el.style.left=left+'px';el.style.top=top+'px';el.style.right='auto';}catch(_){}};
+    const savePos=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}));}catch(_){}};
+    function wireDraggable(el,key,onClick){let drag=null,moved=false;el.addEventListener('pointerdown',(e)=>{drag={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};moved=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',(e)=>{if(!drag||e.pointerId!==drag.id)return;const dx=e.clientX-drag.startX,dy=e.clientY-drag.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)moved=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;const nextLeft=clamp(drag.left+dx,6,maxLeft);const nextTop=clamp(drag.top+dy,6,maxTop);el.style.left=nextLeft+'px';el.style.top=nextTop+'px';el.style.right='auto';});el.addEventListener('pointerup',async(e)=>{if(!drag||e.pointerId!==drag.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId);}catch(_){}const wasMoved=moved;drag=null;savePos(el,key);if(!wasMoved&&onClick)await onClick(e);});el.addEventListener('pointercancel',()=>{el.classList.remove('dragging');drag=null;savePos(el,key);});el.addEventListener('click',(e)=>{if(moved){e.preventDefault();moved=false;}});}
+    const isFullscreen=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);
+    const syncFsIcon=()=>{fsFab.textContent=isFullscreen()?'🡼':'⛶';};
+    const toggleFullscreen=async()=>{try{const target=document.documentElement;if(!isFullscreen()){if(target.requestFullscreen)await target.requestFullscreen();else if(target.webkitRequestFullscreen)target.webkitRequestFullscreen();try{localStorage.setItem('rvFullscreenPreferred','1');}catch(_){}}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();try{localStorage.setItem('rvFullscreenPreferred','0');}catch(_){}}}catch(_){}syncFsIcon();};
+    const tryApplyFullscreenPreference=async()=>{let preferred=false;try{preferred=localStorage.getItem('rvFullscreenPreferred')==='1';}catch(_){}if(!preferred||isFullscreen())return;try{const target=document.documentElement;if(target.requestFullscreen)await target.requestFullscreen();else if(target.webkitRequestFullscreen)target.webkitRequestFullscreen();}catch(_){}syncFsIcon();};
+    const armFullscreenCarry=()=>{let preferred=false;try{preferred=localStorage.getItem('rvFullscreenPreferred')==='1';}catch(_){}if(!preferred)return;const handler=()=>{tryApplyFullscreenPreference();window.removeEventListener('pointerdown',handler,true);window.removeEventListener('keydown',handler,true);window.removeEventListener('touchstart',handler,true);};window.addEventListener('pointerdown',handler,true);window.addEventListener('keydown',handler,true);window.addEventListener('touchstart',handler,true);};
+    placeFromStorage(fab,'rvHomeFabPos','left'); placeFromStorage(fsFab,'rvFullscreenFabPos','right');
+    wireDraggable(fab,'rvHomeFabPos'); wireDraggable(fsFab,'rvFullscreenFabPos',toggleFullscreen);
+    document.addEventListener('fullscreenchange',syncFsIcon); document.addEventListener('webkitfullscreenchange',syncFsIcon); syncFsIcon();
+    const hideBackNav=()=>{const selectors='a,button,.btn,.link,.back';document.querySelectorAll(selectors).forEach(el=>{if(el.id==='rvHomeFab'||el.id==='rvFullscreenFab'||el.id==='fsBtn')return;const text=(el.textContent||'').replace(/\s+/g,' ').trim().toLowerCase();const hrefAttr=(el.getAttribute&&(el.getAttribute('href')||'')||'').toLowerCase();const title=(el.getAttribute&&(el.getAttribute('title')||'')||'').toLowerCase();const looksBack=text.startsWith('←')||text.startsWith('back to')||text==='back'||text==='today’s artifacts'||text==="today's artifacts"||title.includes('back to');const navHref=hrefAttr.includes('../index.html')||hrefAttr.endsWith('/index.html')||hrefAttr==='index.html';if(looksBack||(navHref&&text.includes('back')))el.classList.add('rv-hidden-back-nav');});};
+    const init=()=>{hideBackNav();armFullscreenCarry();}; if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true}); else init();
+    window.addEventListener('resize',()=>{placeFromStorage(fab,'rvHomeFabPos','left');placeFromStorage(fsFab,'rvFullscreenFabPos','right');});
+  })();
+  </script>
+</body>
+</html>
