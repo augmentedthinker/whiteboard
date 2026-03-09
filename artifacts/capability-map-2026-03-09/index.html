@@ -26,6 +26,13 @@
     .pill.green{background:linear-gradient(135deg, rgba(57,217,138,.18), rgba(21,115,71,.22)); color:#cffff0; border-color:rgba(57,217,138,.4)}
     .pill.blue{background:linear-gradient(135deg, rgba(97,183,255,.18), rgba(35,94,159,.22)); color:#dff2ff; border-color:rgba(97,183,255,.4)}
     .pill.orange{background:linear-gradient(135deg, rgba(255,179,92,.18), rgba(145,86,23,.22)); color:#fff0d9; border-color:rgba(255,179,92,.42)}
+    .priority-wrap{margin-top:20px;padding:18px;border:1px solid rgba(255,214,140,.24);border-radius:24px;background:linear-gradient(160deg, rgba(56,36,16,.35), rgba(16,12,10,.32));box-shadow:0 14px 34px rgba(0,0,0,.24)}
+    .priority-wrap h2{margin:0 0 8px;font-family:"Space Grotesk",Inter,sans-serif;font-size:1.24rem}
+    .priority-wrap p{margin:0;color:#e8dcc8;line-height:1.7;max-width:78ch}
+    .priority-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+    .priority-card{padding:16px 16px 14px;border-radius:20px;border:1px solid rgba(255,199,122,.24);background:linear-gradient(160deg, rgba(92,58,21,.56), rgba(34,21,11,.46));box-shadow:0 12px 28px rgba(0,0,0,.18)}
+    .priority-card strong{display:block;font-size:1.02rem;line-height:1.4;margin-bottom:8px;color:#fff4df}
+    .priority-card p{margin:0;color:#f1e3cc;line-height:1.68;font-size:.98rem}
     .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:20px}
     .lane{padding:18px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(160deg, rgba(14,24,42,.9), rgba(10,18,32,.88));box-shadow:0 14px 34px rgba(0,0,0,.24)}
     .lane h2{margin:0 0 8px;font-family:"Space Grotesk",Inter,sans-serif;font-size:1.2rem}
@@ -71,6 +78,37 @@
         <span class="pill green">Green · working now</span>
         <span class="pill blue">Blue · likely / needs testing</span>
         <span class="pill orange">Orange · wishlist / near horizon</span>
+      </div>
+    </section>
+
+    <section class="priority-wrap">
+      <h2>Christopher’s top priority next-capabilities</h2>
+      <p>These are not abstract wishlist items. They are concrete use-cases Christopher appears to want most: agent work that gathers, interprets, packages, and presents information or creative output in a way that feels useful, polished, and easy to consume.</p>
+      <div class="priority-grid">
+        <div class="priority-card">
+          <strong>Briefings that become polished visual pages</strong>
+          <p>Research something time-sensitive or local — like what is happening in Washington, D.C. this weekend — then turn it into a styled web page with images, categorization by Christopher’s interests, and clean presentation rather than a plain text dump.</p>
+        </div>
+        <div class="priority-card">
+          <strong>Creative production workflows across platforms</strong>
+          <p>Take an idea like a small batch of songs, use tools like Suno or adjacent workflows to generate outputs, then package them back into a stronger presentation layer — potentially including visual treatment, sequencing, and even lightweight music-video direction.</p>
+        </div>
+        <div class="priority-card">
+          <strong>Recurring AI intelligence briefings</strong>
+          <p>Track meaningful developments from organizations like Anthropic, OpenAI, and Google, then periodically compile concise reports so Christopher can stay current without having to manually sift through everything.</p>
+        </div>
+        <div class="priority-card">
+          <strong>Social-feed synthesis and signal extraction</strong>
+          <p>Review X / Twitter accounts or similar streams Christopher cares about and compress the last few days of discussion into a readable briefing that preserves signal while stripping out noise and repetition.</p>
+        </div>
+        <div class="priority-card">
+          <strong>Promotions / social media support</strong>
+          <p>Act more like a promotional or visibility-oriented collaborator: help package projects, shape posts, propose content, summarize progress, and turn internal work into things that can be shared publicly with more confidence and consistency.</p>
+        </div>
+        <div class="priority-card">
+          <strong>End-of-day packaging of momentum</strong>
+          <p>At the close of a work period, gather what was built, summarize why it matters, and package it into something someone else could quickly understand — whether that is a post, a briefing, a mini landing page, or a daily project digest.</p>
+        </div>
       </div>
     </section>
 
