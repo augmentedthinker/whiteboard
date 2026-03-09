@@ -325,6 +325,29 @@
     }
     .fs-btn.dragging{cursor:grabbing;}
 
+    .skip-btn{
+      position:fixed;
+      right:max(14px, env(safe-area-inset-right));
+      bottom:max(14px, env(safe-area-inset-bottom));
+      z-index:230;
+      width:54px;
+      height:54px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.22);
+      background:linear-gradient(135deg, rgba(18,30,52,.92), rgba(8,16,30,.92));
+      color:#ecf5ff;
+      display:grid;
+      place-items:center;
+      font-size:1.05rem;
+      font-weight:800;
+      box-shadow:0 14px 32px rgba(0,0,0,.34);
+      backdrop-filter:blur(10px);
+      cursor:pointer;
+      transition:transform .16s ease, border-color .16s ease, opacity .25s ease;
+    }
+    .skip-btn:hover{transform:translateY(-1px);border-color:rgba(141,216,255,.58)}
+    .skip-btn.hidden{opacity:0;pointer-events:none}
+
     @keyframes glintSweep {
       0%, 70%, 100% { transform: translateX(-130%) translateY(0); opacity: 0; }
       8% { opacity: .2; }
@@ -383,6 +406,7 @@
   <canvas id="ambientFx" aria-hidden="true"></canvas>
 
   <button id="fsBtn" class="fs-btn" type="button" aria-label="Toggle fullscreen">⛶</button>
+  <button id="skipIntroBtn" class="skip-btn" type="button" aria-label="Skip intro to main Remote Viewer menu" title="Skip to main menu">»</button>
 
   <div id="mainMenu" class="container prelaunch">
     <header>
@@ -410,6 +434,7 @@
     const openingVideo = document.getElementById('openingVideo');
     const introVideo = document.getElementById('introVideo');
     const enterSequenceBtn = document.getElementById('enterSequenceBtn');
+    const skipIntroBtn = document.getElementById('skipIntroBtn');
     const mainMenu = document.getElementById('mainMenu');
 
     function resizeAmbient(){
@@ -561,6 +586,7 @@
 
     function finishOpeningSequence(){
       openingSequence.classList.add('hidden');
+      skipIntroBtn.classList.add('hidden');
       mainMenu.classList.remove('prelaunch');
     }
 
@@ -577,6 +603,7 @@
     }
 
     enterSequenceBtn.addEventListener('click', startOpeningSequence);
+    skipIntroBtn.addEventListener('click', finishOpeningSequence);
     introVideo.addEventListener('ended', finishOpeningSequence);
 
     document.addEventListener('fullscreenchange', ()=>fsBtn.textContent = isFullscreen() ? '🡼' : '⛶');
