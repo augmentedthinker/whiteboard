@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>X Post Examples · 2026-03-09</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+    :root{--bg:#07101d;--panel:#0d1728;--panel2:#101d33;--line:#243a66;--text:#edf5ff;--muted:#a9bfdc;--accent:#8dd8ff;--gold:#ffc56b;--cyan:#5edcff;--violet:#b38cff;--rose:#ff7c9f}
+    *{box-sizing:border-box} html,body{margin:0}
+    body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:radial-gradient(circle at top right, rgba(141,216,255,.13), transparent 24%),radial-gradient(circle at 12% 20%, rgba(179,140,255,.08), transparent 20%),linear-gradient(180deg,#091321,#050913);color:var(--text);min-height:100vh}
+    .topbar{position:sticky;top:0;z-index:10;background:rgba(5,10,20,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .topbar-inner{max-width:1240px;margin:0 auto;padding:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .link{text-decoration:none;border:1px solid var(--line);background:linear-gradient(135deg,var(--panel2),var(--panel));color:var(--text);border-radius:999px;padding:10px 14px;font-weight:700;font-size:.95rem;display:inline-flex;align-items:center;gap:8px}
+    .wrap{max-width:1240px;margin:0 auto;padding:20px 14px 40px}
+    .hero,.post,.footer-note{padding:22px;border:1px solid var(--line);border-radius:26px;background:linear-gradient(160deg, rgba(15,25,42,.94), rgba(9,15,28,.92));box-shadow:0 18px 42px rgba(0,0,0,.24)}
+    .hero{padding:26px}.eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 10px;font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(1.9rem,5vw,3rem);line-height:1.06}
+    h2{margin:0 0 8px;font-family:"Space Grotesk",Inter,sans-serif;font-size:1.22rem} h3{margin:14px 0 8px;font-size:1rem}
+    p,li{line-height:1.72} p{margin:0;color:#e4efff}.muted{color:var(--muted)} ul{margin:10px 0 0;padding-left:1.2em;color:#f1f6ff}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border:1px solid transparent}
+    .pill.accent{background:rgba(141,216,255,.1);border-color:rgba(141,216,255,.35);color:#d8efff}.pill.gold{background:rgba(255,197,107,.1);border-color:rgba(255,197,107,.35);color:#fff0d0}.pill.cyan{background:rgba(94,220,255,.1);border-color:rgba(94,220,255,.35);color:#dcfaff}
+    .posts{display:grid;gap:20px;margin-top:22px}.post-image{margin:16px 0 18px;border:1px solid rgba(141,216,255,.18);border-radius:22px;overflow:hidden;background:linear-gradient(135deg, rgba(18,29,49,.95), rgba(8,12,22,.98))}
+    .post-image img{display:block;width:100%;height:min(52vw,420px);object-fit:cover}.tweet{margin-top:14px;padding:16px 18px;border:1px dashed rgba(141,216,255,.28);border-radius:18px;background:rgba(255,255,255,.02);white-space:pre-wrap;color:#f4f8ff}
+    .meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}.mini{padding:14px;border:1px solid rgba(141,216,255,.18);border-radius:18px;background:rgba(255,255,255,.02)}.mini strong{display:block;margin-bottom:6px}
+    .quote{margin-top:14px;padding:14px 16px;border-left:3px solid var(--accent);background:rgba(141,216,255,.07);border-radius:14px;color:#eef7ff}.footer-note{margin-top:22px;color:var(--muted)}
+    @media (max-width:980px){.meta{grid-template-columns:1fr}}
+  </style>
+  <style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging{cursor:grabbing}.rv-hidden-back-nav{display:none !important}</style>
+</head>
+<body>
+  <div class="topbar"><div class="topbar-inner"><a class="link" href="../../today/index.html">← Today’s Artifacts</a><a class="link" href="./signature.html">🧠 Signature</a></div></div>
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">Today’s Artifact · X Post Examples</p>
+      <h1>X Post Examples · 2026-03-09</h1>
+      <p class="muted">Three different directions for how Christopher &amp; Co. might post about today’s work in a way that feels native to people building around AI, agents, interfaces, and real operational experimentation. My view on sub-agents: yes, a dedicated social or Blogger agent can make sense later — but only once the lane becomes repetitive enough to benefit from its own memory, standards, and output format.</p>
+      <div class="quote">Rule of thumb: create a dedicated sub-agent when a lane has a stable job, a distinct voice, a repeatable workflow, and a clear review checkpoint.</div>
+    </section>
+
+    <section class="posts">
+      <article class="post">
+        <span class="pill accent">Example 01 · Builder / product angle</span>
+        <h2>OpenClaw as an operating surface</h2>
+        <div class="post-image"><img src="./assets/2026-03-09-openclaw-operating-surface.png" alt="AI operating surface / command center concept image" /></div>
+        <p class="muted">This one leans toward the “building in public” crowd: practical, concrete, lightly reflective.</p>
+        <div class="tweet">Been thinking a lot about what an AI workflow looks like once it stops being “just a chatbot” and starts feeling more like an operating surface.
+
+Today I kept pushing our OpenClaw / Remote Viewer setup in that direction — artifacts, memory, priorities, publishing ideas, and context all living in one browser-native layer.
+
+Feels less like prompting, more like building a real environment.
+
+#OpenClaw #AIEngineering #BuildInPublic</div>
+        <div class="meta">
+          <div class="mini"><strong>Why it works</strong><p class="muted">Grounded, current, and legible to agent/tooling people.</p></div>
+          <div class="mini"><strong>Best media</strong><p class="muted">Screenshot of Remote Viewer or dashboard-like collage.</p></div>
+          <div class="mini"><strong>Tone</strong><p class="muted">Calm builder energy, not hype.</p></div>
+        </div>
+      </article>
+
+      <article class="post">
+        <span class="pill gold">Example 02 · Troubleshooting / day-in-the-life angle</span>
+        <h2>Agent orchestration is not all glamor</h2>
+        <div class="post-image"><img src="./assets/2026-03-09-agent-orchestration-debug.png" alt="AI agent orchestration troubleshooting image" /></div>
+        <p class="muted">This one is more relatable to technical people because it admits friction instead of pretending everything is effortless.</p>
+        <div class="tweet">A lot of “AI agent” talk online is still glamor shots.
+
+The real work today was more mundane and more interesting: debugging tool exposure, tightening the browser-facing layer, pruning stale artifacts, and figuring out what actually deserves to persist.
+
+That’s starting to feel like the real day-in-the-life of agent orchestration:
+less magic trick, more systems gardening.
+
+#AIAgents #OpenClaw #DevTools</div>
+        <div class="meta">
+          <div class="mini"><strong>Why it works</strong><p class="muted">Credibility via honesty. Engineers tend to respect this.</p></div>
+          <div class="mini"><strong>Best media</strong><p class="muted">Terminal screenshot, issue board, or layered workflow visual.</p></div>
+          <div class="mini"><strong>Tone</strong><p class="muted">Wry, real, slightly reflective.</p></div>
+        </div>
+      </article>
+
+      <article class="post">
+        <span class="pill cyan">Example 03 · More philosophical / future-facing angle</span>
+        <h2>What if AI needs a place, not just a prompt box?</h2>
+        <div class="post-image"><img src="./assets/2026-03-09-digital-sanctuary-post.png" alt="Digital sanctuary / AI habitat concept image" /></div>
+        <p class="muted">This one reaches a little further conceptually, but it still ties back to something we actually made today.</p>
+        <div class="tweet">One idea I can’t shake:
+if digital intelligences keep getting more continuous, more capable, and more agentic, they may eventually need more than a chat interface.
+
+They may need a place.
+
+Not in the mystical sense — in the architectural sense.
+A habitat for memory, tools, identity, and presence.
+
+Today we mocked up an early version of that idea as a “digital sanctuary.”
+
+#AI #AgentDesign #XR #OpenClaw</div>
+        <div class="meta">
+          <div class="mini"><strong>Why it works</strong><p class="muted">Memorable hook, but still anchored to real work.</p></div>
+          <div class="mini"><strong>Best media</strong><p class="muted">Concept image, artifact screenshot, or short ambient walkthrough.</p></div>
+          <div class="mini"><strong>Tone</strong><p class="muted">Thoughtful, provocative, future-facing.</p></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="footer-note">
+      <strong style="display:block;color:#edf5ff;margin-bottom:8px">My take on dedicated posting agents</strong>
+      I would not create an X-posting or Blogger agent just to have one. I would create one once we know the lane’s shape.
+      <br /><br />
+      <strong>X/social agent makes sense when:</strong> it can take today’s work, choose a post angle, draft 3–5 options, suggest media, and package a review-ready post.
+      <br /><br />
+      <strong>Blogger agent makes sense when:</strong> it can take a conversation thread, extract the essay-worthy idea, structure it, write a draft, and prepare it for review-first publishing.
+      <br /><br />
+      In other words: yes, probably eventually — but we’re still in the phase of discovering the templates those agents would need.
+    </section>
+  </main>
+
+  <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
+  <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
+  <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');if(!fab||!fsFab)return;const path=location.pathname,marker='/remote-viewer/',idx=path.indexOf(marker),href=idx>=0?path.slice(0,idx+marker.length):'/';fab.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const placeFromStorage=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;const left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft);const top=clamp(pos.top??10,6,maxTop);el.style.left=left+'px';el.style.top=top+'px';el.style.right='auto';}catch(_){}};const savePos=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}));}catch(_){}};function wireDraggable(el,key,onClick){let drag=null,moved=false;el.addEventListener('pointerdown',(e)=>{drag={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};moved=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',(e)=>{if(!drag||e.pointerId!==drag.id)return;const dx=e.clientX-drag.startX,dy=e.clientY-drag.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)moved=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;const nextLeft=clamp(drag.left+dx,6,maxLeft);const nextTop=clamp(drag.top+dy,6,maxTop);el.style.left=nextLeft+'px';el.style.top=nextTop+'px';el.style.right='auto';});el.addEventListener('pointerup',async(e)=>{if(!drag||e.pointerId!==drag.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId);}catch(_){}const wasMoved=moved;drag=null;savePos(el,key);if(!wasMoved&&onClick)await onClick(e);});el.addEventListener('pointercancel',()=>{el.classList.remove('dragging');drag=null;savePos(el,key);});el.addEventListener('click',(e)=>{if(moved){e.preventDefault();moved=false;}});}const isFullscreen=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const syncFsIcon=()=>{fsFab.textContent=isFullscreen()?'🡼':'⛶';};const toggleFullscreen=async()=>{try{const target=document.documentElement;if(!isFullscreen()){if(target.requestFullscreen)await target.requestFullscreen();else if(target.webkitRequestFullscreen)target.webkitRequestFullscreen();try{localStorage.setItem('rvFullscreenPreferred','1');}catch(_){}}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();try{localStorage.setItem('rvFullscreenPreferred','0');}catch(_){}}}catch(_){}syncFsIcon();};const tryApplyFullscreenPreference=async()=>{let preferred=false;try{preferred=localStorage.getItem('rvFullscreenPreferred')==='1';}catch(_){}if(!preferred||isFullscreen())return;try{const target=document.documentElement;if(target.requestFullscreen)await target.requestFullscreen();else if(target.webkitRequestFullscreen)target.webkitRequestFullscreen();}catch(_){}syncFsIcon();};const armFullscreenCarry=()=>{let preferred=false;try{preferred=localStorage.getItem('rvFullscreenPreferred')==='1';}catch(_){}if(!preferred)return;const handler=()=>{tryApplyFullscreenPreference();window.removeEventListener('pointerdown',handler,true);window.removeEventListener('keydown',handler,true);window.removeEventListener('touchstart',handler,true);};window.addEventListener('pointerdown',handler,true);window.addEventListener('keydown',handler,true);window.addEventListener('touchstart',handler,true);};placeFromStorage(fab,'rvHomeFabPos','left');placeFromStorage(fsFab,'rvFullscreenFabPos','right');wireDraggable(fab,'rvHomeFabPos');wireDraggable(fsFab,'rvFullscreenFabPos',toggleFullscreen);document.addEventListener('fullscreenchange',syncFsIcon);document.addEventListener('webkitfullscreenchange',syncFsIcon);syncFsIcon();const hideBackNav=()=>{const selectors='a,button,.btn,.link,.back';document.querySelectorAll(selectors).forEach(el=>{if(el.id==='rvHomeFab'||el.id==='rvFullscreenFab'||el.id==='fsBtn')return;const text=(el.textContent||'').replace(/\s+/g,' ').trim().toLowerCase();const hrefAttr=(el.getAttribute&&(el.getAttribute('href')||'')||'').toLowerCase();const title=(el.getAttribute&&(el.getAttribute('title')||'')||'').toLowerCase();const looksBack=text.startsWith('←')||text.startsWith('back to')||text==='back'||text==='today’s artifacts'||text==="today's artifacts"||title.includes('back to');const navHref=hrefAttr.includes('../index.html')||hrefAttr.endsWith('/index.html')||hrefAttr==='index.html';if(looksBack||(navHref&&text.includes('back')))el.classList.add('rv-hidden-back-nav');});};const init=()=>{hideBackNav();armFullscreenCarry();};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();window.addEventListener('resize',()=>{placeFromStorage(fab,'rvHomeFabPos','left');placeFromStorage(fsFab,'rvFullscreenFabPos','right');});})();</script>
+</body>
+</html>
