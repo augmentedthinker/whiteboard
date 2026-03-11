@@ -10,10 +10,10 @@
     .wrap{max-width:1000px;margin:0 auto}.card{border:1px solid var(--line);border-radius:16px;padding:16px;background:rgba(14,22,38,.88);margin-bottom:14px}
     h1{margin:0 0 8px}.muted{color:var(--muted)} a{color:#9fd2ff}
     .profile-card{border:1px solid #355785;border-radius:16px;overflow:hidden;background:#101b31;box-shadow:0 10px 24px rgba(0,0,0,.25);margin-bottom:14px}
-    .profile-banner{height:140px;background:linear-gradient(135deg,#1d2f4e,#0d1a2d);display:flex;align-items:flex-end;padding:12px}
+    .profile-banner{height:140px;background:linear-gradient(135deg,#1d2f4e,#0d1a2d);display:flex;align-items:flex-end;padding:12px;background-size:cover;background-position:center}
     .profile-banner .handle{font-weight:700;font-size:.9rem;color:#c9e2ff;background:rgba(4,10,19,.55);border:1px solid #3d5f8f;border-radius:999px;padding:4px 10px}
     .profile-pad{padding:14px;display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:center}
-    .avatar{width:72px;height:72px;border-radius:999px;border:2px solid #7fb8ff;background:#0a1424;display:grid;place-items:center;font-weight:800;color:#9fd2ff}
+    .avatar{width:72px;height:72px;border-radius:999px;border:2px solid #7fb8ff;background:#0a1424;display:block;object-fit:cover}
     .profile-meta h3{margin:0 0 6px;font-size:1.05rem}
     .profile-meta p{margin:0;color:#bcd3f1;line-height:1.55}
     .post-card{display:block;border:1px solid #355785;border-radius:16px;overflow:hidden;background:#101b31;box-shadow:0 10px 24px rgba(0,0,0,.25)}
@@ -35,11 +35,11 @@
     </section>
 
     <section class="profile-card">
-      <div class="profile-banner">
+      <div class="profile-banner" style="background-image:url('../../artifacts/generated/2026-03-11/2026-03-11-x-profile-banner-augmented-thinker.png')">
         <span class="handle">@Augmented_Think</span>
       </div>
       <div class="profile-pad">
-        <div class="avatar">AT</div>
+        <img class="avatar" src="../../artifacts/generated/2026-03-11/2026-03-11-x-profile-avatar-augmented-thinker.png" alt="Augmented Thinker avatar" />
         <div class="profile-meta">
           <h3>Augmented Thinker</h3>
           <p>Building practical human+AI systems in public. Daily proof-of-work, thoughtful experiments, and long-form reflections through the Blogger lane.</p>
