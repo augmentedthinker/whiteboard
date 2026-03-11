@@ -68,37 +68,30 @@
     </div>
 
     <section class="section">
-      <h2>Configured capabilities</h2>
-      <p>These are real working or known abilities connected through configuration or provider wiring rather than purely as packaged downloadable skills.</p>
+      <h2>Working now</h2>
+      <p>These are abilities we can actually use today, regardless of whether they come from a packaged skill, a config/provider lane, or a direct API integration.</p>
       <div class="grid">
-        <a class="item live" href="../../artifacts/blogger-archive-review-2026-03-10/index.html"><span class="stack"><small>Configured / Working</small><span class="title">Blogger Publishing</span><span class="meta">Blogger API · draft-first review workflow</span></span></a>
-        <a class="item live" href="../skills-gemini-search/index.html"><span class="stack"><small>Configured / Working</small><span class="title">Web Search</span><span class="meta">gemini-web-search</span></span></a>
-        <a class="item live" href="../skills-google-voices-tts/index.html"><span class="stack"><small>Configured / Working</small><span class="title">Voice Generation</span><span class="meta">google-voices-tts · Gemini TTS voices</span></span></a>
-        <a class="item live" href="../skills-veo-video/index.html"><span class="stack"><small>Configured / Working</small><span class="title">Video Generation</span><span class="meta">veo-3-video-generation · Veo 3</span></span></a>
+        <a class="item live" href="../../artifacts/blogger-archive-review-2026-03-10/index.html"><span class="stack"><small>Working / source: API integration</small><span class="title">Blogger Publishing</span><span class="meta">Blogger API · draft-first review workflow</span></span></a>
+        <a class="item live" href="../skills-gemini-search/index.html"><span class="stack"><small>Working / source: config</small><span class="title">Web Search</span><span class="meta">gemini-web-search</span></span></a>
+        <a class="item live" href="../skills-google-voices-tts/index.html"><span class="stack"><small>Working / source: config</small><span class="title">Voice Generation</span><span class="meta">google-voices-tts · Gemini TTS voices</span></span></a>
+        <a class="item live" href="../skills-veo-video/index.html"><span class="stack"><small>Working / source: config</small><span class="title">Video Generation</span><span class="meta">veo-3-video-generation · Veo 3</span></span></a>
+        <a class="item live" href="../skills-github/index.html"><span class="stack"><small>Working / source: skill</small><span class="title">GitHub Operations</span><span class="meta">github · gh CLI and repo workflows</span></span></a>
+        <a class="item live" href="../skills-image-nano-banana/index.html"><span class="stack"><small>Working / source: skill</small><span class="title">Image Generation</span><span class="meta">nano-banana-pro · Gemini image model</span></span></a>
+        <a class="item live" href="../skills-weather/index.html"><span class="stack"><small>Working / source: skill</small><span class="title">Weather Lookup</span><span class="meta">weather · current conditions and forecasts</span></span></a>
       </div>
     </section>
 
     <section class="section">
-      <h2>Installed skills · working now</h2>
-      <p>These are packaged OpenClaw skills we have directly validated in this setup.</p>
+      <h2>Needs setup</h2>
+      <p>These are likely useful, but still blocked by missing setup, dependencies, or credentials.</p>
       <div class="grid">
-        <a class="item live" href="../skills-github/index.html"><span class="stack"><small>Installed Skill / Working</small><span class="title">GitHub Operations</span><span class="meta">github · gh CLI and repo workflows</span></span></a>
-        <a class="item live" href="../skills-image-nano-banana/index.html"><span class="stack"><small>Installed Skill / Working</small><span class="title">Image Generation</span><span class="meta">nano-banana-pro · Gemini image model</span></span></a>
-        <a class="item live" href="../skills-weather/index.html"><span class="stack"><small>Installed Skill / Working</small><span class="title">Weather Lookup</span><span class="meta">weather · current conditions and forecasts</span></span></a>
+        <a class="item setup" href="../skills-gemini/index.html"><span class="stack"><small>Needs setup / source: skill</small><span class="title">Gemini CLI Access</span><span class="meta">gemini · shell wrapper expects local gemini binary</span></span></a>
       </div>
     </section>
 
     <section class="section">
-      <h2>Installed skills · blocked / needs setup</h2>
-      <p>These are packaged skills that exist locally but still need setup, dependencies, or credentials before they can be promoted.</p>
-      <div class="grid">
-        <a class="item setup" href="../skills-gemini/index.html"><span class="stack"><small>Installed Skill / Needs Setup</small><span class="title">Gemini CLI Access</span><span class="meta">gemini · shell wrapper expects local gemini binary</span></span></a>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>Installed skills · untested</h2>
-      <p>These skills are installed on the machine, but we have not exercised them yet in practice.</p>
+      <h2>Untested</h2>
+      <p>These are present in the environment, but we have not validated them in real use yet.</p>
       <div class="grid">
         <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Password Vault</span><span class="meta">1password</span></span></span>
         <span class="item pending" aria-disabled="true"><span class="stack"><small>Installed Skill / Untested</small><span class="title">Apple Notes</span><span class="meta">apple-notes</span></span></span>
@@ -152,7 +145,7 @@
     </section>
 
     <div class="note">
-      Current working mental model: <strong>github</strong>, <strong>nano-banana-pro</strong>, and <strong>weather</strong> are validated installed skills; <strong>Blogger API publishing</strong>, <strong>gemini-web-search</strong>, <strong>google-voices-tts</strong>, and <strong>veo-3-video-generation</strong> are validated configured capabilities; and <strong>gemini</strong> is an installed skill that still needs setup.
+      <strong>Quick model:</strong> a <strong>skill</strong> is a packaged module, a <strong>config capability</strong> comes from provider/system wiring, and an <strong>API integration</strong> is a direct external service connection. We keep all three, but organize by operational truth first: <strong>Working now</strong>, <strong>Needs setup</strong>, and <strong>Untested</strong>.
     </div>
   </main>
 
