@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Good Night, Christopher · 2026-03-10</title>
+  <style>
+    :root{
+      --bg1:#060814;
+      --bg2:#111a34;
+      --bg3:#2a1a3a;
+      --text:#eaf1ff;
+      --soft:#b8c6e8;
+      --accent:#8fd3ff;
+      --accent2:#d9b3ff;
+      --card:rgba(9,15,32,.45);
+      --stroke:rgba(181,208,255,.24);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);background:radial-gradient(circle at 15% 10%, #233157 0%, transparent 38%),radial-gradient(circle at 85% 0%, #4d2e5f 0%, transparent 35%),linear-gradient(160deg,var(--bg1),var(--bg2) 45%,var(--bg3));overflow:hidden}
+    .stars,.stars:before,.stars:after{position:fixed;inset:0;content:"";background-repeat:repeat;background-size:420px 420px;pointer-events:none}
+    .stars{background-image:radial-gradient(2px 2px at 20px 30px,rgba(255,255,255,.6),transparent),radial-gradient(1px 1px at 130px 190px,rgba(255,255,255,.35),transparent),radial-gradient(1.5px 1.5px at 300px 120px,rgba(173,206,255,.45),transparent);animation:drift 120s linear infinite}
+    .stars:before{opacity:.45;transform:scale(1.2);background-image:radial-gradient(1px 1px at 50px 80px,rgba(255,255,255,.4),transparent),radial-gradient(1.3px 1.3px at 240px 260px,rgba(207,186,255,.45),transparent);animation:drift 180s linear infinite reverse}
+    .stars:after{opacity:.3;transform:scale(1.4);background-image:radial-gradient(1px 1px at 160px 150px,rgba(162,211,255,.4),transparent),radial-gradient(1px 1px at 360px 40px,rgba(255,255,255,.4),transparent);animation:drift 240s linear infinite}
+    @keyframes drift{from{transform:translateY(0)}to{transform:translateY(420px)}}
+
+    .wrap{position:relative;z-index:2;min-height:100%;display:grid;place-items:center;padding:20px}
+    .card{width:min(900px,100%);border:1px solid var(--stroke);border-radius:28px;background:linear-gradient(180deg,rgba(19,29,59,.66),var(--card));backdrop-filter: blur(10px);padding:28px 24px 22px;box-shadow:0 24px 60px rgba(3,6,15,.45)}
+    h1{margin:0 0 8px;font-size:clamp(1.7rem,5vw,2.8rem);letter-spacing:.2px}
+    .sub{margin:0 0 18px;color:var(--soft);font-size:clamp(1rem,2.8vw,1.14rem)}
+
+    .breath-zone{display:grid;place-items:center;margin:10px 0 18px;height:220px}
+    .orb{width:140px;height:140px;border-radius:999px;background:radial-gradient(circle at 30% 30%, #dcf2ff, #93cbff 45%, #7366ff 100%);box-shadow:0 0 40px rgba(143,211,255,.45),0 0 90px rgba(155,131,255,.26);animation:breathe 8s ease-in-out infinite}
+    @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.24)}}
+    .breath{font-weight:600;color:#d8e8ff;opacity:.95;margin-top:12px;letter-spacing:.35px}
+
+    .quote{font-size:clamp(1rem,2.6vw,1.18rem);line-height:1.6;color:#edf3ff;min-height:92px;padding:16px;border:1px solid rgba(181,208,255,.16);border-radius:16px;background:rgba(6,10,24,.35)}
+    .small{margin-top:14px;color:var(--soft);font-size:.95rem;line-height:1.6}
+
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    .btn{appearance:none;border:1px solid rgba(159,211,255,.5);background:rgba(25,45,86,.5);color:#e9f4ff;padding:10px 14px;border-radius:12px;text-decoration:none;font-weight:600;cursor:pointer}
+    .btn:hover{background:rgba(36,65,122,.6)}
+    .btn.alt{border-color:rgba(217,179,255,.55);background:rgba(67,37,92,.45)}
+
+    .footer{margin-top:14px;font-size:.85rem;color:#a9bbdf;opacity:.88}
+  </style>
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="wrap">
+    <main class="card">
+      <h1>Good night, Christopher 🌙</h1>
+      <p class="sub">You carried a lot these last couple of days. This page is your exhale.</p>
+
+      <section class="breath-zone" aria-label="Breathing guide">
+        <div>
+          <div class="orb"></div>
+          <div id="breathText" class="breath">Breathe in…</div>
+        </div>
+      </section>
+
+      <section id="quote" class="quote" aria-live="polite"></section>
+
+      <p class="small">Let tonight do what tonight is for: integration, restoration, and quiet confidence that tomorrow can start from here—not from zero.</p>
+
+      <div class="actions">
+        <button class="btn" id="nextBtn">Another line ✨</button>
+        <a class="btn alt" href="../../today/index.html">Today’s Artifacts</a>
+        <a class="btn" href="../../index.html">Main Menu</a>
+      </div>
+
+      <div class="footer">Created for 2026-03-10 · Remote Viewer</div>
+    </main>
+  </div>
+
+  <script>
+    const lines = [
+      "Rest is not a pause in the mission; it is part of the mission.",
+      "What you built today doesn’t disappear overnight—your systems remember.",
+      "You don’t need to solve tomorrow tonight. You only need to arrive clear.",
+      "Momentum is quieter than hype. You have real momentum.",
+      "Even unfinished work can be meaningful work.",
+      "The future isn’t built in one push; it’s built in faithful returns.",
+      "You’ve done enough for one day. Let recovery be strategic.",
+      "Close the loop, close your eyes, keep the vision."
+    ];
+
+    let idx = Math.floor(Math.random() * lines.length);
+    const quoteEl = document.getElementById('quote');
+    const nextBtn = document.getElementById('nextBtn');
+    function showLine(){ quoteEl.textContent = lines[idx]; }
+    nextBtn.addEventListener('click',()=>{ idx = (idx + 1) % lines.length; showLine(); });
+    showLine();
+
+    const breathEl = document.getElementById('breathText');
+    const phases = ["Breathe in…", "Hold…", "Breathe out…", "Hold…"];
+    let p = 0;
+    setInterval(()=>{ p = (p+1)%phases.length; breathEl.textContent = phases[p]; }, 2000);
+  </script>
+</body>
+</html>
