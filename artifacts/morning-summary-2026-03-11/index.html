@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Morning Summary · 2026-03-11</title>
+  <style>
+    :root{--bg:#07101d;--panel:#0d1728;--panel2:#101d33;--line:#243a66;--text:#edf5ff;--muted:#a9bfdc;--accent:#8dd8ff;--accent2:#7a92ff}
+    *{box-sizing:border-box} html,body{margin:0}
+    body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:radial-gradient(circle at top right, rgba(141,216,255,.12), transparent 28%),linear-gradient(180deg,#0a1323,#050a14);color:var(--text);min-height:100vh}
+    .topbar{position:sticky;top:0;z-index:10;background:rgba(5,10,20,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .topbar-inner{max-width:1100px;margin:0 auto;padding:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .btn,.link{text-decoration:none;border:1px solid var(--line);background:linear-gradient(135deg,var(--panel2),var(--panel));color:var(--text);border-radius:999px;padding:10px 14px;font-weight:700;font-size:.95rem;display:inline-block}
+    .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#08111f;border:0}
+    #status{color:var(--muted);font-size:.92rem}
+    .hero{max-width:1100px;margin:0 auto;padding:20px 14px 8px}
+    .eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 6px;font-size:clamp(1.4rem,5vw,2.2rem)}
+    .sub{margin:0;color:var(--muted);max-width:72ch;line-height:1.6}
+    .path-card{margin-top:14px;padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(160deg, rgba(14,24,42,.9), rgba(10,18,32,.88));box-shadow:0 14px 34px rgba(0,0,0,.24)}
+    .path-label{display:block;margin-bottom:8px;color:var(--muted);font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+    .path-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .path-value{flex:1 1 560px;min-width:0;padding:12px 14px;border-radius:14px;background:rgba(6,12,22,.88);border:1px solid rgba(141,216,255,.16);color:#dbeaff;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92rem;overflow-wrap:anywhere}
+    .doc-wrap{max-width:1100px;margin:0 auto;padding:0 14px 28px}
+    #viewer{display:none;margin-top:10px;padding:22px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(160deg, rgba(15,25,42,.94), rgba(9,15,28,.92));box-shadow:0 20px 60px rgba(0,0,0,.35)}
+  </style>
+</head>
+<body>
+  <div class="topbar"><div class="topbar-inner"><a class="link" href="../../today/index.html">← Today’s Artifacts</a><a class="link" href="./signature.html">🧠 Signature</a><button id="openBtn" class="btn primary">Open / Refresh</button><button id="pdfBtn" class="btn">Download as PDF</button><span id="status"></span></div></div>
+  <header class="hero">
+    <p class="eyebrow">Today’s Artifact · Markdown Viewer</p>
+    <h1>Morning Summary · 2026-03-11</h1>
+    <p class="sub">Hosted markdown-viewer edition of today’s morning continuity summary across architecture changes, skills status updates, publishing-lane split, and phone-first operating cadence.</p>
+    <div class="path-card"><span class="path-label">Shared workspace file path</span><div class="path-row"><div class="path-value" id="pathValue">/mnt/chromeos/MyFiles/Downloads/shared_workspace/end of session folder/2026-03-11-morning-summary.md</div><button id="copyPathBtn" class="btn">Copy Local Path</button></div></div>
+  </header>
+  <main class="doc-wrap"><article id="viewer"></article></main>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    const btn=document.getElementById('openBtn'); const pdfBtn=document.getElementById('pdfBtn'); const copyPathBtn=document.getElementById('copyPathBtn'); const pathValue=document.getElementById('pathValue'); const status=document.getElementById('status'); const viewer=document.getElementById('viewer');
+    async function openDoc(){ btn.disabled=true; status.textContent='Loading...'; try{ const res=await fetch('./report.md',{cache:'no-store'}); if(!res.ok) throw new Error('Could not load markdown file.'); const md=await res.text(); viewer.innerHTML=marked.parse(md); viewer.style.display='block'; status.textContent='Ready'; }catch(err){ status.textContent='Error loading document'; alert(err.message);}finally{ btn.disabled=false; } }
+    async function copyPath(){ try{ await navigator.clipboard.writeText(pathValue.textContent.trim()); const old=copyPathBtn.textContent; copyPathBtn.textContent='Copied'; status.textContent='Local path copied'; setTimeout(()=>copyPathBtn.textContent=old,1400);}catch(err){ status.textContent='Could not copy path'; alert('Copy failed on this browser. Path: ' + pathValue.textContent.trim()); } }
+    btn.addEventListener('click',openDoc); pdfBtn.addEventListener('click',()=>window.print()); copyPathBtn.addEventListener('click',copyPath); openDoc();
+  </script>
+</body>
+</html>
