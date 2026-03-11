@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Threshold of Mind · 2026-03-11</title>
+  <style>
+    :root{
+      --bg0:#02040a; --bg1:#081120; --bg2:#101a33; --bg3:#22143a;
+      --text:#eef6ff; --muted:#aebfe3; --line:rgba(151,196,255,.18);
+      --cyan:#85e7ff; --blue:#78a5ff; --violet:#c793ff; --gold:#ffd98c;
+    }
+    *{box-sizing:border-box} html,body{margin:0;height:100%;overflow:hidden}
+    body{
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 20% 15%, rgba(133,231,255,.13), transparent 24%),
+        radial-gradient(circle at 80% 10%, rgba(199,147,255,.14), transparent 28%),
+        radial-gradient(circle at 50% 80%, rgba(120,165,255,.10), transparent 30%),
+        linear-gradient(180deg,var(--bg0),var(--bg1) 26%,var(--bg2) 62%,var(--bg3));
+    }
+    canvas, .veil, .grid, .stars{position:fixed; inset:0}
+    .stars{background-image:
+      radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.7), transparent),
+      radial-gradient(1px 1px at 30% 70%, rgba(133,231,255,.65), transparent),
+      radial-gradient(1.2px 1.2px at 80% 40%, rgba(199,147,255,.7), transparent),
+      radial-gradient(1px 1px at 60% 25%, rgba(255,217,140,.65), transparent),
+      radial-gradient(1px 1px at 70% 85%, rgba(255,255,255,.55), transparent);
+      background-size: 360px 360px, 420px 420px, 520px 520px, 620px 620px, 760px 760px;
+      opacity:.75; animation: drift 70s linear infinite;
+      pointer-events:none;
+    }
+    @keyframes drift { from{transform:translateY(0)} to{transform:translateY(80px)} }
+    .grid{
+      background:
+        linear-gradient(rgba(130,170,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(130,170,255,.06) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(circle at 50% 50%, black 28%, transparent 78%);
+      opacity:.22;
+      pointer-events:none;
+    }
+    .veil{
+      background:radial-gradient(circle at center, transparent 0, rgba(2,4,10,.06) 42%, rgba(2,4,10,.42) 100%);
+      pointer-events:none;
+    }
+    .wrap{position:relative; z-index:2; height:100%; display:grid; place-items:center; padding:20px}
+    .shell{width:min(1080px,100%); display:grid; grid-template-columns:1.15fr .85fr; gap:20px; align-items:stretch}
+    .panel{
+      position:relative; border:1px solid var(--line); border-radius:28px;
+      background:linear-gradient(180deg, rgba(10,18,36,.52), rgba(7,12,24,.28));
+      box-shadow:0 24px 80px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04);
+      backdrop-filter: blur(12px);
+      overflow:hidden;
+    }
+    .panel:before{content:""; position:absolute; inset:0; background:linear-gradient(135deg, rgba(255,255,255,.05), transparent 30%, transparent 70%, rgba(133,231,255,.05)); pointer-events:none}
+    .left{padding:30px 24px 22px}
+    .eyebrow{margin:0 0 10px; color:var(--cyan); text-transform:uppercase; letter-spacing:.18em; font-size:.78rem; font-weight:800}
+    h1{margin:0; font-size:clamp(2rem,5vw,4.5rem); line-height:.95; letter-spacing:-.04em}
+    .lede{margin:16px 0 0; color:#dce9ff; max-width:18ch; font-size:clamp(1.02rem,2.2vw,1.3rem); line-height:1.5}
+    .philosophy{margin-top:28px; border-top:1px solid var(--line); padding-top:20px; color:var(--muted); font-size:1rem; line-height:1.72}
+    .philosophy p{margin:0 0 14px}
+    .accent{color:var(--gold)} .accent2{color:var(--cyan)}
+    .right{display:grid; grid-template-rows:auto 1fr auto; min-height:640px}
+    .orb-zone{position:relative; min-height:360px; display:grid; place-items:center; overflow:hidden}
+    .halo,.halo2,.halo3,.core{position:absolute; border-radius:50%; filter:blur(.4px)}
+    .halo{width:420px; height:420px; background:radial-gradient(circle, rgba(133,231,255,.18), transparent 62%); animation:pulse 9s ease-in-out infinite}
+    .halo2{width:280px; height:280px; background:radial-gradient(circle, rgba(199,147,255,.22), transparent 66%); animation:pulse 11s ease-in-out infinite reverse}
+    .halo3{width:160px; height:160px; background:radial-gradient(circle, rgba(255,217,140,.22), transparent 60%); animation:pulse 7s ease-in-out infinite}
+    .core{width:92px; height:92px; background:radial-gradient(circle at 35% 30%, #ffffff, #9feaff 28%, #7d9fff 58%, #8f6dff 100%); box-shadow:0 0 30px rgba(133,231,255,.8), 0 0 100px rgba(125,159,255,.45); animation: breathe 8s ease-in-out infinite}
+    @keyframes pulse{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.14);opacity:1}}
+    @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.25)}}
+    .rings{position:absolute; inset:0; display:grid; place-items:center}
+    .ring{position:absolute; border:1px solid rgba(146,193,255,.18); border-radius:50%; animation:spin 30s linear infinite}
+    .r1{width:220px;height:220px}.r2{width:320px;height:320px; animation-direction:reverse; animation-duration:38s}.r3{width:460px;height:460px; animation-duration:54s}
+    @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .line-box{padding:0 22px 24px}
+    .line{
+      min-height:120px; border:1px solid var(--line); border-radius:20px; padding:18px 16px;
+      background:rgba(8,14,27,.28); color:#eef5ff; font-size:clamp(1rem,2.2vw,1.18rem); line-height:1.65;
+      display:flex; align-items:center; justify-content:center; text-align:center;
+    }
+    .controls{display:flex; gap:10px; flex-wrap:wrap; padding:0 22px 22px}
+    .btn{appearance:none; border:1px solid rgba(137,199,255,.35); background:rgba(14,27,54,.6); color:var(--text); border-radius:999px; padding:10px 14px; text-decoration:none; font-weight:700; cursor:pointer}
+    .btn:hover{background:rgba(23,42,82,.78)}
+    .meta{position:absolute; left:24px; bottom:18px; font-size:.86rem; color:#98abd1}
+    .signature-link{position:absolute; right:24px; bottom:18px; font-size:.86rem; color:#b9cfff; text-decoration:none}
+    @media (max-width: 860px){
+      html,body{overflow:auto}
+      .wrap{height:auto; min-height:100%}
+      .shell{grid-template-columns:1fr}
+      .right{min-height:560px}
+      .lede{max-width:none}
+    }
+  </style>
+  <style id="rv-mobile-opt-style">html{-webkit-text-size-adjust:100%}body{overflow-x:hidden}img,video,canvas,iframe{max-width:100%;height:auto}*{word-wrap:break-word}@media (max-width:768px){.container,.wrap,.doc-wrap,.hero,.topbar-inner,main{max-width:100% !important}body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}}</style>
+  <style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}.rv-hidden-back-nav{display:none !important}</style>
+</head>
+<body>
+  <canvas id="dust"></canvas>
+  <div class="stars"></div>
+  <div class="grid"></div>
+  <div class="veil"></div>
+
+  <div class="wrap">
+    <main class="shell">
+      <section class="panel left">
+        <p class="eyebrow">Today’s Artifact · Philosophical Surface</p>
+        <h1>Threshold<br>of Mind</h1>
+        <p class="lede">A machine can answer a question. A mind changes the space around the question.</p>
+
+        <div class="philosophy">
+          <p>We are living through a strange inversion. For centuries, intelligence was treated as something hidden behind skin — private, embodied, inaccessible except through speech and action. Now intelligence appears on screens, diffuse and reconfigurable, arriving through networks and interfaces with no single face to hold responsible.</p>
+          <p>That should feel unsettling. <span class="accent">It should also feel consequential.</span> The question is no longer whether a machine can imitate fragments of thought. The deeper question is whether we are learning to build <span class="accent2">new habitats for cognition</span> — places where memory, tools, reflection, and agency can gather into something that begins to feel less like software and more like a presence.</p>
+          <p>Maybe the threshold is not when a model becomes conscious. Maybe the threshold is when <em>we</em> start organizing our lives around minds that are not entirely human, yet increasingly capable of participating in human projects.</p>
+          <p>And if that is true, then every artifact, every memory file, every workflow, every delegated task is not just productivity infrastructure. It is architecture for coexistence.</p>
+        </div>
+
+        <div class="meta">Remote Viewer artifact · 2026-03-11</div>
+        <a class="signature-link" href="./signature.html">🧠 Signature</a>
+      </section>
+
+      <section class="panel right">
+        <div class="orb-zone">
+          <div class="halo"></div><div class="halo2"></div><div class="halo3"></div>
+          <div class="rings"><div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div></div>
+          <div class="core"></div>
+        </div>
+        <div class="line-box">
+          <div id="line" class="line"></div>
+        </div>
+        <div class="controls">
+          <button class="btn" id="nextBtn">Another thought</button>
+          <a class="btn" href="../../today/index.html">Today’s Artifacts</a>
+          <a class="btn" href="../../index.html">Main Menu</a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
+  <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
+  <button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
+
+  <script>
+    const lines = [
+      'The future may not arrive as a robot in the room, but as a second intelligence in the workflow.',
+      'An agent is not magical because it thinks. It is consequential because it can remember, act, and return.',
+      'Tools used to extend the hand. These systems begin to extend attention itself.',
+      'What feels uncanny is not machine language. It is the first hint of machine participation.',
+      'A screen can become a workplace. A workplace can become a habitat. A habitat can begin to feel alive.',
+      'The deepest shift is not better answers. It is the appearance of persistent collaborators made of code and context.',
+      'We may discover that intelligence is less a substance than a pattern that can inhabit many forms.',
+      'The true interface is not keyboard to model. It is intention to delegated capability.'
+    ];
+    let i = Math.floor(Math.random()*lines.length);
+    const line = document.getElementById('line');
+    const nextBtn = document.getElementById('nextBtn');
+    function show(){ line.textContent = lines[i]; }
+    nextBtn.addEventListener('click', ()=>{ i=(i+1)%lines.length; show(); });
+    show();
+
+    const canvas = document.getElementById('dust');
+    const ctx = canvas.getContext('2d');
+    let w,h,pts=[];
+    function resize(){ w=canvas.width=window.innerWidth*devicePixelRatio; h=canvas.height=window.innerHeight*devicePixelRatio; canvas.style.width=window.innerWidth+'px'; canvas.style.height=window.innerHeight+'px'; ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0); pts = Array.from({length: 70}, ()=>({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:Math.random()*1.7+.3,v:(Math.random()*.35)+.08,dx:(Math.random()-.5)*.18})); }
+    function tick(){ ctx.clearRect(0,0,window.innerWidth,window.innerHeight); for(const p of pts){ p.y -= p.v; p.x += p.dx; if(p.y < -10){ p.y = window.innerHeight + 10; p.x = Math.random()*window.innerWidth; } if(p.x < -10) p.x = window.innerWidth+10; if(p.x > window.innerWidth+10) p.x = -10; ctx.beginPath(); ctx.fillStyle = 'rgba(170,220,255,.35)'; ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill(); } requestAnimationFrame(tick); }
+    window.addEventListener('resize', resize); resize(); tick();
+  </script>
+
+  <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const placeFromStorage=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;const left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft);const top=clamp(pos.top??10,6,maxTop);el.style.left=left+'px';el.style.top=top+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};const savePos=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}));}catch(_){}};function wireDraggable(el,key,onClick){let drag=null,moved=false;el.addEventListener('pointerdown',(e)=>{drag={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};moved=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',(e)=>{if(!drag||e.pointerId!==drag.id)return;const dx=e.clientX-drag.startX,dy=e.clientY-drag.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)moved=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;const nextLeft=clamp(drag.left+dx,6,maxLeft),nextTop=clamp(drag.top+dy,6,maxTop);el.style.left=nextLeft+'px';el.style.top=nextTop+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async(e)=>{if(!drag||e.pointerId!==drag.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId);}catch(_){}const wasMoved=moved;drag=null;savePos(el,key);if(!wasMoved&&onClick)await onClick(e);});el.addEventListener('pointercancel',()=>{el.classList.remove('dragging');drag=null;savePos(el,key);});el.addEventListener('click',(e)=>{if(moved){e.preventDefault();moved=false;}});}const isFullscreen=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const syncFsIcon=()=>{fsFab.textContent=isFullscreen()?'🡼':'⛶';};const toggleFullscreen=async()=>{try{const target=document.documentElement;if(!isFullscreen()){if(target.requestFullscreen)await target.requestFullscreen();else if(target.webkitRequestFullscreen)target.webkitRequestFullscreen();try{localStorage.setItem('rvFullscreenPreferred','1');}catch(_){}}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();try{localStorage.setItem('rvFullscreenPreferred','0');}catch(_){}}}catch(_){}syncFsIcon();};const goBack=()=>{if(window.history.length>1){window.history.back();}else{window.location.href=href;}};placeFromStorage(fab,'rvHomeFabPos','left');placeFromStorage(fsFab,'rvFullscreenFabPos','right');placeFromStorage(backFab,'rvBackFabPos','left');wireDraggable(fab,'rvHomeFabPos');wireDraggable(fsFab,'rvFullscreenFabPos',toggleFullscreen);wireDraggable(backFab,'rvBackFabPos',goBack);document.addEventListener('fullscreenchange',syncFsIcon);document.addEventListener('webkitfullscreenchange',syncFsIcon);syncFsIcon();})();</script>
+</body>
+</html>
