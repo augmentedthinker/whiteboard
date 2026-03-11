@@ -6,15 +6,31 @@
   .rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}
   .rv-home-fab.dragging,.rv-fullscreen-fab.dragging{cursor:grabbing}
   .rv-hidden-back-nav{display:none !important}
+  .rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none;left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}
+  .rv-back-fab.dragging{cursor:grabbing}
+
+</style>
+
+<style id="rv-mobile-opt-style">
+  html{-webkit-text-size-adjust:100%}
+  body{overflow-x:hidden}
+  img,video,canvas,iframe{max-width:100%;height:auto}
+  *{word-wrap:break-word}
+  @media (max-width: 768px){
+    .container,.wrap,.doc-wrap,.hero,.topbar-inner,main{max-width:100% !important}
+    body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}
+  }
 </style>
 </head><body><div class="topbar"><div class="topbar-inner"><a class="link" href="../../agents/generalist.html">← Generalist</a><button id="openBtn" class="btn primary">Open / Refresh</button><button id="pdfBtn" class="btn">Download as PDF</button><span id="status"></span></div></div><header class="hero"><p class="eyebrow">Generalist · Tools</p><h1>Tools File</h1><p class="sub">A clean reading surface for the environment notes and working assumptions behind Generalist.</p><div class="path-card"><span class="path-label">Workspace file path</span><div class="path-row"><div class="path-value" id="pathValue">/home/augmentedthinker/.openclaw/workspace-generalist/TOOLS.md</div><button id="copyPathBtn" class="btn">Copy Local Path</button></div></div></header><main class="doc-wrap"><article id="viewer"></article></main><script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script><script>const btn=document.getElementById('openBtn'); const pdfBtn=document.getElementById('pdfBtn'); const copyPathBtn=document.getElementById('copyPathBtn'); const pathValue=document.getElementById('pathValue'); const status=document.getElementById('status'); const viewer=document.getElementById('viewer'); async function openDoc(){ btn.disabled=true; status.textContent='Loading...'; try{ const res=await fetch('./tools.md',{cache:'no-store'}); if(!res.ok) throw new Error('Could not load markdown file.'); const md=await res.text(); viewer.innerHTML=marked.parse(md); viewer.style.display='block'; status.textContent='Ready'; }catch(err){ status.textContent='Error loading document'; alert(err.message);}finally{ btn.disabled=false; } } async function copyPath(){ try{ await navigator.clipboard.writeText(pathValue.textContent.trim()); const old=copyPathBtn.textContent; copyPathBtn.textContent='Copied'; status.textContent='Local path copied'; setTimeout(()=>copyPathBtn.textContent=old,1400);}catch(err){ status.textContent='Could not copy path'; alert('Copy failed on this browser. Path: ' + pathValue.textContent.trim()); } } btn.addEventListener('click',openDoc); pdfBtn.addEventListener('click',()=>window.print()); copyPathBtn.addEventListener('click',copyPath); openDoc();</script>
 <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
 <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
+<button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
 <script id="rv-home-fab-script">
 (function(){
   const fab=document.getElementById('rvHomeFab');
   const fsFab=document.getElementById('rvFullscreenFab');
-  if(!fab || !fsFab) return;
+  const backFab=document.getElementById('rvBackFab');
+  if(!fab || !fsFab || !backFab) return;
   const path=location.pathname;
   const marker='/remote-viewer/';
   const idx=path.indexOf(marker);
@@ -94,8 +110,10 @@
 
   placeFromStorage(fab, 'rvHomeFabPos', 'left');
   placeFromStorage(fsFab, 'rvFullscreenFabPos', 'right');
+  placeFromStorage(backFab, 'rvBackFabPos', 'left');
   wireDraggable(fab, 'rvHomeFabPos');
   wireDraggable(fsFab, 'rvFullscreenFabPos', toggleFullscreen);
+  wireDraggable(backFab, 'rvBackFabPos', ()=>{ if(window.history.length>1){ window.history.back(); } else { window.location.href = href; } });
   document.addEventListener('fullscreenchange', syncFsIcon);
   document.addEventListener('webkitfullscreenchange', syncFsIcon);
   syncFsIcon();
@@ -103,7 +121,7 @@
   const hideBackNav = () => {
     const selectors = 'a,button,.btn,.link,.back';
     document.querySelectorAll(selectors).forEach(el => {
-      if (el.id === 'rvHomeFab' || el.id === 'rvFullscreenFab' || el.id === 'fsBtn') return;
+      if (el.id === 'rvHomeFab' || el.id === 'rvFullscreenFab' || el.id === 'rvBackFab' || el.id === 'fsBtn') return;
       const text = (el.textContent || '').replace(/\s+/g,' ').trim().toLowerCase();
       const hrefAttr = (el.getAttribute && (el.getAttribute('href') || '') || '').toLowerCase();
       const title = (el.getAttribute && (el.getAttribute('title') || '') || '').toLowerCase();
@@ -116,7 +134,8 @@
   const init = () => { hideBackNav(); armFullscreenCarry(); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, {once:true});
   else init();
-  window.addEventListener('resize', ()=>{ placeFromStorage(fab, 'rvHomeFabPos', 'left'); placeFromStorage(fsFab, 'rvFullscreenFabPos', 'right'); });
+  window.addEventListener('resize', ()=>{ placeFromStorage(fab, 'rvHomeFabPos', 'left'); placeFromStorage(fsFab, 'rvFullscreenFabPos', 'right');
+  placeFromStorage(backFab, 'rvBackFabPos', 'left'); });
 })();
 </script>
 </body></html>

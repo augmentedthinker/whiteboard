@@ -45,6 +45,20 @@
   .rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}
   .rv-home-fab.dragging,.rv-fullscreen-fab.dragging{cursor:grabbing}
   .rv-hidden-back-nav{display:none !important}
+  .rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none;left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}
+  .rv-back-fab.dragging{cursor:grabbing}
+
+</style>
+
+<style id="rv-mobile-opt-style">
+  html{-webkit-text-size-adjust:100%}
+  body{overflow-x:hidden}
+  img,video,canvas,iframe{max-width:100%;height:auto}
+  *{word-wrap:break-word}
+  @media (max-width: 768px){
+    .container,.wrap,.doc-wrap,.hero,.topbar-inner,main{max-width:100% !important}
+    body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}
+  }
 </style>
 </head>
 <body>
@@ -115,11 +129,13 @@
 
 <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
 <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
+<button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
 <script id="rv-home-fab-script">
 (function(){
   const fab=document.getElementById('rvHomeFab');
   const fsFab=document.getElementById('rvFullscreenFab');
-  if(!fab || !fsFab) return;
+  const backFab=document.getElementById('rvBackFab');
+  if(!fab || !fsFab || !backFab) return;
   const path=location.pathname;
   const marker='/remote-viewer/';
   const idx=path.indexOf(marker);
@@ -199,8 +215,10 @@
 
   placeFromStorage(fab, 'rvHomeFabPos', 'left');
   placeFromStorage(fsFab, 'rvFullscreenFabPos', 'right');
+  placeFromStorage(backFab, 'rvBackFabPos', 'left');
   wireDraggable(fab, 'rvHomeFabPos');
   wireDraggable(fsFab, 'rvFullscreenFabPos', toggleFullscreen);
+  wireDraggable(backFab, 'rvBackFabPos', ()=>{ if(window.history.length>1){ window.history.back(); } else { window.location.href = href; } });
   document.addEventListener('fullscreenchange', syncFsIcon);
   document.addEventListener('webkitfullscreenchange', syncFsIcon);
   syncFsIcon();
@@ -208,7 +226,7 @@
   const hideBackNav = () => {
     const selectors = 'a,button,.btn,.link,.back';
     document.querySelectorAll(selectors).forEach(el => {
-      if (el.id === 'rvHomeFab' || el.id === 'rvFullscreenFab' || el.id === 'fsBtn') return;
+      if (el.id === 'rvHomeFab' || el.id === 'rvFullscreenFab' || el.id === 'rvBackFab' || el.id === 'fsBtn') return;
       const text = (el.textContent || '').replace(/\s+/g,' ').trim().toLowerCase();
       const hrefAttr = (el.getAttribute && (el.getAttribute('href') || '') || '').toLowerCase();
       const title = (el.getAttribute && (el.getAttribute('title') || '') || '').toLowerCase();
@@ -221,7 +239,8 @@
   const init = () => { hideBackNav(); armFullscreenCarry(); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, {once:true});
   else init();
-  window.addEventListener('resize', ()=>{ placeFromStorage(fab, 'rvHomeFabPos', 'left'); placeFromStorage(fsFab, 'rvFullscreenFabPos', 'right'); });
+  window.addEventListener('resize', ()=>{ placeFromStorage(fab, 'rvHomeFabPos', 'left'); placeFromStorage(fsFab, 'rvFullscreenFabPos', 'right');
+  placeFromStorage(backFab, 'rvBackFabPos', 'left'); });
 })();
 </script>
 </body>

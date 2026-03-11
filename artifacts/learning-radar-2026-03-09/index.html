@@ -57,7 +57,21 @@
     .rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}
     .rv-home-fab.dragging,.rv-fullscreen-fab.dragging{cursor:grabbing}
     .rv-hidden-back-nav{display:none !important}
+  .rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none;left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}
+  .rv-back-fab.dragging{cursor:grabbing}
+
   </style>
+
+<style id="rv-mobile-opt-style">
+  html{-webkit-text-size-adjust:100%}
+  body{overflow-x:hidden}
+  img,video,canvas,iframe{max-width:100%;height:auto}
+  *{word-wrap:break-word}
+  @media (max-width: 768px){
+    .container,.wrap,.doc-wrap,.hero,.topbar-inner,main{max-width:100% !important}
+    body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}
+  }
+</style>
 </head>
 <body>
   <div class="topbar"><div class="topbar-inner"><a class="link" href="../../today/index.html">← Today’s Artifacts</a><a class="link" href="./signature.html">🧠 Signature</a></div></div>
@@ -250,11 +264,13 @@
 
   <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
   <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
-  <script id="rv-home-fab-script">
+  <button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
+<script id="rv-home-fab-script">
   (function(){
     const fab=document.getElementById('rvHomeFab');
     const fsFab=document.getElementById('rvFullscreenFab');
-    if(!fab || !fsFab) return;
+  const backFab=document.getElementById('rvBackFab');
+    if(!fab || !fsFab || !backFab) return;
     const path=location.pathname; const marker='/remote-viewer/'; const idx=path.indexOf(marker); const href=idx>=0 ? path.slice(0, idx + marker.length) : '/'; fab.setAttribute('href', href);
     const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
     const placeFromStorage=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;const left=clamp(pos.left ?? (side==='left'?10:maxLeft),6,maxLeft);const top=clamp(pos.top ?? 10,6,maxTop);el.style.left=left+'px';el.style.top=top+'px';el.style.right='auto';}catch(_){}};
