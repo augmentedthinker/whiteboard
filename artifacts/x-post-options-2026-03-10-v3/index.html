@@ -12,6 +12,8 @@
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:20px}
     .card{border:1px solid #29466e;border-radius:16px;background:#101b31;overflow:hidden}
     .card img{width:100%;height:auto;display:block}
+    .card.chosen{border-color:rgba(117,235,160,.72);box-shadow:0 0 0 1px rgba(117,235,160,.24) inset}
+    .card.chosen .pill{background:linear-gradient(135deg,#2fcf7f,#1f9f5e);border-color:transparent;color:#ecfff2}
     .pad{padding:14px}
     .pill{display:inline-block;background:#1b2b48;border:1px solid #355785;color:#9fd2ff;border-radius:999px;padding:4px 10px;font-size:.8rem;font-weight:700;margin-bottom:10px}
     .toolbar{display:flex;gap:8px;align-items:center;margin:8px 0 8px;flex-wrap:wrap}
@@ -48,16 +50,18 @@
   <p><a href="../../today/index.html">← Today’s Artifacts</a></p>
   <h1>X Post Options · 2026-03-10</h1>
   <p class="muted">Three post options that point toward the upcoming long-form Blogger piece (<em>How Your OpenClaw Agent Rebuilds Its Mind After /new</em>), each with a fresh generated visual. No personal/private context included.</p>
+  <p class="muted"><strong>Selected for Blogger:</strong> Option 1 (Builder / Systems)</p>
 
   <div class="grid">
-    <section class="card">
+    <section class="card chosen">
       <img src="../generated/2026-03-10/2026-03-10-x-option1-builder-reentry.png" alt="Builder re-entry visual" />
       <div class="pad">
-        <span class="pill">Option 1 · Builder / Systems</span>
+        <span class="pill">Selected · Option 1 · Builder / Systems</span>
         <div class="toolbar">
           <a class="btn" href="../generated/2026-03-10/2026-03-10-x-option1-builder-reentry.png" download="2026-03-10-x-option1-builder-reentry.png">Download image</a>
           <button class="btn" onclick="copyPost('post1', this)">Copy text</button>
           <button class="btn" onclick="resetPost('post1')">Reset</button>
+          <a class="btn" href="https://augmentedthinker.blogspot.com/2026/03/how-your-openclaw-agent-rebuilds-its.html" target="_blank" rel="noopener">Open live Blogger post</a>
           <span id="count-post1" class="char"></span>
         </div>
         <textarea id="post1" class="editor" oninput="updateCount('post1')">Resetting an agent is easy.
