@@ -34,6 +34,18 @@
     body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}
   }
 </style>
+
+<style id="rv-skill-mobile-hardening">
+  .grid,.cards,.layout,main,.wrap,.hero,.topbar-inner{min-width:0}
+  .card,.item,.path-value,pre,code{max-width:100%}
+  .path-value,pre{overflow:auto;white-space:pre-wrap;word-break:break-word}
+  .item .meta,.item .title,.sub,p,li{overflow-wrap:anywhere;word-break:break-word}
+  @media (max-width: 768px){
+    .grid{grid-template-columns:1fr !important}
+    .item{min-height:auto !important}
+    body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}
+  }
+</style>
 </head>
 <body>
   <div class="topbar"><div class="topbar-inner"><a class="link" href="../../agents/index.html">← Primary Agent</a></div></div>
