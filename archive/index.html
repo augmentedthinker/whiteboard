@@ -5,15 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Remote Viewer | Archived</title>
   <style>
-    :root { --bg:#0d1117; --panel:#161b22; --border:#30363d; --text:#c9d1d9; --accent:#58a6ff; }
+    :root { --bg:#0d1117; --panel:#161b22; --panel2:#10161d; --border:#30363d; --text:#c9d1d9; --muted:#9da7b1; --accent:#58a6ff; }
     *{box-sizing:border-box}
-    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);margin:0;padding:max(12px,env(safe-area-inset-top)) 12px max(16px,env(safe-area-inset-bottom));line-height:1.5;min-height:100vh}
-    .container{max-width:820px;margin:0 auto}
+    body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#0d1117,#090d13);color:var(--text);margin:0;padding:max(12px,env(safe-area-inset-top)) 12px max(16px,env(safe-area-inset-bottom));line-height:1.55;min-height:100vh}
+    .container{max-width:1080px;margin:0 auto}
     header{border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:16px}
-    h1{color:var(--accent);margin:0;font-size:clamp(1.4rem,3.8vw,2rem)}
+    h1{color:var(--accent);margin:0 0 8px;font-size:clamp(1.4rem,3.8vw,2rem)}
     .back-link{display:inline-block;margin:0 0 12px;text-decoration:none;color:var(--accent);border:1px solid var(--border);border-radius:10px;padding:10px 14px;background:var(--panel)}
-    .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:16px}
-    .muted{color:#9da7b1}
+    .card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:16px}
+    .muted{color:var(--muted)}
+    .section-title{margin:0 0 10px;font-size:1.08rem}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:14px}
+    .item{display:block;background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:14px;text-decoration:none;color:var(--text)}
+    .item:hover{border-color:#4f89c8;background:#121a24}
+    .item strong{display:block;margin-bottom:6px;font-size:.98rem}
+    .meta{color:var(--muted);font-size:.9rem;line-height:1.45}
   </style>
 
 <style id="rv-home-fab-style">
@@ -24,7 +30,6 @@
   .rv-hidden-back-nav{display:none !important}
   .rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none;left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}
   .rv-back-fab.dragging{cursor:grabbing}
-
 </style>
 
 <style id="rv-mobile-opt-style">
@@ -42,13 +47,36 @@
   <div class="container">
     <header>
       <h1>Archived Artifacts</h1>
-      <p class="muted">Archive lane reset completed on 2026-03-01.</p>
+      <p class="muted">Earlier artifacts removed from the front-stage gallery but preserved live for reference, reflection, and possible reuse.</p>
     </header>
     <a class="back-link" href="../index.html">← Back to Remote Viewer</a>
+
     <div class="card">
-      <strong>Archived on 2026-03-03: Frontier Signal Desk</strong>
-      <p class="muted">Moved out of live navigation due to scope drift from the original intent. Stored for possible revisit before permanent deletion.</p>
-      <p><a href="../_archive-2026-03-03/frontier-signal/index.html">Open archived Frontier Signal</a></p>
+      <h2 class="section-title">Archive lane</h2>
+      <p class="muted">Today’s Artifacts is now kept intentionally small. These pieces are still hosted, but no longer treated as current front-stage work.</p>
+      <div class="grid">
+        <a class="item" href="artifacts/blogger-discussion-ideas-2026-03-11/index.html"><strong>Blogger Discussion Ideas · 2026-03-11</strong><span class="meta">Earlier idea-framing pass for Blogger directions.</span></a>
+        <a class="item" href="artifacts/blogger-lane-2026-03-09/index.html"><strong>Blogger Lane · 2026-03-09</strong><span class="meta">Initial visual brainstorming page for the long-form publishing lane.</span></a>
+        <a class="item" href="artifacts/capability-map-2026-03-09/index.html"><strong>Capability Map · 2026-03-09</strong><span class="meta">Structured capability and priority roadmap artifact.</span></a>
+        <a class="item" href="artifacts/digital-sanctuary-2026-03-09/index.html"><strong>Digital Sanctuary · 2026-03-09</strong><span class="meta">Concept page for a richer dwelling place for AI presence.</span></a>
+        <a class="item" href="artifacts/discussion-primer-2026-03-10/index.html"><strong>Discussion Primer · 2026-03-10</strong><span class="meta">Long-form re-entry and system-direction primer.</span></a>
+        <a class="item" href="artifacts/discussion-primer-2026-03-11/index.html"><strong>Discussion Primer · 2026-03-11</strong><span class="meta">Follow-on state-of-us primer from the next day.</span></a>
+        <a class="item" href="artifacts/extensive-session-primer-2026-03-11/index.html"><strong>Extensive Session Primer · 2026-03-11</strong><span class="meta">Long-form reset-and-reentry briefing.</span></a>
+        <a class="item" href="artifacts/identity-redraft-2026-03-10/index.html"><strong>Identity Redraft Studio · 2026-03-10</strong><span class="meta">Side-by-side identity comparison and revision workspace.</span></a>
+        <a class="item" href="artifacts/learning-radar-2026-03-09/index.html"><strong>Learning Radar · 2026-03-09</strong><span class="meta">Framework for tracking signal lanes and learning priorities.</span></a>
+        <a class="item" href="artifacts/life-constellation-2026-03-09/index.html"><strong>Life Constellation · 2026-03-09</strong><span class="meta">Nine-part life-balance mapping artifact.</span></a>
+        <a class="item" href="artifacts/midday-report-2026-03-09/index.html"><strong>Midday Report · 2026-03-09</strong><span class="meta">Hosted continuity report from 2026-03-09.</span></a>
+        <a class="item" href="artifacts/midday-report-2026-03-10/index.html"><strong>Midday Report · 2026-03-10</strong><span class="meta">Hosted continuity report from 2026-03-10.</span></a>
+        <a class="item" href="artifacts/morning-summary-2026-03-11/index.html"><strong>Morning Summary · 2026-03-11</strong><span class="meta">Hosted markdown-view summary of that morning’s work.</span></a>
+        <a class="item" href="artifacts/session-reentry-2026-03-09/index.html"><strong>Session Re-Entry · 2026-03-09</strong><span class="meta">Visual essay on reconstructing a working self after reset.</span></a>
+        <a class="item" href="artifacts/session-startup-mindstate-2026-03-10/index.html"><strong>Session Startup Mind-State Report · 2026-03-10</strong><span class="meta">Detailed explanation of contextual re-entry at startup.</span></a>
+        <a class="item" href="artifacts/threshold-of-mind-2026-03-11/index.html"><strong>Threshold of Mind · 2026-03-11</strong><span class="meta">Earlier first-pass version before the stronger v2 artifact.</span></a>
+        <a class="item" href="artifacts/x-post-examples-2026-03-09/index.html"><strong>X Post Examples · 2026-03-09</strong><span class="meta">Three early examples for different X posting voices.</span></a>
+        <a class="item" href="artifacts/x-post-lab-2026-03-09/index.html"><strong>X Post Lab · 2026-03-09</strong><span class="meta">Credibility-first X strategy page and template thinking.</span></a>
+        <a class="item" href="artifacts/x-post-options-2026-03-11-v4/index.html"><strong>X Post Options · 2026-03-11</strong><span class="meta">Three upgraded X options from the following day’s work.</span></a>
+        <a class="item" href="artifacts/x-post-package-2026-03-09/index.html"><strong>X Post Package · 2026-03-09</strong><span class="meta">Earlier packaged X lane artifact.</span></a>
+        <a class="item" href="artifacts/x-post-package-2026-03-09-v2/index.html"><strong>X Post Options · 2026-03-09</strong><span class="meta">Tighter second package version with multiple options.</span></a>
+      </div>
     </div>
   </div>
 
@@ -66,107 +94,10 @@
   const idx=path.indexOf(marker);
   const href=idx>=0 ? path.slice(0, idx + marker.length) : '/';
   fab.setAttribute('href', href);
-
-  const clamp = (v,min,max)=>Math.max(min, Math.min(max, v));
-  const placeFromStorage = (el,key,side='left') => {
-    try {
-      const raw = localStorage.getItem(key);
-      if(!raw) return;
-      const pos = JSON.parse(raw);
-      const maxLeft = window.innerWidth - el.offsetWidth - 6;
-      const maxTop = window.innerHeight - el.offsetHeight - 6;
-      const left = clamp(pos.left ?? (side==='left'?10:maxLeft), 6, maxLeft);
-      const top = clamp(pos.top ?? 10, 6, maxTop);
-      el.style.left = left + 'px';
-      el.style.top = top + 'px';
-      el.style.right = 'auto';
-    } catch(_) {}
-  };
-  const savePos = (el,key) => {
-    try { localStorage.setItem(key, JSON.stringify({left: el.offsetLeft, top: el.offsetTop})); } catch(_) {}
-  };
-
-  function wireDraggable(el, key, onClick){
-    let drag=null, moved=false;
-    el.addEventListener('pointerdown', (e)=>{ drag={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop}; moved=false; el.classList.add('dragging'); el.setPointerCapture(e.pointerId); e.preventDefault(); });
-    el.addEventListener('pointermove', (e)=>{ if(!drag||e.pointerId!==drag.id) return; const dx=e.clientX-drag.startX, dy=e.clientY-drag.startY; if(Math.abs(dx)>3||Math.abs(dy)>3) moved=true; const maxLeft=window.innerWidth-el.offsetWidth-6, maxTop=window.innerHeight-el.offsetHeight-6; const nextLeft=clamp(drag.left+dx, 6, maxLeft); const nextTop=clamp(drag.top+dy, 6, maxTop); el.style.left=nextLeft+'px'; el.style.top=nextTop+'px'; el.style.right='auto'; });
-    el.addEventListener('pointerup', async (e)=>{ if(!drag||e.pointerId!==drag.id) return; el.classList.remove('dragging'); try{el.releasePointerCapture(e.pointerId);}catch(_){} const wasMoved=moved; drag=null; savePos(el,key); if(!wasMoved && onClick) await onClick(e); });
-    el.addEventListener('pointercancel', ()=>{ el.classList.remove('dragging'); drag=null; savePos(el,key); });
-    el.addEventListener('click', (e)=>{ if(moved){ e.preventDefault(); moved=false; } });
-  }
-
-  const isFullscreen = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
-  const syncFsIcon = () => { fsFab.textContent = isFullscreen() ? '🡼' : '⛶'; };
-  const toggleFullscreen = async () => {
-    try {
-      const target = document.documentElement;
-      if (!isFullscreen()) {
-        if (target.requestFullscreen) await target.requestFullscreen();
-        else if (target.webkitRequestFullscreen) target.webkitRequestFullscreen();
-        try { localStorage.setItem('rvFullscreenPreferred', '1'); } catch(_) {}
-      } else {
-        if (document.exitFullscreen) await document.exitFullscreen();
-        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-        try { localStorage.setItem('rvFullscreenPreferred', '0'); } catch(_) {}
-      }
-    } catch(_) {}
-    syncFsIcon();
-  };
-  const tryApplyFullscreenPreference = async () => {
-    let preferred = false;
-    try { preferred = localStorage.getItem('rvFullscreenPreferred') === '1'; } catch(_) {}
-    if (!preferred || isFullscreen()) return;
-    try {
-      const target = document.documentElement;
-      if (target.requestFullscreen) await target.requestFullscreen();
-      else if (target.webkitRequestFullscreen) target.webkitRequestFullscreen();
-    } catch(_) {}
-    syncFsIcon();
-  };
-  const armFullscreenCarry = () => {
-    let preferred = false;
-    try { preferred = localStorage.getItem('rvFullscreenPreferred') === '1'; } catch(_) {}
-    if (!preferred) return;
-    const handler = () => {
-      tryApplyFullscreenPreference();
-      window.removeEventListener('pointerdown', handler, true);
-      window.removeEventListener('keydown', handler, true);
-      window.removeEventListener('touchstart', handler, true);
-    };
-    window.addEventListener('pointerdown', handler, true);
-    window.addEventListener('keydown', handler, true);
-    window.addEventListener('touchstart', handler, true);
-  };
-
-  placeFromStorage(fab, 'rvHomeFabPos', 'left');
-  placeFromStorage(fsFab, 'rvFullscreenFabPos', 'right');
-  placeFromStorage(backFab, 'rvBackFabPos', 'left');
-  wireDraggable(fab, 'rvHomeFabPos');
-  wireDraggable(fsFab, 'rvFullscreenFabPos', toggleFullscreen);
-  wireDraggable(backFab, 'rvBackFabPos', ()=>{ if(window.history.length>1){ window.history.back(); } else { window.location.href = href; } });
-  document.addEventListener('fullscreenchange', syncFsIcon);
-  document.addEventListener('webkitfullscreenchange', syncFsIcon);
-  syncFsIcon();
-
-  const hideBackNav = () => {
-    const selectors = 'a,button,.btn,.link,.back';
-    document.querySelectorAll(selectors).forEach(el => {
-      if (el.id === 'rvHomeFab' || el.id === 'rvFullscreenFab' || el.id === 'rvBackFab' || el.id === 'fsBtn') return;
-      const text = (el.textContent || '').replace(/\s+/g,' ').trim().toLowerCase();
-      const hrefAttr = (el.getAttribute && (el.getAttribute('href') || '') || '').toLowerCase();
-      const title = (el.getAttribute && (el.getAttribute('title') || '') || '').toLowerCase();
-      const looksBack = text.startsWith('←') || text.startsWith('back to') || text === 'back' || text === 'today’s artifacts' || text === "today's artifacts" || title.includes('back to');
-      const navHref = hrefAttr.includes('../index.html') || hrefAttr.endsWith('/index.html') || hrefAttr === 'index.html';
-      if (looksBack || (navHref && text.includes('back'))) el.classList.add('rv-hidden-back-nav');
-    });
-  };
-
-  const init = () => { hideBackNav(); armFullscreenCarry(); };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, {once:true});
-  else init();
-  window.addEventListener('resize', ()=>{ placeFromStorage(fab, 'rvHomeFabPos', 'left'); placeFromStorage(fsFab, 'rvFullscreenFabPos', 'right');
-  placeFromStorage(backFab, 'rvBackFabPos', 'left'); });
-})();
+  const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+  const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const p=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(p.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(p.top??10,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};
+  const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};
+  function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const wm=m;d=null;save(el,key);if(!wm&&click)await click(e);});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}const fs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const sync=()=>{fsFab.textContent=fs()?'🡼':'⛶'};const tfs=async()=>{try{const t=document.documentElement;if(!fs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');drag(fab,'rvHomeFabPos');drag(fsFab,'rvFullscreenFabPos',tfs);drag(backFab,'rvBackFabPos',()=>{if(window.history.length>1){window.history.back();}else{window.location.href=href;}});document.addEventListener('fullscreenchange',sync);document.addEventListener('webkitfullscreenchange',sync);sync();window.addEventListener('resize',()=>{place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');});})();
 </script>
 </body>
 </html>
