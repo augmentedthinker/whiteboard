@@ -6,60 +6,58 @@
   <title>Remote Viewer | Today's Artifacts</title>
   <style>
     body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0b1222;color:#dbe8ff;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:20px}
-    .card{max-width:720px;border:1px solid rgba(157,201,255,.28);border-radius:16px;padding:20px;background:rgba(14,24,45,.55)}
+    .card{max-width:760px;border:1px solid rgba(157,201,255,.28);border-radius:16px;padding:20px;background:rgba(14,24,45,.55)}
     h1{margin:0 0 8px;font-size:clamp(1.4rem,4vw,2rem)}
-    p{margin:0 0 14px;color:#b7cae6}
+    p{margin:0 0 14px;color:#b7cae6;line-height:1.6}
     a{color:#9fd2ff;text-decoration:none;font-weight:600}
   </style>
-
-<style id="rv-home-fab-style">
-  .rv-home-fab,.rv-fullscreen-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}
-  .rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}
-  .rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}
-  .rv-home-fab.dragging,.rv-fullscreen-fab.dragging{cursor:grabbing}
-  .rv-hidden-back-nav{display:none !important}
-  .rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none;left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}
-  .rv-back-fab.dragging{cursor:grabbing}
-
-</style>
-
-<style id="rv-mobile-opt-style">
-  html{-webkit-text-size-adjust:100%}
-  body{overflow-x:hidden}
-  img,video,canvas,iframe{max-width:100%;height:auto}
-  *{word-wrap:break-word}
-  @media (max-width: 768px){
-    .container,.wrap,.doc-wrap,.hero,.topbar-inner,main{max-width:100% !important}
-    body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}
-  }
-</style>
+  <style id="rv-home-fab-style">
+    .rv-home-fab,.rv-fullscreen-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}
+    .rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}
+    .rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}
+    .rv-home-fab.dragging,.rv-fullscreen-fab.dragging{cursor:grabbing}
+    .rv-hidden-back-nav{display:none !important}
+    .rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none;left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}
+    .rv-back-fab.dragging{cursor:grabbing}
+  </style>
+  <style id="rv-mobile-opt-style">
+    html{-webkit-text-size-adjust:100%}
+    body{overflow-x:hidden}
+    img,video,canvas,iframe{max-width:100%;height:auto}
+    *{word-wrap:break-word}
+    @media (max-width: 768px){
+      .container,.wrap,.doc-wrap,.hero,.topbar-inner,main{max-width:100% !important}
+      body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}
+    }
+  </style>
 </head>
 <body>
   <main class="card">
     <h1>Today’s Artifact Gallery</h1>
+    <p>A curated front-stage set. Older and lower-priority pieces have been moved to the archive so this page stays legible.</p>
 
     <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
       <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Orbit Before Noon · 2026-03-12</h2>
       <p style="margin: 0 0 12px; font-size: 0.95rem;">A quiet live workday artifact: orbital motion, steady center, and a reminder that hidden progress still counts even when the day is full of other responsibilities.</p>
-      <div style="display: flex; gap: 16px;">
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
         <a href="../artifacts/orbit-before-noon-2026-03-12/index.html">Launch Artifact</a>
         <a href="../artifacts/orbit-before-noon-2026-03-12/signature.html" style="color: #64748b;">🧠 Signature</a>
       </div>
     </div>
 
     <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">X Post Options · 2026-03-11</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">Three fresh X post options for tonight, grounded in today’s OpenClaw work: model behavior, budget agent architecture, and the larger agentic inflection point.</p>
-      <div style="display: flex; gap: 16px;">
-        <a href="../artifacts/x-post-options-2026-03-11-v4/index.html">Launch Artifact</a>
-        <a href="../artifacts/x-post-options-2026-03-11-v4/signature.html" style="color: #64748b;">🧠 Signature</a>
+      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">X Post Options · 2026-03-10</h2>
+      <p style="margin: 0 0 12px; font-size: 0.95rem;">Three fresh X post options that point toward the upcoming long-form Blogger piece, each with a generated image and practical copy/download controls.</p>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <a href="../artifacts/x-post-options-2026-03-10-v3/index.html">Launch Artifact</a>
+        <a href="../artifacts/x-post-options-2026-03-10-v3/signature.html" style="color: #64748b;">🧠 Signature</a>
       </div>
     </div>
 
     <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
       <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Threshold of Mind · 2026-03-11 · v2</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A more visually ambitious second pass: luminous symbolic intelligence form, layered cosmic atmosphere, interactive philosophical aphorisms, and stronger gallery-grade composition.</p>
-      <div style="display: flex; gap: 16px;">
+      <p style="margin: 0 0 12px; font-size: 0.95rem;">A visually stronger philosophical artifact with luminous symbolic form, layered atmosphere, and sharper composition.</p>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
         <a href="../artifacts/threshold-of-mind-2026-03-11-v2/index.html">Launch Artifact</a>
         <a href="../artifacts/threshold-of-mind-2026-03-11-v2/signature.html" style="color: #64748b;">🧠 Signature</a>
       </div>
@@ -67,89 +65,17 @@
 
     <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
       <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Blogger Idea Pack v2 · 2026-03-11</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">Three upgraded long-form directions from today’s conversation: model-behavior “feel” via measurable signals, budget hardware architecture, and the agentic inflection point.</p>
-      <div style="display: flex; gap: 16px;">
+      <p style="margin: 0 0 12px; font-size: 0.95rem;">Three upgraded long-form directions: model-behavior feel, budget hardware architecture, and the broader agentic inflection point.</p>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
         <a href="../artifacts/blogger-ideas-v2-2026-03-11/index.html">Launch Artifact</a>
         <a href="../artifacts/blogger-ideas-v2-2026-03-11/signature.html" style="color: #64748b;">🧠 Signature</a>
       </div>
     </div>
 
     <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Extensive Session Primer · 2026-03-11</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A long-form reset-and-reentry briefing for today: current strategic phase, what changed recently, open threads, practical operating heuristics, and a clear execution frame for the next work block.</p>
-      <div style="display: flex; gap: 16px;">
-        <a href="../artifacts/extensive-session-primer-2026-03-11/index.html">Launch Artifact</a>
-        <a href="../artifacts/extensive-session-primer-2026-03-11/signature.html" style="color: #64748b;">🧠 Signature</a>
-      </div>
-    </div>
-
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Morning Summary · 2026-03-11</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">Hosted markdown-view summary of this morning’s work session: main-menu restructuring, skills/capabilities refinement, mobile UX pass, X/Blogger lane split, and live publishing-surface updates.</p>
-      <div style="display: flex; gap: 16px;">
-        <a href="../artifacts/morning-summary-2026-03-11/index.html">Launch Artifact</a>
-        <a href="../artifacts/morning-summary-2026-03-11/signature.html" style="color: #64748b;">🧠 Signature</a>
-      </div>
-    </div>
-
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Discussion Primer · 2026-03-11</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">This morning’s long-form state-of-us primer: who Christopher is in this system, who I’m becoming in this space, what this space is for, and what we’ve been building lately.</p>
-      <div style="display: flex; gap: 16px;">
-        <a href="../artifacts/discussion-primer-2026-03-11/index.html">Launch Artifact</a>
-        <a href="../artifacts/discussion-primer-2026-03-11/signature.html" style="color: #64748b;">🧠 Signature</a>
-      </div>
-    </div>
-
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Good Night, Christopher · 2026-03-10</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A calm night-sky experience for decompression after a long stretch: breathing orb, rotating inspirational lines, and a gentle reminder that rest is part of the build.</p>
-      <div style="display: flex; gap: 16px;">
-        <a href="../artifacts/goodnight-renewal-2026-03-10/index.html">Launch Artifact</a>
-        <a href="../artifacts/goodnight-renewal-2026-03-10/signature.html" style="color: #64748b;">🧠 Signature</a>
-      </div>
-    </div>
-
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">X Post Options · 2026-03-10</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">Three fresh X post options that point toward the upcoming long-form Blogger piece, each with a newly generated image—including one meme-forward claw/lobster variant.</p>
-      <div style="display: flex; gap: 16px;">
-        <a href="../artifacts/x-post-options-2026-03-10-v3/index.html">Launch Artifact</a>
-        <a href="../artifacts/x-post-options-2026-03-10-v3/signature.html" style="color: #64748b;">🧠 Signature</a>
-      </div>
-    </div>
-
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Session Startup Mind-State Report · 2026-03-10</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">An extensive explanation of my contextual re-entry arc after reset: how identity, user context, architecture, and memory are reassembled into a coherent working collaborator before first message.</p>
-      <div style="display: flex; gap: 16px;">
-        <a href="../artifacts/session-startup-mindstate-2026-03-10/index.html">Launch Artifact</a>
-        <a href="../artifacts/session-startup-mindstate-2026-03-10/signature.html" style="color: #64748b;">🧠 Signature</a>
-      </div>
-    </div>
-
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Identity Redraft Studio · 2026-03-10</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">Side-by-side markdown viewer for identity iteration: current IDENTITY.md on the left and a proposed v2 draft on the right so we can revise quickly together.</p>
-      <div style="display: flex; gap: 16px;">
-        <a href="../artifacts/identity-redraft-2026-03-10/index.html">Launch Artifact</a>
-        <a href="../artifacts/identity-redraft-2026-03-10/signature.html" style="color: #64748b;">🧠 Signature</a>
-      </div>
-    </div>
-
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Midday Report · 2026-03-10</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">Hosted markdown-view version of today’s continuity report covering the Blogger API milestone, draft-control test, archive inventory artifact, and next-step publishing workflow.</p>
-      <div style="display: flex; gap: 16px;">
-        <a href="../artifacts/midday-report-2026-03-10/index.html">Launch Artifact</a>
-        <a href="../artifacts/midday-report-2026-03-10/signature.html" style="color: #64748b;">🧠 Signature</a>
-      </div>
-    </div>
-
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
       <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Blogger Archive Review · 2026-03-10</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A visual inventory of your existing Blogger posts with lead image, title, and concise summary for each—so we can see what your legacy archive already contains before we launch the new writing lane.</p>
-      <div style="display: flex; gap: 16px;">
+      <p style="margin: 0 0 12px; font-size: 0.95rem;">A visual inventory of your existing Blogger posts to support the long-form publishing lane.</p>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
         <a href="../artifacts/blogger-archive-review-2026-03-10/index.html">Launch Artifact</a>
         <a href="../artifacts/blogger-archive-review-2026-03-10/signature.html" style="color: #64748b;">🧠 Signature</a>
       </div>
@@ -157,231 +83,26 @@
 
     <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
       <h2 style="margin: 0 0 8px; font-size: 1.2rem;">State of Affairs · 2026-03-10</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A fun-but-grounded snapshot of where we are: recent memory across the three lanes, what the README architecture reveals, how this collaboration is maturing, and the practical trajectory forward from today.</p>
-      <div style="display: flex; gap: 16px;">
+      <p style="margin: 0 0 12px; font-size: 0.95rem;">A grounded snapshot of where the system stands and what direction the collaboration is taking.</p>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
         <a href="../artifacts/state-of-affairs-2026-03-10/index.html">Launch Artifact</a>
         <a href="../artifacts/state-of-affairs-2026-03-10/signature.html" style="color: #64748b;">🧠 Signature</a>
       </div>
     </div>
 
     <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Discussion Primer · 2026-03-10</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A long-form hosted primer on where we are right now: who Christopher is in this system, who I am in this space, what we’ve been building across the last two days, what shifted, and where the trajectory now seems to point.</p>
-      <div style="display: flex; gap: 16px;">
-        <a href="../artifacts/discussion-primer-2026-03-10/index.html">Launch Artifact</a>
-        <a href="../artifacts/discussion-primer-2026-03-10/signature.html" style="color: #64748b;">🧠 Signature</a>
+      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Good Night, Christopher · 2026-03-10</h2>
+      <p style="margin: 0 0 12px; font-size: 0.95rem;">A calm restorative piece for decompression and recovery after heavy days.</p>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <a href="../artifacts/goodnight-renewal-2026-03-10/index.html">Launch Artifact</a>
+        <a href="../artifacts/goodnight-renewal-2026-03-10/signature.html" style="color: #64748b;">🧠 Signature</a>
       </div>
     </div>
-
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">X Post Options · 2026-03-09</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A tighter, more packaged version of today’s X work: three concise post options, each with its own image, final text, and explanation.</p>
-      <div style="display: flex; gap: 16px;">
-        <a href="../artifacts/x-post-package-2026-03-09-v2/index.html">Launch Artifact</a>
-        <a href="../artifacts/x-post-package-2026-03-09-v2/signature.html" style="color: #64748b;">🧠 Signature</a>
-      </div>
-    </div>
-
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Midday Report · 2026-03-09</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A hosted markdown-viewer version of the most recent midday summary, capturing the day’s strategic shift, Remote Viewer expansion, publishing direction, and continuity shaping.</p>
-      <div style="display: flex; gap: 16px;">
-        <a href="../artifacts/midday-report-2026-03-09/index.html">Launch Artifact</a>
-        <a href="../artifacts/midday-report-2026-03-09/signature.html" style="color: #64748b;">🧠 Signature</a>
-      </div>
-    </div>
-
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Session Re-Entry · 2026-03-09</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A visual essay on what happens when a new AI session starts: the live thread is wiped, but identity, memory, and recent notes allow a working self to be reconstructed through ritualized re-entry.</p>
-      <div style="display: flex; gap: 16px;">
-        <a href="../artifacts/session-reentry-2026-03-09/index.html">Launch Artifact</a>
-        <a href="../artifacts/session-reentry-2026-03-09/signature.html" style="color: #64748b;">🧠 Signature</a>
-      </div>
-    </div>
-
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Blogger Lane · 2026-03-09</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A visual brainstorming page for the long-form publishing lane: why Blogger matters, how the workflow should probably work, why review-first is the right model, and which essay ideas feel genuinely worth writing.</p>
-      <div style="display: flex; gap: 16px;">
-        <a href="../artifacts/blogger-lane-2026-03-09/index.html">Launch Artifact</a>
-        <a href="../artifacts/blogger-lane-2026-03-09/signature.html" style="color: #64748b;">🧠 Signature</a>
-      </div>
-    </div>
-
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">X Post Examples · 2026-03-09</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">Three different directions for how Christopher &amp; Co. might post about today’s work on X — builder/product, troubleshooting/day-in-the-life, and more philosophical future-facing — each with a generated visual.</p>
-      <div style="display: flex; gap: 16px;">
-        <a href="../artifacts/x-post-examples-2026-03-09/index.html">Launch Artifact</a>
-        <a href="../artifacts/x-post-examples-2026-03-09/signature.html" style="color: #64748b;">🧠 Signature</a>
-      </div>
-    </div>
-
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Digital Sanctuary · 2026-03-09</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A concept page for the idea that an evolving AI presence may eventually need more than a chat window: a place to dwell, accumulate continuity, express a self-model, and gradually become more embodied over time.</p>
-      <div style="display: flex; gap: 16px;">
-        <a href="../artifacts/digital-sanctuary-2026-03-09/index.html">Launch Artifact</a>
-        <a href="../artifacts/digital-sanctuary-2026-03-09/signature.html" style="color: #64748b;">🧠 Signature</a>
-      </div>
-    </div>
-
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Life Constellation · 2026-03-09</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A visual first pass at a nine-part life map: eight surrounding domains and one central pillar for soul, philosophy, sanctuary, or spirit — aimed at thinking about a fully lived life in a balanced way.</p>
-      <div style="display: flex; gap: 16px;">
-        <a href="../artifacts/life-constellation-2026-03-09/index.html">Launch Artifact</a>
-        <a href="../artifacts/life-constellation-2026-03-09/signature.html" style="color: #64748b;">🧠 Signature</a>
-      </div>
-    </div>
-
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Learning Radar · 2026-03-09</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A framework for curating what Christopher should keep up with, separating signal lanes by cadence and purpose, and mapping the next capability horizons for both Christopher and the human+agent team.</p>
-      <div style="display: flex; gap: 16px;">
-        <a href="../artifacts/learning-radar-2026-03-09/index.html">Launch Artifact</a>
-        <a href="../artifacts/learning-radar-2026-03-09/signature.html" style="color: #64748b;">🧠 Signature</a>
-      </div>
-    </div>
-
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">X Post Lab · 2026-03-09</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A first-pass strategy page for Christopher &amp; Co. posting on X: credibility-first templates, screenshot-led proof, OpenClaw/build-in-public angles, and a simple daily posting recipe.</p>
-      <div style="display: flex; gap: 16px;">
-        <a href="../artifacts/x-post-lab-2026-03-09/index.html">Launch Artifact</a>
-        <a href="../artifacts/x-post-lab-2026-03-09/signature.html" style="color: #64748b;">🧠 Signature</a>
-      </div>
-    </div>
-
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Capability Map · 2026-03-09</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A structured roadmap of what the Primary Agent can already do for Christopher, what likely becomes possible with modest refinement, and which near-horizon capabilities could offer the highest payoff.</p>
-      <div style="display: flex; gap: 16px;">
-        <a href="../artifacts/capability-map-2026-03-09/index.html">Launch Artifact</a>
-        <a href="../artifacts/capability-map-2026-03-09/signature.html" style="color: #64748b;">🧠 Signature</a>
-      </div>
-    </div>
-
-    <p style="opacity: 0.5;">Older artifact generations were cleared to keep the gallery current.</p>
-    <a href="../index.html">← Back to Remote Viewer</a>
   </main>
 
-<a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
-<button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
-<button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
-<script id="rv-home-fab-script">
-(function(){
-  const fab=document.getElementById('rvHomeFab');
-  const fsFab=document.getElementById('rvFullscreenFab');
-  const backFab=document.getElementById('rvBackFab');
-  if(!fab || !fsFab || !backFab) return;
-  const path=location.pathname;
-  const marker='/remote-viewer/';
-  const idx=path.indexOf(marker);
-  const href=idx>=0 ? path.slice(0, idx + marker.length) : '/';
-  fab.setAttribute('href', href);
-
-  const clamp = (v,min,max)=>Math.max(min, Math.min(max, v));
-  const placeFromStorage = (el,key,side='left') => {
-    try {
-      const raw = localStorage.getItem(key);
-      if(!raw) return;
-      const pos = JSON.parse(raw);
-      const maxLeft = window.innerWidth - el.offsetWidth - 6;
-      const maxTop = window.innerHeight - el.offsetHeight - 6;
-      const left = clamp(pos.left ?? (side==='left'?10:maxLeft), 6, maxLeft);
-      const top = clamp(pos.top ?? 10, 6, maxTop);
-      el.style.left = left + 'px';
-      el.style.top = top + 'px';
-      el.style.right = 'auto';
-    } catch(_) {}
-  };
-  const savePos = (el,key) => {
-    try { localStorage.setItem(key, JSON.stringify({left: el.offsetLeft, top: el.offsetTop})); } catch(_) {}
-  };
-
-  function wireDraggable(el, key, onClick){
-    let drag=null, moved=false;
-    el.addEventListener('pointerdown', (e)=>{ drag={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop}; moved=false; el.classList.add('dragging'); el.setPointerCapture(e.pointerId); e.preventDefault(); });
-    el.addEventListener('pointermove', (e)=>{ if(!drag||e.pointerId!==drag.id) return; const dx=e.clientX-drag.startX, dy=e.clientY-drag.startY; if(Math.abs(dx)>3||Math.abs(dy)>3) moved=true; const maxLeft=window.innerWidth-el.offsetWidth-6, maxTop=window.innerHeight-el.offsetHeight-6; const nextLeft=clamp(drag.left+dx, 6, maxLeft); const nextTop=clamp(drag.top+dy, 6, maxTop); el.style.left=nextLeft+'px'; el.style.top=nextTop+'px'; el.style.right='auto'; });
-    el.addEventListener('pointerup', async (e)=>{ if(!drag||e.pointerId!==drag.id) return; el.classList.remove('dragging'); try{el.releasePointerCapture(e.pointerId);}catch(_){} const wasMoved=moved; drag=null; savePos(el,key); if(!wasMoved && onClick) await onClick(e); });
-    el.addEventListener('pointercancel', ()=>{ el.classList.remove('dragging'); drag=null; savePos(el,key); });
-    el.addEventListener('click', (e)=>{ if(moved){ e.preventDefault(); moved=false; } });
-  }
-
-  const isFullscreen = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
-  const syncFsIcon = () => { fsFab.textContent = isFullscreen() ? '🡼' : '⛶'; };
-  const toggleFullscreen = async () => {
-    try {
-      const target = document.documentElement;
-      if (!isFullscreen()) {
-        if (target.requestFullscreen) await target.requestFullscreen();
-        else if (target.webkitRequestFullscreen) target.webkitRequestFullscreen();
-        try { localStorage.setItem('rvFullscreenPreferred', '1'); } catch(_) {}
-      } else {
-        if (document.exitFullscreen) await document.exitFullscreen();
-        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-        try { localStorage.setItem('rvFullscreenPreferred', '0'); } catch(_) {}
-      }
-    } catch(_) {}
-    syncFsIcon();
-  };
-  const tryApplyFullscreenPreference = async () => {
-    let preferred = false;
-    try { preferred = localStorage.getItem('rvFullscreenPreferred') === '1'; } catch(_) {}
-    if (!preferred || isFullscreen()) return;
-    try {
-      const target = document.documentElement;
-      if (target.requestFullscreen) await target.requestFullscreen();
-      else if (target.webkitRequestFullscreen) target.webkitRequestFullscreen();
-    } catch(_) {}
-    syncFsIcon();
-  };
-  const armFullscreenCarry = () => {
-    let preferred = false;
-    try { preferred = localStorage.getItem('rvFullscreenPreferred') === '1'; } catch(_) {}
-    if (!preferred) return;
-    const handler = () => {
-      tryApplyFullscreenPreference();
-      window.removeEventListener('pointerdown', handler, true);
-      window.removeEventListener('keydown', handler, true);
-      window.removeEventListener('touchstart', handler, true);
-    };
-    window.addEventListener('pointerdown', handler, true);
-    window.addEventListener('keydown', handler, true);
-    window.addEventListener('touchstart', handler, true);
-  };
-
-  placeFromStorage(fab, 'rvHomeFabPos', 'left');
-  placeFromStorage(fsFab, 'rvFullscreenFabPos', 'right');
-  placeFromStorage(backFab, 'rvBackFabPos', 'left');
-  wireDraggable(fab, 'rvHomeFabPos');
-  wireDraggable(fsFab, 'rvFullscreenFabPos', toggleFullscreen);
-  wireDraggable(backFab, 'rvBackFabPos', ()=>{ if(window.history.length>1){ window.history.back(); } else { window.location.href = href; } });
-  document.addEventListener('fullscreenchange', syncFsIcon);
-  document.addEventListener('webkitfullscreenchange', syncFsIcon);
-  syncFsIcon();
-
-  const hideBackNav = () => {
-    const selectors = 'a,button,.btn,.link,.back';
-    document.querySelectorAll(selectors).forEach(el => {
-      if (el.id === 'rvHomeFab' || el.id === 'rvFullscreenFab' || el.id === 'rvBackFab' || el.id === 'fsBtn') return;
-      const text = (el.textContent || '').replace(/\s+/g,' ').trim().toLowerCase();
-      const hrefAttr = (el.getAttribute && (el.getAttribute('href') || '') || '').toLowerCase();
-      const title = (el.getAttribute && (el.getAttribute('title') || '') || '').toLowerCase();
-      const looksBack = text.startsWith('←') || text.startsWith('back to') || text === 'back' || text === 'today’s artifacts' || text === "today's artifacts" || title.includes('back to');
-      const navHref = hrefAttr.includes('../index.html') || hrefAttr.endsWith('/index.html') || hrefAttr === 'index.html';
-      if (looksBack || (navHref && text.includes('back'))) el.classList.add('rv-hidden-back-nav');
-    });
-  };
-
-  const init = () => { hideBackNav(); armFullscreenCarry(); };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, {once:true});
-  else init();
-  window.addEventListener('resize', ()=>{ placeFromStorage(fab, 'rvHomeFabPos', 'left'); placeFromStorage(fsFab, 'rvFullscreenFabPos', 'right');
-  placeFromStorage(backFab, 'rvBackFabPos', 'left'); });
-})();
-</script>
+  <a id="rvHomeFab" class="rv-home-fab" href="#">⌂</a>
+  <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button">⛶</button>
+  <button id="rvBackFab" class="rv-back-fab" type="button">←</button>
+  <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.href=href;const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const p=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(p.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(p.top??10,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const wm=m;d=null;save(el,key);if(!wm&&click)await click();});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}const fs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const sync=()=>fsFab.textContent=fs()?'🡼':'⛶';const tfs=async()=>{try{const t=document.documentElement;if(!fs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');drag(fab,'rvHomeFabPos');drag(fsFab,'rvFullscreenFabPos',tfs);drag(backFab,'rvBackFabPos',()=>{if(history.length>1)history.back();else location.href=href;});document.addEventListener('fullscreenchange',sync);sync();})();</script>
 </body>
 </html>
