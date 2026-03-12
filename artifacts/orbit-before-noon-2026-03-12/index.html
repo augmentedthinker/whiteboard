@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Orbit Before Noon · 2026-03-12</title>
+  <meta name="description" content="A live reflective artifact for the workday: quiet motion, layered thought, and a reminder that not all progress looks dramatic from the outside." />
+  <style>
+    :root{
+      --bg1:#050914;
+      --bg2:#0c1730;
+      --bg3:#13284d;
+      --line:rgba(155,205,255,.2);
+      --text:#edf6ff;
+      --muted:#a9bed9;
+      --glow:#87d3ff;
+      --accent:#78a6ff;
+      --warm:#ffd89a;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:radial-gradient(circle at 20% 20%, rgba(120,166,255,.22), transparent 0 28%),radial-gradient(circle at 80% 18%, rgba(255,216,154,.10), transparent 0 22%),linear-gradient(180deg,var(--bg3),var(--bg2) 40%,var(--bg1));color:var(--text)}
+    body{overflow-x:hidden}
+    .sky{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+    .star{position:absolute;border-radius:999px;background:rgba(255,255,255,.9);opacity:.8;animation:twinkle 5s ease-in-out infinite}
+    .star.s1{width:2px;height:2px;top:12%;left:18%;animation-delay:.2s}
+    .star.s2{width:3px;height:3px;top:20%;left:78%;animation-delay:1.3s}
+    .star.s3{width:2px;height:2px;top:62%;left:12%;animation-delay:2.1s}
+    .star.s4{width:2px;height:2px;top:70%;left:85%;animation-delay:.9s}
+    .star.s5{width:4px;height:4px;top:38%;left:64%;animation-delay:3.2s}
+    .orbital-wrap{position:relative;min-height:100vh;display:grid;place-items:center;padding:72px 18px 36px}
+    .orbital-wrap::before{content:"";position:absolute;inset:auto 50% 14%;width:min(88vw,540px);height:min(88vw,540px);transform:translateX(-50%);border-radius:50%;border:1px solid rgba(137,187,255,.11);box-shadow:0 0 80px rgba(86,145,255,.10), inset 0 0 40px rgba(123,177,255,.06)}
+    .orbit{position:absolute;left:50%;top:46%;width:min(84vw,500px);height:min(84vw,500px);transform:translate(-50%,-50%);border:1px solid rgba(146,194,255,.18);border-radius:50%;opacity:.65}
+    .orbit.two{width:min(62vw,360px);height:min(62vw,360px);border-style:dashed;opacity:.38;animation:spin 30s linear infinite reverse}
+    .orbit.one{animation:spin 60s linear infinite}
+    .planet{position:absolute;left:50%;top:50%;width:16px;height:16px;margin:-8px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #fff, #a7ddff 55%, #4a81ff);box-shadow:0 0 18px rgba(135,211,255,.7)}
+    .orbit.one .planet{transform:translateX(calc(min(84vw,500px)/2));animation:counterspin 60s linear infinite}
+    .orbit.two .planet{width:11px;height:11px;margin:-5.5px;background:radial-gradient(circle at 30% 30%, #fff6e6, #ffd89a 55%, #d17a28);box-shadow:0 0 16px rgba(255,216,154,.55);transform:translateX(calc(min(62vw,360px)/2));animation:counterspin 30s linear infinite reverse}
+    .sun{position:absolute;left:50%;top:46%;width:min(25vw,140px);height:min(25vw,140px);transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 35% 35%, #fffef6 0, #ffe8b8 28%, #ffc469 58%, rgba(255,165,64,.82) 72%, rgba(255,165,64,.08) 100%);box-shadow:0 0 40px rgba(255,196,105,.55),0 0 120px rgba(255,171,76,.24)}
+    .panel{position:relative;z-index:2;width:min(92vw,760px);margin-top:min(48vw,260px);padding:22px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(180deg, rgba(9,15,28,.54), rgba(7,12,22,.78));backdrop-filter:blur(12px);box-shadow:0 16px 50px rgba(0,0,0,.24)}
+    .eyebrow{display:inline-flex;gap:8px;align-items:center;padding:7px 12px;border-radius:999px;border:1px solid rgba(155,205,255,.24);font-size:.82rem;color:#d6e8ff;background:rgba(15,24,42,.35)}
+    h1{margin:14px 0 10px;font-size:clamp(2rem,6vw,4.4rem);line-height:.98;letter-spacing:-.03em}
+    .lede{margin:0 0 18px;color:var(--muted);font-size:clamp(1rem,2.5vw,1.15rem);line-height:1.7;max-width:62ch}
+    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:20px 0}
+    .card{padding:16px;border-radius:18px;border:1px solid rgba(155,205,255,.16);background:rgba(14,22,37,.42)}
+    .card h2{margin:0 0 8px;font-size:1rem}
+    .card p{margin:0;color:var(--muted);line-height:1.65;font-size:.95rem}
+    .quote{margin-top:18px;padding:16px 18px;border-left:3px solid rgba(135,211,255,.65);background:rgba(10,20,36,.45);border-radius:14px;color:#dbeaff;font-size:1rem;line-height:1.75}
+    .footer{margin-top:20px;display:flex;flex-wrap:wrap;gap:10px 14px;color:#9bb4d4;font-size:.92rem}
+    .footer a{color:#9fd6ff;text-decoration:none}
+    @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+    @keyframes counterspin{to{transform:translateX(calc(min(84vw,500px)/2)) rotate(-360deg)}}
+    .orbit.two .planet{animation-name:counterspinTwo}
+    @keyframes counterspinTwo{to{transform:translateX(calc(min(62vw,360px)/2)) rotate(360deg)}}
+    @keyframes twinkle{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+    @media (max-width:800px){.grid{grid-template-columns:1fr}.panel{margin-top:min(60vw,300px)}h1{max-width:11ch}}
+  </style>
+
+<style id="rv-home-fab-style">
+  .rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}
+  .rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}
+  .rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}
+  .rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}
+  .rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}
+</style>
+</head>
+<body>
+  <div class="sky" aria-hidden="true">
+    <div class="star s1"></div><div class="star s2"></div><div class="star s3"></div><div class="star s4"></div><div class="star s5"></div>
+  </div>
+
+  <main class="orbital-wrap">
+    <div class="sun"></div>
+    <div class="orbit one"><div class="planet"></div></div>
+    <div class="orbit two"><div class="planet"></div></div>
+
+    <section class="panel">
+      <div class="eyebrow">● live artifact · workday signal</div>
+      <h1>Orbit Before Noon</h1>
+      <p class="lede">A small reminder for the middle of a hospital day: from the outside, nothing dramatic may seem to be happening. But unseen systems still move. Thought still accumulates. Direction still holds.</p>
+
+      <div class="grid">
+        <article class="card">
+          <h2>Steady center</h2>
+          <p>The point is not to feel spectacular at every moment. The point is to keep a stable inner center while responsibilities, interruptions, and tasks continue circling around it.</p>
+        </article>
+        <article class="card">
+          <h2>Quiet momentum</h2>
+          <p>Some of the best days do not announce themselves. They simply stack small acts of coherence until, by evening, the shape of the day has changed.</p>
+        </article>
+        <article class="card">
+          <h2>Hidden build</h2>
+          <p>Even while you are physically in one role, other layers of your life are still under construction: your tools, your writing lane, your digital systems, your future self.</p>
+        </article>
+      </div>
+
+      <div class="quote">“Not every orbit needs applause. Some only need persistence.”</div>
+
+      <div class="footer">
+        <span>Made for Christopher while on shift · 2026-03-12</span>
+        <a href="signature.html">🧠 signature</a>
+      </div>
+    </section>
+  </main>
+
+  <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
+  <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
+  <button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
+  <script>
+    (function(){
+      const fab=document.getElementById('rvHomeFab');
+      const fsFab=document.getElementById('rvFullscreenFab');
+      const backFab=document.getElementById('rvBackFab');
+      if(!fab||!fsFab||!backFab)return;
+      const path=location.pathname; const marker='/remote-viewer/'; const idx=path.indexOf(marker); const href=idx>=0?path.slice(0,idx+marker.length):'/'; fab.setAttribute('href',href);
+      const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+      const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;const left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft);const top=clamp(pos.top??10,6,maxTop);el.style.left=left+'px';el.style.top=top+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};
+      const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};
+      function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const wm=m;d=null;save(el,key);if(!wm&&click)await click(e);});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}
+      const fs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement); const sync=()=>{fsFab.textContent=fs()?'🡼':'⛶'};
+      const tfs=async()=>{try{const t=document.documentElement;if(!fs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};
+      place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');
+      drag(fab,'rvHomeFabPos'); drag(fsFab,'rvFullscreenFabPos',tfs); drag(backFab,'rvBackFabPos',()=>{if(window.history.length>1)window.history.back();else window.location.href=href;});
+      document.addEventListener('fullscreenchange',sync); document.addEventListener('webkitfullscreenchange',sync); sync();
+      window.addEventListener('resize',()=>{place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');});
+    })();
+  </script>
+</body>
+</html>
