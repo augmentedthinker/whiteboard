@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1222"/>
+      <stop offset="100%" stop-color="#111c34"/>
+    </linearGradient>
+    <linearGradient id="center" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#0ea5e9"/>
+    </linearGradient>
+    <style>
+      .label { font-family: Inter, Segoe UI, Arial, sans-serif; font-size: 27px; fill: #dbeafe; font-weight: 600; }
+      .sub { font-family: Inter, Segoe UI, Arial, sans-serif; font-size: 17px; fill: #9cc6f0; }
+      .title { font-family: Inter, Segoe UI, Arial, sans-serif; font-size: 40px; fill: #dbeafe; font-weight: 700; }
+      .outer { stroke: #60a5fa; stroke-opacity: .45; stroke-width: 3; }
+      .cell { fill: #16243f; fill-opacity: .92; }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="1200" fill="url(#bg)"/>
+  <text x="600" y="72" text-anchor="middle" class="title">Life Balance 9 · Category Map</text>
+
+  <g transform="translate(90,130)">
+    <!-- cells -->
+    <rect class="cell outer" x="0" y="0" width="340" height="300" rx="16"/>
+    <rect class="cell outer" x="340" y="0" width="340" height="300" rx="16"/>
+    <rect class="cell outer" x="680" y="0" width="340" height="300" rx="16"/>
+
+    <rect class="cell outer" x="0" y="300" width="340" height="300" rx="16"/>
+    <rect class="outer" x="340" y="300" width="340" height="300" rx="16" fill="url(#center)"/>
+    <rect class="cell outer" x="680" y="300" width="340" height="300" rx="16"/>
+
+    <rect class="cell outer" x="0" y="600" width="340" height="300" rx="16"/>
+    <rect class="cell outer" x="340" y="600" width="340" height="300" rx="16"/>
+    <rect class="cell outer" x="680" y="600" width="340" height="300" rx="16"/>
+
+    <!-- labels row 1 -->
+    <text x="170" y="120" text-anchor="middle" class="label">Body, Health,</text>
+    <text x="170" y="155" text-anchor="middle" class="label">Vitality</text>
+
+    <text x="510" y="120" text-anchor="middle" class="label">Work, Income,</text>
+    <text x="510" y="155" text-anchor="middle" class="label">Stability</text>
+
+    <text x="850" y="120" text-anchor="middle" class="label">Finance, Logistics,</text>
+    <text x="850" y="155" text-anchor="middle" class="label">Life Admin</text>
+
+    <!-- labels row 2 -->
+    <text x="170" y="420" text-anchor="middle" class="label">Love, Relationship,</text>
+    <text x="170" y="455" text-anchor="middle" class="label">Intimacy</text>
+
+    <text x="510" y="412" text-anchor="middle" class="label">Meaning, Reflection,</text>
+    <text x="510" y="447" text-anchor="middle" class="label">Inner Life</text>
+    <text x="510" y="482" text-anchor="middle" class="sub">(Sanctuary Center)</text>
+
+    <text x="850" y="420" text-anchor="middle" class="label">Family, Roots,</text>
+    <text x="850" y="455" text-anchor="middle" class="label">Personal History</text>
+
+    <!-- labels row 3 -->
+    <text x="170" y="720" text-anchor="middle" class="label">Friendship, Community,</text>
+    <text x="170" y="755" text-anchor="middle" class="label">Social World</text>
+
+    <text x="510" y="720" text-anchor="middle" class="label">Creative &amp; Technical</text>
+    <text x="510" y="755" text-anchor="middle" class="label">Frontier Building</text>
+
+    <text x="850" y="720" text-anchor="middle" class="label">Environment, Lifestyle,</text>
+    <text x="850" y="755" text-anchor="middle" class="label">Time Architecture</text>
+  </g>
+</svg>
