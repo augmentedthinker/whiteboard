@@ -10,6 +10,16 @@
     h1{margin:0 0 8px;font-size:clamp(1.4rem,4vw,2rem)}
     p{margin:0 0 14px;color:#b7cae6;line-height:1.6}
     a{color:#9fd2ff;text-decoration:none;font-weight:600}
+    .legend{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+    .chip{font-size:.78rem;padding:4px 8px;border-radius:999px;color:#08111f;font-weight:700}
+    .chip.keep{background:#4ade80}
+    .chip.temp{background:#f59e0b}
+    .chip.review{background:#60a5fa}
+    .artifact-card{position:relative;overflow:hidden;border:1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);}
+    .ribbon{position:absolute;top:10px;right:-36px;transform:rotate(35deg);padding:4px 44px;font-size:.72rem;font-weight:800;letter-spacing:.04em;color:#08111f;text-transform:uppercase}
+    .ribbon.keep{background:#4ade80}
+    .ribbon.temp{background:#f59e0b}
+    .ribbon.review{background:#60a5fa}
   </style>
   <style id="rv-home-fab-style">
     .rv-home-fab,.rv-fullscreen-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}
@@ -35,8 +45,14 @@
   <main class="card">
     <h1>Today’s Artifact Gallery</h1>
     <p>A curated front-stage set. Older and lower-priority pieces have been moved to the archive so this page stays legible.</p>
+    <div class="legend">
+      <span class="chip keep">KEEP</span>
+      <span class="chip temp">TEMP</span>
+      <span class="chip review">REVIEW</span>
+    </div>
 
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
+    <div class="artifact-card">
+      <span class="ribbon review">REVIEW</span>
       <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Ideas Board · 2026-03-13</h2>
       <p style="margin: 0 0 12px; font-size: 0.95rem;">A reusable brainstorming board with concise cards that expand into full summaries. Current entries: Philosophy Modes App + Style Token/CSS Pattern Catalog.</p>
       <div style="display: flex; gap: 16px; flex-wrap: wrap;">
@@ -45,7 +61,8 @@
       </div>
     </div>
 
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
+    <div class="artifact-card">
+      <span class="ribbon keep">KEEP</span>
       <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Orbit Before Noon · 2026-03-12</h2>
       <p style="margin: 0 0 12px; font-size: 0.95rem;">A quiet live workday artifact: orbital motion, steady center, and a reminder that hidden progress still counts even when the day is full of other responsibilities.</p>
       <div style="display: flex; gap: 16px; flex-wrap: wrap;">
@@ -54,7 +71,8 @@
       </div>
     </div>
 
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
+    <div class="artifact-card">
+      <span class="ribbon temp">TEMP</span>
       <h2 style="margin: 0 0 8px; font-size: 1.2rem;">X Post Options · 2026-03-10</h2>
       <p style="margin: 0 0 12px; font-size: 0.95rem;">Three fresh X post options that point toward the upcoming long-form Blogger piece, each with a generated image and practical copy/download controls.</p>
       <div style="display: flex; gap: 16px; flex-wrap: wrap;">
@@ -63,7 +81,8 @@
       </div>
     </div>
 
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
+    <div class="artifact-card">
+      <span class="ribbon keep">KEEP</span>
       <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Threshold of Mind · 2026-03-11 · v2</h2>
       <p style="margin: 0 0 12px; font-size: 0.95rem;">A visually stronger philosophical artifact with luminous symbolic form, layered atmosphere, and sharper composition.</p>
       <div style="display: flex; gap: 16px; flex-wrap: wrap;">
@@ -72,7 +91,8 @@
       </div>
     </div>
 
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
+    <div class="artifact-card">
+      <span class="ribbon review">REVIEW</span>
       <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Blogger Idea Pack v2 · 2026-03-11</h2>
       <p style="margin: 0 0 12px; font-size: 0.95rem;">Three upgraded long-form directions: model-behavior feel, budget hardware architecture, and the broader agentic inflection point.</p>
       <div style="display: flex; gap: 16px; flex-wrap: wrap;">
@@ -81,7 +101,8 @@
       </div>
     </div>
 
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
+    <div class="artifact-card">
+      <span class="ribbon temp">TEMP</span>
       <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Blogger Archive Review · 2026-03-10</h2>
       <p style="margin: 0 0 12px; font-size: 0.95rem;">A visual inventory of your existing Blogger posts to support the long-form publishing lane.</p>
       <div style="display: flex; gap: 16px; flex-wrap: wrap;">
@@ -90,7 +111,8 @@
       </div>
     </div>
 
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
+    <div class="artifact-card">
+      <span class="ribbon keep">KEEP</span>
       <h2 style="margin: 0 0 8px; font-size: 1.2rem;">State of Affairs · 2026-03-10</h2>
       <p style="margin: 0 0 12px; font-size: 0.95rem;">A grounded snapshot of where the system stands and what direction the collaboration is taking.</p>
       <div style="display: flex; gap: 16px; flex-wrap: wrap;">
@@ -99,7 +121,8 @@
       </div>
     </div>
 
-    <div style="border: 1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);">
+    <div class="artifact-card">
+      <span class="ribbon keep">KEEP</span>
       <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Good Night, Christopher · 2026-03-10</h2>
       <p style="margin: 0 0 12px; font-size: 0.95rem;">A calm restorative piece for decompression and recovery after heavy days.</p>
       <div style="display: flex; gap: 16px; flex-wrap: wrap;">
