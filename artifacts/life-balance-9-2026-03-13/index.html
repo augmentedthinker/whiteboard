@@ -8,146 +8,51 @@
     :root{--bg:#0b1222;--panel:rgba(14,24,45,.62);--line:rgba(157,201,255,.28);--text:#dbe8ff;--muted:#b7cae6;--accent:#9fd2ff}
     *{box-sizing:border-box}
     body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:18px}
-    .wrap{max-width:1100px;margin:0 auto}
-    .top{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:16px;margin-bottom:14px}
+    .wrap{max-width:1000px;margin:0 auto}
+    .top,.card{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:16px}
+    .top{margin-bottom:14px}
     h1{margin:0 0 8px;font-size:clamp(1.2rem,3.5vw,1.9rem)}
     p{margin:0;color:var(--muted);line-height:1.6}
-    .grid{display:grid;grid-template-columns:1.35fr .9fr;gap:14px}
-    @media(max-width:920px){.grid{grid-template-columns:1fr}}
-    .card{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:14px}
-    .row{display:grid;grid-template-columns:170px 1fr 56px;gap:10px;align-items:center;margin:8px 0}
-    .name{font-size:.92rem} input[type=range]{width:100%} .val{font-size:.9rem;color:#c8ddff;text-align:right}
-    .bar{height:10px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden;margin-top:6px}
-    .fill{height:100%;background:linear-gradient(90deg,#60a5fa,#34d399)}
-    .list{margin:0;padding-left:18px;color:#dbe8ff;line-height:1.6}
-    .muted{color:var(--muted)}
-    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-    .chip{padding:6px 10px;border-radius:999px;border:1px solid var(--line);font-size:.78rem;color:#dbe8ff}
-    .viz-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
-    @media(max-width:920px){.viz-grid{grid-template-columns:1fr}}
-    .img-box img{width:100%;border-radius:12px;border:1px solid var(--line);display:block}
-    .nine{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-    .cell{border:1px solid var(--line);border-radius:10px;padding:10px;min-height:86px;background:rgba(0,0,0,.2);display:flex;flex-direction:column;justify-content:space-between}
-    .cell.center{background:linear-gradient(180deg, rgba(125,211,252,.22), rgba(56,189,248,.10));border-color:rgba(125,211,252,.55)}
-    .label{font-size:.85rem;color:#dbe8ff}
-    .hours{font-size:.78rem;color:#9cc6f0}
+    .image-shell{position:relative;margin-top:12px}
+    .image-shell img{width:100%;display:block;border:1px solid var(--line);border-radius:12px}
+    .hotspot{position:absolute;border:1px solid rgba(255,255,255,.2);border-radius:10px;background:rgba(159,210,255,.08);text-indent:-9999px;overflow:hidden}
+    .hotspot:hover{background:rgba(159,210,255,.18);border-color:rgba(159,210,255,.45)}
+    .legend{margin-top:10px;font-size:.9rem;color:#aecdff}
+    .legend strong{color:#dbe8ff}
     a{color:var(--accent);text-decoration:none}
   </style>
 </head>
 <body>
   <main class="wrap">
     <section class="top">
-      <h1>Life Balance 9 · First Iteration</h1>
-      <p>Track attention across nine life domains so you can see imbalance early and intentionally rebalance toward a fully lived life.</p>
-      <div class="chips">
-        <span class="chip">Creation</span><span class="chip">Health</span><span class="chip">Relationships</span><span class="chip">Nature</span><span class="chip">Sanctuary</span><span class="chip">Learning</span><span class="chip">Finance</span><span class="chip">Service</span><span class="chip">Play</span>
+      <h1>Life Balance 9 · Visual Map</h1>
+      <p>Click a block on the image to open a detailed page for that category. Center block is Sanctuary (spirit/philosophy).</p>
+    </section>
+
+    <section class="card">
+      <div class="image-shell">
+        <img src="assets/2026-03-13-life-balance-grid-ai.png" alt="3x3 life balance grid" />
+
+        <!-- top row -->
+        <a class="hotspot" href="categories/creation.html" style="left:3%;top:3%;width:30%;height:30%;">Creation</a>
+        <a class="hotspot" href="categories/health.html" style="left:35%;top:3%;width:30%;height:30%;">Health</a>
+        <a class="hotspot" href="categories/relationships.html" style="left:67%;top:3%;width:30%;height:30%;">Relationships</a>
+
+        <!-- middle row -->
+        <a class="hotspot" href="categories/nature.html" style="left:3%;top:35%;width:30%;height:30%;">Nature</a>
+        <a class="hotspot" href="categories/sanctuary.html" style="left:35%;top:35%;width:30%;height:30%;">Sanctuary</a>
+        <a class="hotspot" href="categories/learning.html" style="left:67%;top:35%;width:30%;height:30%;">Learning</a>
+
+        <!-- bottom row -->
+        <a class="hotspot" href="categories/service.html" style="left:3%;top:67%;width:30%;height:30%;">Service</a>
+        <a class="hotspot" href="categories/play.html" style="left:35%;top:67%;width:30%;height:30%;">Play</a>
+        <a class="hotspot" href="categories/finance.html" style="left:67%;top:67%;width:30%;height:30%;">Finance</a>
       </div>
-    </section>
 
-    <section class="grid">
-      <article class="card">
-        <h2 style="margin:0 0 8px;font-size:1.05rem;">Weekly Attention Inputs (hours)</h2>
-        <div id="rows"></div>
-      </article>
-
-      <aside class="card">
-        <h2 style="margin:0 0 8px;font-size:1.05rem;">Balance Snapshot</h2>
-        <p class="muted" id="summary"></p>
-        <div style="margin:12px 0">
-          <div class="muted" style="font-size:.85rem">Balance score</div>
-          <div class="bar"><div class="fill" id="scoreFill" style="width:0%"></div></div>
-          <div id="scoreText" style="margin-top:6px;font-size:.9rem"></div>
-        </div>
-
-        <h3 style="margin:12px 0 6px;font-size:.95rem;color:#9fd2ff">Under-attended</h3>
-        <ul id="lowList" class="list"></ul>
-
-        <h3 style="margin:12px 0 6px;font-size:.95rem;color:#9fd2ff">Over-weighted</h3>
-        <ul id="highList" class="list"></ul>
-
-        <h3 style="margin:12px 0 6px;font-size:.95rem;color:#9fd2ff">Suggested next move</h3>
-        <p id="nextMove" class="muted" style="margin:0"></p>
-      </aside>
-    </section>
-
-    <section class="viz-grid">
-      <article class="card img-box">
-        <h2 style="margin:0 0 10px;font-size:1.02rem;">Visualization A · AI-Generated Concept</h2>
-        <img src="assets/2026-03-13-life-balance-grid-ai.png" alt="AI-generated 3x3 life-balance square" />
-      </article>
-
-      <article class="card">
-        <h2 style="margin:0 0 10px;font-size:1.02rem;">Visualization B · Live 3×3 Grid</h2>
-        <div class="nine" id="nineGrid"></div>
-      </article>
+      <p class="legend"><strong>Category map:</strong> Creation · Health · Relationships · Nature · <strong>Sanctuary</strong> · Learning · Service · Play · Finance</p>
     </section>
 
     <p style="margin-top:14px"><a href="../../today/index.html">← Back to Today’s Artifacts</a></p>
   </main>
-
-<script>
-const categories=[
-  ['Creation',10],['Health',6],['Relationships',4],['Nature',2],['Sanctuary',6],['Learning',5],['Service',2],['Play',2],['Finance',3]
-];
-const layout=['Creation','Health','Relationships','Nature','Sanctuary','Learning','Service','Play','Finance'];
-const rows=document.getElementById('rows');
-const summary=document.getElementById('summary');
-const lowList=document.getElementById('lowList');
-const highList=document.getElementById('highList');
-const nextMove=document.getElementById('nextMove');
-const scoreFill=document.getElementById('scoreFill');
-const scoreText=document.getElementById('scoreText');
-const nineGrid=document.getElementById('nineGrid');
-
-function getVal(name){ return categories.find(c=>c[0]===name)?.[1] ?? 0; }
-
-function renderRows(){
-  rows.innerHTML='';
-  categories.forEach((c,i)=>{
-    const row=document.createElement('div'); row.className='row';
-    row.innerHTML=`<div class="name">${c[0]}</div><input type="range" min="0" max="20" step="1" value="${c[1]}" data-i="${i}"><div class="val">${c[1]}h</div>`;
-    rows.appendChild(row);
-  });
-  rows.querySelectorAll('input').forEach(inp=>inp.addEventListener('input',e=>{
-    const i=+e.target.dataset.i; categories[i][1]=+e.target.value;
-    e.target.parentElement.querySelector('.val').textContent=`${categories[i][1]}h`;
-    refresh();
-  }));
-}
-
-function renderNine(){
-  nineGrid.innerHTML='';
-  const max=Math.max(...categories.map(c=>c[1]),1);
-  layout.forEach(name=>{
-    const v=getVal(name);
-    const cell=document.createElement('div');
-    cell.className='cell'+(name==='Sanctuary'?' center':'');
-    cell.style.boxShadow=`inset 0 -${Math.round((v/max)*36)}px 0 rgba(96,165,250,.15)`;
-    cell.innerHTML=`<div class="label">${name}</div><div class="hours">${v}h</div>`;
-    nineGrid.appendChild(cell);
-  });
-}
-
-function refresh(){
-  const vals=categories.map(c=>c[1]);
-  const total=vals.reduce((a,b)=>a+b,0);
-  const avg= total/vals.length || 0;
-  const sorted=[...categories].sort((a,b)=>a[1]-b[1]);
-  const low=sorted.slice(0,3); const high=sorted.slice(-3).reverse();
-  const variance=vals.reduce((acc,v)=>acc+Math.pow(v-avg,2),0)/vals.length;
-  const std=Math.sqrt(variance);
-  const score=Math.max(0, Math.min(100, Math.round(100 - std*10)));
-
-  summary.textContent=`${total} total hours tracked this week across 9 categories.`;
-  scoreFill.style.width=score+'%';
-  scoreText.textContent=`${score}/100`;
-  lowList.innerHTML=low.map(([n,v])=>`<li>${n} — ${v}h</li>`).join('');
-  highList.innerHTML=high.map(([n,v])=>`<li>${n} — ${v}h</li>`).join('');
-  nextMove.textContent=`Add one small block (+1 to +2h) to ${low[0][0]} this week, and cap ${high[0][0]} by the same amount to rebalance without disruption.`;
-  renderNine();
-}
-
-renderRows(); refresh();
-</script>
 </body>
 </html>
