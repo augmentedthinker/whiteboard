@@ -19,14 +19,13 @@
     .hotspot:hover{background:rgba(159,210,255,.18);border-color:rgba(159,210,255,.45)}
     .ratings{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
     .ratings h2{margin:0 0 8px;font-size:1rem;color:#dbe8ff}
-    .rating-row{display:grid;grid-template-columns:260px 1fr 52px;gap:10px;align-items:center;margin:8px 0}
+    .rating-row{display:grid;grid-template-columns:1fr 44px 64px;gap:10px;align-items:center;margin:8px 0}
     .rating-name{font-size:.86rem;color:#cfe3ff}
-    .bar{height:10px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}
-    .fill{height:100%}
-    .fill.green{background:linear-gradient(90deg,#22c55e,#86efac)}
-    .fill.yellow{background:linear-gradient(90deg,#eab308,#fde047)}
-    .fill.red{background:linear-gradient(90deg,#ef4444,#fca5a5)}
     .score{font-size:.82rem;color:#9cc6f0;text-align:right}
+    .mini{height:10px;border-radius:999px}
+    .mini.green{background:linear-gradient(90deg,#22c55e,#86efac)}
+    .mini.yellow{background:linear-gradient(90deg,#eab308,#fde047)}
+    .mini.red{background:linear-gradient(90deg,#ef4444,#fca5a5)}
     a{color:var(--accent);text-decoration:none}
   </style>
 </head>
@@ -60,15 +59,15 @@
       <section class="ratings">
         <h2>Current Attention Ratings (estimated)</h2>
 
-        <div class="rating-row"><div class="rating-name">Body / Health / Vitality</div><div class="bar"><div class="fill green" style="width:90%"></div></div><div class="score">90</div></div>
-        <div class="rating-row"><div class="rating-name">Work / Income / Stability</div><div class="bar"><div class="fill green" style="width:82%"></div></div><div class="score">82</div></div>
-        <div class="rating-row"><div class="rating-name">Finance / Logistics / Admin</div><div class="bar"><div class="fill yellow" style="width:58%"></div></div><div class="score">58</div></div>
-        <div class="rating-row"><div class="rating-name">Love / Relationship / Intimacy</div><div class="bar"><div class="fill yellow" style="width:65%"></div></div><div class="score">65</div></div>
-        <div class="rating-row"><div class="rating-name">Family / Roots / History</div><div class="bar"><div class="fill yellow" style="width:52%"></div></div><div class="score">52</div></div>
-        <div class="rating-row"><div class="rating-name">Friendship / Community / Social</div><div class="bar"><div class="fill yellow" style="width:56%"></div></div><div class="score">56</div></div>
-        <div class="rating-row"><div class="rating-name">Creative / Technical Frontier</div><div class="bar"><div class="fill green" style="width:92%"></div></div><div class="score">92</div></div>
-        <div class="rating-row"><div class="rating-name">Meaning / Reflection / Inner Life</div><div class="bar"><div class="fill green" style="width:85%"></div></div><div class="score">85</div></div>
-        <div class="rating-row"><div class="rating-name">Environment / Lifestyle / Time</div><div class="bar"><div class="fill red" style="width:44%"></div></div><div class="score">44</div></div>
+        <div class="rating-row"><div class="rating-name">Body / Health / Vitality</div><div class="score">90</div><div class="mini green"></div></div>
+        <div class="rating-row"><div class="rating-name">Work / Income / Stability</div><div class="score">82</div><div class="mini green"></div></div>
+        <div class="rating-row"><div class="rating-name">Finance / Logistics / Admin</div><div class="score">58</div><div class="mini yellow"></div></div>
+        <div class="rating-row"><div class="rating-name">Love / Relationship / Intimacy</div><div class="score">65</div><div class="mini yellow"></div></div>
+        <div class="rating-row"><div class="rating-name">Family / Roots / History</div><div class="score">52</div><div class="mini yellow"></div></div>
+        <div class="rating-row"><div class="rating-name">Friendship / Community / Social</div><div class="score">56</div><div class="mini yellow"></div></div>
+        <div class="rating-row"><div class="rating-name">Creative / Technical Frontier</div><div class="score">92</div><div class="mini green"></div></div>
+        <div class="rating-row"><div class="rating-name">Meaning / Reflection / Inner Life</div><div class="score">85</div><div class="mini green"></div></div>
+        <div class="rating-row"><div class="rating-name">Environment / Lifestyle / Time</div><div class="score">44</div><div class="mini red"></div></div>
       </section>
     </section>
 
