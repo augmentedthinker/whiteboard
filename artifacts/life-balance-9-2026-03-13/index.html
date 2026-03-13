@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Life Balance 9 · v1 · 2026-03-13</title>
+  <style>
+    :root{--bg:#0b1222;--panel:rgba(14,24,45,.62);--line:rgba(157,201,255,.28);--text:#dbe8ff;--muted:#b7cae6;--accent:#9fd2ff}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:18px}
+    .wrap{max-width:1100px;margin:0 auto} .top{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:16px;margin-bottom:14px}
+    h1{margin:0 0 8px;font-size:clamp(1.2rem,3.5vw,1.9rem)} p{margin:0;color:var(--muted);line-height:1.6}
+    .grid{display:grid;grid-template-columns:1.35fr .9fr;gap:14px} @media(max-width:920px){.grid{grid-template-columns:1fr}}
+    .card{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:14px}
+    .row{display:grid;grid-template-columns:170px 1fr 56px;gap:10px;align-items:center;margin:8px 0}
+    .name{font-size:.92rem} input[type=range]{width:100%} .val{font-size:.9rem;color:#c8ddff;text-align:right}
+    .bar{height:10px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden;margin-top:6px}
+    .fill{height:100%;background:linear-gradient(90deg,#60a5fa,#34d399)}
+    .list{margin:0;padding-left:18px;color:#dbe8ff;line-height:1.6}
+    .muted{color:var(--muted)} .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .chip{padding:6px 10px;border-radius:999px;border:1px solid var(--line);font-size:.78rem;color:#dbe8ff}
+    a{color:var(--accent);text-decoration:none}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="top">
+      <h1>Life Balance 9 · First Iteration</h1>
+      <p>Track attention across nine life domains so you can see imbalance early and intentionally rebalance toward a fully lived life.</p>
+      <div class="chips">
+        <span class="chip">Creation</span><span class="chip">Health</span><span class="chip">Relationships</span><span class="chip">Nature</span><span class="chip">Learning</span><span class="chip">Finance</span><span class="chip">Service</span><span class="chip">Play</span><span class="chip">Rest</span>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2 style="margin:0 0 8px;font-size:1.05rem;">Weekly Attention Inputs (hours)</h2>
+        <div id="rows"></div>
+      </article>
+
+      <aside class="card">
+        <h2 style="margin:0 0 8px;font-size:1.05rem;">Balance Snapshot</h2>
+        <p class="muted" id="summary"></p>
+        <div style="margin:12px 0">
+          <div class="muted" style="font-size:.85rem">Balance score</div>
+          <div class="bar"><div class="fill" id="scoreFill" style="width:0%"></div></div>
+          <div id="scoreText" style="margin-top:6px;font-size:.9rem"></div>
+        </div>
+
+        <h3 style="margin:12px 0 6px;font-size:.95rem;color:#9fd2ff">Under-attended</h3>
+        <ul id="lowList" class="list"></ul>
+
+        <h3 style="margin:12px 0 6px;font-size:.95rem;color:#9fd2ff">Over-weighted</h3>
+        <ul id="highList" class="list"></ul>
+
+        <h3 style="margin:12px 0 6px;font-size:.95rem;color:#9fd2ff">Suggested next move</h3>
+        <p id="nextMove" class="muted" style="margin:0"></p>
+      </aside>
+    </section>
+
+    <p style="margin-top:14px"><a href="../../today/index.html">← Back to Today’s Artifacts</a></p>
+  </main>
+
+<script>
+const categories=[
+  ['Creation',10],['Health',6],['Relationships',4],['Nature',2],['Learning',5],['Finance',3],['Service',2],['Play',2],['Rest',6]
+];
+const rows=document.getElementById('rows');
+const summary=document.getElementById('summary');
+const lowList=document.getElementById('lowList');
+const highList=document.getElementById('highList');
+const nextMove=document.getElementById('nextMove');
+const scoreFill=document.getElementById('scoreFill');
+const scoreText=document.getElementById('scoreText');
+
+function renderRows(){
+  rows.innerHTML='';
+  categories.forEach((c,i)=>{
+    const row=document.createElement('div'); row.className='row';
+    row.innerHTML=`<div class="name">${c[0]}</div><input type="range" min="0" max="20" step="1" value="${c[1]}" data-i="${i}"><div class="val">${c[1]}h</div>`;
+    rows.appendChild(row);
+  });
+  rows.querySelectorAll('input').forEach(inp=>inp.addEventListener('input',e=>{
+    const i=+e.target.dataset.i; categories[i][1]=+e.target.value;
+    e.target.parentElement.querySelector('.val').textContent=`${categories[i][1]}h`;
+    refresh();
+  }));
+}
+
+function refresh(){
+  const vals=categories.map(c=>c[1]);
+  const total=vals.reduce((a,b)=>a+b,0);
+  const avg= total/vals.length || 0;
+  const sorted=[...categories].sort((a,b)=>a[1]-b[1]);
+  const low=sorted.slice(0,3); const high=sorted.slice(-3).reverse();
+
+  // simple balance score: lower std dev => better balance
+  const variance=vals.reduce((acc,v)=>acc+Math.pow(v-avg,2),0)/vals.length;
+  const std=Math.sqrt(variance);
+  const score=Math.max(0, Math.min(100, Math.round(100 - std*10)));
+
+  summary.textContent=`${total} total hours tracked this week across 9 categories.`;
+  scoreFill.style.width=score+'%';
+  scoreText.textContent=`${score}/100`;
+
+  lowList.innerHTML=low.map(([n,v])=>`<li>${n} — ${v}h</li>`).join('');
+  highList.innerHTML=high.map(([n,v])=>`<li>${n} — ${v}h</li>`).join('');
+
+  nextMove.textContent=`Add one small block (+1 to +2h) to ${low[0][0]} this week, and cap ${high[0][0]} by the same amount to rebalance without disruption.`;
+}
+
+renderRows(); refresh();
+</script>
+</body>
+</html>
