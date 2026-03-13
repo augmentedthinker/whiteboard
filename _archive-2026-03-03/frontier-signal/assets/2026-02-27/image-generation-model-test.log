@@ -1,4 +1,0 @@
-signal-1 model=gemini-3.1-flash-image-preview OK size=2233767
-signal-2 model=gemini-2.5-flash-image OK size=1578008
-signal-3 model=gemini-3-pro-image-preview FAIL The read operation timed out
-signal-3 model=gemini-3-pro-image-preview RETRY_FAIL The read operation timed out

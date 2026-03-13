@@ -1,3 +1,0 @@
-signal-1.png: OK model=gemini-3.1-flash-image-preview size=2110546
-signal-2.png: OK model=gemini-3.1-flash-image-preview size=1731009
-signal-3.png: OK model=gemini-3.1-flash-image-preview size=1730604
