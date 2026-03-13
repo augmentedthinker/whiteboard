@@ -148,7 +148,12 @@ Agent and user-facing profile surfaces.
 This helps make the participants in the system legible, not just the outputs.
 
 ### `archive/`
-Older but still meaningful material.
+Staging lane for older artifacts before permanent deletion.
+
+Use this lane as a cooling-off area:
+- move older artifacts out of `today/` and front-stage surfaces
+- keep them temporarily available for review/rollback
+- delete them in a later cleanup pass when confidence is high
 
 ### Other lanes
 Additional areas may exist as needed, including:
@@ -245,9 +250,10 @@ Keep the system alive without letting it become noisy.
 
 1. identify what is truly current
 2. reduce navigation exposure before deleting anything
-3. archive or quarantine stale material when appropriate
-4. smoke-test key lanes
-5. commit and push with rollback-friendly messages
+3. move stale material to `archive/` first (temporary holding lane)
+4. review after a cooling-off window; then delete if still clearly stale
+5. smoke-test key lanes
+6. commit and push with rollback-friendly messages
 
 Important smoke-test areas usually include:
 - root landing page
