@@ -17,8 +17,16 @@
     .image-shell img{width:100%;display:block;border:1px solid var(--line);border-radius:12px}
     .hotspot{position:absolute;border:1px solid rgba(255,255,255,.2);border-radius:10px;background:rgba(159,210,255,.08);text-indent:-9999px;overflow:hidden}
     .hotspot:hover{background:rgba(159,210,255,.18);border-color:rgba(159,210,255,.45)}
-    .legend{margin-top:10px;font-size:.9rem;color:#aecdff;line-height:1.5}
-    .legend strong{color:#dbe8ff}
+    .ratings{margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
+    .ratings h2{margin:0 0 8px;font-size:1rem;color:#dbe8ff}
+    .rating-row{display:grid;grid-template-columns:260px 1fr 52px;gap:10px;align-items:center;margin:8px 0}
+    .rating-name{font-size:.86rem;color:#cfe3ff}
+    .bar{height:10px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}
+    .fill{height:100%}
+    .fill.green{background:linear-gradient(90deg,#22c55e,#86efac)}
+    .fill.yellow{background:linear-gradient(90deg,#eab308,#fde047)}
+    .fill.red{background:linear-gradient(90deg,#ef4444,#fca5a5)}
+    .score{font-size:.82rem;color:#9cc6f0;text-align:right}
     a{color:var(--accent);text-decoration:none}
   </style>
 </head>
@@ -49,8 +57,19 @@
         <a class="hotspot" href="categories/environment-lifestyle-time.html" style="left:67%;top:67%;width:30%;height:30%;">Environment, Lifestyle Design, and Time Architecture</a>
       </div>
 
-      <p class="legend"><strong>Nine-category map:</strong><br>
-      1) Body, Health, and Physical Vitality · 2) Work, Income, and Professional Stability · 3) Finance, Logistics, and Life Administration · 4) Love, Relationship, and Intimacy · 5) Family, Roots, and Personal History · 6) Friendship, Community, and Social World · 7) Creative and Technical Frontier Building · 8) Meaning, Reflection, and Inner Life (center Sanctuary) · 9) Environment, Lifestyle Design, and Time Architecture</p>
+      <section class="ratings">
+        <h2>Current Attention Ratings (estimated)</h2>
+
+        <div class="rating-row"><div class="rating-name">Body / Health / Vitality</div><div class="bar"><div class="fill green" style="width:90%"></div></div><div class="score">90</div></div>
+        <div class="rating-row"><div class="rating-name">Work / Income / Stability</div><div class="bar"><div class="fill green" style="width:82%"></div></div><div class="score">82</div></div>
+        <div class="rating-row"><div class="rating-name">Finance / Logistics / Admin</div><div class="bar"><div class="fill yellow" style="width:58%"></div></div><div class="score">58</div></div>
+        <div class="rating-row"><div class="rating-name">Love / Relationship / Intimacy</div><div class="bar"><div class="fill yellow" style="width:65%"></div></div><div class="score">65</div></div>
+        <div class="rating-row"><div class="rating-name">Family / Roots / History</div><div class="bar"><div class="fill yellow" style="width:52%"></div></div><div class="score">52</div></div>
+        <div class="rating-row"><div class="rating-name">Friendship / Community / Social</div><div class="bar"><div class="fill yellow" style="width:56%"></div></div><div class="score">56</div></div>
+        <div class="rating-row"><div class="rating-name">Creative / Technical Frontier</div><div class="bar"><div class="fill green" style="width:92%"></div></div><div class="score">92</div></div>
+        <div class="rating-row"><div class="rating-name">Meaning / Reflection / Inner Life</div><div class="bar"><div class="fill green" style="width:85%"></div></div><div class="score">85</div></div>
+        <div class="rating-row"><div class="rating-name">Environment / Lifestyle / Time</div><div class="bar"><div class="fill red" style="width:44%"></div></div><div class="score">44</div></div>
+      </section>
     </section>
 
     <p style="margin-top:14px"><a href="../../today/index.html">← Back to Today’s Artifacts</a></p>
