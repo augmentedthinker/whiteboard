@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Remote Viewer | Styles</title>
+  <style>
+    :root{
+      --bg:#060b16;
+      --panel:rgba(12,20,36,.84);
+      --panel2:rgba(18,29,51,.8);
+      --line:rgba(143,230,255,.18);
+      --text:#eef6ff;
+      --muted:#abc2e0;
+      --accent:#8fe6ff;
+      --accent2:#f0b36d;
+      --glow:rgba(143,230,255,.18);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      min-height:100vh;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 82% -10%, rgba(143,230,255,.14), transparent 30%),
+        radial-gradient(circle at 12% 20%, rgba(240,179,109,.08), transparent 28%),
+        linear-gradient(180deg,#081120,#060b16 52%,#07101a);
+      padding:24px 16px 44px;
+    }
+    .wrap{max-width:1120px;margin:0 auto}
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+    .link,.btn{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:linear-gradient(135deg,var(--panel2),var(--panel));padding:10px 14px;border-radius:999px;font-weight:700}
+    .hero{padding:28px 24px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(160deg, rgba(13,22,39,.9), rgba(8,13,24,.94));box-shadow:0 24px 70px rgba(0,0,0,.34);margin-bottom:18px}
+    .eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 12px;font-size:clamp(1.8rem,5vw,3.3rem);line-height:1.03}
+    .sub{margin:0;max-width:76ch;color:var(--muted);line-height:1.72;font-size:1.02rem}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+    .card{border:1px solid var(--line);border-radius:24px;overflow:hidden;background:linear-gradient(160deg, rgba(12,20,35,.95), rgba(7,12,23,.94));box-shadow:0 20px 60px rgba(0,0,0,.28)}
+    .card-body{padding:20px}
+    .label{display:inline-block;margin-bottom:12px;padding:6px 10px;border-radius:999px;background:rgba(143,230,255,.12);border:1px solid rgba(143,230,255,.16);color:var(--accent);font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+    .card h2{margin:0 0 10px;font-size:1.35rem}
+    .card p{margin:0;color:var(--muted);line-height:1.7}
+    .preview{aspect-ratio:16/10;border-bottom:1px solid var(--line);background:
+      radial-gradient(circle at 78% 18%, rgba(143,230,255,.2), transparent 24%),
+      radial-gradient(circle at 20% 26%, rgba(240,179,109,.12), transparent 20%),
+      linear-gradient(160deg, rgba(15,25,43,.96), rgba(7,12,22,.96));position:relative;overflow:hidden}
+    .preview::before{content:"";position:absolute;inset:16px;border:1px solid rgba(143,230,255,.18);border-radius:22px;background:linear-gradient(160deg, rgba(12,20,36,.88), rgba(8,13,24,.9));box-shadow:0 18px 50px rgba(0,0,0,.28)}
+    .preview::after{content:"";position:absolute;left:34px;right:34px;bottom:30px;height:64px;border-radius:18px;border:1px solid rgba(143,230,255,.14);background:linear-gradient(135deg, rgba(18,29,51,.82), rgba(12,20,36,.78));box-shadow:0 12px 30px rgba(0,0,0,.22)}
+    .sections{display:grid;gap:18px;margin-top:18px}
+    .section{padding:20px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(160deg, rgba(12,20,35,.95), rgba(7,12,23,.94));box-shadow:0 20px 60px rgba(0,0,0,.28)}
+    .section h2{margin:0 0 12px;font-size:1.25rem}
+    .section p,.section li{color:var(--muted);line-height:1.75}
+    .section strong{color:var(--text)}
+    .terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
+    .term{padding:14px 15px;border:1px solid rgba(143,230,255,.14);border-radius:18px;background:linear-gradient(160deg, rgba(15,24,41,.88), rgba(9,15,28,.84))}
+    .term h3{margin:0 0 8px;font-size:1rem;color:var(--text)}
+    .term p{margin:0;font-size:.96rem}
+    .code{margin-top:14px;padding:16px 18px;border:1px solid rgba(240,179,109,.24);border-radius:18px;background:linear-gradient(160deg, rgba(28,22,14,.72), rgba(13,11,9,.64));overflow:auto}
+    pre{margin:0;white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#f7e7cf;line-height:1.6;font-size:.93rem}
+    @media (max-width: 640px){body{padding:18px 12px 32px}.hero,.card-body,.section{padding:18px}}
+  </style>
+  <style id="rv-home-fab-style">
+    .rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}
+    .rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}
+    .rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}
+    .rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}
+    .rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="link" href="../index.html">← Remote Viewer</a>
+    </div>
+
+    <section class="hero">
+      <p class="eyebrow">Styles</p>
+      <h1>Visual languages we can reuse on purpose</h1>
+      <p class="sub">This page is a growing library of design styles for Remote Viewer pages and artifacts. The idea is simple: instead of re-deriving the look each time, we name the style, describe it, and make it selectable so you can tell me which visual language to use for future pages.</p>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <div class="preview"></div>
+        <div class="card-body">
+          <span class="label">Style 001</span>
+          <h2>Luminous Glass Noir</h2>
+          <p>This is the de facto house style that has emerged across many recent artifact and document pages: dark atmospheric backgrounds, cool cyan highlights, warm amber secondary glow, glass-like panels, rounded cards, and a cinematic but readable presentation layer.</p>
+        </div>
+      </article>
+    </section>
+
+    <div class="sections">
+      <section class="section">
+        <h2>What this style is in plain English</h2>
+        <p>It’s basically a <strong>futuristic dark-mode editorial style</strong> with a calm sci-fi edge. It tries to feel premium, legible, slightly cinematic, and contemplative instead of loud, playful, or corporate. The page usually feels like a document or artifact being presented inside a softly glowing control room.</p>
+        <p>The emotional ingredients are: <strong>night, clarity, depth, glass, glow, restraint, and seriousness</strong>. It works well for analysis pages, quote artifacts, philosophical pages, project overviews, and anything that should feel thoughtful rather than generic.</p>
+      </section>
+
+      <section class="section">
+        <h2>What I’d call it technically</h2>
+        <div class="terms">
+          <div class="term"><h3>Dark atmospheric UI</h3><p>A dark interface built around depth, soft gradients, and low-key ambient lighting rather than flat black-and-white contrast alone.</p></div>
+          <div class="term"><h3>Glassmorphism-influenced panels</h3><p>Panels use translucency, blur, and layered borders/shadows to feel like glass, but in a restrained way rather than the trendy overdone version.</p></div>
+          <div class="term"><h3>Cinematic gradient lighting</h3><p>Backgrounds use radial glows and layered gradients to suggest environment and mood, not just fill space.</p></div>
+          <div class="term"><h3>Rounded card system</h3><p>Large-radius containers create softness and consistency across hero sections, content blocks, and metadata cards.</p></div>
+          <div class="term"><h3>Tokenized color system</h3><p>The style is usually driven by reusable CSS custom properties like <code>--bg</code>, <code>--panel</code>, <code>--line</code>, <code>--text</code>, and <code>--accent</code>.</p></div>
+          <div class="term"><h3>Editorial artifact layout</h3><p>Pages are structured more like curated long-form reading experiences than app dashboards: hero, context, content blocks, then optional metadata/signature.</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Core visual ingredients</h2>
+        <ul>
+          <li><strong>Background:</strong> deep navy-to-black gradient instead of pure black</li>
+          <li><strong>Accent color:</strong> luminous cyan / icy blue</li>
+          <li><strong>Secondary accent:</strong> muted amber / gold for warmth and contrast</li>
+          <li><strong>Panels:</strong> translucent dark cards with subtle border lines</li>
+          <li><strong>Depth:</strong> soft long shadows and gentle bloom-like glows</li>
+          <li><strong>Shape language:</strong> generous border radii, usually 18–28px</li>
+          <li><strong>Typography:</strong> clean sans-serif, typically Inter or system-ui</li>
+          <li><strong>Layout:</strong> centered max-width reading column or card grid</li>
+          <li><strong>Tone:</strong> contemplative, premium, technical, not flashy</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Why it keeps showing up</h2>
+        <p>I think I fell into this pattern because it fits the actual nature of the material. Remote Viewer is increasingly full of things that are part document, part artifact, part interface. This style bridges those worlds well. It gives enough mood to make the pages feel intentional, but enough restraint to keep them readable and operational.</p>
+        <p>Put differently: it is a good style for <strong>serious ideas that still deserve presentation value</strong>.</p>
+      </section>
+
+      <section class="section">
+        <h2>How to ask for this style later</h2>
+        <p>You can now refer to this style in a few ways:</p>
+        <ul>
+          <li><strong>“Use Luminous Glass Noir”</strong></li>
+          <li><strong>“Use the default Remote Viewer artifact style”</strong></li>
+          <li><strong>“Use the dark cyan glass editorial style”</strong></li>
+        </ul>
+        <p>All three would point me toward roughly the same design language.</p>
+      </section>
+
+      <section class="section">
+        <h2>Minimal technical recipe</h2>
+        <p>If we wanted to reproduce the style quickly, this is the simplest pattern:</p>
+        <div class="code"><pre>:root {
+  --bg: #060b16;
+  --panel: rgba(12,20,36,.84);
+  --panel2: rgba(18,29,51,.8);
+  --line: rgba(143,230,255,.18);
+  --text: #eef6ff;
+  --muted: #abc2e0;
+  --accent: #8fe6ff;
+  --accent2: #f0b36d;
+}
+
+body {
+  color: var(--text);
+  background:
+    radial-gradient(circle at 82% -10%, rgba(143,230,255,.14), transparent 30%),
+    radial-gradient(circle at 12% 20%, rgba(240,179,109,.08), transparent 28%),
+    linear-gradient(180deg, #081120, #060b16 52%, #07101a);
+}
+
+.panel {
+  background: linear-gradient(160deg, rgba(13,22,39,.9), rgba(8,13,24,.94));
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: 0 24px 70px rgba(0,0,0,.34);
+}</pre></div>
+      </section>
+    </div>
+  </div>
+
+  <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
+  <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
+  <button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
+  <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(pos.top??10,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const moved=m;d=null;save(el,key);if(!moved&&click)await click();});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}const isFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const sync=()=>fsFab.textContent=isFs()?'🡼':'⛶';const toggle=async()=>{try{const t=document.documentElement;if(!isFs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');drag(fab,'rvHomeFabPos');drag(fsFab,'rvFullscreenFabPos',toggle);drag(backFab,'rvBackFabPos',()=>{if(history.length>1)history.back();else location.href=href;});document.addEventListener('fullscreenchange',sync);sync();})();</script>
+</body>
+</html>
