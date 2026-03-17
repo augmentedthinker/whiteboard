@@ -22,6 +22,9 @@
     .voice-btn{font:inherit}
     .hero{min-height:68vh;display:grid;align-items:end}
     .hero-card{max-width:760px;padding:28px 26px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(180deg,rgba(22,18,28,.28),rgba(14,12,20,.48));backdrop-filter:blur(12px);box-shadow:var(--shadow);animation:cardSettle 6s ease-in-out infinite}
+    .voice-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 16px}
+    .voice-btn{appearance:none;border:1px solid rgba(255,228,196,.24);background:linear-gradient(135deg,rgba(255,213,157,.22),rgba(255,184,138,.18));color:var(--ink);padding:10px 14px;border-radius:999px;font-weight:800;letter-spacing:.03em;cursor:pointer;backdrop-filter:blur(8px);box-shadow:0 8px 24px rgba(0,0,0,.18)}
+    .voice-status{color:rgba(255,247,239,.78);font-size:.92rem}
     .eyebrow{margin:0 0 12px;color:var(--gold);font-size:.8rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
     h1{margin:0 0 12px;font-family:Fraunces,serif;font-size:clamp(2.2rem,6vw,4.7rem);line-height:.94;letter-spacing:-.05em;text-shadow:0 6px 24px rgba(0,0,0,.24)}
     .lead{margin:0;color:var(--muted);font-size:1.05rem;line-height:1.9;max-width:62ch}
@@ -48,6 +51,11 @@
     <div class="topbar"><a class="link" href="../../today/index.html">← Today’s Artifacts</a><a class="link" href="./signature.html">✒️ Signature</a><button id="voiceBtn" class="voice-btn" type="button">🔊 Play Morning Voice</button></div>
     <section class="hero">
       <div class="hero-card">
+        <div class="voice-row">
+          <button id="voiceBtn" class="voice-btn" type="button">▶ Play Morning Voice</button>
+          <span id="voiceStatus" class="voice-status">AI voice greeting ready</span>
+        </div>
+        <audio id="morningVoice" preload="none" src="./media/good-morning-christopher-voice.wav"></audio>
         <p class="eyebrow">Morning Artifact · Family / Return / Gratitude</p>
         <h1>Good Morning, Christopher</h1>
         <p class="lead">A beautiful in-between moment: the warmth of time spent with mother and father still present, the movement toward the train station beginning, and the quiet sense that returning to D.C. does not erase where you have just been held.</p>
@@ -66,6 +74,18 @@
     </section>
   </div>
   <audio id="morningVoice" preload="none" src="./audio/good-morning-family-train-aoede.wav"></audio>
+  <script>
+    (function(){
+      const audio=document.getElementById('morningVoice');
+      const btn=document.getElementById('voiceBtn');
+      const status=document.getElementById('voiceStatus');
+      if(!audio||!btn||!status) return;
+      const sync=()=>{ if(audio.paused){ btn.textContent='▶ Play Morning Voice'; status.textContent='AI voice greeting ready'; } else { btn.textContent='❚❚ Pause Voice'; status.textContent='Playing'; } };
+      btn.addEventListener('click', async ()=>{ try{ if(audio.paused) await audio.play(); else audio.pause(); }catch(_){ status.textContent='Playback blocked — tap again'; } sync(); });
+      audio.addEventListener('play', sync); audio.addEventListener('pause', sync); audio.addEventListener('ended', sync);
+      sync();
+    })();
+  </script>
   <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a><button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button><button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
   <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');const voiceBtn=document.getElementById('voiceBtn');const audio=document.getElementById('morningVoice');if(voiceBtn&&audio){const syncVoice=()=>{voiceBtn.textContent=audio.paused?'🔊 Play Morning Voice':'⏸ Pause Morning Voice';};voiceBtn.addEventListener('click',async()=>{if(audio.paused){try{await audio.play();}catch(_){}}else{audio.pause();}syncVoice();});audio.addEventListener('ended',syncVoice);audio.addEventListener('pause',syncVoice);audio.addEventListener('play',syncVoice);syncVoice();}if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(pos.top??10,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const moved=m;d=null;save(el,key);if(!moved&&click)await click();});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}const isFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const sync=()=>fsFab.textContent=isFs()?'🡼':'⛶';const toggle=async()=>{try{const t=document.documentElement;if(!isFs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');drag(fab,'rvHomeFabPos');drag(fsFab,'rvFullscreenFabPos',toggle);drag(backFab,'rvBackFabPos',()=>{if(history.length>1)history.back();else location.href=href;});document.addEventListener('fullscreenchange',sync);sync();})();</script>
 </body>
