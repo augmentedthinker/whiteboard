@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Style 005 | Markdown Reader</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
+    :root{
+      --bg:#f4f5f7;
+      --paper:#ffffff;
+      --panel:#fbfbfc;
+      --line:#d9dde3;
+      --line-strong:#c7cdd6;
+      --text:#1f2937;
+      --muted:#667085;
+      --accent:#2f6fed;
+      --accent-soft:rgba(47,111,237,.10);
+      --code-bg:#f3f6fb;
+      --shadow:0 18px 40px rgba(15,23,42,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      min-height:100vh;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg,#f7f8fa,#f1f3f6 52%,#eceff3);
+      padding:24px 16px 44px;
+    }
+    .wrap{max-width:1120px;margin:0 auto}
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+    .link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.86);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 24px rgba(15,23,42,.05)}
+    .hero{
+      display:grid;
+      grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);
+      gap:24px;
+      padding:28px 24px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:rgba(255,255,255,.78);
+      box-shadow:var(--shadow);
+      margin-bottom:18px;
+    }
+    .eyebrow{margin:0 0 10px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 12px;font-size:clamp(2rem,5vw,3.4rem);line-height:1.02;letter-spacing:-.04em}
+    .sub{margin:0;color:var(--muted);line-height:1.82;font-size:1.04rem}
+    .deck{
+      border-left:2px solid var(--line);
+      padding-left:22px;
+      display:flex;
+      align-items:flex-end;
+      color:var(--muted);
+      line-height:1.8;
+    }
+    .sections{display:grid;gap:18px}
+    .section{
+      padding:22px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:var(--paper);
+      box-shadow:var(--shadow);
+    }
+    .section h2{margin:0 0 12px;font-size:1.36rem;letter-spacing:-.02em}
+    .section p,.section li{color:var(--muted);line-height:1.84}
+    .section strong{color:var(--text)}
+    .terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
+    .term{padding:14px 15px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,#fff,#fafbfd)}
+    .term h3{margin:0 0 8px;font-size:1rem;color:var(--text)}
+    .term p{margin:0;font-size:.96rem}
+    .specimen{
+      margin-top:14px;
+      border:1px solid var(--line-strong);
+      border-radius:18px;
+      overflow:hidden;
+      background:var(--paper);
+      box-shadow:0 12px 32px rgba(15,23,42,.07);
+    }
+    .specimen-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 16px;
+      background:linear-gradient(180deg,#fafbfd,#f2f4f7);
+      border-bottom:1px solid var(--line);
+      font-size:.92rem;
+      color:var(--muted);
+    }
+    .dots{display:flex;gap:8px}
+    .dot{width:10px;height:10px;border-radius:999px;background:#d0d5dd}
+    .specimen-body{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 250px;
+      gap:0;
+      min-height:320px;
+    }
+    .doc{
+      padding:26px 24px 28px;
+      background:var(--paper);
+    }
+    .doc h3{margin:0 0 10px;font-size:1.5rem;line-height:1.15;letter-spacing:-.03em}
+    .doc p{margin:0 0 16px;color:var(--muted);line-height:1.84}
+    .doc blockquote{
+      margin:18px 0;
+      padding:4px 0 4px 16px;
+      border-left:3px solid var(--accent);
+      color:#4b5563;
+    }
+    .doc ul{margin:14px 0 0;padding-left:20px;color:var(--muted);line-height:1.8}
+    .doc code{
+      font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+      background:var(--code-bg);
+      border:1px solid #dce6f6;
+      color:#1849a9;
+      padding:.12rem .35rem;
+      border-radius:8px;
+      font-size:.92em;
+    }
+    .doc pre{
+      margin:18px 0 0;
+      padding:14px 16px;
+      background:var(--code-bg);
+      border:1px solid #dce6f6;
+      border-radius:14px;
+      overflow:auto;
+    }
+    .doc pre code{
+      background:transparent;
+      border:0;
+      padding:0;
+      color:#243b53;
+      display:block;
+      line-height:1.7;
+    }
+    .rail{
+      border-left:1px solid var(--line);
+      background:linear-gradient(180deg,#fbfcfe,#f7f9fc);
+      padding:20px 18px;
+    }
+    .rail-label{
+      margin:0 0 12px;
+      font-size:.76rem;
+      font-weight:800;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:var(--accent);
+    }
+    .rail-item{
+      padding:12px 0;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      line-height:1.65;
+      font-size:.95rem;
+    }
+    .rail-item:first-of-type{border-top:0;padding-top:0}
+    .code{margin-top:14px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,#fbfcfe,#f4f7fb);overflow:auto}
+    pre.recipe{margin:0;white-space:pre-wrap;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#243b53;line-height:1.62;font-size:.92rem}
+    @media (max-width:800px){
+      .hero,.specimen-body{grid-template-columns:1fr}
+      .deck{padding-left:0;border-left:0;border-top:2px solid var(--line);padding-top:16px}
+      .rail{border-left:0;border-top:1px solid var(--line)}
+    }
+    @media (max-width:640px){
+      body{padding:18px 12px 32px}
+      .hero,.section,.doc,.rail{padding:18px}
+    }
+  </style>
+  <style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar"><a class="link" href="../index.html">← Styles</a><a class="link" href="../../index.html">Remote Viewer</a></div>
+
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Style 005</p>
+        <h1>Markdown Reader</h1>
+        <p class="sub">A deliberately simple long-form reading system for when the goal is to surface markdown cleanly inside Remote Viewer. It should feel like a calm, trustworthy document surface — not an artifact trying to perform too hard.</p>
+      </div>
+      <div class="deck">Think high-quality markdown preview, knowledge-base reader, or internal note surface. The identity here comes from legibility, spacing, hierarchy, code treatment, and sane document chrome — not cinematic atmosphere.</div>
+    </section>
+
+    <div class="sections">
+      <section class="section">
+        <h2>What this style is in plain English</h2>
+        <p>This is the <strong>practical markdown-document style</strong>. It is meant for imported notes, essays, logs, reports, explainers, and long reference text that should read clearly in-browser without needing a whole custom artifact concept wrapped around it.</p>
+        <p>The emotional ingredients are: <strong>clarity, neutrality, trust, structure, and ease of reading</strong>. It should feel more like a good document viewer than a themed landing page.</p>
+      </section>
+
+      <section class="section">
+        <h2>What I’d call it technically</h2>
+        <div class="terms">
+          <div class="term"><h3>Document-first interface</h3><p>The page is organized around readable content blocks rather than visual spectacle or navigation theater.</p></div>
+          <div class="term"><h3>Markdown-native typography</h3><p>Hierarchy is tuned for headings, paragraphs, lists, blockquotes, and code — the things markdown actually produces.</p></div>
+          <div class="term"><h3>Reader chrome</h3><p>Subtle top bars, content rails, and layout framing make it feel like a dependable viewer without getting heavy.</p></div>
+          <div class="term"><h3>Low-noise UI system</h3><p>Quiet grays, restrained blue accent, and soft paper surfaces keep attention on the writing.</p></div>
+          <div class="term"><h3>Technical-text support</h3><p>Inline code, fenced code blocks, and metadata styling are first-class rather than afterthoughts.</p></div>
+          <div class="term"><h3>Operational readability</h3><p>It works for actual use: notes, guides, README-like pages, incident reports, or exported chat synthesis.</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Core visual ingredients</h2>
+        <ul>
+          <li><strong>Background:</strong> light neutral workspace gray, not pure white void</li>
+          <li><strong>Document surface:</strong> white or near-white paper card with soft borders</li>
+          <li><strong>Accent color:</strong> quiet link/document blue for anchors and emphasis</li>
+          <li><strong>Typography:</strong> clean sans-serif body with strong heading scale</li>
+          <li><strong>Code treatment:</strong> pale blue-gray code surfaces with monospace support</li>
+          <li><strong>Structure:</strong> strong spacing, visible section rhythm, optional side rail</li>
+          <li><strong>Tone:</strong> calm, useful, modern, legible, intentionally unshowy</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Specimen</h2>
+        <div class="specimen" aria-hidden="true">
+          <div class="specimen-top">
+            <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            <div>notes / imported-markdown.md</div>
+          </div>
+          <div class="specimen-body">
+            <div class="doc">
+              <h3>Reading real markdown without turning it into theater</h3>
+              <p>This style exists for a simple reason: sometimes the best artifact is not really an <em>artifact</em> at all. It is a well-presented document with enough structure to feel intentional and enough restraint to stay readable.</p>
+              <blockquote>Use this when the content itself deserves center stage and the page should behave like a trustworthy reading surface.</blockquote>
+              <ul>
+                <li>good for reports, notes, and long explainers</li>
+                <li>clean heading hierarchy and generous spacing</li>
+                <li>first-class support for <code>inline code</code> and technical snippets</li>
+              </ul>
+              <pre><code>## Example
+
+- Readable body text
+- Stable layout
+- Quiet chrome around the edges</code></pre>
+            </div>
+            <aside class="rail">
+              <p class="rail-label">Reader Notes</p>
+              <div class="rail-item"><strong>Best fit:</strong><br>README-style pages, memory exports, essays, changelogs, internal docs.</div>
+              <div class="rail-item"><strong>Not for:</strong><br>hero-driven launchers, heavily atmospheric art pages, or pages whose main value is visual mood.</div>
+              <div class="rail-item"><strong>Why it matters:</strong><br>Not every page should pretend to be something more ornate than a good document.</div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>When to use it</h2>
+        <p>Use this style when you want to drop a markdown file into Remote Viewer and have it feel native, calm, and polished enough to read comfortably. It is a strong fit for long-form internal writing, imported notes, documentation, continuity pages, or anything that is primarily text with light structural support.</p>
+      </section>
+
+      <section class="section">
+        <h2>How to ask for this style later</h2>
+        <ul>
+          <li><strong>“Use Markdown Reader”</strong></li>
+          <li><strong>“Make this feel like a clean markdown viewer”</strong></li>
+          <li><strong>“Use the plain document-reading style”</strong></li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Minimal technical recipe</h2>
+        <div class="code"><pre class="recipe">@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #f4f5f7;
+  --paper: #ffffff;
+  --line: #d9dde3;
+  --text: #1f2937;
+  --muted: #667085;
+  --accent: #2f6fed;
+  --code-bg: #f3f6fb;
+}
+
+body {
+  background: linear-gradient(180deg, #f7f8fa, #f1f3f6 52%, #eceff3);
+  color: var(--text);
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.document {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(15,23,42,.08);
+}
+
+code, pre {
+  font-family: 'IBM Plex Mono', monospace;
+  background: var(--code-bg);
+}</pre></div>
+      </section>
+    </div>
+  </div>
+
+  <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a><button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button><button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
+  <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(pos.top??10,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const moved=m;d=null;save(el,key);if(!moved&&click)await click();});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}const isFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const sync=()=>fsFab.textContent=isFs()?'🡼':'⛶';const toggle=async()=>{try{const t=document.documentElement;if(!isFs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');drag(fab,'rvHomeFabPos');drag(fsFab,'rvFullscreenFabPos',toggle);drag(backFab,'rvBackFabPos',()=>{if(history.length>1)history.back();else location.href=href;});document.addEventListener('fullscreenchange',sync);sync();})();</script>
+</body>
+</html>
