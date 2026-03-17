@@ -151,6 +151,61 @@
     body.mobile-reading .markdown h1{font-size:1.82rem}
     body.mobile-reading .markdown h2{font-size:1.34rem;margin:1.7rem 0 .65rem}
     body.mobile-reading .markdown h3{font-size:1.05rem}
+    body.mobile-reading .mode-meta{padding:0 2px 2px;min-width:0}
+    body.mobile-reading .mode-title{min-width:0}
+    body.mobile-reading .viewer,
+    body.mobile-reading .mode-panel,
+    body.mobile-reading .reader-body,
+    body.mobile-reading .artifact-layout,
+    body.mobile-reading .reader-doc,
+    body.mobile-reading .artifact-doc,
+    body.mobile-reading .artifact-image-wrap,
+    body.mobile-reading .artifact-image,
+    body.mobile-reading .raw-pre,
+    body.mobile-reading .basic-doc,
+    body.mobile-reading .shell-head,
+    body.mobile-reading .toggle-card,
+    body.mobile-reading .section,
+    body.mobile-reading .hero,
+    body.mobile-reading .hero > div,
+    body.mobile-reading .wrap{
+      min-width:0;
+      max-width:100%;
+    }
+    body.mobile-reading .reader-shell,
+    body.mobile-reading .artifact-shell,
+    body.mobile-reading .basic-shell,
+    body.mobile-reading .raw-shell{
+      width:100%;
+      max-width:100%;
+    }
+    body.mobile-reading .reader-doc,
+    body.mobile-reading .artifact-doc,
+    body.mobile-reading .basic-doc,
+    body.mobile-reading .raw-pre,
+    body.mobile-reading .artifact-side,
+    body.mobile-reading .rail,
+    body.mobile-reading .section,
+    body.mobile-reading .section p,
+    body.mobile-reading .section li,
+    body.mobile-reading .markdown p,
+    body.mobile-reading .markdown li,
+    body.mobile-reading .mode-note,
+    body.mobile-reading .sub,
+    body.mobile-reading .deck,
+    body.mobile-reading .mode-meta,
+    body.mobile-reading .shell-head,
+    body.mobile-reading .path-value{
+      overflow-wrap:anywhere;
+      word-break:break-word;
+    }
+    body.mobile-reading .markdown pre,
+    body.mobile-reading .code,
+    body.mobile-reading pre.recipe{
+      max-width:100%;
+      overflow-x:auto;
+    }
+    body.mobile-reading .artifact-image{max-width:100%;height:auto}
 
     @media (max-width:860px){.hero,.reader-body,.artifact-layout{grid-template-columns:1fr}.deck{padding-left:0;border-left:0;border-top:2px solid var(--line);padding-top:16px}.rail,.artifact-side{border-left:0;border-top:1px solid var(--line)}}
     @media (max-width:640px){body{padding:18px 12px 32px}.hero,.section,.toggle-card,.reader-doc,.rail,.artifact-hero,.artifact-doc,.artifact-side{padding:18px}.raw-pre{padding:18px}.basic-doc{padding:18px 16px 22px}}
