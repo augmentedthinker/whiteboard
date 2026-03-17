@@ -5,117 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Style 002 | Paper Editorial Modern</title>
   <style>
-    :root{
-      --bg:#f3f1eb;
-      --paper:#fbfaf7;
-      --panel:#ffffff;
-      --line:rgba(26,34,48,.12);
-      --text:#18202c;
-      --muted:#5f6878;
-      --accent:#275df1;
-      --accent-soft:rgba(39,93,241,.08);
-      --shadow:0 18px 50px rgba(17,24,39,.08);
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0}
-    body{
-      min-height:100vh;
-      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-      color:var(--text);
-      background:linear-gradient(180deg, #f7f4ee, #f1eee7 48%, #ece8df);
-      padding:24px 16px 44px;
-    }
-    .wrap{max-width:1120px;margin:0 auto}
-    .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
-    .link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.72);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 24px rgba(17,24,39,.05)}
-    .hero{padding:30px 26px;border:1px solid var(--line);border-radius:30px;background:rgba(255,255,255,.76);box-shadow:var(--shadow);margin-bottom:18px}
-    .eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
-    h1{margin:0 0 12px;font-size:clamp(1.85rem,5vw,3.5rem);line-height:1.02;letter-spacing:-.02em}
-    .sub{margin:0;max-width:78ch;color:var(--muted);line-height:1.78;font-size:1.04rem}
-    .sections{display:grid;gap:18px}
-    .section{padding:22px;border:1px solid var(--line);border-radius:24px;background:var(--panel);box-shadow:var(--shadow)}
-    .section h2{margin:0 0 12px;font-size:1.28rem;letter-spacing:-.01em}
-    .section p,.section li{color:var(--muted);line-height:1.8}
-    .section strong{color:var(--text)}
-    .terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
-    .term{padding:14px 15px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg, #fff, #fbfaf7)}
-    .term h3{margin:0 0 8px;font-size:1rem;color:var(--text)}
-    .term p{margin:0;font-size:.96rem}
-    .code{margin-top:14px;padding:16px 18px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg, #fbfaf7, #f3efe7);overflow:auto}
-    pre{margin:0;white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#2b3442;line-height:1.6;font-size:.93rem}
-    @media (max-width: 640px){body{padding:18px 12px 32px}.hero,.section{padding:18px}}
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap');
+    :root{--bg:#f3f1eb;--paper:#fbfaf7;--panel:#ffffff;--line:rgba(26,34,48,.12);--text:#18202c;--muted:#5f6878;--accent:#275df1;--shadow:0 18px 50px rgba(17,24,39,.08)}
+    *{box-sizing:border-box} html,body{margin:0}
+    body{min-height:100vh;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:linear-gradient(180deg,#f7f4ee,#f1eee7 48%,#ece8df);padding:24px 16px 44px}
+    .wrap{max-width:1120px;margin:0 auto}.topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}.link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.72);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 24px rgba(17,24,39,.05)}
+    .hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:24px;padding:30px 26px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.76);box-shadow:var(--shadow);margin-bottom:18px}.eyebrow{margin:0 0 10px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}h1{margin:0 0 14px;font-family:Fraunces,serif;font-size:clamp(2.2rem,6vw,4.6rem);line-height:.95;letter-spacing:-.04em}.sub{margin:0;color:var(--muted);line-height:1.84;font-size:1.04rem}.deck{padding-left:24px;border-left:2px solid rgba(39,93,241,.18);display:flex;align-items:end;color:var(--muted);line-height:1.8}
+    .sections{display:grid;gap:18px}.section{padding:22px;border:1px solid var(--line);border-radius:8px;background:var(--panel);box-shadow:var(--shadow)}.section h2{margin:0 0 12px;font-family:Fraunces,serif;font-size:1.52rem;letter-spacing:-.02em}.section p,.section li{color:var(--muted);line-height:1.84}.section strong{color:var(--text)}.terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}.term{padding:14px 15px;border:1px solid var(--line);border-radius:4px;background:linear-gradient(180deg,#fff,#fbfaf7)}.term h3{margin:0 0 8px;font-size:1rem;color:var(--text)}.term p{margin:0;font-size:.96rem}.code{margin-top:14px;padding:16px 18px;border:1px solid var(--line);border-radius:6px;background:linear-gradient(180deg,#fbfaf7,#f3efe7);overflow:auto}pre{margin:0;white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#2b3442;line-height:1.6;font-size:.93rem}
+    @media (max-width:760px){.hero{grid-template-columns:1fr;padding:22px 18px}.deck{padding-left:0;border-left:0;border-top:2px solid rgba(39,93,241,.18);padding-top:16px}} @media (max-width:640px){body{padding:18px 12px 32px}.section{padding:18px}}
   </style>
-  <style id="rv-home-fab-style">
-    .rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}
-    .rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}
-    .rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}
-    .rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}
-    .rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}
-  </style>
+  <style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}</style>
 </head>
 <body>
   <div class="wrap">
-    <div class="topbar">
-      <a class="link" href="../index.html">← Styles</a>
-      <a class="link" href="../../index.html">Remote Viewer</a>
-    </div>
-
-    <section class="hero">
-      <p class="eyebrow">Style 002</p>
-      <h1>Paper Editorial Modern</h1>
-      <p class="sub">A deliberately different style from the default Remote Viewer look: brighter, cleaner, more print-like, and more structured. It trades cinematic darkness for paper surfaces, crisp hierarchy, restrained blue accents, and an editorial or design-journal sensibility.</p>
-    </section>
-
+    <div class="topbar"><a class="link" href="../index.html">← Styles</a><a class="link" href="../../index.html">Remote Viewer</a></div>
+    <section class="hero"><div><p class="eyebrow">Style 002</p><h1>Paper Editorial Modern</h1><p class="sub">A deliberately different style from the default Remote Viewer look: brighter, cleaner, more print-like, and more structured. It trades cinematic darkness for paper surfaces, serif-led hierarchy, rectangular composition, and a more designed-document sensibility.</p></div><div class="deck">Think premium essay layout, magazine spread, or design journal. This style relies on typography, proportion, and hierarchy more than glow, atmosphere, or soft-luxury UI treatment.</div></section>
     <div class="sections">
-      <section class="section">
-        <h2>What this style is in plain English</h2>
-        <p>This is a <strong>light, editorial, design-publication style</strong>. It feels closer to a premium essay layout, modern magazine spread, or product design journal than to a sci-fi artifact interface. It is calmer, brighter, and more architectural in its use of white space.</p>
-        <p>The emotional ingredients are: <strong>paper, clarity, structure, restraint, confidence, and cleanliness</strong>. It works well for essays, manifestos, frameworks, PRDs, design systems, and pages that should feel intellectually composed rather than atmospheric.</p>
-      </section>
+      <section class="section"><h2>What this style is in plain English</h2><p>This is a <strong>light, editorial, design-publication style</strong>. It feels closer to a premium essay layout, modern magazine spread, or product design journal than to a sci-fi artifact interface. It is calmer, brighter, and more architectural in its use of white space.</p><p>The emotional ingredients are: <strong>paper, clarity, structure, restraint, confidence, and cleanliness</strong>. It works well for essays, manifestos, frameworks, PRDs, design systems, and pages that should feel intellectually composed rather than atmospheric.</p></section>
+      <section class="section"><h2>What I’d call it technically</h2><div class="terms"><div class="term"><h3>Editorial UI</h3><p>An interface borrowing from print and publication design, with stronger hierarchy and more spacious layout logic.</p></div><div class="term"><h3>Paper-surface design</h3><p>Backgrounds and panels resemble paper, cards, and layout boards rather than glass or glowing screens.</p></div><div class="term"><h3>Serif-led hierarchy</h3><p>Display typography does much more of the visual work, using serif headlines for a more literary or editorial feel.</p></div><div class="term"><h3>Light-theme design system</h3><p>The palette is built around off-white, charcoal text, restrained accent color, and subtle surface separation.</p></div><div class="term"><h3>Structured hierarchy</h3><p>Typography and spacing do more of the work instead of mood lighting and glow effects.</p></div><div class="term"><h3>Document-first layout</h3><p>The page reads like a designed document first and an interface second.</p></div></div></section>
+      <section class="section"><h2>Core visual ingredients</h2><ul><li><strong>Background:</strong> warm off-white / paper-toned neutral surfaces</li><li><strong>Primary text:</strong> dark charcoal rather than pure black</li><li><strong>Accent color:</strong> controlled cobalt / editorial blue</li><li><strong>Panels:</strong> bright cards with subtle borders and soft shadows</li><li><strong>Depth:</strong> light elevation, not glow-heavy atmospheric depth</li><li><strong>Shape language:</strong> sharper rectangles and tighter radii</li><li><strong>Typography:</strong> serif headlines + clean sans-serif body</li><li><strong>Tone:</strong> composed, articulate, publication-like, modern</li></ul></section>
+      <section class="section"><h2>When to use it</h2><p>Use this style when a page should feel more like a serious essay, design note, philosophy document, or product spec. It is a good counterweight to Luminous Glass Noir because it removes the cinematic mood and lets structure carry more of the page identity.</p></section>
+      <section class="section"><h2>How to ask for this style later</h2><ul><li><strong>“Use Paper Editorial Modern”</strong></li><li><strong>“Use the light editorial style”</strong></li><li><strong>“Make this feel like a design journal / magazine essay”</strong></li></ul></section>
+      <section class="section"><h2>Minimal technical recipe</h2><div class="code"><pre>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap');
 
-      <section class="section">
-        <h2>What I’d call it technically</h2>
-        <div class="terms">
-          <div class="term"><h3>Editorial UI</h3><p>An interface borrowing from print and publication design, with stronger hierarchy and more spacious layout logic.</p></div>
-          <div class="term"><h3>Paper-surface design</h3><p>Backgrounds and panels resemble paper, cards, and layout boards rather than glass or glowing screens.</p></div>
-          <div class="term"><h3>Light-theme design system</h3><p>The palette is built around off-white, charcoal text, restrained accent color, and subtle surface separation.</p></div>
-          <div class="term"><h3>Structured hierarchy</h3><p>Typography and spacing do more of the work instead of mood lighting and glow effects.</p></div>
-          <div class="term"><h3>Minimal accent signaling</h3><p>Accent color is used sparingly for emphasis, tags, and navigation rather than saturating the whole environment.</p></div>
-          <div class="term"><h3>Document-first layout</h3><p>The page reads like a designed document first and an interface second.</p></div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>Core visual ingredients</h2>
-        <ul>
-          <li><strong>Background:</strong> warm off-white / paper-toned neutral surfaces</li>
-          <li><strong>Primary text:</strong> dark charcoal rather than pure black</li>
-          <li><strong>Accent color:</strong> controlled cobalt / editorial blue</li>
-          <li><strong>Panels:</strong> bright cards with subtle borders and soft shadows</li>
-          <li><strong>Depth:</strong> light elevation, not glow-heavy atmospheric depth</li>
-          <li><strong>Shape language:</strong> still rounded, but less soft-luxury and more clean-systematic</li>
-          <li><strong>Typography:</strong> clean sans-serif with stronger hierarchy and tighter heading rhythm</li>
-          <li><strong>Tone:</strong> composed, articulate, publication-like, modern</li>
-        </ul>
-      </section>
-
-      <section class="section">
-        <h2>When to use it</h2>
-        <p>Use this style when a page should feel more like a serious essay, design note, philosophy document, or product spec. It is a good counterweight to Luminous Glass Noir because it removes the cinematic mood and lets structure carry more of the page identity.</p>
-      </section>
-
-      <section class="section">
-        <h2>How to ask for this style later</h2>
-        <ul>
-          <li><strong>“Use Paper Editorial Modern”</strong></li>
-          <li><strong>“Use the light editorial style”</strong></li>
-          <li><strong>“Make this feel like a design journal / magazine essay”</strong></li>
-        </ul>
-      </section>
-
-      <section class="section">
-        <h2>Minimal technical recipe</h2>
-        <div class="code"><pre>:root {
+:root {
   --bg: #f3f1eb;
   --panel: #ffffff;
   --line: rgba(26,34,48,.12);
@@ -124,24 +37,17 @@
   --accent: #275df1;
 }
 
-body {
-  color: var(--text);
-  background: linear-gradient(180deg, #f7f4ee, #f1eee7 48%, #ece8df);
-}
-
+h1, h2 { font-family: Fraunces, serif; }
+body { background: linear-gradient(180deg, #f7f4ee, #f1eee7 48%, #ece8df); }
 .panel {
   background: #ffffff;
   border: 1px solid var(--line);
-  border-radius: 24px;
+  border-radius: 8px;
   box-shadow: 0 18px 50px rgba(17,24,39,.08);
-}</pre></div>
-      </section>
+}</pre></div></section>
     </div>
   </div>
-
-  <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
-  <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
-  <button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
+  <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a><button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button><button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
   <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(pos.top??10,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const moved=m;d=null;save(el,key);if(!moved&&click)await click();});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}const isFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const sync=()=>fsFab.textContent=isFs()?'🡼':'⛶';const toggle=async()=>{try{const t=document.documentElement;if(!isFs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');drag(fab,'rvHomeFabPos');drag(fsFab,'rvFullscreenFabPos',toggle);drag(backFab,'rvBackFabPos',()=>{if(history.length>1)history.back();else location.href=href;});document.addEventListener('fullscreenchange',sync);sync();})();</script>
 </body>
 </html>

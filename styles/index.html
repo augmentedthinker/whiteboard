@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Remote Viewer | Styles</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@500;700&display=swap');
     :root{
       --bg:#f3f1eb;
       --paper:#fbfaf7;
@@ -15,103 +16,50 @@
       --accent:#275df1;
       --shadow:0 18px 50px rgba(17,24,39,.08);
     }
-    *{box-sizing:border-box}
-    html,body{margin:0}
-    body{
-      min-height:100vh;
-      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-      color:var(--text);
-      background:
-        linear-gradient(180deg, #f7f4ee, #f1eee7 48%, #ece8df);
-      padding:24px 16px 44px;
-    }
-    .wrap{max-width:1160px;margin:0 auto}
-    .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+    *{box-sizing:border-box} html,body{margin:0}
+    body{min-height:100vh;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:linear-gradient(180deg,#f7f4ee,#f1eee7 48%,#ece8df);padding:24px 16px 44px}
+    .wrap{max-width:1160px;margin:0 auto}.topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
     .link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.72);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 24px rgba(17,24,39,.05)}
-    .hero{padding:30px 26px;border:1px solid var(--line);border-radius:30px;background:rgba(255,255,255,.72);backdrop-filter:blur(8px);box-shadow:var(--shadow);margin-bottom:18px}
-    .eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
-    h1{margin:0 0 12px;font-size:clamp(1.85rem,5vw,3.5rem);line-height:1.02}
-    .sub{margin:0;max-width:78ch;color:var(--muted);line-height:1.75;font-size:1.04rem}
-    .grid{display:grid;grid-template-columns:1fr;gap:20px}
-    .card{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:28px;overflow:hidden;background:var(--panel);box-shadow:var(--shadow);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
-    .card:hover{transform:translateY(-2px);box-shadow:0 24px 60px rgba(17,24,39,.12);border-color:rgba(39,93,241,.22)}
-    .preview{aspect-ratio:16/8.8;position:relative;overflow:hidden}
-    .card-body{padding:22px}
-    .meta-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
-    .label{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(39,93,241,.08);border:1px solid rgba(39,93,241,.14);color:var(--accent);font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
-    .contrast{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(24,32,44,.06);color:var(--muted);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-    .card h2{margin:0 0 8px;font-size:1.45rem}
-    .card p{margin:0;color:var(--muted);line-height:1.72}
-    .preview.noir{background:
-      radial-gradient(circle at 78% 18%, rgba(143,230,255,.2), transparent 24%),
-      radial-gradient(circle at 20% 26%, rgba(240,179,109,.12), transparent 20%),
-      linear-gradient(160deg, rgba(15,25,43,.98), rgba(7,12,22,.98))}
-    .preview.noir::before{content:"";position:absolute;inset:18px;border:1px solid rgba(143,230,255,.18);border-radius:24px;background:linear-gradient(160deg, rgba(12,20,36,.9), rgba(8,13,24,.94));box-shadow:0 18px 50px rgba(0,0,0,.28)}
-    .preview.noir::after{content:"";position:absolute;left:36px;right:36px;bottom:30px;height:66px;border-radius:18px;border:1px solid rgba(143,230,255,.14);background:linear-gradient(135deg, rgba(18,29,51,.82), rgba(12,20,36,.78));box-shadow:0 12px 30px rgba(0,0,0,.22)}
-    .preview.editorial{background:linear-gradient(180deg, #fffdf8, #f7f2ea 58%, #efe6d8)}
-    .preview.editorial::before{content:"";position:absolute;left:18px;right:18px;top:18px;height:34px;border-radius:12px;background:linear-gradient(90deg, #20242b 0 26%, transparent 26% 100%);opacity:.9}
-    .preview.editorial::after{content:"";position:absolute;left:28px;right:28px;top:70px;bottom:28px;border-radius:22px;background:
-      linear-gradient(180deg, transparent 0 14px, rgba(30,36,46,.08) 14px 15px, transparent 15px 100%),
-      linear-gradient(90deg, #11151b 0 38%, transparent 38% 100%),
-      linear-gradient(180deg, rgba(39,93,241,.14), rgba(39,93,241,0) 42%),
-      linear-gradient(180deg, rgba(255,255,255,.9), rgba(249,246,239,.96));
-      border:1px solid rgba(26,34,48,.1);
-      box-shadow:0 14px 40px rgba(17,24,39,.08)}
+    .hero{padding:30px 26px;border:1px solid var(--line);border-radius:30px;background:rgba(255,255,255,.72);backdrop-filter:blur(8px);box-shadow:var(--shadow);margin-bottom:18px}.eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 12px;font-size:clamp(1.85rem,5vw,3.5rem);line-height:1.02}.sub{margin:0;max-width:78ch;color:var(--muted);line-height:1.75;font-size:1.04rem}
+    .grid{display:grid;grid-template-columns:1fr;gap:22px}.card{display:block;text-decoration:none;color:inherit;border:1px solid var(--line);border-radius:28px;overflow:hidden;background:var(--panel);box-shadow:var(--shadow);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}.card:hover{transform:translateY(-2px);box-shadow:0 24px 60px rgba(17,24,39,.12);border-color:rgba(39,93,241,.22)}
+    .preview{aspect-ratio:16/8.8;position:relative;overflow:hidden}.card-body{padding:22px}.meta-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}.label{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(39,93,241,.08);border:1px solid rgba(39,93,241,.14);color:var(--accent);font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.contrast{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(24,32,44,.06);color:var(--muted);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+    .card h2{margin:0 0 8px;font-size:1.45rem}.card p{margin:0;color:var(--muted);line-height:1.72}
+    .preview.noir{background:radial-gradient(circle at 78% 18%, rgba(143,230,255,.2), transparent 24%),radial-gradient(circle at 20% 26%, rgba(240,179,109,.12), transparent 20%),linear-gradient(160deg, rgba(15,25,43,.98), rgba(7,12,22,.98))}.preview.noir::before{content:"";position:absolute;inset:18px;border:1px solid rgba(143,230,255,.18);border-radius:24px;background:linear-gradient(160deg, rgba(12,20,36,.9), rgba(8,13,24,.94));box-shadow:0 18px 50px rgba(0,0,0,.28)}.preview.noir::after{content:"";position:absolute;left:36px;right:36px;bottom:30px;height:66px;border-radius:18px;border:1px solid rgba(143,230,255,.14);background:linear-gradient(135deg, rgba(18,29,51,.82), rgba(12,20,36,.78));box-shadow:0 12px 30px rgba(0,0,0,.22)}
+    .preview.editorial{background:linear-gradient(180deg,#fffdf8,#f7f2ea 58%,#efe6d8)}.preview.editorial::before{content:"ESSAY / SYSTEM / NOTES";position:absolute;left:28px;top:22px;font:700 12px/1 Inter,sans-serif;letter-spacing:.18em;color:#275df1}.preview.editorial::after{content:"";position:absolute;left:28px;right:28px;top:54px;bottom:24px;background:linear-gradient(90deg,#1b1f26 0 34%, transparent 34% 100%),linear-gradient(180deg,transparent 0 16px, rgba(30,36,46,.08) 16px 17px, transparent 17px 100%),linear-gradient(180deg,rgba(39,93,241,.12), rgba(39,93,241,0) 38%),linear-gradient(180deg,rgba(255,255,255,.96), rgba(249,246,239,.98));border:1px solid rgba(26,34,48,.1);box-shadow:0 14px 40px rgba(17,24,39,.08)}
+    .preview.editorial .serif{position:absolute;left:40px;top:78px;right:42%;font-family:Fraunces,serif;font-size:38px;line-height:.95;color:#141922;letter-spacing:-.03em}.preview.editorial .rule{position:absolute;left:40px;right:42%;top:172px;height:2px;background:#275df1}.preview.editorial .col{position:absolute;top:86px;right:40px;width:32%;bottom:36px;background:repeating-linear-gradient(180deg, rgba(53,61,76,.7) 0 2px, transparent 2px 18px)}
+    .preview.brutal{background:#f6f1e8}.preview.brutal::before{content:"BRUTALIST";position:absolute;left:22px;top:20px;padding:10px 12px;background:#ff3b30;color:#fff;font:800 18px/1 Space Grotesk,sans-serif;letter-spacing:.08em}.preview.brutal::after{content:"";position:absolute;left:26px;right:26px;top:76px;bottom:26px;background:linear-gradient(180deg,#fff 0 20%, #111 20% 42%, #fff 42% 62%, #111 62% 100%);border:4px solid #111;box-shadow:12px 12px 0 #ffde59}
+    .preview.brutal .block-a{position:absolute;right:42px;top:24px;width:120px;height:36px;background:#111}.preview.brutal .block-b{position:absolute;left:44px;bottom:42px;width:110px;height:28px;background:#275df1}.preview.brutal .block-c{position:absolute;right:44px;bottom:42px;width:70px;height:70px;background:#ff3b30;border:4px solid #111}
     .helper{margin-top:18px;padding:16px 18px;border:1px solid rgba(26,34,48,.1);border-radius:20px;background:rgba(255,255,255,.72);box-shadow:0 10px 30px rgba(17,24,39,.05);color:var(--muted);line-height:1.75}
-    @media (max-width: 640px){body{padding:18px 12px 32px}.hero,.card-body{padding:18px}}
+    @media (max-width:640px){body{padding:18px 12px 32px}.hero,.card-body{padding:18px}.preview.editorial .serif{font-size:28px;right:45%}.preview.editorial .rule{right:45%}.preview.editorial .col{width:28%}}
   </style>
-  <style id="rv-home-fab-style">
-    .rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}
-    .rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}
-    .rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}
-    .rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}
-    .rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}
-  </style>
+  <style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}</style>
 </head>
 <body>
   <div class="wrap">
-    <div class="topbar">
-      <a class="link" href="../index.html">← Remote Viewer</a>
-    </div>
-
+    <div class="topbar"><a class="link" href="../index.html">← Remote Viewer</a></div>
     <section class="hero">
       <p class="eyebrow">Styles</p>
       <h1>Visual languages we can reuse on purpose</h1>
-      <p class="sub">This page now acts as a more neutral showroom. The background should stay mostly out of the way, while each style card carries its own visual identity. The goal is comparison: you should be able to glance down this page and immediately feel that these are genuinely different design systems.</p>
+      <p class="sub">This page is a neutral showroom. The background stays quiet while each card demonstrates a genuinely different design system. These should not just be palette swaps — they should differ in shape language, typography, hierarchy, and layout grammar.</p>
     </section>
-
     <section class="grid">
       <a class="card" href="./luminous-glass-noir/index.html">
         <div class="preview noir" aria-hidden="true"></div>
-        <div class="card-body">
-          <div class="meta-row">
-            <span class="label">Style 001</span>
-            <span class="contrast">Dark / Cinematic / Glass</span>
-          </div>
-          <h2>Luminous Glass Noir</h2>
-          <p>The current Remote Viewer house style: dark atmospheric backgrounds, cyan highlights, muted amber warmth, translucent panels, rounded cards, and a premium editorial feel.</p>
-        </div>
+        <div class="card-body"><div class="meta-row"><span class="label">Style 001</span><span class="contrast">Dark / Cinematic / Glass</span></div><h2>Luminous Glass Noir</h2><p>The current Remote Viewer house style: dark atmospheric backgrounds, cyan highlights, muted amber warmth, translucent panels, rounded cards, and a premium editorial feel.</p></div>
       </a>
-
       <a class="card" href="./paper-editorial-modern/index.html">
-        <div class="preview editorial" aria-hidden="true"></div>
-        <div class="card-body">
-          <div class="meta-row">
-            <span class="label">Style 002</span>
-            <span class="contrast">Light / Print / Structured</span>
-          </div>
-          <h2>Paper Editorial Modern</h2>
-          <p>A deliberately different direction: bright paper-like surfaces, sharper hierarchy, cleaner contrast, restrained blue accents, and a more magazine/editorial or design-journal sensibility.</p>
-        </div>
+        <div class="preview editorial" aria-hidden="true"><div class="serif">Paper systems with strong hierarchy.</div><div class="rule"></div><div class="col"></div></div>
+        <div class="card-body"><div class="meta-row"><span class="label">Style 002</span><span class="contrast">Light / Serif / Editorial</span></div><h2>Paper Editorial Modern</h2><p>A bright, print-like direction with serif-led hierarchy, rectangular composition, cleaner surfaces, and a more magazine or design-journal sensibility.</p></div>
+      </a>
+      <a class="card" href="./brutalist-monochrome/index.html">
+        <div class="preview brutal" aria-hidden="true"><div class="block-a"></div><div class="block-b"></div><div class="block-c"></div></div>
+        <div class="card-body"><div class="meta-row"><span class="label">Style 003</span><span class="contrast">Sharp / Bold / Poster</span></div><h2>Brutalist Monochrome</h2><p>High-contrast blocks, sharp corners, oversized type, hard borders, abrupt geometry, and a confrontational poster-like layout language with almost no softness.</p></div>
       </a>
     </section>
-
-    <div class="helper">This is closer to the right pattern: the library page is a neutral display surface, while each card previews an actual visual language. If we keep building this, we can add more styles like brutalist monochrome, warm gallery minimalism, retro terminal, or playful experimental.</div>
+    <div class="helper">And yes — there are libraries, CDNs, and inspiration ecosystems we can draw from. Frameworks like Tailwind or Bootstrap help with components, but real style diversity usually comes from typography choices, layout grammar, shape language, and references from places like Awwwards, Dribbble, Behance, Land-book, and Google Fonts.</div>
   </div>
-
-  <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
-  <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
-  <button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
+  <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a><button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button><button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
   <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(pos.top??10,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const moved=m;d=null;save(el,key);if(!moved&&click)await click();});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}const isFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const sync=()=>fsFab.textContent=isFs()?'🡼':'⛶';const toggle=async()=>{try{const t=document.documentElement;if(!isFs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');drag(fab,'rvHomeFabPos');drag(fsFab,'rvFullscreenFabPos',toggle);drag(backFab,'rvBackFabPos',()=>{if(history.length>1)history.back();else location.href=href;});document.addEventListener('fullscreenchange',sync);sync();})();</script>
 </body>
 </html>
