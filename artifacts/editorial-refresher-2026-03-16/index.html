@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Editorial Refresher · 2026-03-16</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap');
+    :root{--bg:#f3f1eb;--paper:#fbfaf7;--panel:#ffffff;--line:rgba(26,34,48,.12);--text:#18202c;--muted:#5f6878;--accent:#275df1;--shadow:0 18px 50px rgba(17,24,39,.08)}
+    *{box-sizing:border-box} html,body{margin:0}
+    body{min-height:100vh;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:linear-gradient(180deg,#f7f4ee,#f1eee7 48%,#ece8df);}
+    .topbar{position:sticky;top:0;z-index:10;background:rgba(251,250,247,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .topbar-inner{max-width:1100px;margin:0 auto;padding:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .btn,.link{text-decoration:none;border:1px solid var(--line);background:rgba(255,255,255,.78);color:var(--text);border-radius:999px;padding:10px 14px;font-weight:700;font-size:.95rem;display:inline-block;box-shadow:0 8px 24px rgba(17,24,39,.05)}
+    .btn.primary{background:linear-gradient(135deg,#275df1,#5f87ff);color:#fff;border-color:transparent}
+    #status{color:var(--muted);font-size:.92rem}
+    .hero{max-width:1100px;margin:0 auto;padding:24px 14px 14px}
+    .hero-card{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:24px;padding:30px 26px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.76);box-shadow:var(--shadow)}
+    .eyebrow{margin:0 0 10px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 14px;font-family:Fraunces,serif;font-size:clamp(2.2rem,6vw,4.6rem);line-height:.95;letter-spacing:-.04em}
+    .sub{margin:0;color:var(--muted);line-height:1.84;font-size:1.04rem}
+    .deck{padding-left:24px;border-left:2px solid rgba(39,93,241,.18);display:flex;flex-direction:column;justify-content:flex-end;gap:14px;color:var(--muted);line-height:1.8}
+    .pull{font-family:Fraunces,serif;font-size:1.35rem;line-height:1.2;color:var(--text)}
+    .path-card{margin-top:14px;padding:16px 18px;border:1px solid var(--line);border-radius:8px;background:var(--panel);box-shadow:var(--shadow)}
+    .path-label{display:block;margin-bottom:8px;color:var(--accent);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .path-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .path-value{flex:1 1 560px;min-width:0;padding:12px 14px;border-radius:6px;background:linear-gradient(180deg,#fbfaf7,#f3efe7);border:1px solid var(--line);color:#2b3442;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92rem;overflow-wrap:anywhere}
+    .doc-wrap{max-width:1100px;margin:0 auto;padding:0 14px 30px}
+    #viewer{display:none;margin-top:14px;padding:28px 26px;border:1px solid var(--line);border-radius:10px;background:var(--panel);box-shadow:var(--shadow)}
+    #viewer h1,#viewer h2,#viewer h3,#viewer h4{font-family:Fraunces,serif;line-height:1.1;letter-spacing:-.03em;color:var(--text)}
+    #viewer h1{font-size:clamp(2rem,5vw,3.2rem);margin:0 0 1rem}
+    #viewer h2{font-size:clamp(1.5rem,3.6vw,2.1rem);margin:2.2rem 0 .75rem}
+    #viewer h3{font-size:1.2rem;margin:1.4rem 0 .55rem}
+    #viewer p,#viewer li{font-size:1.04rem;line-height:1.9;color:var(--muted)}
+    #viewer strong{color:var(--text)}
+    #viewer ul,#viewer ol{padding-left:1.35em}
+    #viewer code{background:#f3efe7;padding:2px 6px;border-radius:6px}
+    #viewer blockquote{margin:1.2rem 0;padding:.4rem 0 .4rem 1rem;border-left:3px solid rgba(39,93,241,.32);color:#3b4658;font-family:Fraunces,serif}
+    @media (max-width:820px){.hero-card{grid-template-columns:1fr;padding:22px 18px}.deck{padding-left:0;border-left:0;border-top:2px solid rgba(39,93,241,.18);padding-top:16px}}
+    @media (max-width:640px){body{padding-bottom:24px}#viewer{padding:20px 18px}.path-card{padding:14px}.topbar-inner{padding:10px}}
+  </style>
+  <style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}</style>
+  <style id="rv-mobile-opt-style">html{-webkit-text-size-adjust:100%}body{overflow-x:hidden}img,video,canvas,iframe{max-width:100%;height:auto}*{word-wrap:break-word}@media (max-width: 768px){.container,.wrap,.doc-wrap,.hero,.topbar-inner,main{max-width:100% !important}body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}}</style>
+</head>
+<body>
+  <div class="topbar"><div class="topbar-inner"><a class="link" href="../../today/index.html">← Today’s Artifacts</a><a class="link" href="./signature.html">✒️ Signature</a><button id="openBtn" class="btn primary">Open / Refresh</button><button id="pdfBtn" class="btn">Download as PDF</button><span id="status"></span></div></div>
+  <header class="hero">
+    <section class="hero-card">
+      <div>
+        <p class="eyebrow">Today’s Artifact · Style 002</p>
+        <h1>Editorial Refresher · 2026-03-16</h1>
+        <p class="sub">A longer-form re-entry document on where the system actually stands now: Balance as the clearest live product lane, Remote Viewer as continuity infrastructure, Quotes and Styles as cultural/design coherence, and the broader shift from scattered experiments toward a more legible ecosystem.</p>
+      </div>
+      <div class="deck">
+        <div class="pull">The work is starting to feel less like isolated artifacts and more like an environment with memory, shape, and direction.</div>
+        <div>This page uses <strong>Paper Editorial Modern</strong> because the job here is clarity, hierarchy, and thought — not atmosphere for its own sake.</div>
+      </div>
+    </section>
+    <div class="path-card"><span class="path-label">Artifact source path</span><div class="path-row"><div class="path-value" id="pathValue">/mnt/chromeos/MyFiles/Downloads/shared_workspace/remote-viewer/artifacts/editorial-refresher-2026-03-16/report.md</div><button id="copyPathBtn" class="btn">Copy Local Path</button></div></div>
+  </header>
+  <main class="doc-wrap"><article id="viewer"></article></main>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    const btn=document.getElementById('openBtn'); const pdfBtn=document.getElementById('pdfBtn'); const copyPathBtn=document.getElementById('copyPathBtn'); const pathValue=document.getElementById('pathValue'); const status=document.getElementById('status'); const viewer=document.getElementById('viewer');
+    async function openDoc(){ btn.disabled=true; status.textContent='Loading...'; try{ const res=await fetch('./report.md',{cache:'no-store'}); if(!res.ok) throw new Error('Could not load markdown file.'); const md=await res.text(); viewer.innerHTML=marked.parse(md); viewer.style.display='block'; status.textContent='Ready'; }catch(err){ status.textContent='Error loading document'; alert(err.message);}finally{ btn.disabled=false; } }
+    async function copyPath(){ try{ await navigator.clipboard.writeText(pathValue.textContent.trim()); const old=copyPathBtn.textContent; copyPathBtn.textContent='Copied'; status.textContent='Local path copied'; setTimeout(()=>copyPathBtn.textContent=old,1400);}catch(err){ status.textContent='Could not copy path'; alert('Copy failed on this browser. Path: ' + pathValue.textContent.trim()); } }
+    btn.addEventListener('click',openDoc); pdfBtn.addEventListener('click',()=>window.print()); copyPathBtn.addEventListener('click',copyPath); openDoc();
+  </script>
+  <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
+  <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
+  <button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
+  <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(pos.top??10,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const moved=m;d=null;save(el,key);if(!moved&&click)await click();});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}const isFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const sync=()=>fsFab.textContent=isFs()?'🡼':'⛶';const toggle=async()=>{try{const t=document.documentElement;if(!isFs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');drag(fab,'rvHomeFabPos');drag(fsFab,'rvFullscreenFabPos',toggle);drag(backFab,'rvBackFabPos',()=>{if(history.length>1)history.back();else location.href=href;});document.addEventListener('fullscreenchange',sync);sync();})();</script>
+</body>
+</html>
