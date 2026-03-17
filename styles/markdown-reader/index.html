@@ -5,62 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Style 005 | Markdown Reader</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap');
     :root{
       --bg:#f4f5f7;
       --paper:#ffffff;
-      --panel:#fbfbfc;
       --line:#d9dde3;
       --line-strong:#c7cdd6;
       --text:#1f2937;
       --muted:#667085;
       --accent:#2f6fed;
-      --accent-soft:rgba(47,111,237,.10);
       --code-bg:#f3f6fb;
       --shadow:0 18px 40px rgba(15,23,42,.08);
     }
     *{box-sizing:border-box}
     html,body{margin:0}
-    body{
-      min-height:100vh;
-      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-      color:var(--text);
-      background:linear-gradient(180deg,#f7f8fa,#f1f3f6 52%,#eceff3);
-      padding:24px 16px 44px;
-    }
-    .wrap{max-width:1120px;margin:0 auto}
+    body{min-height:100vh;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:linear-gradient(180deg,#f7f8fa,#f1f3f6 52%,#eceff3);padding:24px 16px 44px}
+    .wrap{max-width:1160px;margin:0 auto}
     .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
-    .link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.86);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 24px rgba(15,23,42,.05)}
-    .hero{
-      display:grid;
-      grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);
-      gap:24px;
-      padding:28px 24px;
-      border:1px solid var(--line);
-      border-radius:20px;
-      background:rgba(255,255,255,.78);
-      box-shadow:var(--shadow);
-      margin-bottom:18px;
-    }
+    .link,.mode-btn{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.92);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 24px rgba(15,23,42,.05);cursor:pointer}
+    .mode-btn.active{background:linear-gradient(135deg,#2f6fed,#5a8cff);color:#fff;border-color:transparent}
+    .hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:24px;padding:28px 24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.82);box-shadow:var(--shadow);margin-bottom:18px}
     .eyebrow{margin:0 0 10px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
     h1{margin:0 0 12px;font-size:clamp(2rem,5vw,3.4rem);line-height:1.02;letter-spacing:-.04em}
     .sub{margin:0;color:var(--muted);line-height:1.82;font-size:1.04rem}
-    .deck{
-      border-left:2px solid var(--line);
-      padding-left:22px;
-      display:flex;
-      align-items:flex-end;
-      color:var(--muted);
-      line-height:1.8;
-    }
+    .deck{border-left:2px solid var(--line);padding-left:22px;display:flex;align-items:flex-end;color:var(--muted);line-height:1.8}
     .sections{display:grid;gap:18px}
-    .section{
-      padding:22px;
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:var(--paper);
-      box-shadow:var(--shadow);
-    }
+    .section{padding:22px;border:1px solid var(--line);border-radius:18px;background:var(--paper);box-shadow:var(--shadow)}
     .section h2{margin:0 0 12px;font-size:1.36rem;letter-spacing:-.02em}
     .section p,.section li{color:var(--muted);line-height:1.84}
     .section strong{color:var(--text)}
@@ -68,103 +38,63 @@
     .term{padding:14px 15px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,#fff,#fafbfd)}
     .term h3{margin:0 0 8px;font-size:1rem;color:var(--text)}
     .term p{margin:0;font-size:.96rem}
-    .specimen{
-      margin-top:14px;
-      border:1px solid var(--line-strong);
-      border-radius:18px;
-      overflow:hidden;
-      background:var(--paper);
-      box-shadow:0 12px 32px rgba(15,23,42,.07);
-    }
-    .specimen-top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:12px 16px;
-      background:linear-gradient(180deg,#fafbfd,#f2f4f7);
-      border-bottom:1px solid var(--line);
-      font-size:.92rem;
-      color:var(--muted);
-    }
-    .dots{display:flex;gap:8px}
-    .dot{width:10px;height:10px;border-radius:999px;background:#d0d5dd}
-    .specimen-body{
-      display:grid;
-      grid-template-columns:minmax(0,1fr) 250px;
-      gap:0;
-      min-height:320px;
-    }
-    .doc{
-      padding:26px 24px 28px;
-      background:var(--paper);
-    }
-    .doc h3{margin:0 0 10px;font-size:1.5rem;line-height:1.15;letter-spacing:-.03em}
-    .doc p{margin:0 0 16px;color:var(--muted);line-height:1.84}
-    .doc blockquote{
-      margin:18px 0;
-      padding:4px 0 4px 16px;
-      border-left:3px solid var(--accent);
-      color:#4b5563;
-    }
-    .doc ul{margin:14px 0 0;padding-left:20px;color:var(--muted);line-height:1.8}
-    .doc code{
-      font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-      background:var(--code-bg);
-      border:1px solid #dce6f6;
-      color:#1849a9;
-      padding:.12rem .35rem;
-      border-radius:8px;
-      font-size:.92em;
-    }
-    .doc pre{
-      margin:18px 0 0;
-      padding:14px 16px;
-      background:var(--code-bg);
-      border:1px solid #dce6f6;
-      border-radius:14px;
-      overflow:auto;
-    }
-    .doc pre code{
-      background:transparent;
-      border:0;
-      padding:0;
-      color:#243b53;
-      display:block;
-      line-height:1.7;
-    }
-    .rail{
-      border-left:1px solid var(--line);
-      background:linear-gradient(180deg,#fbfcfe,#f7f9fc);
-      padding:20px 18px;
-    }
-    .rail-label{
-      margin:0 0 12px;
-      font-size:.76rem;
-      font-weight:800;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      color:var(--accent);
-    }
-    .rail-item{
-      padding:12px 0;
-      border-top:1px solid var(--line);
-      color:var(--muted);
-      line-height:1.65;
-      font-size:.95rem;
-    }
+    .toggle-card{padding:16px 18px;border:1px solid var(--line);border-radius:18px;background:var(--paper);box-shadow:var(--shadow)}
+    .toggle-label{display:block;margin-bottom:10px;color:var(--accent);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .mode-row{display:flex;gap:10px;flex-wrap:wrap}
+    .mode-note{margin:12px 0 0;color:var(--muted);line-height:1.7}
+    .viewer{margin-top:14px}
+    .mode-panel{display:none}
+    .mode-panel.active{display:block}
+    .mode-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px;padding:2px 2px;color:var(--muted);font-size:.94rem}
+    .mode-title{font-weight:800;color:var(--text)}
+
+    .markdown h1,.markdown h2,.markdown h3,.markdown h4{line-height:1.14;letter-spacing:-.03em;color:var(--text)}
+    .markdown h1{font-size:clamp(2rem,5vw,3.1rem);margin:0 0 1rem}
+    .markdown h2{font-size:clamp(1.4rem,3.2vw,2rem);margin:2.2rem 0 .8rem}
+    .markdown h3{font-size:1.14rem;margin:1.5rem 0 .55rem}
+    .markdown p,.markdown li{font-size:1.03rem;line-height:1.88;color:var(--muted)}
+    .markdown strong{color:var(--text)}
+    .markdown ul,.markdown ol{padding-left:1.35em}
+    .markdown hr{border:0;border-top:1px solid var(--line);margin:2rem 0}
+    .markdown code{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--code-bg);border:1px solid #dce6f6;color:#1849a9;padding:.12rem .35rem;border-radius:8px;font-size:.92em}
+    .markdown pre{margin:1rem 0;padding:14px 16px;background:var(--code-bg);border:1px solid #dce6f6;border-radius:14px;overflow:auto}
+    .markdown pre code{background:transparent;border:0;padding:0;color:#243b53;display:block;line-height:1.7}
+    .markdown blockquote{margin:1.2rem 0;padding:.2rem 0 .2rem 1rem;border-left:3px solid var(--accent);color:#4b5563}
+
+    .raw-shell,.basic-shell,.reader-shell,.artifact-shell{border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+    .raw-shell,.reader-shell{border:1px solid var(--line-strong);background:#fff}
+    .basic-shell{border:1px solid var(--line);background:#fff}
+    .artifact-shell{border:1px solid rgba(26,34,48,.12);background:linear-gradient(180deg,#f8f5ee,#f2efe7 52%,#ece7dc)}
+    .shell-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:linear-gradient(180deg,#fafbfd,#f2f4f7);border-bottom:1px solid var(--line);color:var(--muted);font-size:.92rem}
+    .dots{display:flex;gap:8px}.dot{width:10px;height:10px;border-radius:999px;background:#d0d5dd}
+    .raw-pre{margin:0;padding:24px;overflow:auto;white-space:pre-wrap;word-break:break-word;font:500 .97rem/1.75 "IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#243b53;background:#fff}
+    .basic-doc{padding:24px 22px 28px;max-width:760px;margin:0 auto}
+    .basic-doc.markdown h1,.basic-doc.markdown h2,.basic-doc.markdown h3,.basic-doc.markdown h4{font-family:Inter,system-ui,sans-serif;letter-spacing:-.02em}
+    .basic-doc.markdown p,.basic-doc.markdown li{color:#374151;line-height:1.8}
+    .basic-doc.markdown code{background:#f3f4f6;border-color:#e5e7eb;color:#1f2937;border-radius:6px}
+    .basic-doc.markdown pre{background:#f8fafc;border-color:#e5e7eb;border-radius:8px}
+    .basic-doc.markdown blockquote{border-left-color:#d1d5db;color:#4b5563}
+    .reader-body{display:grid;grid-template-columns:minmax(0,1fr) 250px}
+    .reader-doc{padding:28px 26px 34px;background:var(--paper)}
+    .rail{border-left:1px solid var(--line);background:linear-gradient(180deg,#fbfcfe,#f7f9fc);padding:20px 18px}
+    .rail-label{margin:0 0 12px;color:var(--accent);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .rail-item{padding:12px 0;border-top:1px solid var(--line);color:var(--muted);line-height:1.65;font-size:.95rem}
     .rail-item:first-of-type{border-top:0;padding-top:0}
+    .artifact-hero{padding:26px 24px;border-bottom:1px solid rgba(26,34,48,.1);background:rgba(255,255,255,.62)}
+    .artifact-kicker{margin:0 0 8px;color:#275df1;font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .artifact-hero h3{margin:0 0 10px;font-family:Fraunces,serif;font-size:clamp(1.8rem,4vw,3rem);line-height:.96;letter-spacing:-.04em}
+    .artifact-hero p{margin:0;max-width:72ch;color:#5f6878;line-height:1.82}
+    .artifact-layout{display:grid;grid-template-columns:minmax(0,1fr) 280px}
+    .artifact-doc{padding:28px 26px 34px;background:rgba(255,255,255,.72)}
+    .artifact-doc.markdown h1,.artifact-doc.markdown h2,.artifact-doc.markdown h3,.artifact-doc.markdown h4{font-family:Fraunces,serif}
+    .artifact-side{padding:22px 18px;border-left:1px solid rgba(26,34,48,.1);background:rgba(255,255,255,.45);color:#5f6878}
+    .artifact-side h4{margin:0 0 10px;font-size:.78rem;color:#275df1;letter-spacing:.16em;text-transform:uppercase}
+    .artifact-side p{margin:0 0 14px;line-height:1.75}
     .code{margin-top:14px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,#fbfcfe,#f4f7fb);overflow:auto}
     pre.recipe{margin:0;white-space:pre-wrap;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#243b53;line-height:1.62;font-size:.92rem}
-    @media (max-width:800px){
-      .hero,.specimen-body{grid-template-columns:1fr}
-      .deck{padding-left:0;border-left:0;border-top:2px solid var(--line);padding-top:16px}
-      .rail{border-left:0;border-top:1px solid var(--line)}
-    }
-    @media (max-width:640px){
-      body{padding:18px 12px 32px}
-      .hero,.section,.doc,.rail{padding:18px}
-    }
+
+    @media (max-width:860px){.hero,.reader-body,.artifact-layout{grid-template-columns:1fr}.deck{padding-left:0;border-left:0;border-top:2px solid var(--line);padding-top:16px}.rail,.artifact-side{border-left:0;border-top:1px solid var(--line)}}
+    @media (max-width:640px){body{padding:18px 12px 32px}.hero,.section,.toggle-card,.reader-doc,.rail,.artifact-hero,.artifact-doc,.artifact-side{padding:18px}.raw-pre{padding:18px}.basic-doc{padding:18px 16px 22px}}
   </style>
   <style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}</style>
 </head>
@@ -176,124 +106,201 @@
       <div>
         <p class="eyebrow">Style 005</p>
         <h1>Markdown Reader</h1>
-        <p class="sub">A deliberately simple long-form reading system for when the goal is to surface markdown cleanly inside Remote Viewer. It should feel like a calm, trustworthy document surface — not an artifact trying to perform too hard.</p>
+        <p class="sub">This is now better understood as a <strong>family of markdown-reading modes</strong>, not one fixed page type. Same markdown source, different degrees of interpretation — from raw source text to a fuller artifact wrapper.</p>
       </div>
-      <div class="deck">Think high-quality markdown preview, knowledge-base reader, or internal note surface. The identity here comes from legibility, spacing, hierarchy, code treatment, and sane document chrome — not cinematic atmosphere.</div>
+      <div class="deck">Use this style when the source material is fundamentally markdown, but you want control over how literally or how aesthetically it should be presented.</div>
     </section>
 
     <div class="sections">
       <section class="section">
-        <h2>What this style is in plain English</h2>
-        <p>This is the <strong>practical markdown-document style</strong>. It is meant for imported notes, essays, logs, reports, explainers, and long reference text that should read clearly in-browser without needing a whole custom artifact concept wrapped around it.</p>
-        <p>The emotional ingredients are: <strong>clarity, neutrality, trust, structure, and ease of reading</strong>. It should feel more like a good document viewer than a themed landing page.</p>
-      </section>
-
-      <section class="section">
-        <h2>What I’d call it technically</h2>
-        <div class="terms">
-          <div class="term"><h3>Document-first interface</h3><p>The page is organized around readable content blocks rather than visual spectacle or navigation theater.</p></div>
-          <div class="term"><h3>Markdown-native typography</h3><p>Hierarchy is tuned for headings, paragraphs, lists, blockquotes, and code — the things markdown actually produces.</p></div>
-          <div class="term"><h3>Reader chrome</h3><p>Subtle top bars, content rails, and layout framing make it feel like a dependable viewer without getting heavy.</p></div>
-          <div class="term"><h3>Low-noise UI system</h3><p>Quiet grays, restrained blue accent, and soft paper surfaces keep attention on the writing.</p></div>
-          <div class="term"><h3>Technical-text support</h3><p>Inline code, fenced code blocks, and metadata styling are first-class rather than afterthoughts.</p></div>
-          <div class="term"><h3>Operational readability</h3><p>It works for actual use: notes, guides, README-like pages, incident reports, or exported chat synthesis.</p></div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>Core visual ingredients</h2>
+        <h2>What this style is actually becoming</h2>
+        <p>Christopher’s critique was right: “Markdown Reader” was too broad to mean only one thing. So Style 005 now works more like a <strong>chooser</strong> between four markdown-viewer variants:</p>
         <ul>
-          <li><strong>Background:</strong> light neutral workspace gray, not pure white void</li>
-          <li><strong>Document surface:</strong> white or near-white paper card with soft borders</li>
-          <li><strong>Accent color:</strong> quiet link/document blue for anchors and emphasis</li>
-          <li><strong>Typography:</strong> clean sans-serif body with strong heading scale</li>
-          <li><strong>Code treatment:</strong> pale blue-gray code surfaces with monospace support</li>
-          <li><strong>Structure:</strong> strong spacing, visible section rhythm, optional side rail</li>
-          <li><strong>Tone:</strong> calm, useful, modern, legible, intentionally unshowy</li>
+          <li><strong>Raw Markdown</strong> — literal source text</li>
+          <li><strong>Basic Rendered</strong> — minimal markdown rendering</li>
+          <li><strong>Styled Reader</strong> — practical reading surface with modest chrome</li>
+          <li><strong>Artifact Wrapper</strong> — markdown used inside a more authored page</li>
         </ul>
       </section>
 
       <section class="section">
-        <h2>Specimen</h2>
-        <div class="specimen" aria-hidden="true">
-          <div class="specimen-top">
-            <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-            <div>notes / imported-markdown.md</div>
+        <h2>Variant toggle</h2>
+        <div class="toggle-card">
+          <span class="toggle-label">Markdown reader variant</span>
+          <div class="mode-row">
+            <button class="mode-btn active" data-mode="raw">1 · Raw Markdown</button>
+            <button class="mode-btn" data-mode="basic">2 · Basic Rendered</button>
+            <button class="mode-btn" data-mode="reader">3 · Styled Reader</button>
+            <button class="mode-btn" data-mode="artifact">4 · Artifact Wrapper</button>
           </div>
-          <div class="specimen-body">
-            <div class="doc">
-              <h3>Reading real markdown without turning it into theater</h3>
-              <p>This style exists for a simple reason: sometimes the best artifact is not really an <em>artifact</em> at all. It is a well-presented document with enough structure to feel intentional and enough restraint to stay readable.</p>
-              <blockquote>Use this when the content itself deserves center stage and the page should behave like a trustworthy reading surface.</blockquote>
-              <ul>
-                <li>good for reports, notes, and long explainers</li>
-                <li>clean heading hierarchy and generous spacing</li>
-                <li>first-class support for <code>inline code</code> and technical snippets</li>
-              </ul>
-              <pre><code>## Example
+          <p class="mode-note" id="modeNote">Literal markdown source text. Best for editing, AI inspection, and seeing the file exactly as written.</p>
+        </div>
 
-- Readable body text
-- Stable layout
-- Quiet chrome around the edges</code></pre>
+        <div class="viewer">
+          <div class="mode-panel active" data-panel="raw">
+            <div class="mode-meta"><div class="mode-title">Mode 1 · Raw Markdown</div><div>No rendering. Source text only.</div></div>
+            <div class="raw-shell">
+              <div class="shell-head"><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><div>notes / imported-markdown.md</div></div>
+              <pre class="raw-pre"># Reading real markdown without turning it into theater
+
+This is the source itself.
+
+- headings stay visible as markdown
+- bullets stay literal
+- **emphasis** stays written, not rendered
+- 
+&gt; blockquotes remain plain text syntax
+
+```md
+## Example
+
+- readable by humans
+- easy for AI to parse
+- portable across tools
+```
+</pre>
             </div>
-            <aside class="rail">
-              <p class="rail-label">Reader Notes</p>
-              <div class="rail-item"><strong>Best fit:</strong><br>README-style pages, memory exports, essays, changelogs, internal docs.</div>
-              <div class="rail-item"><strong>Not for:</strong><br>hero-driven launchers, heavily atmospheric art pages, or pages whose main value is visual mood.</div>
-              <div class="rail-item"><strong>Why it matters:</strong><br>Not every page should pretend to be something more ornate than a good document.</div>
-            </aside>
+          </div>
+
+          <div class="mode-panel" data-panel="basic">
+            <div class="mode-meta"><div class="mode-title">Mode 2 · Basic Rendered Markdown</div><div>Minimal interpretation. Closest to a true plain markdown reader.</div></div>
+            <div class="basic-shell">
+              <div class="basic-doc markdown">
+                <h1>Reading real markdown without turning it into theater</h1>
+                <p>This is the cleanest rendered version. The markdown becomes readable HTML, but the page mostly gets out of the way.</p>
+                <ul>
+                  <li>good for README-like pages</li>
+                  <li>minimal chrome</li>
+                  <li>clear headings and lists</li>
+                </ul>
+                <blockquote>Probably the closest match to “just render the markdown cleanly.”</blockquote>
+                <pre><code>## Example
+
+- low interpretation
+- high legibility
+- no extra ceremony</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="mode-panel" data-panel="reader">
+            <div class="mode-meta"><div class="mode-title">Mode 3 · Styled Reader</div><div>A practical reading surface with modest chrome and structure.</div></div>
+            <div class="reader-shell">
+              <div class="shell-head"><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><div>continuity / imported-markdown.md</div></div>
+              <div class="reader-body">
+                <div class="reader-doc markdown">
+                  <h1>Reading real markdown without turning it into theater</h1>
+                  <p>This mode adds a little more frame and stability. It still respects the markdown source, but it treats the reading experience as a product surface rather than bare output.</p>
+                  <blockquote>Good when you want markdown to feel native inside Remote Viewer without becoming a full artifact.</blockquote>
+                  <ul>
+                    <li>clean hierarchy and spacing</li>
+                    <li>helpful document chrome</li>
+                    <li>still restrained overall</li>
+                  </ul>
+                  <pre><code>## Example
+
+- modest framing
+- document feel
+- useful for primers and internal notes</code></pre>
+                </div>
+                <aside class="rail">
+                  <p class="rail-label">Reader Notes</p>
+                  <div class="rail-item"><strong>Best fit:</strong><br>primers, reports, memory exports, longer internal docs.</div>
+                  <div class="rail-item"><strong>Tradeoff:</strong><br>cleaner and more stable than basic rendered, but less “pure.”</div>
+                </aside>
+              </div>
+            </div>
+          </div>
+
+          <div class="mode-panel" data-panel="artifact">
+            <div class="mode-meta"><div class="mode-title">Mode 4 · Artifact Wrapper</div><div>The most interpreted version.</div></div>
+            <div class="artifact-shell">
+              <div class="artifact-hero">
+                <p class="artifact-kicker">Markdown as artifact</p>
+                <h3>Reading real markdown with authored framing</h3>
+                <p>Here the markdown is still the content source, but the page becomes a deliberate reading experience with stronger design identity.</p>
+              </div>
+              <div class="artifact-layout">
+                <div class="artifact-doc markdown">
+                  <h1>Reading real markdown without turning it into theater</h1>
+                  <p>This version is useful when the framing itself matters. The markdown remains structurally convenient, but the final page behaves more like a polished artifact.</p>
+                  <blockquote>Best when the page should feel presented, not merely displayed.</blockquote>
+                  <ul>
+                    <li>good for special reports and essays</li>
+                    <li>more authored feeling</li>
+                    <li>stronger visual identity</li>
+                  </ul>
+                  <pre><code>## Example
+
+- same markdown source
+- more presentation logic
+- less neutral than the other variants</code></pre>
+                </div>
+                <aside class="artifact-side">
+                  <h4>Best for</h4>
+                  <p>Public-facing essays, polished primers, special writeups, and pages where presentation is part of the point.</p>
+                  <h4>Tradeoff</h4>
+                  <p>Most expressive, least literal.</p>
+                </aside>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       <section class="section">
-        <h2>When to use it</h2>
-        <p>Use this style when you want to drop a markdown file into Remote Viewer and have it feel native, calm, and polished enough to read comfortably. It is a strong fit for long-form internal writing, imported notes, documentation, continuity pages, or anything that is primarily text with light structural support.</p>
-      </section>
-
-      <section class="section">
         <h2>How to ask for this style later</h2>
+        <p>You can now refer to Style 005 with a specific variant, for example:</p>
         <ul>
-          <li><strong>“Use Markdown Reader”</strong></li>
-          <li><strong>“Make this feel like a clean markdown viewer”</strong></li>
-          <li><strong>“Use the plain document-reading style”</strong></li>
+          <li><strong>“Use Style 005 · Raw Markdown”</strong></li>
+          <li><strong>“Use Style 005 · Basic Rendered”</strong></li>
+          <li><strong>“Use Style 005 · Styled Reader”</strong></li>
+          <li><strong>“Use Style 005 · Artifact Wrapper”</strong></li>
         </ul>
       </section>
 
       <section class="section">
         <h2>Minimal technical recipe</h2>
-        <div class="code"><pre class="recipe">@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+        <div class="code"><pre class="recipe">Markdown Reader (Style 005) is now a family, not one fixed surface.
 
-:root {
-  --bg: #f4f5f7;
-  --paper: #ffffff;
-  --line: #d9dde3;
-  --text: #1f2937;
-  --muted: #667085;
-  --accent: #2f6fed;
-  --code-bg: #f3f6fb;
-}
+Variant 1: Raw Markdown
+- show the .md source directly in monospace
 
-body {
-  background: linear-gradient(180deg, #f7f8fa, #f1f3f6 52%, #eceff3);
-  color: var(--text);
-  font-family: Inter, system-ui, sans-serif;
-}
+Variant 2: Basic Rendered
+- markdown to HTML
+- minimal spacing + basic typography
 
-.document {
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  box-shadow: 0 18px 40px rgba(15,23,42,.08);
-}
+Variant 3: Styled Reader
+- markdown to HTML
+- restrained chrome + document frame + optional side rail
 
-code, pre {
-  font-family: 'IBM Plex Mono', monospace;
-  background: var(--code-bg);
-}</pre></div>
+Variant 4: Artifact Wrapper
+- markdown to HTML
+- stronger hero/framing + more authored layout</pre></div>
       </section>
     </div>
   </div>
+
+  <script>
+    const modeBtns=[...document.querySelectorAll('.mode-btn')];
+    const modePanels=[...document.querySelectorAll('.mode-panel')];
+    const modeNote=document.getElementById('modeNote');
+    const notes={
+      raw:'Literal markdown source text. Best for editing, AI inspection, and seeing the file exactly as written.',
+      basic:'Rendered markdown with very little extra design. Closest to a true plain markdown reader.',
+      reader:'A document-reader interpretation: restrained, but with added chrome and structure.',
+      artifact:'The most interpreted version. Markdown becomes content inside a more explicitly designed page.'
+    };
+    function setMode(mode){
+      modeBtns.forEach(btn=>btn.classList.toggle('active', btn.dataset.mode===mode));
+      modePanels.forEach(panel=>panel.classList.toggle('active', panel.dataset.panel===mode));
+      modeNote.textContent=notes[mode] || '';
+      try{localStorage.setItem('rvStyle005Mode',mode)}catch(_){ }
+    }
+    modeBtns.forEach(button=>button.addEventListener('click',()=>setMode(button.dataset.mode)));
+    const savedMode=(()=>{try{return localStorage.getItem('rvStyle005Mode')}catch(_){return null}})() || 'raw';
+    setMode(savedMode);
+  </script>
 
   <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a><button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button><button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
   <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(pos.top??10,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const moved=m;d=null;save(el,key);if(!moved&&click)await click();});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}const isFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const sync=()=>fsFab.textContent=isFs()?'🡼':'⛶';const toggle=async()=>{try{const t=document.documentElement;if(!isFs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');drag(fab,'rvHomeFabPos');drag(fsFab,'rvFullscreenFabPos',toggle);drag(backFab,'rvBackFabPos',()=>{if(history.length>1)history.back();else location.href=href;});document.addEventListener('fullscreenchange',sync);sync();})();</script>
