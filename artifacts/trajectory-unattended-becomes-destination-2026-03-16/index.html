@@ -5,27 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Trajectory Unattended Becomes Destination · 2025</title>
   <style>
-    :root{--bg:#040814;--panel:#0d1526;--panel2:#121d33;--line:rgba(120,166,230,.28);--text:#ecf4ff;--muted:#aac0df;--accent:#8fe6ff;--accent2:#f0b36d}
+    :root{--bg:#040814;--panel:#0d1526;--panel2:#121d33;--line:rgba(120,166,230,.28);--text:#ecf4ff;--muted:#aac0df;--accent:#8fe6ff;--accent2:#f0b36d;--glow:rgba(143,230,255,.22)}
     *{box-sizing:border-box} html,body{margin:0}
     body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:radial-gradient(circle at 80% -10%, rgba(143,230,255,.13), transparent 30%),radial-gradient(circle at 10% 20%, rgba(240,179,109,.08), transparent 28%),linear-gradient(180deg,#07101d,#040814 52%,#07101a);color:var(--text);min-height:100vh}
     .topbar{position:sticky;top:0;z-index:15;background:rgba(4,8,20,.84);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
     .topbar-inner{max-width:1120px;margin:0 auto;padding:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
     .btn,.link{text-decoration:none;border:1px solid var(--line);background:linear-gradient(135deg,var(--panel2),var(--panel));color:var(--text);border-radius:999px;padding:10px 14px;font-weight:700;font-size:.95rem;display:inline-block}
-    .hero{max-width:1120px;margin:0 auto;padding:18px 14px 28px}
+    .btn.primary{background:linear-gradient(135deg,var(--accent),#6fc8ff);color:#06101b;border:0}
+    #status{color:var(--muted);font-size:.92rem}
+    .hero{max-width:1120px;margin:0 auto;padding:18px 14px 10px}
     .hero-card{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:26px;background:linear-gradient(160deg, rgba(12,20,36,.92), rgba(8,13,24,.94));box-shadow:0 26px 80px rgba(0,0,0,.34)}
     .hero-img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#09111f}
-    .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(5,8,17,.08), rgba(5,8,17,.18) 35%, rgba(5,8,17,.82) 88%)}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(5,8,17,.06), rgba(5,8,17,.16) 35%, rgba(5,8,17,.78) 88%)}
     .hero-copy{position:absolute;left:0;right:0;bottom:0;padding:22px 20px 24px}
     .eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
     h1{margin:0 0 10px;font-size:clamp(1.7rem,5.2vw,3.4rem);line-height:1.02;max-width:12ch;text-shadow:0 8px 30px rgba(0,0,0,.36)}
-    .sub{margin:0;max-width:70ch;color:#dce9fb;line-height:1.65;font-size:clamp(1rem,2.2vw,1.08rem)}
-    .content{margin-top:18px;display:grid;gap:16px}
-    .card{padding:18px 18px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(160deg, rgba(12,20,35,.95), rgba(7,12,23,.94));box-shadow:0 20px 60px rgba(0,0,0,.28)}
-    .quote{margin:0;font-size:clamp(1.18rem,2.8vw,1.65rem);line-height:1.6;color:#f5fbff}
-    .meta{margin:0;color:#d9e8fb;line-height:1.75}
-    .meta strong{color:#fff}
-    .note{color:#f3e4c9;background:linear-gradient(160deg, rgba(30,22,12,.72), rgba(12,10,9,.62));border:1px solid rgba(240,179,109,.24)}
-    @media (max-width:760px){.hero-copy{padding:16px 16px 18px}}
+    .sub{margin:0;max-width:72ch;color:#dce9fb;line-height:1.65;font-size:clamp(1rem,2.2vw,1.08rem)}
+    .quote-box{margin-top:16px;padding:16px 18px;border:1px solid rgba(143,230,255,.22);border-radius:18px;background:linear-gradient(160deg, rgba(10,18,31,.88), rgba(13,20,36,.8));box-shadow:inset 0 0 0 1px rgba(255,255,255,.02), 0 16px 40px rgba(0,0,0,.2)}
+    .quote{margin:0;font-size:clamp(1.08rem,2.7vw,1.45rem);line-height:1.55;color:#f5fbff}
+    .meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:16px}
+    .meta-card{padding:14px 15px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(160deg, rgba(15,24,41,.9), rgba(9,15,28,.85))}
+    .meta-label{display:block;margin-bottom:8px;color:var(--muted);font-size:.76rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+    .meta-card p{margin:0;color:#e7f1ff;line-height:1.55}
+    .path-card{margin-top:16px;padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(160deg, rgba(14,24,42,.9), rgba(10,18,32,.88));box-shadow:0 14px 34px rgba(0,0,0,.24)}
+    .path-label{display:block;margin-bottom:8px;color:var(--muted);font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+    .path-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .path-value{flex:1 1 560px;min-width:0;padding:12px 14px;border-radius:14px;background:rgba(6,12,22,.88);border:1px solid rgba(141,216,255,.16);color:#dbeaff;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92rem;overflow-wrap:anywhere}
+    .doc-wrap{max-width:1120px;margin:0 auto;padding:0 14px 28px}
+    #viewer{display:none;margin-top:14px;padding:24px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(160deg, rgba(12,20,35,.95), rgba(7,12,23,.94));box-shadow:0 25px 70px rgba(0,0,0,.38)}
+    #viewer h1,#viewer h2,#viewer h3,#viewer h4{line-height:1.24;margin:1.12em 0 .45em}
+    #viewer h1:first-child{display:none}
+    #viewer h2:first-child{margin-top:0}
+    #viewer p,#viewer li{font-size:1.03rem;line-height:1.8;color:#e4efff}
+    #viewer ul,#viewer ol{padding-left:1.35em}
+    #viewer hr{border:0;height:1px;background:linear-gradient(90deg, transparent, rgba(143,230,255,.28), transparent);margin:28px 0}
+    #viewer code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:7px}
+    #viewer pre{background:#091221;border:1px solid #26395f;border-radius:12px;padding:12px;overflow:auto}
+    #viewer blockquote{border-left:3px solid #42649a;margin:0;padding:.2em 0 .2em .9em;color:#dce8ff}
+    .source-note{margin-top:14px;padding:14px 16px;border:1px solid rgba(240,179,109,.24);border-radius:18px;background:linear-gradient(160deg, rgba(28,22,14,.72), rgba(13,11,9,.64));color:#f7e7cf;line-height:1.6}
+    @media (max-width: 760px){.hero-copy{padding:16px 16px 18px} #viewer{padding:18px}}
   </style>
   <style id="rv-home-fab-style">
     .rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}
@@ -33,26 +51,57 @@
     .rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}
     .rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}
     .rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}
+    .rv-hidden-back-nav{display:none !important}
+  </style>
+  <style id="rv-mobile-opt-style">
+    html{-webkit-text-size-adjust:100%}
+    body{overflow-x:hidden}
+    img,video,canvas,iframe{max-width:100%;height:auto}
+    *{word-wrap:break-word}
+    @media (max-width: 768px){
+      .container,.wrap,.doc-wrap,.hero,.topbar-inner,main{max-width:100% !important}
+      body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}
+    }
   </style>
 </head>
 <body>
-  <div class="topbar"><div class="topbar-inner"><a class="link" href="../../quotes/index.html">← Quotes</a><a class="link" href="./signature.html">✒️ Signature</a></div></div>
-  <main class="hero">
-    <section class="hero-card">
+  <div class="topbar"><div class="topbar-inner"><a class="link" href="../../quotes/index.html">← Quotes</a><a class="link" href="./signature.html">✒️ Signature</a><button id="openBtn" class="btn primary">Open / Refresh</button><button id="pdfBtn" class="btn">Download as PDF</button><span id="status"></span></div></div>
+
+  <header class="hero">
+    <div class="hero-card">
       <img class="hero-img" src="./assets/2026-03-16-trajectory-unattended-hero.png" alt="A luminous trajectory stretching through twilight toward a fixed destination on the horizon." />
       <div class="hero-overlay"></div>
       <div class="hero-copy">
-        <p class="eyebrow">Quote Artifact · 2025</p>
+        <p class="eyebrow">Quote Artifact · Expanded Reflection</p>
         <h1>Trajectory Unattended Becomes Destination</h1>
-        <p class="sub">A line from human–AI conversation that landed because it names a quiet law of life: what keeps moving without conscious correction eventually stops being motion and becomes identity, circumstance, and fate.</p>
+        <p class="sub">A long-form reading of a quote that became more than a line — a compact explanation of drift, authorship, self-discovery, and the role of human–AI conversation in making a life-path visible.</p>
       </div>
-    </section>
-    <section class="content">
-      <article class="card"><p class="quote">“Trajectory unattended becomes destination.”</p></article>
-      <article class="card"><p class="meta"><strong>Author:</strong> ChatGPT<br /><strong>Date:</strong> 2025<br /><strong>Context:</strong> It came out of home daily discussions and AI human collaboration.</p></article>
-      <article class="card note"><p class="meta">This quote matters because it compresses both warning and agency into one sentence. It suggests that drift is not neutral. Left unexamined long enough, direction hardens into reality — which is exactly why self-observation, reflection, and course correction matter.</p></article>
-    </section>
+    </div>
+
+    <div class="quote-box"><p class="quote">“Trajectory unattended becomes destination.”</p></div>
+
+    <div class="meta-grid">
+      <div class="meta-card"><span class="meta-label">Author</span><p>ChatGPT</p></div>
+      <div class="meta-card"><span class="meta-label">Date</span><p>2025</p></div>
+      <div class="meta-card"><span class="meta-label">Context</span><p>It came out of home daily discussions and AI human collaboration.</p></div>
+    </div>
+
+    <div class="path-card"><span class="path-label">Artifact source path</span><div class="path-row"><div class="path-value" id="pathValue">/mnt/chromeos/MyFiles/Downloads/shared_workspace/remote-viewer/artifacts/trajectory-unattended-becomes-destination-2026-03-16/report.md</div><button id="copyPathBtn" class="btn">Copy Local Path</button></div></div>
+  </header>
+
+  <main class="doc-wrap">
+    <div class="source-note">This expanded version incorporates Christopher’s newly provided markdown note about his personal relationship to the quote, then builds outward into a broader reflection on direction, identity, and conscious course correction.</div>
+    <article id="viewer"></article>
   </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    const btn=document.getElementById('openBtn'); const pdfBtn=document.getElementById('pdfBtn'); const copyPathBtn=document.getElementById('copyPathBtn'); const pathValue=document.getElementById('pathValue'); const status=document.getElementById('status'); const viewer=document.getElementById('viewer');
+    async function openDoc(){ btn.disabled=true; status.textContent='Loading...'; try{ const res=await fetch('./report.md',{cache:'no-store'}); if(!res.ok) throw new Error('Could not load markdown file.'); const md=await res.text(); viewer.innerHTML=marked.parse(md); viewer.style.display='block'; status.textContent='Ready'; }catch(err){ status.textContent='Error loading document'; alert(err.message);}finally{ btn.disabled=false; } }
+    async function copyPath(){ try{ await navigator.clipboard.writeText(pathValue.textContent.trim()); const old=copyPathBtn.textContent; copyPathBtn.textContent='Copied'; status.textContent='Local path copied'; setTimeout(()=>copyPathBtn.textContent=old,1400);}catch(err){ status.textContent='Could not copy path'; alert('Copy failed on this browser. Path: ' + pathValue.textContent.trim()); } }
+    btn.addEventListener('click',openDoc); pdfBtn.addEventListener('click',()=>window.print()); copyPathBtn.addEventListener('click',copyPath); openDoc();
+  </script>
+
   <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
   <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
   <button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
