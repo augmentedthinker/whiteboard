@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Session Startup Primer · 2026-03-17</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
+    :root{
+      --bg:#f4f5f7;
+      --paper:#ffffff;
+      --panel:#fbfbfc;
+      --line:#d9dde3;
+      --line-strong:#c7cdd6;
+      --text:#1f2937;
+      --muted:#667085;
+      --accent:#2f6fed;
+      --accent-soft:rgba(47,111,237,.10);
+      --code-bg:#f3f6fb;
+      --shadow:0 18px 40px rgba(15,23,42,.08);
+    }
+    *{box-sizing:border-box} html,body{margin:0}
+    body{min-height:100vh;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:linear-gradient(180deg,#f7f8fa,#f1f3f6 52%,#eceff3)}
+    .topbar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+    .topbar-inner{max-width:1120px;margin:0 auto;padding:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .btn,.link{text-decoration:none;border:1px solid var(--line);background:rgba(255,255,255,.92);color:var(--text);border-radius:999px;padding:10px 14px;font-weight:700;font-size:.95rem;display:inline-block;box-shadow:0 8px 24px rgba(15,23,42,.05)}
+    .btn.primary{background:linear-gradient(135deg,#2f6fed,#5a8cff);color:#fff;border-color:transparent}
+    #status{color:var(--muted);font-size:.92rem}
+    .hero{max-width:1120px;margin:0 auto;padding:24px 14px 14px}
+    .hero-card{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(290px,.9fr);gap:24px;padding:28px 24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.82);box-shadow:var(--shadow)}
+    .eyebrow{margin:0 0 10px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 12px;font-size:clamp(2rem,5vw,3.6rem);line-height:1.02;letter-spacing:-.04em}
+    .sub{margin:0;color:var(--muted);line-height:1.84;font-size:1.04rem}
+    .deck{padding-left:22px;border-left:2px solid var(--line);display:flex;flex-direction:column;justify-content:flex-end;gap:14px;color:var(--muted);line-height:1.8}
+    .pull{font-size:1.24rem;line-height:1.32;color:var(--text);font-weight:600;letter-spacing:-.02em}
+    .path-card{margin-top:14px;padding:16px 18px;border:1px solid var(--line);border-radius:18px;background:var(--paper);box-shadow:var(--shadow)}
+    .path-label{display:block;margin-bottom:8px;color:var(--accent);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .path-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .path-value{flex:1 1 560px;min-width:0;padding:12px 14px;border-radius:12px;background:linear-gradient(180deg,#fbfcfe,#f4f7fb);border:1px solid var(--line);color:#243b53;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9rem;overflow-wrap:anywhere}
+    .doc-wrap{max-width:1120px;margin:0 auto;padding:0 14px 34px}
+    #viewer{display:none;margin-top:14px;padding:0;border:1px solid var(--line-strong);border-radius:20px;overflow:hidden;background:var(--paper);box-shadow:var(--shadow)}
+    .viewer-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:linear-gradient(180deg,#fafbfd,#f2f4f7);border-bottom:1px solid var(--line);font-size:.92rem;color:var(--muted)}
+    .dots{display:flex;gap:8px}.dot{width:10px;height:10px;border-radius:999px;background:#d0d5dd}
+    .viewer-body{display:grid;grid-template-columns:minmax(0,1fr) 250px}
+    .doc{padding:28px 26px 34px;background:var(--paper)}
+    .rail{border-left:1px solid var(--line);background:linear-gradient(180deg,#fbfcfe,#f7f9fc);padding:20px 18px}
+    .rail-label{margin:0 0 12px;color:var(--accent);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .rail-card{padding:12px 0;border-top:1px solid var(--line);color:var(--muted);line-height:1.68;font-size:.94rem}
+    .rail-card:first-of-type{border-top:0;padding-top:0}
+    #viewer h1,#viewer h2,#viewer h3,#viewer h4{line-height:1.14;letter-spacing:-.03em;color:var(--text)}
+    #viewer h1{font-size:clamp(2rem,5vw,3.1rem);margin:0 0 1rem}
+    #viewer h2{font-size:clamp(1.4rem,3.2vw,2rem);margin:2.2rem 0 .8rem}
+    #viewer h3{font-size:1.14rem;margin:1.5rem 0 .55rem}
+    #viewer p,#viewer li{font-size:1.03rem;line-height:1.88;color:var(--muted)}
+    #viewer strong{color:var(--text)}
+    #viewer ul,#viewer ol{padding-left:1.35em}
+    #viewer hr{border:0;border-top:1px solid var(--line);margin:2rem 0}
+    #viewer code{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--code-bg);border:1px solid #dce6f6;color:#1849a9;padding:.12rem .35rem;border-radius:8px;font-size:.92em}
+    #viewer pre{margin:1rem 0;padding:14px 16px;background:var(--code-bg);border:1px solid #dce6f6;border-radius:14px;overflow:auto}
+    #viewer pre code{background:transparent;border:0;padding:0;color:#243b53;display:block;line-height:1.7}
+    #viewer blockquote{margin:1.2rem 0;padding:.2rem 0 .2rem 1rem;border-left:3px solid var(--accent);color:#4b5563}
+    @media (max-width:860px){.hero-card,.viewer-body{grid-template-columns:1fr}.deck{padding-left:0;border-left:0;border-top:2px solid var(--line);padding-top:16px}.rail{border-left:0;border-top:1px solid var(--line)}}
+    @media (max-width:640px){body{padding-bottom:24px}.doc{padding:20px 18px 24px}.hero-card,.path-card,.rail{padding:18px}.topbar-inner{padding:10px}}
+  </style>
+  <style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}</style>
+  <style id="rv-mobile-opt-style">html{-webkit-text-size-adjust:100%}body{overflow-x:hidden}img,video,canvas,iframe{max-width:100%;height:auto}*{word-wrap:break-word}@media (max-width: 768px){.container,.wrap,.doc-wrap,.hero,.topbar-inner,main{max-width:100% !important}body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}}</style>
+</head>
+<body>
+  <div class="topbar"><div class="topbar-inner"><a class="link" href="../../today/index.html">← Today’s Artifacts</a><a class="link" href="./signature.html">✒️ Signature</a><button id="openBtn" class="btn primary">Open / Refresh</button><button id="pdfBtn" class="btn">Download as PDF</button><span id="status"></span></div></div>
+  <header class="hero">
+    <section class="hero-card">
+      <div>
+        <p class="eyebrow">Today’s Artifact · Style 005</p>
+        <h1>Session Startup Primer · 2026-03-17</h1>
+        <p class="sub">A long-form continuity pass across the recent daily memory, long-term memory, and long-form session documents — meant to get today’s session moving without paying the usual re-entry tax.</p>
+      </div>
+      <div class="deck">
+        <div class="pull">The system feels less scattered than it did a few days ago. Balance has product gravity, Remote Viewer has infrastructural gravity, and continuity is starting to work like an actual discipline.</div>
+        <div>This page uses <strong>Markdown Reader</strong> on purpose: the job here is to read, orient, and think — not to perform as a spectacle.</div>
+      </div>
+    </section>
+    <div class="path-card"><span class="path-label">Artifact source path</span><div class="path-row"><div class="path-value" id="pathValue">/mnt/chromeos/MyFiles/Downloads/shared_workspace/remote-viewer/artifacts/session-startup-primer-2026-03-17/report.md</div><button id="copyPathBtn" class="btn">Copy Local Path</button></div></div>
+  </header>
+  <main class="doc-wrap">
+    <article id="viewer">
+      <div class="viewer-head"><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><div>continuity / session-startup-primer-2026-03-17.md</div></div>
+      <div class="viewer-body">
+        <div class="doc" id="docInner"></div>
+        <aside class="rail">
+          <p class="rail-label">Reader Notes</p>
+          <div class="rail-card"><strong>Input lanes:</strong><br>recent daily memory, long-term memory, and long-form continuity documents.</div>
+          <div class="rail-card"><strong>Main read:</strong><br>Balance remains the strongest live product lane; Remote Viewer keeps becoming the legible shell around it.</div>
+          <div class="rail-card"><strong>Operational caution:</strong><br>Chromebook / Crostini load-state fragility still matters more than any proven network-only theory.</div>
+          <div class="rail-card"><strong>Best next move:</strong><br>go deeper on one real lane rather than opening five new ones at once.</div>
+        </aside>
+      </div>
+    </article>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    const btn=document.getElementById('openBtn'); const pdfBtn=document.getElementById('pdfBtn'); const copyPathBtn=document.getElementById('copyPathBtn'); const pathValue=document.getElementById('pathValue'); const status=document.getElementById('status'); const viewer=document.getElementById('viewer'); const docInner=document.getElementById('docInner');
+    async function openDoc(){ btn.disabled=true; status.textContent='Loading...'; try{ const res=await fetch('./report.md',{cache:'no-store'}); if(!res.ok) throw new Error('Could not load markdown file.'); const md=await res.text(); docInner.innerHTML=marked.parse(md); viewer.style.display='block'; status.textContent='Ready'; }catch(err){ status.textContent='Error loading document'; alert(err.message);}finally{ btn.disabled=false; } }
+    async function copyPath(){ try{ await navigator.clipboard.writeText(pathValue.textContent.trim()); const old=copyPathBtn.textContent; copyPathBtn.textContent='Copied'; status.textContent='Local path copied'; setTimeout(()=>copyPathBtn.textContent=old,1400);}catch(err){ status.textContent='Could not copy path'; alert('Copy failed on this browser. Path: ' + pathValue.textContent.trim()); } }
+    btn.addEventListener('click',openDoc); pdfBtn.addEventListener('click',()=>window.print()); copyPathBtn.addEventListener('click',copyPath); openDoc();
+  </script>
+  <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
+  <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
+  <button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
+  <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(pos.top??10,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const moved=m;d=null;save(el,key);if(!moved&&click)await click();});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}const isFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const sync=()=>fsFab.textContent=isFs()?'🡼':'⛶';const toggle=async()=>{try{const t=document.documentElement;if(!isFs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');drag(fab,'rvHomeFabPos');drag(fsFab,'rvFullscreenFabPos',toggle);drag(backFab,'rvBackFabPos',()=>{if(history.length>1)history.back();else location.href=href;});document.addEventListener('fullscreenchange',sync);sync();})();</script>
+</body>
+</html>
