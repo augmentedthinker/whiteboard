@@ -22,8 +22,8 @@
     body{min-height:100vh;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:linear-gradient(180deg,#f7f8fa,#f1f3f6 52%,#eceff3);padding:24px 16px 44px}
     .wrap{max-width:1160px;margin:0 auto}
     .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
-    .link,.mode-btn{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.92);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 24px rgba(15,23,42,.05);cursor:pointer}
-    .mode-btn.active{background:linear-gradient(135deg,#2f6fed,#5a8cff);color:#fff;border-color:transparent}
+    .link,.mode-btn,.view-btn{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.92);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 24px rgba(15,23,42,.05);cursor:pointer}
+    .mode-btn.active,.view-btn.active{background:linear-gradient(135deg,#2f6fed,#5a8cff);color:#fff;border-color:transparent}
     .hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:24px;padding:28px 24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.82);box-shadow:var(--shadow);margin-bottom:18px}
     .eyebrow{margin:0 0 10px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
     h1{margin:0 0 12px;font-size:clamp(2rem,5vw,3.4rem);line-height:1.02;letter-spacing:-.04em}
@@ -95,6 +95,63 @@
     .code{margin-top:14px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,#fbfcfe,#f4f7fb);overflow:auto}
     pre.recipe{margin:0;white-space:pre-wrap;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#243b53;line-height:1.62;font-size:.92rem}
 
+    body.mobile-reading{padding:10px 0 24px;background:#fff}
+    body.mobile-reading .wrap{max-width:100%}
+    body.mobile-reading .hero,
+    body.mobile-reading .section,
+    body.mobile-reading .toggle-card,
+    body.mobile-reading .raw-shell,
+    body.mobile-reading .basic-shell,
+    body.mobile-reading .reader-shell,
+    body.mobile-reading .artifact-shell,
+    body.mobile-reading .code{
+      border-radius:0;
+      box-shadow:none;
+      border-left:0;
+      border-right:0;
+    }
+    body.mobile-reading .hero{
+      grid-template-columns:1fr;
+      gap:12px;
+      margin-bottom:8px;
+      padding:18px 14px 14px;
+    }
+    body.mobile-reading .deck,
+    body.mobile-reading .terms,
+    body.mobile-reading .artifact-side,
+    body.mobile-reading .rail,
+    body.mobile-reading .mode-meta div:last-child,
+    body.mobile-reading .topbar .link[href="../../index.html"]{display:none}
+    body.mobile-reading .sections{gap:8px}
+    body.mobile-reading .section{padding:14px 14px 16px}
+    body.mobile-reading .toggle-card{padding:12px 14px}
+    body.mobile-reading .mode-row{gap:8px}
+    body.mobile-reading .mode-btn,
+    body.mobile-reading .view-btn,
+    body.mobile-reading .link{padding:9px 12px;font-size:.9rem;box-shadow:none}
+    body.mobile-reading .shell-head{padding:10px 14px}
+    body.mobile-reading .raw-pre,
+    body.mobile-reading .basic-doc,
+    body.mobile-reading .reader-doc,
+    body.mobile-reading .artifact-doc{padding:16px 14px 20px;max-width:100%}
+    body.mobile-reading .artifact-hero,
+    body.mobile-reading .artifact-image-wrap{padding:14px}
+    body.mobile-reading .artifact-image{border-radius:10px;box-shadow:none}
+    body.mobile-reading .reader-body,
+    body.mobile-reading .artifact-layout{grid-template-columns:1fr}
+    body.mobile-reading .markdown p,
+    body.mobile-reading .markdown li,
+    body.mobile-reading .section p,
+    body.mobile-reading .section li{
+      color:#3f4855;
+      text-align:justify;
+      text-justify:inter-word;
+      hyphens:auto;
+    }
+    body.mobile-reading .markdown h1{font-size:1.82rem}
+    body.mobile-reading .markdown h2{font-size:1.34rem;margin:1.7rem 0 .65rem}
+    body.mobile-reading .markdown h3{font-size:1.05rem}
+
     @media (max-width:860px){.hero,.reader-body,.artifact-layout{grid-template-columns:1fr}.deck{padding-left:0;border-left:0;border-top:2px solid var(--line);padding-top:16px}.rail,.artifact-side{border-left:0;border-top:1px solid var(--line)}}
     @media (max-width:640px){body{padding:18px 12px 32px}.hero,.section,.toggle-card,.reader-doc,.rail,.artifact-hero,.artifact-doc,.artifact-side{padding:18px}.raw-pre{padding:18px}.basic-doc{padding:18px 16px 22px}}
   </style>
@@ -102,7 +159,7 @@
 </head>
 <body>
   <div class="wrap">
-    <div class="topbar"><a class="link" href="../index.html">← Styles</a><a class="link" href="../../index.html">Remote Viewer</a></div>
+    <div class="topbar"><a class="link" href="../index.html">← Styles</a><a class="link" href="../../index.html">Remote Viewer</a><button id="mobileViewBtn" class="view-btn" type="button">📱 Mobile Reading View</button></div>
 
     <section class="hero">
       <div>
@@ -261,6 +318,7 @@ This is the source itself.
           <li><strong>“Use Style 005 · Basic Rendered”</strong></li>
           <li><strong>“Use Style 005 · Styled Reader”</strong></li>
           <li><strong>“Use Style 005 · Artifact Wrapper”</strong></li>
+          <li><strong>“Use Style 005 in mobile-reading view”</strong></li>
         </ul>
       </section>
 
@@ -281,7 +339,13 @@ Variant 3: Styled Reader
 
 Variant 4: Artifact Wrapper
 - markdown to HTML
-- stronger hero/framing + more authored layout</pre></div>
+- stronger hero/framing + more authored layout
+
+Optional mobile-reading view
+- reduce borders and empty space
+- remove side rails / secondary blocks
+- widen text to phone edges
+- justify paragraphs for screen-filling readability</pre></div>
       </section>
     </div>
   </div>
@@ -290,6 +354,7 @@ Variant 4: Artifact Wrapper
     const modeBtns=[...document.querySelectorAll('.mode-btn')];
     const modePanels=[...document.querySelectorAll('.mode-panel')];
     const modeNote=document.getElementById('modeNote');
+    const mobileViewBtn=document.getElementById('mobileViewBtn');
     const notes={
       raw:'Literal markdown source text. Best for editing, AI inspection, and seeing the file exactly as written.',
       basic:'Rendered markdown with very little extra design. Closest to a true plain markdown reader.',
@@ -302,9 +367,18 @@ Variant 4: Artifact Wrapper
       modeNote.textContent=notes[mode] || '';
       try{localStorage.setItem('rvStyle005Mode',mode)}catch(_){ }
     }
+    function setMobileReading(on){
+      document.body.classList.toggle('mobile-reading', on);
+      mobileViewBtn.classList.toggle('active', on);
+      mobileViewBtn.textContent = on ? '📱 Mobile Reading On' : '📱 Mobile Reading View';
+      try{localStorage.setItem('rvStyle005MobileReading', on ? '1' : '0')}catch(_){ }
+    }
     modeBtns.forEach(button=>button.addEventListener('click',()=>setMode(button.dataset.mode)));
+    mobileViewBtn.addEventListener('click',()=>setMobileReading(!document.body.classList.contains('mobile-reading')));
     const savedMode=(()=>{try{return localStorage.getItem('rvStyle005Mode')}catch(_){return null}})() || 'raw';
+    const savedMobile=(()=>{try{return localStorage.getItem('rvStyle005MobileReading')==='1'}catch(_){return false}})();
     setMode(savedMode);
+    setMobileReading(savedMobile);
   </script>
 
   <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a><button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button><button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
