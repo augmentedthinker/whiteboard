@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Cross-Surface Reference | Styles</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+    :root{
+      --bg:#eef2f7;--paper:#ffffff;--line:rgba(26,34,48,.12);--text:#18202c;--muted:#5f6878;--accent:#275df1;--shadow:0 18px 50px rgba(17,24,39,.08);
+      --desktop-bg:linear-gradient(160deg,#0f1728,#162341 58%,#0c1426);
+      --mobile-bg:linear-gradient(180deg,#fbfcfe,#f3f6fb 58%,#edf2f8);
+    }
+    *{box-sizing:border-box} html,body{margin:0}
+    body{min-height:100vh;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:linear-gradient(180deg,#f6f8fb,#eef2f7 52%,#e7ecf2);padding:24px 16px 40px}
+    .wrap{max-width:1180px;margin:0 auto}
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+    .link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.82);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 24px rgba(17,24,39,.05)}
+    .hero{padding:30px 26px;border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.78);box-shadow:var(--shadow);margin-bottom:22px}
+    .eyebrow{margin:0 0 10px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 12px;font-size:clamp(2rem,5vw,3.4rem);line-height:1.02;letter-spacing:-.04em}
+    .sub{margin:0;max-width:78ch;color:var(--muted);line-height:1.8;font-size:1.04rem}
+    .comparison{display:grid;grid-template-columns:1.18fr .82fr;gap:22px;margin-bottom:22px}
+    .panel{border:1px solid var(--line);border-radius:24px;overflow:hidden;background:var(--paper);box-shadow:var(--shadow)}
+    .panel-head{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center;background:linear-gradient(180deg,#fbfcfe,#f4f7fb)}
+    .panel-head h2{margin:0;font-size:1.05rem;letter-spacing:.01em}.panel-head span{color:var(--muted);font-size:.92rem}
+    .desktop-shell{padding:20px;background:var(--desktop-bg)}
+    .desktop-window{border:1px solid rgba(143,230,255,.16);border-radius:22px;background:linear-gradient(160deg,rgba(13,22,39,.96),rgba(8,13,24,.98));box-shadow:0 24px 70px rgba(0,0,0,.32);overflow:hidden;color:#eef6ff}
+    .desktop-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid rgba(143,230,255,.14);background:rgba(255,255,255,.03)}
+    .dots{display:flex;gap:8px}.dot{width:10px;height:10px;border-radius:999px;background:#506381}
+    .desktop-body{display:grid;grid-template-columns:1.12fr .88fr;min-height:340px}
+    .desktop-copy{padding:28px 26px 30px}.desktop-kicker{margin:0 0 12px;color:#8fe6ff;font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .desktop-copy h3{margin:0 0 12px;font-family:Fraunces,serif;font-size:clamp(2rem,4vw,3rem);line-height:.94;letter-spacing:-.04em}
+    .desktop-copy p{margin:0;color:#b8cbe5;line-height:1.82;max-width:44ch}
+    .desktop-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:18px}
+    .metric{padding:14px;border:1px solid rgba(143,230,255,.14);border-radius:16px;background:rgba(255,255,255,.03)}
+    .metric strong{display:block;color:#eef6ff;font-size:.94rem}.metric span{display:block;margin-top:6px;color:#9eb5d6;font-size:.84rem;line-height:1.55}
+    .desktop-side{padding:24px;border-left:1px solid rgba(143,230,255,.14);display:grid;align-content:end;background:linear-gradient(180deg,rgba(143,230,255,.04),rgba(255,255,255,.02))}
+    .desktop-side .module{padding:16px;border:1px solid rgba(143,230,255,.16);border-radius:16px;background:rgba(8,13,24,.28);margin-top:10px;color:#d4e5f8;line-height:1.68}
+    .mobile-shell{padding:20px;background:var(--mobile-bg);display:flex;justify-content:center}
+    .phone{width:min(100%,360px);border:1px solid #cfd8e4;border-radius:34px;background:#fff;box-shadow:0 26px 60px rgba(17,24,39,.16);padding:12px}
+    .phone-screen{border:1px solid #dce3ec;border-radius:24px;overflow:hidden;background:#fff}
+    .phone-top{padding:14px 16px;border-bottom:1px solid #e6ebf2;background:linear-gradient(180deg,#fbfcfe,#f4f7fb)}
+    .phone-kicker{margin:0 0 8px;color:#275df1;font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .phone-top h3{margin:0;font-size:1.18rem;line-height:1.12;letter-spacing:-.03em}
+    .phone-scroll{padding:16px 14px 18px}
+    .mobile-card{padding:14px;border:1px solid #dce3ec;border-radius:16px;background:#fbfcfe;margin-bottom:12px}
+    .mobile-card strong{display:block;color:#18202c;font-size:.95rem;margin-bottom:6px}.mobile-card p{margin:0;color:#5f6878;font-size:.9rem;line-height:1.65}
+    .cta{display:flex;justify-content:center;align-items:center;padding:12px 14px;border-radius:14px;background:#2f6fed;color:#fff;font-weight:800;letter-spacing:.01em}
+    .notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    .note{padding:18px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.78);box-shadow:0 10px 30px rgba(17,24,39,.05)}
+    .note h3{margin:0 0 10px;font-size:1rem}.note p,.note li{margin:0;color:var(--muted);line-height:1.75}.note ul{margin:10px 0 0;padding-left:1.2rem}
+    .closing{margin-top:20px;padding:18px 20px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.72);color:var(--muted);line-height:1.8}
+    @media (max-width:900px){.comparison,.notes{grid-template-columns:1fr}.desktop-body{grid-template-columns:1fr}.desktop-side{border-left:0;border-top:1px solid rgba(143,230,255,.14)}}
+    @media (max-width:640px){body{padding:18px 12px 30px}.hero,.panel-head,.desktop-shell,.mobile-shell,.note,.closing{padding:18px}.desktop-copy,.desktop-side{padding:18px}.desktop-metrics{grid-template-columns:1fr}.phone{width:min(100%,340px)}}
+  </style>
+  <style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar"><a class="link" href="../index.html">← Styles</a><a class="link" href="../../index.html">Remote Viewer</a></div>
+    <section class="hero">
+      <p class="eyebrow">Reference Pattern</p>
+      <h1>Cross-Surface Reference</h1>
+      <p class="sub">This is not a numbered style. It is a comparison template for deciding how the same underlying page should behave across surfaces: spacious, luxurious, and context-rich on widescreen desktop; compressed, tap-friendly, and scroll-native on portrait mobile.</p>
+    </section>
+    <section class="comparison">
+      <div class="panel">
+        <div class="panel-head"><h2>Widescreen Desktop View</h2><span>Inspection / comparison / luxury</span></div>
+        <div class="desktop-shell">
+          <div class="desktop-window">
+            <div class="desktop-top"><div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><div>Remote Viewer · Desktop Surface</div></div>
+            <div class="desktop-body">
+              <div class="desktop-copy">
+                <p class="desktop-kicker">When the screen can breathe</p>
+                <h3>Use space to provide context, comparison, and aesthetic generosity.</h3>
+                <p>Desktop has room for side notes, metadata, navigation density, and more layered composition. It should feel intentional and premium, not merely like the phone layout stretched wider.</p>
+                <div class="desktop-metrics">
+                  <div class="metric"><strong>Multiple focal areas</strong><span>Hero, sidebar, metadata, and supporting modules can coexist.</span></div>
+                  <div class="metric"><strong>Richer navigation</strong><span>Desktop can sustain more visible options without feeling claustrophobic.</span></div>
+                  <div class="metric"><strong>Luxury through restraint</strong><span>Whitespace, hierarchy, and layout breathing room become part of the experience.</span></div>
+                </div>
+              </div>
+              <div class="desktop-side">
+                <div class="module"><strong>Good for:</strong><br/>strategic pages, dashboards, style showrooms, comparative readers, and deeper inspection surfaces.</div>
+                <div class="module"><strong>Not for:</strong><br/>mindlessly shrinking phone cards into a loose desktop grid without new structural value.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Portrait Mobile View</h2><span>Reading / launch / fast action</span></div>
+        <div class="mobile-shell">
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="phone-top">
+                <p class="phone-kicker">When the thumb is in charge</p>
+                <h3>Trim the chrome. Keep the path obvious.</h3>
+              </div>
+              <div class="phone-scroll">
+                <div class="mobile-card"><strong>One primary action</strong><p>Don’t ask the phone to juggle six equally important decisions at once.</p></div>
+                <div class="mobile-card"><strong>Readable first</strong><p>Vertical rhythm, stronger defaults, and large tap targets matter more than decorative density.</p></div>
+                <div class="mobile-card"><strong>Fast understanding</strong><p>The page should reveal what it is, why it matters, and where to tap within seconds.</p></div>
+                <div class="cta">Open the live surface</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="notes">
+      <article class="note">
+        <h3>Core principle</h3>
+        <p>Do not force a single layout to pretend both surfaces have the same job. Start from the purpose of the surface, then design for that reality.</p>
+      </article>
+      <article class="note">
+        <h3>Desktop usually wants</h3>
+        <ul>
+          <li>parallel information</li>
+          <li>context rails</li>
+          <li>larger type contrasts</li>
+          <li>more inspectable state</li>
+        </ul>
+      </article>
+      <article class="note">
+        <h3>Mobile usually wants</h3>
+        <ul>
+          <li>single-column flow</li>
+          <li>one obvious next action</li>
+          <li>reduced chrome</li>
+          <li>phone-native reading behavior</li>
+        </ul>
+      </article>
+    </section>
+    <div class="closing">Use this entry as a reusable reference when deciding whether a page should feel luxurious and inspectable on Chromebook/desktop, phone-native and efficient on mobile, or intentionally bifurcated with different emphases across both.</div>
+  </div>
+  <a id="rvHomeFab" class="rv-home-fab" href="#">⌂</a>
+  <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button">⛶</button>
+  <button id="rvBackFab" class="rv-back-fab" type="button">←</button>
+  <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(pos.top??10,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const moved=m;d=null;save(el,key);if(!moved&&click)await click();});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}const isFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const sync=()=>fsFab.textContent=isFs()?'🡼':'⛶';const toggle=async()=>{try{const t=document.documentElement;if(!isFs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');drag(fab,'rvHomeFabPos');drag(fsFab,'rvFullscreenFabPos',toggle);drag(backFab,'rvBackFabPos',()=>{if(history.length>1)history.back();else location.href=href;});document.addEventListener('fullscreenchange',sync);sync();})();</script>
+</body>
+</html>
