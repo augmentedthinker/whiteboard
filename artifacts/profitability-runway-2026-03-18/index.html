@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Profitability Runway · 2026-03-18</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    :root{--bg:#0a0f1a;--panel:#10192a;--panel2:#0f1725;--line:rgba(157,201,255,.18);--text:#e8f0ff;--muted:#9eb5d6;--blue:#66b3ff;--cyan:#58e0ff;--green:#3ddc97;--amber:#ffbc5c;--pink:#ff7ab8;--shadow:0 18px 50px rgba(0,0,0,.28)}
+    *{box-sizing:border-box} html,body{margin:0}
+    body{min-height:100vh;background:radial-gradient(circle at top,#14233d 0%,#0a1220 44%,#070b12 100%);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:18px 14px 34px}
+    .wrap{max-width:1100px;margin:0 auto}
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+    .link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.04);padding:10px 14px;border-radius:999px;font-weight:700;backdrop-filter:blur(8px)}
+    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-bottom:16px}
+    .hero-card,.side-card,.map-card,.doc-card{border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,rgba(16,25,42,.92),rgba(10,15,26,.94));box-shadow:var(--shadow)}
+    .hero-card{padding:26px 24px}
+    .eyebrow{margin:0 0 10px;color:var(--cyan);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 12px;font-size:clamp(2rem,5.2vw,3.5rem);line-height:1.02;letter-spacing:-.04em}
+    .sub{margin:0;color:var(--muted);line-height:1.82;font-size:1.03rem;max-width:70ch}
+    .side-card{padding:20px 18px;display:flex;flex-direction:column;gap:14px;justify-content:flex-end}
+    .quote{font-size:1.12rem;line-height:1.48;font-weight:650;letter-spacing:-.02em}
+    .small{color:var(--muted);line-height:1.72}
+    .map-card{padding:20px 18px;margin-bottom:16px;overflow:hidden}
+    .section-label{margin:0 0 12px;color:var(--cyan);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .runway{display:grid;grid-template-columns:repeat(5,minmax(160px,1fr));gap:14px;align-items:stretch}
+    .node{position:relative;padding:16px 14px 14px;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.09)}
+    .node h2{margin:0 0 8px;font-size:1rem;line-height:1.18}
+    .node p{margin:0;color:var(--muted);line-height:1.65;font-size:.92rem}
+    .node .tag{display:inline-block;margin-bottom:10px;padding:4px 8px;border-radius:999px;font-size:.72rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+    .tag.first{background:rgba(255,188,92,.18);color:#ffd393}
+    .tag.repeat{background:rgba(61,220,151,.18);color:#88f0c2}
+    .tag.long{background:rgba(102,179,255,.18);color:#9fd3ff}
+    .tag.inner{background:rgba(255,122,184,.16);color:#ffb4d5}
+    .flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-top:10px}
+    .arrow{color:#7dbdff;font-size:1.4rem;text-align:center;opacity:.8}
+    .legend{display:grid;grid-template-columns:repeat(4,minmax(180px,1fr));gap:10px;margin-top:16px}
+    .legend-item{padding:12px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);font-size:.9rem;color:var(--muted);line-height:1.6}
+    .legend-item strong{display:block;color:var(--text);margin-bottom:4px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .doc-card{padding:20px 18px}
+    .doc-card h2{margin:0 0 12px;font-size:1.2rem;letter-spacing:-.02em}
+    .list{display:grid;gap:10px}
+    .bullet{padding:12px 12px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07)}
+    .bullet strong{display:block;margin-bottom:6px}
+    .bullet p{margin:0;color:var(--muted);line-height:1.65}
+    .highlight{padding:16px;border-radius:16px;background:linear-gradient(180deg,rgba(88,224,255,.10),rgba(102,179,255,.05));border:1px solid rgba(88,224,255,.22)}
+    .highlight strong{display:block;margin-bottom:8px;color:#dff7ff}
+    .highlight p{margin:0;color:#b9dff1;line-height:1.7}
+    .footer-note{margin-top:16px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);color:var(--muted);line-height:1.7}
+    @media (max-width:900px){.hero,.grid{grid-template-columns:1fr}.runway{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}}
+    @media (max-width:640px){body{padding:10px 0 24px}.wrap{max-width:100%}.hero-card,.side-card,.map-card,.doc-card{border-radius:0;box-shadow:none;border-left:0;border-right:0}.hero-card,.side-card,.map-card,.doc-card{padding:18px 14px}.legend{grid-template-columns:1fr}.topbar{padding:0 14px}.link{padding:9px 12px;font-size:.9rem}.sub,.small,.node p,.bullet p,.highlight p,.footer-note{overflow-wrap:anywhere;word-break:break-word}.sub,.small,.node p,.bullet p,.highlight p,.footer-note{text-align:justify;text-justify:inter-word;hyphens:auto}}
+  </style>
+  <style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar"><a class="link" href="../../today/index.html">← Today’s Artifacts</a><a class="link" href="./signature.html">✒️ Signature</a></div>
+    <section class="hero">
+      <div class="hero-card">
+        <p class="eyebrow">Today’s Artifact · Profitability</p>
+        <h1>Profitability Runway</h1>
+        <p class="sub">A first visual map for crossing from meaningful AI exploration into actual economic reality—without forcing fake founder theater. The goal is not instant empire-building. The goal is the first believable paid exchange.</p>
+      </div>
+      <div class="side-card">
+        <div class="quote">The first dollar matters less for the amount than for the identity shift it creates.</div>
+        <div class="small">This artifact treats profitability as a runway: first crossing, repeatable offer, then a more durable product or structured service lane.</div>
+      </div>
+    </section>
+
+    <section class="map-card">
+      <p class="section-label">Runway map</p>
+      <div class="flow">
+        <div class="node"><span class="tag first">Barrier</span><h2>Mental Block</h2><p>Useful work exists, but charging for self-directed AI work still feels unfamiliar compared with ordinary paid employment.</p></div>
+        <div class="arrow">→</div>
+        <div class="node"><span class="tag first">First move</span><h2>First Paid Exchange</h2><p>One real person pays for one useful thing. This is the psychological crossing more than a revenue event.</p></div>
+        <div class="arrow">→</div>
+        <div class="node"><span class="tag repeat">Stability</span><h2>Repeatable Offer</h2><p>A narrow service or workflow that can be described clearly and delivered more than once.</p></div>
+        <div class="arrow">→</div>
+        <div class="node"><span class="tag long">Durability</span><h2>Product / Structured Lane</h2><p>Move from one-off paid help into a clearer product, hybrid service, or long-term revenue-bearing lane.</p></div>
+        <div class="arrow">→</div>
+        <div class="node"><span class="tag long">Outcome</span><h2>Runway</h2><p>Economic reality becomes thinkable because payment, legitimacy, and identity have already crossed the boundary once.</p></div>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><strong>Best first-dollar candidate</strong>Citation workflow / citation app hybrid service.</div>
+        <div class="legend-item"><strong>Best builder-aligned lane</strong>Custom micro-tools for narrow real problems.</div>
+        <div class="legend-item"><strong>Best long-horizon personal product</strong>Balance, but probably later than the first crossing.</div>
+        <div class="legend-item"><strong>Weaker early move</strong>Pure consulting before having a few real proof points.</div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="doc-card">
+        <h2>Current candidate lanes</h2>
+        <div class="list">
+          <div class="bullet"><strong>Citation app / workflow help</strong><p>The clearest current bridge between prototype thinking and a paid client-facing offer. Strongest first-client substrate.</p></div>
+          <div class="bullet"><strong>Custom micro-tools</strong><p>One-user or narrow-use tools that solve a real pain point before becoming a generalized product.</p></div>
+          <div class="bullet"><strong>Productized AI-assisted service</strong><p>Manual delivery with tight scope and clear value. Likely one of the cleanest early monetization bridges.</p></div>
+          <div class="bullet"><strong>Balance</strong><p>High-potential and personally meaningful, but more likely a later-stage product than the best first-dollar move.</p></div>
+        </div>
+      </div>
+      <div class="doc-card">
+        <h2>Working judgment</h2>
+        <div class="highlight"><strong>Strongest current path</strong><p>A narrow service offer built around a real workflow pain point, with the citation app as the strongest substrate.</p></div>
+        <div class="list" style="margin-top:12px;">
+          <div class="bullet"><strong>Why it works</strong><p>It is legible, useful, and credible before a polished SaaS product exists.</p></div>
+          <div class="bullet"><strong>Why it fits Christopher</strong><p>It lets usefulness lead instead of forcing premature branding or founder performance.</p></div>
+          <div class="bullet"><strong>What success means</strong><p>Not “build a big business instantly,” but prove that one real paid exchange can happen cleanly.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-note">A good next step after this first visualization would be a second artifact that turns this runway into something even more operational: concrete offers, candidate audiences, price/format ideas, and what would count as a legitimate first client scenario.</div>
+  </div>
+  <a id="rvHomeFab" class="rv-home-fab" href="#">⌂</a>
+  <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button">⛶</button>
+  <button id="rvBackFab" class="rv-back-fab" type="button">←</button>
+  <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(pos.top??10,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const moved=m;d=null;save(el,key);if(!moved&&click)await click();});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}const isFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const sync=()=>fsFab.textContent=isFs()?'🡼':'⛶';const toggle=async()=>{try{const t=document.documentElement;if(!isFs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');drag(fab,'rvHomeFabPos');drag(fsFab,'rvFullscreenFabPos',toggle);drag(backFab,'rvBackFabPos',()=>{if(history.length>1)history.back();else location.href=href;});document.addEventListener('fullscreenchange',sync);sync();})();</script>
+</body>
+</html>
