@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Signature · Discussion Primer · 2026-03-20</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body{margin:0;min-height:100vh;background:linear-gradient(180deg,#f4ede2,#ece2d1);color:#1d1812;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:22px;line-height:1.74}
+    main{max-width:900px;margin:0 auto;padding:26px;border:1px solid rgba(45,35,25,.12);border-radius:18px;background:rgba(255,251,245,.86);box-shadow:0 24px 64px rgba(29,24,18,.10)}
+    h1,h2{margin-top:0} h1{font-size:clamp(1.4rem,4vw,2.2rem);letter-spacing:-.03em} h2{font-size:1.02rem;margin:20px 0 8px;color:#355fdf;text-transform:uppercase;letter-spacing:.08em}
+    p,li{color:#4e463c} pre{white-space:pre-wrap;background:#f6efe5;padding:12px;border-radius:12px;border:1px solid rgba(45,35,25,.08)} a{color:#355fdf;text-decoration:none} code{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>✒️ Signature · Discussion Primer · 2026-03-20</h1>
+    <p><strong>Date:</strong> 2026-03-20</p>
+
+    <h2>1) Initiating prompt</h2>
+    <pre>Create today's discussion/session primer as a live Remote Viewer artifact.
+- Make it elaborate, extensive, and genuinely useful as a session-start / discussion primer for the day.
+- Use Style 005 (Markdown Reader), specifically option/variant 4: Artifact Wrapper.
+- Push the presentation hard: richest practical CSS treatment, strong visual polish, and include images as part of the style grammar if feasible.
+- Publish it live into today's artifacts in the Remote Viewer surface.
+- Ensure the new artifact/card is placed appropriately in Today's Artifacts, preferably at the top for today's new entry.
+- Preserve Christopher's existing operating direction and artifact standards.
+- Keep it aligned with the established discussion-primer pattern, but make this one feel more expansive, art-directed, and morning-ready.</pre>
+
+    <h2>2) Exact model / tool trail</h2>
+    <ul>
+      <li>Main session model: <code>openai-codex/gpt-5.4</code></li>
+      <li>Memory recall used to recover prior decisions around Style 005, Today placement, and discussion-primer norms.</li>
+      <li>No new image-generation model was used for this artifact.</li>
+      <li>Existing local repo assets were reused as part of the style grammar.</li>
+    </ul>
+
+    <h2>3) Exact generation inputs / source materials</h2>
+    <p>The prose content was drafted directly for this artifact using current continuity and recent known priorities: Balance, citation-first-value, publishing cadence, profitability, Remote Viewer as infrastructure, and focus as an emerging systems problem.</p>
+    <p>Referenced style image:</p>
+    <pre>../../styles/assets/generated/2026-03-17/markdown-reader-artifact-wrapper-reference.png</pre>
+    <p>Referenced atmospheric image:</p>
+    <pre>../../assets/main-bg/2026-03-03/today-artifacts-bg.png</pre>
+
+    <h2>4) Direction rationale</h2>
+    <p>This build intentionally uses <strong>Style 005 / Variant 4 (Artifact Wrapper)</strong> rather than the quieter Basic Rendered approach used by some earlier primers. The goal was to preserve markdown-source flexibility while pushing the wrapper harder: stronger hero treatment, layered surfaces, richer typography, and image use that behaves like part of the artifact language instead of bolt-on decoration.</p>
+
+    <h2>5) Technical notes</h2>
+    <ul>
+      <li><code>report.md</code> remains the content source.</li>
+      <li><code>index.html</code> fetches and renders markdown client-side with <code>marked</code>.</li>
+      <li>The page uses a two-image grammar: one style-reference image in the hero and one Remote Viewer atmospheric image in the side rail.</li>
+      <li>A new top-card entry was added to <code>today/index.html</code> so the artifact appears first in Today’s Artifacts.</li>
+      <li>Artifact remains static-host friendly for GitHub Pages.</li>
+    </ul>
+
+    <h2>6) Runtime safety note</h2>
+    <p>This artifact is static-only and has no runtime dependency on private API keys. It depends only on local files plus public font/CDN fetches already common in the repo.</p>
+
+    <h2>7) Quick link</h2>
+    <p><a href="./index.html">Open the artifact</a></p>
+  </main>
+</body>
+</html>
