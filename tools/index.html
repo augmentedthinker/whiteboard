@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <title>Remote Viewer | Tools</title>
+  <style>
+    :root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--txt:#c9d1d9;--accent:#58a6ff;--muted:#9da7b1;--ok:#7ee787}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100svh;background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;padding:14px}
+    .wrap{max-width:960px;margin:0 auto}
+    .back{display:inline-block;margin-bottom:12px;text-decoration:none;color:var(--accent);border:1px solid var(--line);padding:10px 12px;border-radius:10px;background:#1b2230}
+    h1{color:var(--accent);margin:8px 0 8px;font-size:clamp(1.5rem,4vw,2.2rem)}
+    .muted{color:var(--muted);line-height:1.7}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px;margin-top:16px}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;min-height:190px}
+    .card h2{font-size:1.05rem;margin:0 0 8px;color:#e6edf3}
+    .btn{display:inline-block;margin-top:10px;padding:10px 12px;border-radius:10px;border:1px solid #3a5f8f;background:#203247;color:#d8ecff;text-decoration:none;font-weight:700}
+    .status{display:inline-block;margin-top:6px;padding:4px 8px;border-radius:999px;background:#0f2a1a;color:var(--ok);border:1px solid #286b47;font-size:.8rem}
+    .note{margin-top:16px;padding:12px;border:1px dashed #3b4b5c;border-radius:10px;background:#111822}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="../index.html">← Back to Remote Viewer</a>
+    <h1>🧰 Tools</h1>
+    <p class="muted">Operational utilities that are meant to be actually useful, not buried. This page is the doorway back into diagnostic and testing surfaces.</p>
+
+    <div class="grid">
+      <section class="card">
+        <h2>🩺 Gemini Diagnostics Checker</h2>
+        <p class="muted">Inspect models.list, see whether focus models are present, and probe individual models across basic, URL-context, and search-tool request paths.</p>
+        <span class="status">Live</span><br>
+        <a class="btn" href="./gemini-ping-checker/index.html">Open Tool</a>
+      </section>
+    </div>
+
+    <div class="note muted">
+      More tools can return here later, but the important thing right now is that the Tools lane is back on the main menu and leads somewhere real.
+    </div>
+  </div>
+</body>
+</html>
