@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Signature · Balance Reimagined · Four Forces · 2026-03-24</title>
+  <style>
+    :root{--bg:#0b1222;--panel:#111b31;--line:rgba(157,201,255,.28);--text:#e8f1ff;--muted:#b8c7e2;--accent:#8ac5ff}
+    *{box-sizing:border-box} html,body{margin:0}
+    body{min-height:100vh;background:linear-gradient(180deg,#0b1222,#111a2f);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:24px 16px}
+    .wrap{max-width:860px;margin:0 auto}.card{border:1px solid var(--line);border-radius:20px;background:rgba(17,27,49,.78);padding:22px;box-shadow:0 18px 50px rgba(0,0,0,.22)}
+    a{color:var(--accent);text-decoration:none;font-weight:700}.top{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.pill{display:inline-block;padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04)}
+    h1{margin:0 0 14px;font-size:clamp(1.8rem,4vw,2.8rem)} h2{margin:1.6rem 0 .5rem;font-size:1rem;color:var(--accent);text-transform:uppercase;letter-spacing:.12em}
+    p,li{color:var(--muted);line-height:1.8} code{background:rgba(255,255,255,.06);padding:.15rem .38rem;border-radius:8px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top"><a class="pill" href="./index.html">← Artifact</a><a class="pill" href="../../today/index.html">Today’s Artifacts</a></div>
+    <article class="card">
+      <h1>✒️ Signature</h1>
+      <p><strong>Artifact:</strong> Balance Reimagined · Four Forces · 2026-03-24</p>
+      <p><strong>Intent:</strong> Capture the fresh whiteboard-born reimagining of Balance as four major life-forces rather than the older symmetrical nine-domain model, and present it as a visually appealing laptop-first artifact in Today’s Artifacts.</p>
+      <h2>User request</h2>
+      <p>Create a new artifact for Today’s Artifacts that lists the four categories, explains what each means, includes specifics inside each category, gives each its own color, feels visually appealing, and includes an interactive wheel plus a freshly generated AI hero banner.</p>
+      <h2>Agent orchestration</h2>
+      <ul>
+        <li>Main session synthesized the live brainstorming conversation into a four-force conceptual model.</li>
+        <li>Artifact implemented as custom HTML/CSS/JS with an interactive wheel and long-form supporting writeup.</li>
+        <li>Two attempts were made to generate a fresh AI hero image via Gemini 3 Pro Image / Nano Banana Pro, but the image endpoint returned <code>503 UNAVAILABLE</code> due to temporary high demand.</li>
+      </ul>
+      <h2>Model / tool trail</h2>
+      <ul>
+        <li>Main authoring/implementation in OpenClaw main session.</li>
+        <li>Image generation attempts via Nano Banana Pro skill using Gemini 3 Pro Image helper.</li>
+        <li>Because image generation was temporarily unavailable, the live artifact uses a custom generated visual hero built directly in HTML/CSS/SVG so the concept could still go live immediately.</li>
+      </ul>
+      <h2>Artifact files</h2>
+      <ul><li><code>report.md</code> — long-form concept explanation</li><li><code>index.html</code> — live artifact surface</li><li><code>signature.html</code> — provenance / implementation notes</li></ul>
+      <h2>Fun note</h2>
+      <p>This one already feels less like a self-help dashboard and more like a weather map for a human life.</p>
+    </article>
+  </div>
+</body>
+</html>
