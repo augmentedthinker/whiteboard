@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Signature · Morning Briefing · 2026-03-24</title>
+  <style>
+    :root{--bg:#0b1222;--panel:#111b31;--line:rgba(157,201,255,.28);--text:#e8f1ff;--muted:#b8c7e2;--accent:#8ac5ff}
+    *{box-sizing:border-box} html,body{margin:0}
+    body{min-height:100vh;background:linear-gradient(180deg,#0b1222,#111a2f);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:24px 16px}
+    .wrap{max-width:860px;margin:0 auto}.card{border:1px solid var(--line);border-radius:20px;background:rgba(17,27,49,.78);padding:22px;box-shadow:0 18px 50px rgba(0,0,0,.22)}
+    a{color:var(--accent);text-decoration:none;font-weight:700}.top{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.pill{display:inline-block;padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04)}
+    h1{margin:0 0 14px;font-size:clamp(1.8rem,4vw,2.8rem)} h2{margin:1.6rem 0 .5rem;font-size:1rem;color:var(--accent);text-transform:uppercase;letter-spacing:.12em}
+    p,li{color:var(--muted);line-height:1.8} code{background:rgba(255,255,255,.06);padding:.15rem .38rem;border-radius:8px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <a class="pill" href="./index.html">← Artifact</a>
+      <a class="pill" href="../../today/index.html">Today’s Artifacts</a>
+    </div>
+    <article class="card">
+      <h1>✒️ Signature</h1>
+      <p><strong>Artifact:</strong> Morning Briefing · 2026-03-24</p>
+      <p><strong>Intent:</strong> Create a super-readable morning briefing for laptop reading that synthesizes recent memory across the collaboration, reflects on how the relationship is evolving, and frames the current trajectory of the ecosystem.</p>
+
+      <h2>User request</h2>
+      <p>Prepare a morning briefing, host it live in Today’s Artifacts, make it very readable on a laptop, include some visual elements, review the recent memory lanes, and describe the state of affairs, the collaboration, the shared space, the outward-facing spaces, and the trajectory.</p>
+
+      <h2>Agent orchestration</h2>
+      <ul>
+        <li>Main session performed continuity review across recent daily memory, long-term memory, and recent session summaries.</li>
+        <li>Artifact written as a new long-form morning report plus a custom editorial HTML surface.</li>
+        <li>Visual layer implemented directly in CSS/HTML rather than relying on fresh image generation, to keep the artifact lightweight and publishable immediately.</li>
+      </ul>
+
+      <h2>Model / tool trail</h2>
+      <ul>
+        <li>Primary authoring and implementation performed in OpenClaw main session.</li>
+        <li>Memory recall grounded with memory search plus direct reads of recent memory files and prior session summaries.</li>
+        <li>Presentation uses a custom Style 005-adjacent editorial reader rather than a numbered canonical variant.</li>
+      </ul>
+
+      <h2>Artifact files</h2>
+      <ul>
+        <li><code>report.md</code> — long-form morning briefing source</li>
+        <li><code>index.html</code> — live artifact page</li>
+        <li><code>signature.html</code> — provenance / implementation notes</li>
+      </ul>
+
+      <h2>Fun note</h2>
+      <p>This one is less “artifact as spectacle” and more “artifact as window with good light.”</p>
+    </article>
+  </div>
+</body>
+</html>
