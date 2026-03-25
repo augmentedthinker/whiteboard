@@ -10,11 +10,11 @@
   <style>
     :root{
       --text:#edf4ff;
-      --muted:#b4c3d8;
-      --blue:#5aa2ff; --blue-soft:rgba(90,162,255,.16); --blue-strong:rgba(90,162,255,.26);
-      --red:#ff7d95; --red-soft:rgba(255,125,149,.16); --red-strong:rgba(255,125,149,.26);
-      --gold:#e7bd69; --gold-soft:rgba(231,189,105,.16); --gold-strong:rgba(231,189,105,.26);
-      --green:#6ed7a0; --green-soft:rgba(110,215,160,.16); --green-strong:rgba(110,215,160,.26);
+      --muted:#b8c7da;
+      --blue:#5aa2ff; --blue-soft:rgba(90,162,255,.16); --blue-strong:rgba(90,162,255,.28); --blue-solid:#13263d;
+      --red:#ff7d95; --red-soft:rgba(255,125,149,.16); --red-strong:rgba(255,125,149,.28); --red-solid:#341922;
+      --gold:#e7bd69; --gold-soft:rgba(231,189,105,.16); --gold-strong:rgba(231,189,105,.28); --gold-solid:#332712;
+      --green:#6ed7a0; --green-soft:rgba(110,215,160,.16); --green-strong:rgba(110,215,160,.28); --green-solid:#112c23;
       --shadow:0 28px 90px rgba(0,0,0,.34);
       --radius:28px;
     }
@@ -41,14 +41,25 @@
     }
     .grid{
       position:relative;
-      width:min(1400px, calc(100vw - 48px));
-      height:min(820px, calc(100vh - 48px));
+      width:min(1460px, calc(100vw - 48px));
+      height:min(840px, calc(100vh - 48px));
       display:grid;
       grid-template-columns:1fr 1fr;
       grid-template-rows:1fr 1fr;
       gap:18px;
       isolation:isolate;
     }
+    .overlay{
+      position:absolute;
+      inset:-12px;
+      background:rgba(4,9,15,.52);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .45s ease;
+      border-radius:34px;
+      z-index:8;
+    }
+    .grid.focus-mode .overlay{opacity:1}
     .force{
       position:relative;
       border-radius:var(--radius);
@@ -56,78 +67,47 @@
       background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
       box-shadow:var(--shadow);
       overflow:hidden;
-      padding:20px 20px 18px;
+      padding:22px 22px 20px;
       display:flex;
       flex-direction:column;
       min-height:0;
-      transition:transform .5s cubic-bezier(.2,.8,.2,1), opacity .35s ease, filter .35s ease, box-shadow .35s ease;
-      transform-origin:center center;
+      transition:opacity .42s ease, filter .42s ease, transform .42s ease;
       z-index:1;
     }
-    .force::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:radial-gradient(circle at 88% 12%, rgba(255,255,255,.12), transparent 28%);
-      pointer-events:none;
-    }
+    .force::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 88% 12%, rgba(255,255,255,.12), transparent 28%);pointer-events:none}
     .force.blue{box-shadow:var(--shadow), inset 0 0 0 1px rgba(90,162,255,.14)}
     .force.red{box-shadow:var(--shadow), inset 0 0 0 1px rgba(255,125,149,.14)}
     .force.gold{box-shadow:var(--shadow), inset 0 0 0 1px rgba(231,189,105,.14)}
     .force.green{box-shadow:var(--shadow), inset 0 0 0 1px rgba(110,215,160,.14)}
-    .grid.focus-mode .force:not(.active){
-      transform:scale(.93);
-      opacity:.2;
-      filter:blur(2px) saturate(.8);
-      pointer-events:none;
-    }
-    .grid.focus-mode .force.active{
-      position:absolute;
-      inset:0;
-      transform:scale(1);
-      z-index:20;
-      padding:28px 30px 26px;
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      box-shadow:0 40px 120px rgba(0,0,0,.44);
-    }
-    .grid.focus-mode .force.active .summary{
-      max-width:88ch;
-    }
-    .grid.focus-mode .force.active h2{font-size:clamp(2rem,3vw,3rem);max-width:16ch}
-    .grid.focus-mode .force.active p{font-size:1rem;max-width:72ch;line-height:1.65}
+    .grid.focus-mode .force:not(.active){opacity:.18;filter:blur(2px) saturate(.75);transform:scale(.96);pointer-events:none}
+
     .accent{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px}
     .accent::before{content:"";width:11px;height:11px;border-radius:999px;background:currentColor;box-shadow:0 0 24px currentColor}
     .blue .accent{color:var(--blue)} .red .accent{color:var(--red)} .gold .accent{color:var(--gold)} .green .accent{color:var(--green)}
-    .force h2{margin:0 0 8px;font-family:Fraunces,serif;font-size:clamp(1.4rem,2vw,2.15rem);line-height:1.02;letter-spacing:-.03em;max-width:14ch}
+    .force h2{margin:0 0 10px;font-family:Fraunces,serif;font-size:clamp(1.55rem,2.15vw,2.35rem);line-height:1.02;letter-spacing:-.03em;max-width:none}
     .summary{display:flex;flex-direction:column;min-height:0;flex:1}
-    .force p{margin:0;color:var(--muted);line-height:1.55;font-size:.92rem;max-width:52ch}
+    .force p{margin:0;color:var(--muted);line-height:1.6;font-size:.96rem;max-width:none;text-wrap:pretty}
     .action-row{margin:16px 0 16px;display:flex;align-items:center;gap:10px;min-height:44px}
-    .next-btn,.close-btn{
-      appearance:none;border:1px solid transparent;border-radius:999px;padding:10px 14px;font-size:.84rem;font-weight:800;letter-spacing:.04em;cursor:pointer;transition:transform .2s ease, filter .2s ease, background .2s ease, border-color .2s ease;
-    }
+    .next-btn,.close-btn{appearance:none;border:1px solid transparent;border-radius:999px;padding:10px 14px;font-size:.84rem;font-weight:800;letter-spacing:.04em;cursor:pointer;transition:transform .2s ease, filter .2s ease, background .2s ease, border-color .2s ease}
     .next-btn:hover,.close-btn:hover{transform:translateY(-1px);filter:brightness(1.06)}
     .blue .next-btn,.blue .close-btn{background:var(--blue-soft);border-color:var(--blue-strong);color:#dcecff}
     .red .next-btn,.red .close-btn{background:var(--red-soft);border-color:var(--red-strong);color:#ffe0e6}
     .gold .next-btn,.gold .close-btn{background:var(--gold-soft);border-color:var(--gold-strong);color:#fff0cc}
     .green .next-btn,.green .close-btn{background:var(--green-soft);border-color:var(--green-strong);color:#dcffec}
     .close-btn{display:none}
-    .chips{display:flex;flex-wrap:wrap;gap:8px}
+
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
     .chip{padding:7px 10px;border-radius:999px;border:1px solid transparent;font-size:.79rem;font-weight:600;color:#eef4ff}
     .blue .chip{background:var(--blue-soft);border-color:rgba(90,162,255,.24);color:#dcecff}
     .red .chip{background:var(--red-soft);border-color:rgba(255,125,149,.24);color:#ffe0e6}
     .gold .chip{background:var(--gold-soft);border-color:rgba(231,189,105,.24);color:#fff0cc}
     .green .chip{background:var(--green-soft);border-color:rgba(110,215,160,.24);color:#dcffec}
-    .steps{
-      margin-top:16px;
-      padding-top:16px;
-      border-top:1px solid rgba(255,255,255,.08);
-      opacity:0; max-height:0; overflow:hidden;
-      transition:opacity .25s ease, max-height .4s ease, margin-top .25s ease;
-    }
+
+    .steps{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08);opacity:0;max-height:0;overflow:hidden;transition:opacity .28s ease,max-height .5s ease,transform .5s ease;transform:translateY(8px)}
     .steps h3{margin:0 0 10px;font-size:.84rem;letter-spacing:.14em;text-transform:uppercase}
     .blue .steps h3{color:var(--blue)} .red .steps h3{color:var(--red)} .gold .steps h3{color:var(--gold)} .green .steps h3{color:var(--green)}
     .step-list{display:grid;gap:10px}
-    .step{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03)}
+    .step{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.035)}
     .step-num{flex:0 0 auto;width:26px;height:26px;border-radius:999px;display:grid;place-items:center;font-size:.78rem;font-weight:800}
     .step-text{font-size:.92rem;line-height:1.45;color:#ebf2ff}
     .step-text small{display:block;margin-top:2px;color:var(--muted);font-size:.8rem}
@@ -135,22 +115,56 @@
     .red .step-num{background:var(--red-soft);color:#ffe0e6;border:1px solid var(--red-strong)}
     .gold .step-num{background:var(--gold-soft);color:#fff0cc;border:1px solid var(--gold-strong)}
     .green .step-num{background:var(--green-soft);color:#dcffec;border:1px solid var(--green-strong)}
-    .force.active .steps{opacity:1;max-height:280px}
-    .force.active .close-btn{display:inline-flex}
-    .force.active .next-btn{display:none}
+
+    .expander{
+      position:fixed;
+      left:0; top:0;
+      width:0; height:0;
+      border-radius:var(--radius);
+      overflow:hidden;
+      opacity:0;
+      pointer-events:none;
+      z-index:30;
+      transition:left .54s cubic-bezier(.22,.8,.2,1), top .54s cubic-bezier(.22,.8,.2,1), width .54s cubic-bezier(.22,.8,.2,1), height .54s cubic-bezier(.22,.8,.2,1), opacity .18s ease;
+    }
+    .expander.open{opacity:1}
+    .expander-card{
+      width:100%;height:100%;border-radius:var(--radius);border:1px solid rgba(255,255,255,.08);box-shadow:0 46px 120px rgba(0,0,0,.5);padding:28px 30px 26px;display:flex;flex-direction:column;position:relative;overflow:hidden;
+    }
+    .expander-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 88% 12%, rgba(255,255,255,.09), transparent 28%);pointer-events:none}
+    .expander.blue .expander-card{background:linear-gradient(180deg, #11233a, #0d1828)}
+    .expander.red .expander-card{background:linear-gradient(180deg, #311822, #24131a)}
+    .expander.gold .expander-card{background:linear-gradient(180deg, #312510, #241b0c)}
+    .expander.green .expander-card{background:linear-gradient(180deg, #112920, #0d1f19)}
+    .expander .accent{font-size:.78rem;margin-bottom:12px}
+    .expander h2{margin:0 0 10px;font-family:Fraunces,serif;font-size:clamp(2.1rem,3vw,3.2rem);line-height:1.02;letter-spacing:-.03em;max-width:18ch}
+    .expander p{margin:0;color:var(--muted);line-height:1.64;font-size:1rem;max-width:none}
+    .expander .action-row{margin:18px 0 18px}
+    .expander .close-btn{display:inline-flex}
+    .expander .next-btn{display:none}
+    .expander .chips{margin-top:0}
+    .expander .steps{opacity:1;max-height:320px;transform:translateY(0)}
+
     @media (max-width:1000px){
       body{overflow:auto}
       .stage{padding:16px}
       .grid{height:auto;min-height:unset;grid-template-columns:1fr}
       .force{min-height:unset}
-      .grid.focus-mode .force.active{position:relative;inset:auto;padding:22px 20px 20px}
+      .overlay{display:none}
+      .expander{display:none}
       .grid.focus-mode .force:not(.active){display:none}
+      .grid.focus-mode .force.active{opacity:1;filter:none;transform:none}
+      .force.active{padding:24px 22px 22px;background:linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.03))}
+      .force.active .close-btn{display:inline-flex}
+      .force.active .next-btn{display:none}
+      .force.active .steps{opacity:1;max-height:320px;transform:translateY(0)}
     }
   </style>
 </head>
 <body>
   <main class="stage">
     <section class="grid" id="forceGrid" aria-label="Balance Force Map">
+      <div class="overlay"></div>
       <article class="force blue" data-force="venture">
         <div class="accent">Venture / Applied AI</div>
         <div class="summary">
@@ -245,27 +259,97 @@
     </section>
   </main>
 
+  <div class="expander" id="expander" aria-hidden="true"></div>
+
   <script>
     const grid = document.getElementById('forceGrid');
     const cards = [...document.querySelectorAll('.force')];
+    const expander = document.getElementById('expander');
+    let activeCard = null;
+
+    function buildExpander(card){
+      const cls = [...card.classList].find(c => ['blue','red','gold','green'].includes(c)) || '';
+      expander.className = `expander ${cls}`;
+      expander.innerHTML = `<div class="expander-card">${card.innerHTML}</div>`;
+      expander.querySelector('.close-btn').addEventListener('click', closeCards);
+    }
 
     function openCard(card){
-      grid.classList.add('focus-mode');
-      cards.forEach(c => c.classList.toggle('active', c === card));
+      if (window.innerWidth <= 1000) {
+        grid.classList.add('focus-mode');
+        cards.forEach(c => c.classList.toggle('active', c === card));
+        activeCard = card;
+        return;
+      }
+
+      activeCard = card;
+      const rect = card.getBoundingClientRect();
+      buildExpander(card);
+      expander.style.left = rect.left + 'px';
+      expander.style.top = rect.top + 'px';
+      expander.style.width = rect.width + 'px';
+      expander.style.height = rect.height + 'px';
+      expander.setAttribute('aria-hidden', 'false');
+
+      requestAnimationFrame(() => {
+        grid.classList.add('focus-mode');
+        card.classList.add('active');
+        expander.classList.add('open');
+        const padX = Math.max(28, window.innerWidth * 0.06);
+        const padY = Math.max(24, window.innerHeight * 0.07);
+        expander.style.left = padX + 'px';
+        expander.style.top = padY + 'px';
+        expander.style.width = (window.innerWidth - padX * 2) + 'px';
+        expander.style.height = (window.innerHeight - padY * 2) + 'px';
+      });
     }
 
     function closeCards(){
+      if (window.innerWidth <= 1000) {
+        grid.classList.remove('focus-mode');
+        cards.forEach(c => c.classList.remove('active'));
+        activeCard = null;
+        return;
+      }
+      if (!activeCard) return;
+      const rect = activeCard.getBoundingClientRect();
+      expander.style.left = rect.left + 'px';
+      expander.style.top = rect.top + 'px';
+      expander.style.width = rect.width + 'px';
+      expander.style.height = rect.height + 'px';
+      expander.classList.remove('open');
       grid.classList.remove('focus-mode');
       cards.forEach(c => c.classList.remove('active'));
+      const done = () => {
+        expander.innerHTML = '';
+        expander.setAttribute('aria-hidden', 'true');
+        expander.removeEventListener('transitionend', done);
+      };
+      expander.addEventListener('transitionend', done);
+      activeCard = null;
     }
 
     cards.forEach(card => {
       card.querySelector('.next-btn').addEventListener('click', () => openCard(card));
-      card.querySelector('.close-btn').addEventListener('click', closeCards);
+      const close = card.querySelector('.close-btn');
+      if (close) close.addEventListener('click', closeCards);
     });
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeCards();
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth <= 1000 && expander.innerHTML) {
+        expander.innerHTML = '';
+        expander.className = 'expander';
+        expander.setAttribute('aria-hidden', 'true');
+        if (activeCard) {
+          grid.classList.remove('focus-mode');
+          cards.forEach(c => c.classList.remove('active'));
+          activeCard = null;
+        }
+      }
     });
   </script>
 </body>
