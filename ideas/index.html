@@ -282,20 +282,4 @@
   })();
   </script>
 </body>
-</html> if(document.webkitExitFullscreen) document.webkitExitFullscreen();
-        }
-      }catch(_){ }
-      syncFsIcon();
-    };
-    placeFromStorage(fab,'rvHomeFabPos','left');
-    placeFromStorage(fsFab,'rvFullscreenFabPos','right');
-    placeFromStorage(backFab,'rvBackFabPos','left');
-    wireDraggable(fab,'rvHomeFabPos');
-    wireDraggable(fsFab,'rvFullscreenFabPos',toggleFullscreen);
-    wireDraggable(backFab,'rvBackFabPos',()=>{if(window.history.length>1)window.history.back();else window.location.href=href;});
-    document.addEventListener('fullscreenchange',syncFsIcon);
-    syncFsIcon();
-  })();
-  </script>
-</body>
 </html>
