@@ -1,0 +1,105 @@
+<svg width="1600" height="1200" viewBox="0 0 1600 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="1200" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#07111F"/>
+      <stop offset="0.42" stop-color="#0A1526"/>
+      <stop offset="0.72" stop-color="#0C1E35"/>
+      <stop offset="1" stop-color="#08111D"/>
+    </linearGradient>
+    <radialGradient id="leftGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(320 580) rotate(8) scale(520 420)">
+      <stop offset="0" stop-color="#0B1320" stop-opacity="0.03"/>
+      <stop offset="0.32" stop-color="#0A1321" stop-opacity="0.08"/>
+      <stop offset="0.7" stop-color="#08111D" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#08111D" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="rightGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1210 350) rotate(127) scale(520 420)">
+      <stop offset="0" stop-color="#3AB7FF" stop-opacity="0.22"/>
+      <stop offset="0.28" stop-color="#1593E8" stop-opacity="0.16"/>
+      <stop offset="0.62" stop-color="#0B4F8F" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#07111F" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cornerGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1410 1020) rotate(-129) scale(520 420)">
+      <stop offset="0" stop-color="#5AD0FF" stop-opacity="0.15"/>
+      <stop offset="0.38" stop-color="#1A8BDA" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#08111D" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="lineA" x1="860" y1="120" x2="1450" y2="900" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#9BE7FF" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#1D5D9C" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="lineB" x1="940" y1="280" x2="1490" y2="1030" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#65BEFF" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#17456D" stop-opacity="0.04"/>
+    </linearGradient>
+    <filter id="blur40" x="-200" y="-200" width="2000" height="1600" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="40"/>
+    </filter>
+    <filter id="blur18" x="-200" y="-200" width="2000" height="1600" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <filter id="softNoise" x="0" y="0" width="1600" height="1200" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.018"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1200" fill="url(#bg)"/>
+  <rect width="1600" height="1200" fill="url(#leftGlow)"/>
+  <rect width="1600" height="1200" fill="url(#rightGlow)"/>
+  <rect width="1600" height="1200" fill="url(#cornerGlow)"/>
+
+  <g opacity="0.8">
+    <ellipse cx="420" cy="610" rx="350" ry="270" fill="#07111F"/>
+    <ellipse cx="410" cy="600" rx="430" ry="330" fill="#07111F" fill-opacity="0.55"/>
+  </g>
+
+  <g opacity="0.85" filter="url(#blur40)">
+    <circle cx="1100" cy="340" r="90" fill="#6ED7FF" fill-opacity="0.22"/>
+    <circle cx="1310" cy="860" r="110" fill="#2291E8" fill-opacity="0.18"/>
+    <circle cx="980" cy="760" r="70" fill="#2EB5FF" fill-opacity="0.12"/>
+  </g>
+
+  <g opacity="0.4">
+    <path d="M905 184C1012 264 1095 288 1193 288C1304 288 1391 242 1480 170" stroke="url(#lineA)" stroke-width="1.5"/>
+    <path d="M834 321C950 392 1024 439 1127 518C1235 600 1329 731 1440 862" stroke="url(#lineB)" stroke-width="1.2"/>
+    <path d="M977 173L1201 309L1096 519L1324 672L1179 972" stroke="#7AD6FF" stroke-opacity="0.12" stroke-width="1"/>
+    <path d="M1010 285L1174 372L1090 533L1240 648L1140 841" stroke="#C7F2FF" stroke-opacity="0.08" stroke-width="1"/>
+  </g>
+
+  <g opacity="0.8">
+    <circle cx="987" cy="173" r="3" fill="#B5F0FF"/>
+    <circle cx="1201" cy="309" r="4" fill="#68C9FF"/>
+    <circle cx="1096" cy="519" r="4" fill="#8DDEFF"/>
+    <circle cx="1324" cy="672" r="5" fill="#5CBFFF"/>
+    <circle cx="1179" cy="972" r="4" fill="#8FD7FF"/>
+    <circle cx="1100" cy="340" r="6" fill="#D8F7FF" fill-opacity="0.6"/>
+    <circle cx="1310" cy="860" r="5" fill="#8FD7FF" fill-opacity="0.5"/>
+  </g>
+
+  <g opacity="0.28" filter="url(#blur18)">
+    <rect x="975" y="252" width="272" height="172" rx="18" transform="rotate(8 975 252)" fill="#103150"/>
+    <rect x="1055" y="508" width="250" height="140" rx="16" transform="rotate(7 1055 508)" fill="#102B46"/>
+    <rect x="1110" y="774" width="214" height="122" rx="16" transform="rotate(11 1110 774)" fill="#0E2440"/>
+  </g>
+
+  <g opacity="0.55">
+    <rect x="972" y="246" width="280" height="178" rx="20" transform="rotate(8 972 246)" fill="#0D1A2C" stroke="#4FC3FF" stroke-opacity="0.18"/>
+    <rect x="1050" y="503" width="258" height="146" rx="18" transform="rotate(7 1050 503)" fill="#0B1727" stroke="#77D8FF" stroke-opacity="0.14"/>
+    <rect x="1112" y="770" width="220" height="126" rx="18" transform="rotate(11 1112 770)" fill="#0A1626" stroke="#5EBEFF" stroke-opacity="0.12"/>
+    <line x1="1012" y1="295" x2="1210" y2="323" stroke="#9BE7FF" stroke-opacity="0.18"/>
+    <line x1="1083" y1="547" x2="1244" y2="566" stroke="#9BE7FF" stroke-opacity="0.14"/>
+    <line x1="1145" y1="808" x2="1280" y2="835" stroke="#9BE7FF" stroke-opacity="0.12"/>
+  </g>
+
+  <g opacity="0.18">
+    <path d="M1218 156C1295 186 1348 240 1382 312C1422 396 1427 479 1411 556" stroke="#D6F8FF" stroke-width="1.2"/>
+    <path d="M1205 151C1283 212 1328 284 1341 361C1354 441 1337 528 1293 618" stroke="#50BEFF" stroke-width="1"/>
+  </g>
+
+  <g filter="url(#softNoise)">
+    <rect width="1600" height="1200" fill="#FFFFFF" opacity="0.18"/>
+  </g>
+</svg>
