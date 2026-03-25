@@ -3,183 +3,77 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Remote Viewer | Ideas & Loose Ends</title>
+  <title>Remote Viewer | Next Steps</title>
   <style>
-    :root { --bg:#0d1117; --panel:#161b22; --border:#30363d; --text:#c9d1d9; --accent:#58a6ff; --muted:#9da7b1; }
-    *{box-sizing:border-box}
-    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);margin:0;padding:max(12px,env(safe-area-inset-top)) 12px max(16px,env(safe-area-inset-bottom));line-height:1.5;min-height:100vh}
-    .container{max-width:860px;margin:0 auto}
-    header{border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:16px}
-    h1{color:var(--accent);margin:0;font-size:clamp(1.4rem,3.8vw,2rem)}
-    header p{margin:4px 0 0;color:var(--muted)}
-    .back-link{display:inline-block;margin:0 0 12px;text-decoration:none;color:var(--accent);border:1px solid var(--border);border-radius:10px;padding:10px 14px;background:#21262d}
-    .note-card{background:linear-gradient(135deg, rgba(28, 35, 46, 0.95), rgba(20, 27, 38, 0.92));border:1px solid rgba(136,174,255,.35);border-radius:12px;padding:16px;margin-bottom:12px}
-    .note-card h2{margin:0 0 8px;color:#9ec7ff;font-size:1.1rem}
-    .meta{font-size:.88rem;color:var(--muted);margin-bottom:10px}
-    ul{margin:8px 0 0 18px}
-    .status{display:inline-block;font-size:.8rem;padding:3px 8px;border-radius:999px;border:1px solid #4b5563;color:#d1d5db;background:#1f2937}
+    :root{--bg:#f6f7f9;--paper:#ffffff;--line:#d9dde3;--text:#1f2937;--muted:#667085;--accent:#2f6fed;--shadow:0 12px 30px rgba(15,23,42,.06)}
+    *{box-sizing:border-box} html,body{margin:0}
+    body{min-height:100vh;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#f7f8fa,#f1f3f6 52%,#eceff3);color:var(--text);padding:max(12px,env(safe-area-inset-top)) 12px max(16px,env(safe-area-inset-bottom));line-height:1.55}
+    .container{max-width:920px;margin:0 auto}
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+    .link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.94);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 24px rgba(15,23,42,.05)}
+    .hero{padding:22px 20px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.88);box-shadow:var(--shadow);margin-bottom:14px}
+    .eyebrow{margin:0 0 10px;color:var(--accent);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 12px;font-size:clamp(2rem,6vw,3rem);line-height:1.02;letter-spacing:-.04em}
+    .sub{margin:0;color:var(--muted);line-height:1.8;font-size:1rem;max-width:72ch}
+    .ledger{display:grid;gap:14px}
+    .idea{padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--paper);box-shadow:var(--shadow)}
+    .idea-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+    .idea h2{margin:0;font-size:1.2rem;line-height:1.25;letter-spacing:-.02em}
+    .drag-handle{font-size:1.1rem;color:#94a3b8;user-select:none}
+    .meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+    .chip{display:inline-block;padding:6px 10px;border-radius:999px;font-size:.78rem;font-weight:800;letter-spacing:.03em}
+    .chip.high{background:#dbeafe;color:#1d4ed8}
+    .chip.placeholder{background:#f3f4f6;color:#6b7280}
+    .idea p{margin:0 0 12px;color:#475467;line-height:1.75}
+    .idea ul{margin:0;padding-left:1.2rem}.idea li{margin:.28rem 0;color:#475467;line-height:1.6}
+    @media (max-width:760px){body{padding:10px 0 24px;background:#fff}.container{max-width:100%}.hero,.idea{border-radius:0;box-shadow:none;border-left:0;border-right:0}.hero{padding:18px 14px 14px}.idea{padding:16px 14px}.topbar{padding:0 10px}.link{padding:9px 12px;font-size:.9rem;box-shadow:none}h1{font-size:1.9rem}.sub,.idea p,.idea li{overflow-wrap:anywhere}}
   </style>
-
-<style id="rv-home-fab-style">
-  .rv-home-fab,.rv-fullscreen-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}
-  .rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}
-  .rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}
-  .rv-home-fab.dragging,.rv-fullscreen-fab.dragging{cursor:grabbing}
-  .rv-hidden-back-nav{display:none !important}
-  .rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none;left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}
-  .rv-back-fab.dragging{cursor:grabbing}
-
-</style>
-
-<style id="rv-mobile-opt-style">
-  html{-webkit-text-size-adjust:100%}
-  body{overflow-x:hidden}
-  img,video,canvas,iframe{max-width:100%;height:auto}
-  *{word-wrap:break-word}
-  @media (max-width: 768px){
-    .container,.wrap,.doc-wrap,.hero,.topbar-inner,main{max-width:100% !important}
-    body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}
-  }
-</style>
+<style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging{cursor:grabbing}.rv-hidden-back-nav{display:none !important}.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none;left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-back-fab.dragging{cursor:grabbing}</style>
+<style id="rv-mobile-opt-style">html{-webkit-text-size-adjust:100%}body{overflow-x:hidden}img,video,canvas,iframe{max-width:100%;height:auto}*{word-wrap:break-word}@media (max-width: 768px){.container,.wrap,.doc-wrap,.hero,.topbar-inner,main{max-width:100% !important}body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}}</style>
 </head>
 <body>
   <div class="container">
-    <header>
-      <h1>💡 Ideas & Loose Ends</h1>
-      <p>Quick parking lot for concepts we want to revisit and implement deliberately.</p>
-    </header>
-
-    <a class="back-link" href="../index.html">← Back to Remote Viewer</a>
-
-    <div class="note-card">
-      <h2>ClawHub as an Implementation Intelligence Layer</h2>
-      <div class="meta">Added: 2026-03-03 · Status: <span class="status">Parked / Next Up</span></div>
-      <p>Idea: Create a dedicated place in Remote Viewer to archive high-signal OpenClaw learning from YouTube, X, and articles — then convert each insight into concrete actions we can test and adopt.</p>
-      <ul>
-        <li>Store source links + short why-it-matters summary</li>
-        <li>Tag by topic (skills, automation, memory, browser relay, etc.)</li>
-        <li>Add one executable "next action" per entry</li>
-        <li>Track status: untested → tested → adopted</li>
-      </ul>
-      <p><strong>First pass intention:</strong> avoid building a giant system; start with simple entries that force implementation.</p>
+    <div class="topbar">
+      <a class="link" href="../index.html">← Remote Viewer</a>
     </div>
+    <section class="hero">
+      <p class="eyebrow">Remote Viewer · Next Steps</p>
+      <h1>Next Steps</h1>
+      <p class="sub">A dedicated page for current next-step ideas. Clean, minimal, and separate from Today’s Artifacts.</p>
+    </section>
+    <section class="ledger">
+      <article class="idea">
+        <div class="idea-head">
+          <h2>Vercel for the Citation App</h2>
+          <div class="drag-handle" aria-hidden="true">⋮⋮</div>
+        </div>
+        <div class="meta"><span class="chip high">High potential</span></div>
+        <p>Use Vercel as the deployment/runtime surface for the citation lane once the goal is to make it feel more like a real tool than a frontend-only prototype.</p>
+        <ul>
+          <li>server-side Gemini key storage</li>
+          <li>cleaner tester flow for Rose or others</li>
+          <li>home for backend routes and structured extraction logic</li>
+          <li>better fit than GitHub Pages for product-like app behavior</li>
+        </ul>
+      </article>
+      <article class="idea">
+        <div class="idea-head">
+          <h2>New Idea Card</h2>
+          <div class="drag-handle" aria-hidden="true">⋮⋮</div>
+        </div>
+        <div class="meta"><span class="chip placeholder">Placeholder</span></div>
+        <p>An open slot for the next real idea we want to add.</p>
+        <ul>
+          <li>drop in the next candidate move</li>
+          <li>replace placeholder language when ready</li>
+          <li>keep adding cards over time</li>
+        </ul>
+      </article>
+    </section>
   </div>
-
 <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
 <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
 <button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
-<script id="rv-home-fab-script">
-(function(){
-  const fab=document.getElementById('rvHomeFab');
-  const fsFab=document.getElementById('rvFullscreenFab');
-  const backFab=document.getElementById('rvBackFab');
-  if(!fab || !fsFab || !backFab) return;
-  const path=location.pathname;
-  const marker='/remote-viewer/';
-  const idx=path.indexOf(marker);
-  const href=idx>=0 ? path.slice(0, idx + marker.length) : '/';
-  fab.setAttribute('href', href);
-
-  const clamp = (v,min,max)=>Math.max(min, Math.min(max, v));
-  const placeFromStorage = (el,key,side='left') => {
-    try {
-      const raw = localStorage.getItem(key);
-      if(!raw) return;
-      const pos = JSON.parse(raw);
-      const maxLeft = window.innerWidth - el.offsetWidth - 6;
-      const maxTop = window.innerHeight - el.offsetHeight - 6;
-      const left = clamp(pos.left ?? (side==='left'?10:maxLeft), 6, maxLeft);
-      const top = clamp(pos.top ?? 10, 6, maxTop);
-      el.style.left = left + 'px';
-      el.style.top = top + 'px';
-      el.style.right = 'auto';
-    } catch(_) {}
-  };
-  const savePos = (el,key) => {
-    try { localStorage.setItem(key, JSON.stringify({left: el.offsetLeft, top: el.offsetTop})); } catch(_) {}
-  };
-
-  function wireDraggable(el, key, onClick){
-    let drag=null, moved=false;
-    el.addEventListener('pointerdown', (e)=>{ drag={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop}; moved=false; el.classList.add('dragging'); el.setPointerCapture(e.pointerId); e.preventDefault(); });
-    el.addEventListener('pointermove', (e)=>{ if(!drag||e.pointerId!==drag.id) return; const dx=e.clientX-drag.startX, dy=e.clientY-drag.startY; if(Math.abs(dx)>3||Math.abs(dy)>3) moved=true; const maxLeft=window.innerWidth-el.offsetWidth-6, maxTop=window.innerHeight-el.offsetHeight-6; const nextLeft=clamp(drag.left+dx, 6, maxLeft); const nextTop=clamp(drag.top+dy, 6, maxTop); el.style.left=nextLeft+'px'; el.style.top=nextTop+'px'; el.style.right='auto'; });
-    el.addEventListener('pointerup', async (e)=>{ if(!drag||e.pointerId!==drag.id) return; el.classList.remove('dragging'); try{el.releasePointerCapture(e.pointerId);}catch(_){} const wasMoved=moved; drag=null; savePos(el,key); if(!wasMoved && onClick) await onClick(e); });
-    el.addEventListener('pointercancel', ()=>{ el.classList.remove('dragging'); drag=null; savePos(el,key); });
-    el.addEventListener('click', (e)=>{ if(moved){ e.preventDefault(); moved=false; } });
-  }
-
-  const isFullscreen = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
-  const syncFsIcon = () => { fsFab.textContent = isFullscreen() ? '🡼' : '⛶'; };
-  const toggleFullscreen = async () => {
-    try {
-      const target = document.documentElement;
-      if (!isFullscreen()) {
-        if (target.requestFullscreen) await target.requestFullscreen();
-        else if (target.webkitRequestFullscreen) target.webkitRequestFullscreen();
-        try { localStorage.setItem('rvFullscreenPreferred', '1'); } catch(_) {}
-      } else {
-        if (document.exitFullscreen) await document.exitFullscreen();
-        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-        try { localStorage.setItem('rvFullscreenPreferred', '0'); } catch(_) {}
-      }
-    } catch(_) {}
-    syncFsIcon();
-  };
-  const tryApplyFullscreenPreference = async () => {
-    let preferred = false;
-    try { preferred = localStorage.getItem('rvFullscreenPreferred') === '1'; } catch(_) {}
-    if (!preferred || isFullscreen()) return;
-    try {
-      const target = document.documentElement;
-      if (target.requestFullscreen) await target.requestFullscreen();
-      else if (target.webkitRequestFullscreen) target.webkitRequestFullscreen();
-    } catch(_) {}
-    syncFsIcon();
-  };
-  const armFullscreenCarry = () => {
-    let preferred = false;
-    try { preferred = localStorage.getItem('rvFullscreenPreferred') === '1'; } catch(_) {}
-    if (!preferred) return;
-    const handler = () => {
-      tryApplyFullscreenPreference();
-      window.removeEventListener('pointerdown', handler, true);
-      window.removeEventListener('keydown', handler, true);
-      window.removeEventListener('touchstart', handler, true);
-    };
-    window.addEventListener('pointerdown', handler, true);
-    window.addEventListener('keydown', handler, true);
-    window.addEventListener('touchstart', handler, true);
-  };
-
-  placeFromStorage(fab, 'rvHomeFabPos', 'left');
-  placeFromStorage(fsFab, 'rvFullscreenFabPos', 'right');
-  placeFromStorage(backFab, 'rvBackFabPos', 'left');
-  wireDraggable(fab, 'rvHomeFabPos');
-  wireDraggable(fsFab, 'rvFullscreenFabPos', toggleFullscreen);
-  wireDraggable(backFab, 'rvBackFabPos', ()=>{ if(window.history.length>1){ window.history.back(); } else { window.location.href = href; } });
-  document.addEventListener('fullscreenchange', syncFsIcon);
-  document.addEventListener('webkitfullscreenchange', syncFsIcon);
-  syncFsIcon();
-
-  const hideBackNav = () => {
-    const selectors = 'a,button,.btn,.link,.back';
-    document.querySelectorAll(selectors).forEach(el => {
-      if (el.id === 'rvHomeFab' || el.id === 'rvFullscreenFab' || el.id === 'rvBackFab' || el.id === 'fsBtn') return;
-      const text = (el.textContent || '').replace(/\s+/g,' ').trim().toLowerCase();
-      const hrefAttr = (el.getAttribute && (el.getAttribute('href') || '') || '').toLowerCase();
-      const title = (el.getAttribute && (el.getAttribute('title') || '') || '').toLowerCase();
-      const looksBack = text.startsWith('←') || text.startsWith('back to') || text === 'back' || text === 'today’s artifacts' || text === "today's artifacts" || title.includes('back to');
-      const navHref = hrefAttr.includes('../index.html') || hrefAttr.endsWith('/index.html') || hrefAttr === 'index.html';
-      if (looksBack || (navHref && text.includes('back'))) el.classList.add('rv-hidden-back-nav');
-    });
-  };
-
-  const init = () => { hideBackNav(); armFullscreenCarry(); };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, {once:true});
-  else init();
-  window.addEventListener('resize', ()=>{ placeFromStorage(fab, 'rvHomeFabPos', 'left'); placeFromStorage(fsFab, 'rvFullscreenFabPos', 'right');
-  placeFromStorage(backFab, 'rvBackFabPos', 'left'); });
-})();
-</script>
+<script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const placeFromStorage=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(pos.top??10,6,maxTop)+'px';el.style.right='auto';}catch(_){}};const savePos=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function wireDraggable(el,key,onClick){let drag=null,moved=false;el.addEventListener('pointerdown',e=>{drag={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};moved=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!drag||e.pointerId!==drag.id)return;const dx=e.clientX-drag.startX,dy=e.clientY-drag.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)moved=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(drag.left+dx,6,maxLeft)+'px';el.style.top=clamp(drag.top+dy,6,maxTop)+'px';el.style.right='auto';});el.addEventListener('pointerup',async e=>{if(!drag||e.pointerId!==drag.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const wasMoved=moved;drag=null;savePos(el,key);if(!wasMoved&&onClick)await onClick(e);});el.addEventListener('click',e=>{if(moved){e.preventDefault();moved=false;}});}const isFullscreen=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const syncFsIcon=()=>{fsFab.textContent=isFullscreen()?'🡼':'⛶';};const toggleFullscreen=async()=>{try{const target=document.documentElement;if(!isFullscreen()){if(target.requestFullscreen)await target.requestFullscreen();else if(target.webkitRequestFullscreen)target.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}syncFsIcon();};placeFromStorage(fab,'rvHomeFabPos','left');placeFromStorage(fsFab,'rvFullscreenFabPos','right');placeFromStorage(backFab,'rvBackFabPos','left');wireDraggable(fab,'rvHomeFabPos');wireDraggable(fsFab,'rvFullscreenFabPos',toggleFullscreen);wireDraggable(backFab,'rvBackFabPos',()=>{if(window.history.length>1)window.history.back();else window.location.href=href;});document.addEventListener('fullscreenchange',syncFsIcon);syncFsIcon();})();</script>
 </body>
 </html>
