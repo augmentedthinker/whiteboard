@@ -220,7 +220,7 @@
               <h3>New Experience</h3>
               <div class="card-marker" aria-hidden="true">◫</div>
             </div>
-            <div class="meta"><span class="chip placeholder">Adventure</span></div>
+            <div class="meta"><span class="chip adventure">Adventure</span></div>
             <p>Create room for a genuinely new experience so life gains novelty and freshness, not just maintenance and output.</p>
             <ul>
               <li>pick something small but real</li>
@@ -292,6 +292,12 @@
     wireDraggable(fsFab,'rvFullscreenFabPos',toggleFullscreen);
     wireDraggable(backFab,'rvBackFabPos',()=>{if(window.history.length>1)window.history.back();else window.location.href=href;});
     document.addEventListener('fullscreenchange',syncFsIcon);
+    syncFsIcon();
+  })();
+  </script>
+</body>
+</html>
+eenchange',syncFsIcon);
     syncFsIcon();
   })();
   </script>
