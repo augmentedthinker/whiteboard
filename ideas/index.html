@@ -5,28 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Remote Viewer | Next Steps</title>
   <style>
-    :root{--bg:#f6f7f9;--paper:#ffffff;--line:#d9dde3;--text:#1f2937;--muted:#667085;--accent:#2f6fed;--shadow:0 12px 30px rgba(15,23,42,.06)}
+    :root{
+      --bg:#f6f7f9;--paper:#ffffff;--line:#d9dde3;--text:#1f2937;--muted:#667085;--accent:#2f6fed;--shadow:0 12px 30px rgba(15,23,42,.06);
+      --venture:#dbeafe;--venture-line:#93c5fd;--venture-ink:#1d4ed8;
+      --connection:#fce7f3;--connection-line:#f9a8d4;--connection-ink:#be185d;
+      --stewardship:#dcfce7;--stewardship-line:#86efac;--stewardship-ink:#166534;
+      --adventure:#fef3c7;--adventure-line:#fcd34d;--adventure-ink:#a16207;
+    }
     *{box-sizing:border-box} html,body{margin:0}
     body{min-height:100vh;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#f7f8fa,#f1f3f6 52%,#eceff3);color:var(--text);padding:max(12px,env(safe-area-inset-top)) 12px max(16px,env(safe-area-inset-bottom));line-height:1.55}
-    .container{max-width:920px;margin:0 auto}
+    .container{max-width:980px;margin:0 auto}
     .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
     .link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.94);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 24px rgba(15,23,42,.05)}
     .hero{padding:22px 20px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.88);box-shadow:var(--shadow);margin-bottom:14px}
     .eyebrow{margin:0 0 10px;color:var(--accent);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
     h1{margin:0 0 12px;font-size:clamp(2rem,6vw,3rem);line-height:1.02;letter-spacing:-.04em}
     .sub{margin:0;color:var(--muted);line-height:1.8;font-size:1rem;max-width:72ch}
-    .ledger{display:grid;gap:14px}
-    .idea{padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--paper);box-shadow:var(--shadow)}
+    .forces{display:grid;gap:16px}
+    .force{padding:16px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.82);box-shadow:var(--shadow)}
+    .force-head{margin-bottom:12px}
+    .force-head h2{margin:0 0 6px;font-size:1.2rem;letter-spacing:-.02em}
+    .force-head p{margin:0;color:var(--muted);line-height:1.65}
+    .force.venture{border-color:var(--venture-line);background:linear-gradient(180deg, rgba(219,234,254,.55), rgba(255,255,255,.92))}
+    .force.connection{border-color:var(--connection-line);background:linear-gradient(180deg, rgba(252,231,243,.58), rgba(255,255,255,.92))}
+    .force.stewardship{border-color:var(--stewardship-line);background:linear-gradient(180deg, rgba(220,252,231,.56), rgba(255,255,255,.92))}
+    .force.adventure{border-color:var(--adventure-line);background:linear-gradient(180deg, rgba(254,243,199,.62), rgba(255,255,255,.92))}
+    .cards{display:grid;gap:12px}
+    .idea{padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--paper);box-shadow:0 8px 22px rgba(15,23,42,.05)}
     .idea-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
-    .idea h2{margin:0;font-size:1.2rem;line-height:1.25;letter-spacing:-.02em}
-    .drag-handle{font-size:1.1rem;color:#94a3b8;user-select:none}
+    .idea h3{margin:0;font-size:1.12rem;line-height:1.25;letter-spacing:-.02em}
+    .card-marker{font-size:1.08rem;color:#94a3b8;user-select:none}
     .meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
     .chip{display:inline-block;padding:6px 10px;border-radius:999px;font-size:.78rem;font-weight:800;letter-spacing:.03em}
-    .chip.high{background:#dbeafe;color:#1d4ed8}
+    .chip.venture{background:var(--venture);color:var(--venture-ink)}
     .chip.placeholder{background:#f3f4f6;color:#6b7280}
     .idea p{margin:0 0 12px;color:#475467;line-height:1.75}
     .idea ul{margin:0;padding-left:1.2rem}.idea li{margin:.28rem 0;color:#475467;line-height:1.6}
-    @media (max-width:760px){body{padding:10px 0 24px;background:#fff}.container{max-width:100%}.hero,.idea{border-radius:0;box-shadow:none;border-left:0;border-right:0}.hero{padding:18px 14px 14px}.idea{padding:16px 14px}.topbar{padding:0 10px}.link{padding:9px 12px;font-size:.9rem;box-shadow:none}h1{font-size:1.9rem}.sub,.idea p,.idea li{overflow-wrap:anywhere}}
+    @media (max-width:760px){body{padding:10px 0 24px;background:#fff}.container{max-width:100%}.hero,.force,.idea{border-radius:0;box-shadow:none;border-left:0;border-right:0}.hero{padding:18px 14px 14px}.force{padding:14px 0}.force-head,.cards{padding:0 14px}.idea{padding:16px 14px}.topbar{padding:0 10px}.link{padding:9px 12px;font-size:.9rem;box-shadow:none}h1{font-size:1.9rem}.sub,.idea p,.idea li,.force-head p{overflow-wrap:anywhere}}
   </style>
 <style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging{cursor:grabbing}.rv-hidden-back-nav{display:none !important}.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none;left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-back-fab.dragging{cursor:grabbing}</style>
 <style id="rv-mobile-opt-style">html{-webkit-text-size-adjust:100%}body{overflow-x:hidden}img,video,canvas,iframe{max-width:100%;height:auto}*{word-wrap:break-word}@media (max-width: 768px){.container,.wrap,.doc-wrap,.hero,.topbar-inner,main{max-width:100% !important}body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}}</style>
@@ -39,36 +54,95 @@
     <section class="hero">
       <p class="eyebrow">Remote Viewer · Next Steps</p>
       <h1>Next Steps</h1>
-      <p class="sub">A dedicated page for current next-step ideas. Clean, minimal, and separate from Today’s Artifacts.</p>
+      <p class="sub">A dedicated page for current next-step ideas, now organized by the four forces so new moves have a natural home.</p>
     </section>
-    <section class="ledger">
-      <article class="idea">
-        <div class="idea-head">
-          <h2>Vercel for the Citation App</h2>
-          <div class="drag-handle" aria-hidden="true">⋮⋮</div>
+
+    <section class="forces">
+      <section class="force venture">
+        <div class="force-head">
+          <h2>Venture / Applied AI</h2>
+          <p>Moves related to building, shipping, testing, technical leverage, and external usefulness.</p>
         </div>
-        <div class="meta"><span class="chip high">High potential</span></div>
-        <p>Use Vercel as the deployment/runtime surface for the citation lane once the goal is to make it feel more like a real tool than a frontend-only prototype.</p>
-        <ul>
-          <li>server-side Gemini key storage</li>
-          <li>cleaner tester flow for Rose or others</li>
-          <li>home for backend routes and structured extraction logic</li>
-          <li>better fit than GitHub Pages for product-like app behavior</li>
-        </ul>
-      </article>
-      <article class="idea">
-        <div class="idea-head">
-          <h2>New Idea Card</h2>
-          <div class="drag-handle" aria-hidden="true">⋮⋮</div>
+        <div class="cards">
+          <article class="idea">
+            <div class="idea-head">
+              <h3>Vercel for the Citation App</h3>
+              <div class="card-marker" aria-hidden="true">◫</div>
+            </div>
+            <div class="meta"><span class="chip venture">Venture</span></div>
+            <p>Use Vercel as the deployment/runtime surface for the citation lane once the goal is to make it feel more like a real tool than a frontend-only prototype.</p>
+            <ul>
+              <li>server-side Gemini key storage</li>
+              <li>cleaner tester flow for Rose or others</li>
+              <li>home for backend routes and structured extraction logic</li>
+              <li>better fit than GitHub Pages for product-like app behavior</li>
+            </ul>
+          </article>
         </div>
-        <div class="meta"><span class="chip placeholder">Placeholder</span></div>
-        <p>An open slot for the next real idea we want to add.</p>
-        <ul>
-          <li>drop in the next candidate move</li>
-          <li>replace placeholder language when ready</li>
-          <li>keep adding cards over time</li>
-        </ul>
-      </article>
+      </section>
+
+      <section class="force connection">
+        <div class="force-head">
+          <h2>Connection / Relational Identity</h2>
+          <p>Moves related to relationships, presentation to other people, trust, and relational presence.</p>
+        </div>
+        <div class="cards">
+          <article class="idea">
+            <div class="idea-head">
+              <h3>New Idea Card</h3>
+              <div class="card-marker" aria-hidden="true">◫</div>
+            </div>
+            <div class="meta"><span class="chip placeholder">Placeholder</span></div>
+            <p>An open slot for the next real idea we want to add in this force.</p>
+            <ul>
+              <li>replace placeholder language when ready</li>
+              <li>add a relationship-facing or trust-facing next move</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="force stewardship">
+        <div class="force-head">
+          <h2>Life Stewardship</h2>
+          <p>Moves related to keeping life functional, cared for, organized, and sustainable.</p>
+        </div>
+        <div class="cards">
+          <article class="idea">
+            <div class="idea-head">
+              <h3>New Idea Card</h3>
+              <div class="card-marker" aria-hidden="true">◫</div>
+            </div>
+            <div class="meta"><span class="chip placeholder">Placeholder</span></div>
+            <p>An open slot for the next real idea we want to add in this force.</p>
+            <ul>
+              <li>drop in a systems or self-management idea</li>
+              <li>use this area for grounded upkeep moves</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="force adventure">
+        <div class="force-head">
+          <h2>Adventure / Aliveness</h2>
+          <p>Moves related to novelty, energy, exploration, and what makes life feel vivid instead of merely efficient.</p>
+        </div>
+        <div class="cards">
+          <article class="idea">
+            <div class="idea-head">
+              <h3>New Idea Card</h3>
+              <div class="card-marker" aria-hidden="true">◫</div>
+            </div>
+            <div class="meta"><span class="chip placeholder">Placeholder</span></div>
+            <p>An open slot for the next real idea we want to add in this force.</p>
+            <ul>
+              <li>use this area for energizing or expansive next moves</li>
+              <li>keep it connected to real aliveness, not random noise</li>
+            </ul>
+          </article>
+        </div>
+      </section>
     </section>
   </div>
 <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
