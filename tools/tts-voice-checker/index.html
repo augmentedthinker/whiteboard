@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>TTS Voice Checker | Remote Viewer</title>
+  <link rel="icon" type="image/svg+xml" href="../../assets/icons/icon.svg">
+  <style>
+    :root{--bg:#09111c;--panel:rgba(16,24,38,.92);--line:rgba(144,181,255,.2);--text:#e8f1ff;--muted:#aebfda;--accent:#7ec0ff;--ok:#5ad08a;--warn:#f2c15e;--err:#ff7f8f}
+    *{box-sizing:border-box} html,body{margin:0}
+    body{min-height:100vh;background:radial-gradient(circle at 15% 15%, rgba(88,166,255,.14), transparent 22%),radial-gradient(circle at 85% 18%, rgba(157,120,255,.10), transparent 18%),linear-gradient(180deg,#07111b,#0b1422 55%, #10192b);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:18px 14px 26px}
+    .wrap{max-width:1240px;margin:0 auto}.topbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.04);font-weight:700}
+    .hero,.panel{border:1px solid var(--line);border-radius:18px;background:var(--panel);backdrop-filter:blur(6px);box-shadow:0 18px 50px rgba(0,0,0,.22)} .hero{padding:18px 18px 16px;margin-bottom:14px}.hero h1{margin:0 0 8px;color:var(--accent);font-size:clamp(1.45rem,4vw,2.2rem)} .hero p{margin:0;color:var(--muted);line-height:1.7}
+    .grid{display:grid;grid-template-columns:1fr .95fr;gap:14px}.panel{padding:16px}.stack{display:grid;gap:10px}.row{display:grid;grid-template-columns:1fr auto auto;gap:8px}.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    input,select,textarea{width:100%;background:#152033;color:var(--text);border:1px solid #32455f;border-radius:12px;padding:11px 12px;font:inherit} textarea{min-height:120px;resize:vertical;line-height:1.55}
+    .btn{border:1px solid #395273;background:#1a2940;color:#dff0ff;border-radius:12px;padding:10px 12px;font-weight:700;cursor:pointer}.btn.primary{background:linear-gradient(135deg, rgba(88,166,255,.28), rgba(127,192,255,.16));border-color:#63a9ff}.btn:disabled{opacity:.6;cursor:not-allowed}
+    .small{font-size:.88rem;color:var(--muted)} .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;word-break:break-word} .voices{display:grid;gap:10px}.voice{padding:12px;border:1px solid #2f435d;border-radius:14px;background:rgba(255,255,255,.03)}
+    .status{margin-top:12px;padding:12px;border-radius:12px;background:#132033;border:1px solid #2a405d}.result{padding:12px;border:1px solid #30455e;border-radius:14px;background:rgba(255,255,255,.03);margin-top:12px}.ok{color:var(--ok)}.warn{color:var(--warn)}.err{color:var(--err)} pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0d1726;padding:12px;border-radius:12px;border:1px solid #2f435d;color:#dbe7fb} audio{width:100%;margin-top:12px}
+    @media (max-width:960px){.grid{grid-template-columns:1fr}.row,.row2{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="pill" href="../index.html">← Tools</a>
+      <a class="pill" href="../../today/index.html">Today</a>
+    </div>
+    <section class="hero">
+      <h1>🔊 TTS Voice Checker</h1>
+      <p>Experimental browser-side speech checker for Gemini / Google voice output. Choose a likely TTS-capable model, choose a voice style, and inspect what actually comes back. If inline audio is returned, this page will render an audio player.</p>
+    </section>
+    <section class="grid">
+      <section class="panel stack">
+        <div class="row">
+          <input id="apiKey" type="password" placeholder="Paste Gemini API key (or use saved browser key)">
+          <button id="saveKeyBtn" class="btn" type="button">Save key</button>
+          <button id="clearKeyBtn" class="btn" type="button">Clear key</button>
+        </div>
+        <div class="row2">
+          <select id="modelSelect"></select>
+          <select id="voiceSelect"></select>
+        </div>
+        <textarea id="prompt">This is a voice diagnostic for Remote Viewer. Read this calmly, clearly, and naturally so we can judge the voice quality.</textarea>
+        <button id="runBtn" class="btn primary" type="button">Run TTS diagnostic</button>
+        <div class="status"><strong id="statusTitle">Idle</strong><div id="statusText" class="small">Ready to test likely TTS-capable Gemini/Google lanes.</div></div>
+      </section>
+      <section class="panel stack">
+        <h2 style="margin:0;color:var(--accent)">Voice set</h2>
+        <div id="voiceList" class="voices"></div>
+        <div class="small">These are practical labels for comparative testing. Real server-side accepted voice names may differ by model/API version, which is exactly why this checker exists.</div>
+      </section>
+    </section>
+    <section class="panel" style="margin-top:14px;">
+      <h2 style="margin:0 0 10px;color:var(--accent)">Result</h2>
+      <div id="result" class="result small">No test run yet.</div>
+    </section>
+  </div>
+  <script>
+    const KEY_STORAGE='remoteViewer.geminiApiKey';
+    const MODELS=[
+      {id:'gemini-3.1-flash',label:'Gemini 3.1 Flash',note:'Likely practical low-latency speech candidate.'},
+      {id:'gemini-2.5-flash',label:'Gemini 2.5 Flash',note:'Fallback candidate for audio-style output testing.'},
+      {id:'gemini-3.1-pro-preview',label:'Gemini 3.1 Pro Preview',note:'Heavier lane for quality comparison if supported.'}
+    ];
+    const VOICES=['Neutral','Warm','Calm','Bright','Narrator','Deep','Friendly'];
+    const apiKey=document.getElementById('apiKey'); const saveKeyBtn=document.getElementById('saveKeyBtn'); const clearKeyBtn=document.getElementById('clearKeyBtn'); const modelSelect=document.getElementById('modelSelect'); const voiceSelect=document.getElementById('voiceSelect'); const voiceList=document.getElementById('voiceList'); const prompt=document.getElementById('prompt'); const runBtn=document.getElementById('runBtn'); const result=document.getElementById('result'); const statusTitle=document.getElementById('statusTitle'); const statusText=document.getElementById('statusText');
+    function getKey(){return apiKey.value.trim()||localStorage.getItem(KEY_STORAGE)||''}
+    function setStatus(t,x){statusTitle.textContent=t;statusText.textContent=x}
+    function init(){const saved=localStorage.getItem(KEY_STORAGE)||''; if(saved) apiKey.value=saved; modelSelect.innerHTML=MODELS.map(m=>`<option value="${m.id}">${m.label}</option>`).join(''); voiceSelect.innerHTML=VOICES.map(v=>`<option value="${v}">${v}</option>`).join(''); voiceList.innerHTML=VOICES.map(v=>`<div class="voice"><strong>${v}</strong><div class="small">Comparative label for TTS voice testing.</div></div>`).join('')}
+    function bytesToDataUrl(mimeType, base64){ return `data:${mimeType || 'audio/wav'};base64,${base64}`; }
+    async function run(){const key=getKey(); if(!key){setStatus('Missing key','Paste or save a Gemini API key first.'); return;} setStatus('Testing…',`Running ${modelSelect.value} / ${voiceSelect.value}...`); runBtn.disabled=true; const started=performance.now(); try{const url=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(modelSelect.value)}:generateContent?key=${encodeURIComponent(key)}`; const body={contents:[{parts:[{text:prompt.value.trim()}]}],generationConfig:{temperature:0.6,responseModalities:['TEXT','AUDIO'],speechConfig:{voiceConfig:{prebuiltVoiceConfig:{voiceName:voiceSelect.value}}}}}; const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}); const data=await res.json().catch(()=>({})); const ms=Math.round(performance.now()-started); if(!res.ok){result.innerHTML=`<div><strong class="err">Failed</strong> · <span class="mono">${modelSelect.value}</span> · ${ms} ms</div><pre>${JSON.stringify(data,null,2).replace(/</g,'&lt;')}</pre>`; setStatus('Failure',data?.error?.message||`HTTP ${res.status}`); return;} let foundAudio=null; const candidates=data.candidates||[]; for(const cand of candidates){const parts=cand?.content?.parts||cand?.parts||[]; for(const part of parts){if(part.inlineData?.data){foundAudio={data:part.inlineData.data,mimeType:part.inlineData.mimeType||'audio/wav'}; break;} if(part.inline_data?.data){foundAudio={data:part.inline_data.data,mimeType:part.inline_data.mime_type||'audio/wav'}; break;}} if(foundAudio) break;} const raw=JSON.stringify(data,null,2).replace(/</g,'&lt;'); if(foundAudio){const src=bytesToDataUrl(foundAudio.mimeType,foundAudio.data); result.innerHTML=`<div><strong class="ok">Success</strong> · <span class="mono">${modelSelect.value}</span> · ${ms} ms</div><audio controls src="${src}"></audio><pre>${raw}</pre>`; setStatus('Success','Audio returned successfully.');} else {result.innerHTML=`<div><strong class="warn">No inline audio found</strong> · <span class="mono">${modelSelect.value}</span> · ${ms} ms</div><pre>${raw}</pre>`; setStatus('Partial success','Request completed, but no inline audio was found.');}} catch(err){result.innerHTML=`<div><strong class="err">Exception</strong></div><pre>${String(err).replace(/</g,'&lt;')}</pre>`; setStatus('Exception',String(err));} finally{runBtn.disabled=false;}}
+    saveKeyBtn.onclick=()=>{const k=apiKey.value.trim(); if(!k){setStatus('Nothing to save','Paste a key first.'); return;} localStorage.setItem(KEY_STORAGE,k); setStatus('Saved','Key saved in this browser localStorage.');};
+    clearKeyBtn.onclick=()=>{localStorage.removeItem(KEY_STORAGE); apiKey.value=''; setStatus('Cleared','Saved key removed from this browser.');};
+    runBtn.onclick=run; init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Veo Video Generation Checker | Remote Viewer</title>
+  <link rel="icon" type="image/svg+xml" href="../../assets/icons/icon.svg">
+  <style>
+    :root{--bg:#09111c;--panel:rgba(16,24,38,.92);--line:rgba(144,181,255,.2);--text:#e8f1ff;--muted:#aebfda;--accent:#7ec0ff;--ok:#5ad08a;--warn:#f2c15e;--err:#ff7f8f}
+    *{box-sizing:border-box} html,body{margin:0}
+    body{min-height:100vh;background:radial-gradient(circle at 15% 15%, rgba(88,166,255,.14), transparent 22%),radial-gradient(circle at 85% 18%, rgba(157,120,255,.10), transparent 18%),linear-gradient(180deg,#07111b,#0b1422 55%, #10192b);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:18px 14px 26px}
+    .wrap{max-width:1240px;margin:0 auto}.topbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.04);font-weight:700}
+    .hero,.panel{border:1px solid var(--line);border-radius:18px;background:var(--panel);backdrop-filter:blur(6px);box-shadow:0 18px 50px rgba(0,0,0,.22)} .hero{padding:18px 18px 16px;margin-bottom:14px}.hero h1{margin:0 0 8px;color:var(--accent);font-size:clamp(1.45rem,4vw,2.2rem)} .hero p{margin:0;color:var(--muted);line-height:1.7}
+    .grid{display:grid;grid-template-columns:1fr .95fr;gap:14px}.panel{padding:16px}.stack{display:grid;gap:10px}.row{display:grid;grid-template-columns:1fr auto auto;gap:8px}.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    input,select,textarea{width:100%;background:#152033;color:var(--text);border:1px solid #32455f;border-radius:12px;padding:11px 12px;font:inherit} textarea{min-height:120px;resize:vertical;line-height:1.55}
+    .btn{border:1px solid #395273;background:#1a2940;color:#dff0ff;border-radius:12px;padding:10px 12px;font-weight:700;cursor:pointer}.btn.primary{background:linear-gradient(135deg, rgba(88,166,255,.28), rgba(127,192,255,.16));border-color:#63a9ff}.btn:disabled{opacity:.6;cursor:not-allowed}
+    .small{font-size:.88rem;color:var(--muted)} .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;word-break:break-word} .models{display:grid;gap:10px}.model{padding:12px;border:1px solid #2f435d;border-radius:14px;background:rgba(255,255,255,.03)}
+    .status{margin-top:12px;padding:12px;border-radius:12px;background:#132033;border:1px solid #2a405d}.result{padding:12px;border:1px solid #30455e;border-radius:14px;background:rgba(255,255,255,.03);margin-top:12px}.ok{color:var(--ok)}.warn{color:var(--warn)}.err{color:var(--err)} pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0d1726;padding:12px;border-radius:12px;border:1px solid #2f435d;color:#dbe7fb}
+    @media (max-width:960px){.grid{grid-template-columns:1fr}.row,.row2{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="pill" href="../index.html">← Tools</a>
+      <a class="pill" href="../../today/index.html">Today</a>
+    </div>
+    <section class="hero">
+      <h1>🎬 Veo / Video Generation Checker</h1>
+      <p>Experimental browser-side checker for Gemini / Google video-generation lanes. This is a diagnostic tool, not a promise that every listed model uses the same request schema. The goal is to surface what actually works, what fails, and what raw responses come back.</p>
+    </section>
+    <section class="grid">
+      <section class="panel stack">
+        <div class="row">
+          <input id="apiKey" type="password" placeholder="Paste Gemini API key (or use saved browser key)">
+          <button id="saveKeyBtn" class="btn" type="button">Save key</button>
+          <button id="clearKeyBtn" class="btn" type="button">Clear key</button>
+        </div>
+        <div class="row2">
+          <select id="modelSelect"></select>
+          <select id="aspectRatio">
+            <option value="16:9" selected>16:9</option>
+            <option value="9:16">9:16</option>
+            <option value="1:1">1:1</option>
+          </select>
+        </div>
+        <textarea id="prompt">Short cinematic diagnostic clip: a calm futuristic workspace at dusk, subtle ambient light, slow camera movement, elegant and minimal, no text, no watermark.</textarea>
+        <button id="runBtn" class="btn primary" type="button">Run video diagnostic</button>
+        <div class="status"><strong id="statusTitle">Idle</strong><div id="statusText" class="small">Ready to test a likely video-capable Gemini/Google lane.</div></div>
+      </section>
+      <section class="panel stack">
+        <h2 style="margin:0;color:var(--accent)">Candidate video models</h2>
+        <div id="modelList" class="models"></div>
+        <div class="small">Current guesses are intentionally explicit and editable in code later if the API naming shifts. This tool is meant to expose truth fast.</div>
+      </section>
+    </section>
+    <section class="panel" style="margin-top:14px;">
+      <h2 style="margin:0 0 10px;color:var(--accent)">Result</h2>
+      <div id="result" class="result small">No test run yet.</div>
+    </section>
+  </div>
+  <script>
+    const KEY_STORAGE='remoteViewer.geminiApiKey';
+    const MODELS=[
+      {id:'veo-3.0-generate-preview',label:'Veo 3.0 Generate Preview',note:'Primary likely Veo/VO3-style candidate.'},
+      {id:'veo-2.0-generate-001',label:'Veo 2.0 Generate 001',note:'Fallback candidate if newer naming is unavailable.'},
+      {id:'gemini-3.1-video-preview',label:'Gemini 3.1 Video Preview',note:'Speculative Gemini-native video preview lane.'}
+    ];
+    const apiKey=document.getElementById('apiKey'); const saveKeyBtn=document.getElementById('saveKeyBtn'); const clearKeyBtn=document.getElementById('clearKeyBtn'); const modelSelect=document.getElementById('modelSelect'); const aspectRatio=document.getElementById('aspectRatio'); const prompt=document.getElementById('prompt'); const runBtn=document.getElementById('runBtn'); const modelList=document.getElementById('modelList'); const result=document.getElementById('result'); const statusTitle=document.getElementById('statusTitle'); const statusText=document.getElementById('statusText');
+    function getKey(){return apiKey.value.trim()||localStorage.getItem(KEY_STORAGE)||''}
+    function setStatus(t,x){statusTitle.textContent=t;statusText.textContent=x}
+    function init(){const saved=localStorage.getItem(KEY_STORAGE)||''; if(saved) apiKey.value=saved; modelSelect.innerHTML=MODELS.map(m=>`<option value="${m.id}">${m.label}</option>`).join(''); modelList.innerHTML=MODELS.map(m=>`<div class="model"><strong>${m.label}</strong><div class="small mono">${m.id}</div><div class="small">${m.note}</div></div>`).join('')}
+    async function run(){const key=getKey(); if(!key){setStatus('Missing key','Paste or save a Gemini API key first.'); return;} setStatus('Testing…',`Running ${modelSelect.value}...`); runBtn.disabled=true; const started=performance.now(); try{const url=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(modelSelect.value)}:generateContent?key=${encodeURIComponent(key)}`; const body={contents:[{parts:[{text:prompt.value.trim()}]}],generationConfig:{temperature:0.7,responseModalities:['TEXT','VIDEO'],videoConfig:{aspectRatio:aspectRatio.value}}}; const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}); const data=await res.json().catch(()=>({})); const ms=Math.round(performance.now()-started); if(!res.ok){result.innerHTML=`<div><strong class="err">Failed</strong> · <span class="mono">${modelSelect.value}</span> · ${ms} ms</div><pre>${JSON.stringify(data,null,2).replace(/</g,'&lt;')}</pre>`; setStatus('Failure',data?.error?.message||`HTTP ${res.status}`); return;} const txt=JSON.stringify(data,null,2); let mediaLink=''; const maybeUri=txt.match(/https?:[^\s"']+/); if(maybeUri) mediaLink=`<div style="margin-top:10px;"><a class="pill" href="${maybeUri[0]}" target="_blank" rel="noopener">Open returned media URL</a></div>`; result.innerHTML=`<div><strong class="ok">Request succeeded</strong> · <span class="mono">${modelSelect.value}</span> · ${ms} ms</div>${mediaLink}<pre>${txt.replace(/</g,'&lt;')}</pre>`; setStatus('Success','Request completed. Inspect raw response for returned operation/media fields.'); }catch(err){result.innerHTML=`<div><strong class="err">Exception</strong></div><pre>${String(err).replace(/</g,'&lt;')}</pre>`; setStatus('Exception',String(err));} finally{runBtn.disabled=false;}}
+    saveKeyBtn.onclick=()=>{const k=apiKey.value.trim(); if(!k){setStatus('Nothing to save','Paste a key first.'); return;} localStorage.setItem(KEY_STORAGE,k); setStatus('Saved','Key saved in this browser localStorage.');};
+    clearKeyBtn.onclick=()=>{localStorage.removeItem(KEY_STORAGE); apiKey.value=''; setStatus('Cleared','Saved key removed from this browser.');};
+    runBtn.onclick=run; init();
+  </script>
+</body>
+</html>
