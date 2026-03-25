@@ -39,7 +39,7 @@
     </div>
     <section class="hero">
       <h1>🖼️ Image Generation Checker</h1>
-      <p>A browser-side diagnostic surface for Gemini / Google image generation. Paste a Gemini API key if needed, test one model or several, compare success and failures, and see preview output directly here. <strong>Currently confirmed working in this tool:</strong> <span class="ok">Gemini 3 Pro Image Preview</span> and <span class="ok">Gemini 3.1 Flash Image Preview</span>.</p>
+      <p>A browser-side diagnostic surface for Gemini / Google image generation. Paste a Gemini API key if needed, test one model or several, compare success and failures, and see preview output directly here. <strong>Currently confirmed working in this tool:</strong> <span class="ok">Gemini 3 Pro Image Preview</span> and <span class="ok">Gemini 3.1 Flash Image Preview</span>. In practical Remote Viewer terms, these are the current <strong>Nano Banana-aligned</strong> image lanes.</p>
     </section>
 
     <section class="grid">
@@ -109,8 +109,8 @@
   <script>
     const KEY_STORAGE = 'remoteViewer.geminiApiKey';
     const MODELS = [
-      { id:'gemini-3.1-flash-image-preview', label:'Gemini 3.1 Flash Image Preview', note:'Confirmed working in this checker.' },
-      { id:'gemini-3-pro-image-preview', label:'Gemini 3 Pro Image Preview', note:'Confirmed working in this checker.' },
+      { id:'gemini-3.1-flash-image-preview', label:'Nano Banana / Gemini 3.1 Flash Image Preview', note:'Confirmed working in this checker. Practical Nano Banana-aligned fast image lane.' },
+      { id:'gemini-3-pro-image-preview', label:'Nano Banana / Gemini 3 Pro Image Preview', note:'Confirmed working in this checker. Practical Nano Banana-aligned primary image lane.' },
       { id:'imagen-3.0-generate-002', label:'Imagen 3.0 Generate 002', note:'Not valid on this current v1beta generateContent route.' },
       { id:'gemini-2.0-flash-preview-image-generation', label:'Gemini 2.0 Flash Preview Image Generation', note:'Not valid on this current v1beta generateContent route.' }
     ];
