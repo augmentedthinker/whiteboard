@@ -128,14 +128,15 @@
         <div class="cards">
           <article class="idea">
             <div class="idea-head">
-              <h3>New Idea Card</h3>
+              <h3>Hangout with Friends</h3>
               <div class="card-marker" aria-hidden="true">◫</div>
             </div>
-            <div class="meta"><span class="chip placeholder">Placeholder</span></div>
-            <p>An open slot for the next real idea we want to add in this force.</p>
+            <div class="meta"><span class="chip connection">Connection</span></div>
+            <p>Make space for an actual social hangout so friendship stays lived rather than indefinitely deferred.</p>
             <ul>
-              <li>replace placeholder language when ready</li>
-              <li>add a relationship-facing or trust-facing next move</li>
+              <li>decide who would feel good to reach out to</li>
+              <li>pick a low-friction format</li>
+              <li>get something on the calendar</li>
             </ul>
           </article>
         </div>
@@ -253,6 +254,22 @@
         }else{
           if(document.exitFullscreen) await document.exitFullscreen();
           else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+        }
+      }catch(_){ }
+      syncFsIcon();
+    };
+    placeFromStorage(fab,'rvHomeFabPos','left');
+    placeFromStorage(fsFab,'rvFullscreenFabPos','right');
+    placeFromStorage(backFab,'rvBackFabPos','left');
+    wireDraggable(fab,'rvHomeFabPos');
+    wireDraggable(fsFab,'rvFullscreenFabPos',toggleFullscreen);
+    wireDraggable(backFab,'rvBackFabPos',()=>{if(window.history.length>1)window.history.back();else window.location.href=href;});
+    document.addEventListener('fullscreenchange',syncFsIcon);
+    syncFsIcon();
+  })();
+  </script>
+</body>
+</html> if(document.webkitExitFullscreen) document.webkitExitFullscreen();
         }
       }catch(_){ }
       syncFsIcon();
