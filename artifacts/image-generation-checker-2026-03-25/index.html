@@ -154,8 +154,14 @@
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(modelId)}:generateContent?key=${encodeURIComponent(apiKey)}`;
         const body = {
           contents:[{parts:[{text:prompt}]}],
-          generationConfig:{temperature:0.7,responseModalities:['TEXT','IMAGE']},
-          imageConfig:{aspectRatio:aspectRatioEl.value,imageSize:imageSizeEl.value}
+          generationConfig:{
+            temperature:0.7,
+            responseModalities:['TEXT','IMAGE'],
+            imageConfig:{
+              aspectRatio:aspectRatioEl.value,
+              imageSize:imageSizeEl.value
+            }
+          }
         };
         const res = await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
         const data = await res.json().catch(()=>({}));
