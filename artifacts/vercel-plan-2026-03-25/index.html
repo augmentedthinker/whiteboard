@@ -3,68 +3,129 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Vercel Plan for the Citation App · 2026-03-25</title>
+  <title>Next Steps Idea Ledger · 2026-03-25</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
-    :root{--bg:#f6f7f9;--paper:#ffffff;--line:#d9dde3;--text:#1f2937;--muted:#667085;--accent:#2f6fed;--shadow:0 12px 30px rgba(15,23,42,.06)}
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    :root{--bg:#f6f7f9;--paper:#ffffff;--line:#d9dde3;--text:#1f2937;--muted:#667085;--accent:#2f6fed;--shadow:0 12px 30px rgba(15,23,42,.06);--good:#2563eb;--warm:#b45309;--soft:#4b5563}
     *{box-sizing:border-box} html,body{margin:0}
     body{min-height:100vh;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:linear-gradient(180deg,#f7f8fa,#f1f3f6 52%,#eceff3);padding:18px 14px 30px}
-    .wrap{max-width:860px;margin:0 auto}
+    .wrap{max-width:1040px;margin:0 auto}
     .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
-    .link,.btn{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.94);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 24px rgba(15,23,42,.05);cursor:pointer}
-    .hero{padding:20px 18px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.86);box-shadow:var(--shadow);margin-bottom:10px}
+    .link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.94);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 24px rgba(15,23,42,.05)}
+    .hero{padding:22px 20px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.88);box-shadow:var(--shadow);margin-bottom:14px}
     .eyebrow{margin:0 0 10px;color:var(--accent);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
-    h1{margin:0 0 12px;font-size:clamp(1.9rem,6vw,3rem);line-height:1.02;letter-spacing:-.04em}
-    .sub{margin:0;color:var(--muted);line-height:1.8;font-size:1rem}
-    .path-card{margin-bottom:10px;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:var(--paper);box-shadow:var(--shadow)}
-    .path-label{display:block;margin-bottom:10px;color:var(--accent);font-size:.74rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
-    .path-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-    .path-value{flex:1 1 560px;min-width:0;padding:12px 14px;border-radius:12px;background:linear-gradient(180deg,#fbfcfe,#f4f7fb);border:1px solid var(--line);color:#243b53;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88rem;overflow-wrap:anywhere}
-    .mode-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 10px;padding:2px 2px;color:var(--muted);font-size:.92rem}
-    .mode-title{font-weight:800;color:var(--text)}
-    .basic-shell{border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:var(--shadow)}
-    .basic-doc{padding:18px 16px 24px;max-width:760px;margin:0 auto}
-    .markdown h1,.markdown h2,.markdown h3,.markdown h4{font-family:Inter,system-ui,sans-serif;letter-spacing:-.02em;line-height:1.14;color:var(--text)}
-    .markdown h1{font-size:2rem;margin:0 0 1rem}
-    .markdown h2{font-size:1.42rem;margin:2rem 0 .8rem}
-    .markdown h3{font-size:1.08rem;margin:1.45rem 0 .55rem}
-    .markdown p,.markdown li{color:#374151;line-height:1.82;font-size:1rem}
-    .markdown strong{color:var(--text)}
-    .markdown ul,.markdown ol{padding-left:1.35em}
-    .markdown hr{border:0;border-top:1px solid #e5e7eb;margin:1.9rem 0}
-    .markdown code{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#f3f4f6;border:1px solid #e5e7eb;color:#1f2937;padding:.12rem .35rem;border-radius:6px;font-size:.92em}
-    .markdown pre{background:#f8fafc;border:1px solid #e5e7eb;border-radius:8px;padding:14px 16px;overflow:auto}
-    .markdown pre code{background:transparent;border:0;padding:0;display:block}
-    .markdown blockquote{margin:1.2rem 0;padding:.2rem 0 .2rem 1rem;border-left:3px solid #d1d5db;color:#4b5563}
-    @media (max-width:640px){body{padding:10px 0 24px;background:#fff}.wrap{max-width:100%}.hero,.path-card,.basic-shell{border-radius:0;box-shadow:none;border-left:0;border-right:0}.hero{padding:18px 14px 14px}.path-card{padding:12px 14px}.link,.btn{padding:9px 12px;font-size:.9rem;box-shadow:none}.basic-doc{padding:16px 14px 20px;max-width:100%}.markdown p,.markdown li,.sub,.path-value{overflow-wrap:anywhere;word-break:break-word}.markdown p,.markdown li{text-align:justify;text-justify:inter-word;hyphens:auto}.markdown h1{font-size:1.8rem}.markdown h2{font-size:1.3rem;margin:1.7rem 0 .65rem}.markdown h3{font-size:1.03rem}}
+    h1{margin:0 0 12px;font-size:clamp(2rem,6vw,3.2rem);line-height:1.02;letter-spacing:-.04em}
+    .sub{margin:0;color:var(--muted);line-height:1.8;font-size:1rem;max-width:70ch}
+    .note{margin-top:12px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:#fbfcfe;color:#475467;font-size:.95rem;line-height:1.7}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .idea{padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--paper);box-shadow:var(--shadow)}
+    .idea h2{margin:0 0 10px;font-size:1.2rem;line-height:1.25;letter-spacing:-.02em}
+    .meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+    .chip{display:inline-block;padding:6px 10px;border-radius:999px;font-size:.78rem;font-weight:800;letter-spacing:.03em}
+    .chip.high{background:#dbeafe;color:#1d4ed8}
+    .chip.medium{background:#fef3c7;color:#92400e}
+    .chip.low{background:#e5e7eb;color:#374151}
+    .chip.now{background:#dcfce7;color:#166534}
+    .chip.later{background:#ede9fe;color:#6d28d9}
+    .idea p{margin:0 0 12px;color:#475467;line-height:1.75}
+    .idea ul{margin:0;padding-left:1.2rem}
+    .idea li{margin:.28rem 0;color:#475467;line-height:1.6}
+    .footer{margin-top:14px;padding:16px 18px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.88);box-shadow:var(--shadow);color:#475467;line-height:1.75}
+    @media (max-width:760px){body{padding:10px 0 24px;background:#fff}.wrap{max-width:100%}.hero,.idea,.footer{border-radius:0;box-shadow:none;border-left:0;border-right:0}.hero{padding:18px 14px 14px}.grid{grid-template-columns:1fr;gap:10px}.idea{padding:16px 14px}.footer{padding:14px}.topbar{padding:0 10px}.link{padding:9px 12px;font-size:.9rem;box-shadow:none}h1{font-size:1.9rem}.sub,.idea p,.idea li,.note{overflow-wrap:anywhere}}
   </style>
   <style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}</style>
-  <style id="rv-mobile-opt-style">html{-webkit-text-size-adjust:100%}body{overflow-x:hidden}img,video,canvas,iframe{max-width:100%;height:auto}*{word-wrap:break-word}@media (max-width:768px){.container,.wrap,.doc-wrap,.hero,.topbar-inner,main{max-width:100% !important}body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}}</style>
 </head>
 <body>
   <div class="wrap">
-    <div class="topbar"><a class="link" href="../../today/index.html">← Today’s Artifacts</a><a class="link" href="./signature.html">✒️ Signature</a><a class="link" href="../../styles/markdown-reader/index.html">Style 005</a></div>
+    <div class="topbar">
+      <a class="link" href="../../today/index.html">← Today’s Artifacts</a>
+      <a class="link" href="./signature.html">✒️ Signature</a>
+    </div>
+
     <section class="hero">
-      <p class="eyebrow">Today’s Artifact · Next Steps Plan</p>
-      <h1>Vercel Plan for the Citation App · 2026-03-25</h1>
-      <p class="sub">A practical next-steps artifact on whether and how Vercel should become the deployment/runtime surface for the citation lane — what it would improve, what it would not fix, and what the real setup sequence should be.</p>
+      <p class="eyebrow">Today’s Artifact · Idea Ledger</p>
+      <h1>Next Steps Idea Ledger · 2026-03-25</h1>
+      <p class="sub">A lightweight holding surface for possible next moves. The point is not to commit yet. The point is to keep promising directions visible, comparable, and easy to grow one card at a time.</p>
+      <div class="note"><strong>Working rule:</strong> this page should stay additive. New ideas get cards. Existing cards can be sharpened, reordered, or demoted. It is an idea ledger, not a final roadmap.</div>
     </section>
-    <div class="path-card"><span class="path-label">Artifact source path</span><div class="path-row"><div class="path-value" id="pathValue">/mnt/chromeos/MyFiles/Downloads/shared_workspace/remote-viewer/artifacts/vercel-plan-2026-03-25/report.md</div><button id="copyPathBtn" class="btn" type="button">Copy Local Path</button></div></div>
-    <div class="mode-meta"><div class="mode-title">Mode 2 · Basic Rendered Markdown</div><div>Minimal interpretation. Clean reading surface for planning.</div></div>
-    <div class="basic-shell"><div class="basic-doc markdown" id="basicView"></div></div>
+
+    <section class="grid">
+      <article class="idea">
+        <h2>Vercel for the Citation App</h2>
+        <div class="meta"><span class="chip high">High potential</span><span class="chip later">Infrastructure idea</span></div>
+        <p>Use Vercel as the deployment/runtime surface for the citation lane once the goal is to make it feel more like a real tool than a frontend-only prototype.</p>
+        <ul>
+          <li>server-side Gemini key storage</li>
+          <li>cleaner tester flow for Rose or others</li>
+          <li>home for backend routes and structured extraction logic</li>
+          <li>better fit than GitHub Pages for product-like app behavior</li>
+        </ul>
+      </article>
+
+      <article class="idea">
+        <h2>Citation App V1 Deployment Plan</h2>
+        <div class="meta"><span class="chip high">High leverage</span><span class="chip now">Ready soon</span></div>
+        <p>Translate the citation lane from abstract product talk into one concrete shipping sequence: repo, deploy target, tester flow, and minimum end-to-end happy path.</p>
+        <ul>
+          <li>define v1 scope clearly</li>
+          <li>name the first trustworthy user flow</li>
+          <li>decide what counts as “good enough to show”</li>
+        </ul>
+      </article>
+
+      <article class="idea">
+        <h2>Balance → Action Layer</h2>
+        <div class="meta"><span class="chip high">Deep lane</span><span class="chip now">Concept pressure</span></div>
+        <p>The four-force model now feels more alive. The next question is how to make it behavior-shaping instead of merely elegant.</p>
+        <ul>
+          <li>what does each force ask for in practice?</li>
+          <li>what should the app help interrupt?</li>
+          <li>how do check-ins become useful instead of decorative?</li>
+        </ul>
+      </article>
+
+      <article class="idea">
+        <h2>Publishing Grammar</h2>
+        <div class="meta"><span class="chip medium">Useful</span><span class="chip later">Editorial system</span></div>
+        <p>Turn the current social-media and Blogger philosophy into a repeatable packaging grammar so public output becomes easier without becoming fake.</p>
+        <ul>
+          <li>X as proof-of-work lane</li>
+          <li>Blogger as deeper essay lane</li>
+          <li>templates for packaging real work honestly</li>
+        </ul>
+      </article>
+
+      <article class="idea">
+        <h2>Share Portal Upgrade</h2>
+        <div class="meta"><span class="chip medium">Bridge surface</span><span class="chip later">External-facing</span></div>
+        <p>Improve the calmer bridge between internal build work and external/client evaluation so the strongest public-facing surfaces are easier to show intentionally.</p>
+        <ul>
+          <li>cleaner presentation of live tools</li>
+          <li>more explicit “what this is” framing</li>
+          <li>better separation between demo, concept, and real utility</li>
+        </ul>
+      </article>
+
+      <article class="idea">
+        <h2>Idea Slot · Open</h2>
+        <div class="meta"><span class="chip low">Placeholder</span><span class="chip later">Additive</span></div>
+        <p>An intentionally blank slot so this page visually teaches the right behavior: add new cards instead of trying to make one idea carry the whole page.</p>
+        <ul>
+          <li>new thought</li>
+          <li>new experiment</li>
+          <li>new possible next move</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="footer">
+      <strong>Current read:</strong> the strongest immediate candidates are still the citation lane, the Vercel/backend question around it, and the question of how Balance becomes more action-shaping. But this page should remain broader than any one of those.
+    </section>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script>
-    const basicView=document.getElementById('basicView');
-    const copyPathBtn=document.getElementById('copyPathBtn');
-    const pathValue=document.getElementById('pathValue');
-    async function loadDoc(){const res=await fetch('./report.md',{cache:'no-store'}); if(!res.ok) throw new Error('Could not load markdown file.'); const md=await res.text(); basicView.innerHTML=marked.parse(md);} 
-    copyPathBtn.addEventListener('click', async ()=>{try{await navigator.clipboard.writeText(pathValue.textContent.trim()); const old=copyPathBtn.textContent; copyPathBtn.textContent='Copied'; setTimeout(()=>copyPathBtn.textContent=old,1400);}catch(_){alert('Copy failed on this browser. Path: '+pathValue.textContent.trim());}});
-    loadDoc().catch(err=>{basicView.innerHTML='<p><strong>Error:</strong> '+err.message+'</p>';});
-  </script>
-  <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
-  <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
-  <button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
-  <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(pos.top??10,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const moved=m;d=null;save(el,key);if(!moved&&click)await click();});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}const isFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const sync=()=>fsFab.textContent=isFs()?'🡼':'⛶';const toggle=async()=>{try{const t=document.documentElement;if(!isFs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');drag(fab,'rvHomeFabPos');drag(fsFab,'rvFullscreenFabPos',toggle);drag(backFab,'rvBackFabPos',()=>{if(history.length>1)history.back();else location.href=href;});document.addEventListener('fullscreenchange',sync);sync();})();</script>
+
+  <a id="rvHomeFab" class="rv-home-fab" href="#">⌂</a>
+  <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button">⛶</button>
+  <button id="rvBackFab" class="rv-back-fab" type="button">←</button>
+  <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.href=href;const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const p=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(p.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(p.top??10,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const moved=m;d=null;save(el,key);if(!moved&&click)await click();});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}const isFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const sync=()=>fsFab.textContent=isFs()?'🡼':'⛶';const toggle=async()=>{try{const t=document.documentElement;if(!isFs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');drag(fab,'rvHomeFabPos');drag(fsFab,'rvFullscreenFabPos',toggle);drag(backFab,'rvBackFabPos',()=>{if(history.length>1)history.back();else location.href=href;});document.addEventListener('fullscreenchange',sync);sync();})();</script>
 </body>
 </html>
