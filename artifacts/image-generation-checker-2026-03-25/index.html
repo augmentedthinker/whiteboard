@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Image Generation Checker · 2026-03-25</title>
+  <link rel="icon" type="image/svg+xml" href="../../assets/icons/icon.svg">
+  <link rel="apple-touch-icon" href="../../assets/icons/icon.svg">
+  <style>
+    :root{
+      --bg:#09111c;--panel:rgba(16,24,38,.9);--line:rgba(144,181,255,.2);--text:#e8f1ff;--muted:#aebfda;--accent:#7ec0ff;--ok:#5ad08a;--warn:#f2c15e;--err:#ff7f8f;
+    }
+    *{box-sizing:border-box} html,body{margin:0}
+    body{min-height:100vh;background:radial-gradient(circle at 15% 15%, rgba(88,166,255,.14), transparent 22%),radial-gradient(circle at 85% 18%, rgba(157,120,255,.10), transparent 18%),linear-gradient(180deg,#07111b,#0b1422 55%, #10192b);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:18px 14px 26px}
+    .wrap{max-width:1280px;margin:0 auto}.topbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.04);font-weight:700}
+    .hero,.panel{border:1px solid var(--line);border-radius:18px;background:var(--panel);backdrop-filter:blur(6px);box-shadow:0 18px 50px rgba(0,0,0,.22)}
+    .hero{padding:18px 18px 16px;margin-bottom:14px}.hero h1{margin:0 0 8px;color:var(--accent);font-size:clamp(1.45rem,4vw,2.2rem)}.hero p{margin:0;color:var(--muted);line-height:1.7}
+    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}.panel{padding:16px}
+    h2{margin:0 0 10px;font-size:1rem;color:var(--accent)}
+    .controls{display:grid;grid-template-columns:1fr 1fr;gap:10px}.controls.single{grid-template-columns:1fr}.stack{display:grid;gap:10px}.row{display:grid;grid-template-columns:1fr auto auto;gap:8px}.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    input,select,textarea{width:100%;background:#152033;color:var(--text);border:1px solid #32455f;border-radius:12px;padding:11px 12px;font:inherit}
+    textarea{min-height:120px;resize:vertical;line-height:1.55}
+    .btn{border:1px solid #395273;background:#1a2940;color:#dff0ff;border-radius:12px;padding:10px 12px;font-weight:700;cursor:pointer}.btn.primary{background:linear-gradient(135deg, rgba(88,166,255,.28), rgba(127,192,255,.16));border-color:#63a9ff}.btn.secondary{background:#172233}.btn:disabled{opacity:.6;cursor:not-allowed}
+    .status{margin-top:12px;padding:12px;border-radius:12px;background:#132033;border:1px solid #2a405d}.status b{display:block;margin-bottom:4px}
+    .chips{display:flex;flex-wrap:wrap;gap:8px}.chip{padding:6px 10px;border-radius:999px;border:1px solid #334861;background:#142033;color:#cfe4ff;font-size:.82rem}.ok{color:var(--ok)}.warn{color:var(--warn)}.err{color:var(--err)}
+    .models{display:grid;gap:10px}.model{padding:12px;border:1px solid #2f435d;border-radius:14px;background:rgba(255,255,255,.03)}.model-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px}.model-head strong{display:block}.small{font-size:.88rem;color:var(--muted)}
+    .result-list{display:grid;gap:10px;margin-top:12px}.result{padding:12px;border:1px solid #30455e;border-radius:14px;background:rgba(255,255,255,.03)} .result img{display:block;max-width:100%;border-radius:12px;border:1px solid #30455e;margin-top:10px}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;word-break:break-word}
+    @media (max-width:960px){.grid{grid-template-columns:1fr}.row,.row2,.controls{grid-template-columns:1fr}}
+  </style>
+  <style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging{cursor:grabbing}.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none;left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-back-fab.dragging{cursor:grabbing}</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="pill" href="../../today/index.html">← Today’s Artifacts</a>
+      <a class="pill" href="./signature.html">✒️ Signature</a>
+    </div>
+    <section class="hero">
+      <h1>🖼️ Image Generation Checker</h1>
+      <p>A browser-side diagnostic surface for Gemini / Google image generation. Paste a Gemini API key if needed, test one model or several, compare success and failures, and see preview output directly here. The point is to stop guessing which image-capable route is actually alive.</p>
+    </section>
+
+    <section class="grid">
+      <section class="panel stack">
+        <div>
+          <h2>Controls</h2>
+          <div class="row">
+            <input id="apiKey" type="password" placeholder="Paste Gemini API key (optional if already saved in this browser)">
+            <button id="saveKeyBtn" class="btn secondary" type="button">Save key</button>
+            <button id="clearKeyBtn" class="btn secondary" type="button">Clear key</button>
+          </div>
+        </div>
+        <div class="row2">
+          <select id="aspectRatio">
+            <option value="1:1">1:1</option><option value="4:3" selected>4:3</option><option value="3:2">3:2</option><option value="16:9">16:9</option><option value="9:16">9:16</option>
+          </select>
+          <select id="imageSize">
+            <option value="1K" selected>1K</option><option value="2K">2K</option><option value="4K">4K</option>
+          </select>
+        </div>
+        <div>
+          <textarea id="prompt">Premium cinematic test image for Gemini image-generation diagnostics: a restrained futuristic workspace at night with luminous blue accents, subtle intelligence motifs, text-safe center area, sophisticated not cheesy, no words, no watermark.</textarea>
+        </div>
+        <div class="row2">
+          <select id="singleModel"></select>
+          <div class="row2">
+            <button id="runOneBtn" class="btn primary" type="button">Test selected model</button>
+            <button id="runBatchBtn" class="btn secondary" type="button">Test all image models</button>
+          </div>
+        </div>
+        <div class="status" id="statusBox">
+          <b id="statusTitle">Idle</b>
+          <div id="statusText" class="small">Ready to run image-generation diagnostics.</div>
+        </div>
+        <div>
+          <h2>What this checks</h2>
+          <div class="chips">
+            <span class="chip">API key presence</span>
+            <span class="chip">model reachability</span>
+            <span class="chip">actual image return</span>
+            <span class="chip">preview render</span>
+            <span class="chip">error detail</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel stack">
+        <div>
+          <h2>Candidate image models</h2>
+          <div id="modelList" class="models"></div>
+        </div>
+      </section>
+    </section>
+
+    <section class="panel" style="margin-top:14px;">
+      <h2>Results</h2>
+      <div id="results" class="result-list">
+        <div class="result small">No tests run yet.</div>
+      </div>
+    </section>
+  </div>
+
+  <a id="rvHomeFab" class="rv-home-fab" href="#">⌂</a>
+  <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button">⛶</button>
+  <button id="rvBackFab" class="rv-back-fab" type="button">←</button>
+
+  <script>
+    const KEY_STORAGE = 'remoteViewer.geminiApiKey';
+    const MODELS = [
+      { id:'gemini-3.1-flash-image-preview', label:'Gemini 3.1 Flash Image Preview', note:'Likely explicit image-capable 3.1 lane.' },
+      { id:'gemini-3-pro-image-preview', label:'Gemini 3 Pro Image Preview', note:'Historical Nano Banana-adjacent image lane name.' },
+      { id:'imagen-3.0-generate-002', label:'Imagen 3.0 Generate 002', note:'Google image generation baseline if enabled on the key.' },
+      { id:'gemini-2.0-flash-preview-image-generation', label:'Gemini 2.0 Flash Preview Image Generation', note:'Older image-capable Gemini preview lane.' }
+    ];
+
+    const apiKeyInput = document.getElementById('apiKey');
+    const saveKeyBtn = document.getElementById('saveKeyBtn');
+    const clearKeyBtn = document.getElementById('clearKeyBtn');
+    const aspectRatioEl = document.getElementById('aspectRatio');
+    const imageSizeEl = document.getElementById('imageSize');
+    const promptEl = document.getElementById('prompt');
+    const singleModelEl = document.getElementById('singleModel');
+    const runOneBtn = document.getElementById('runOneBtn');
+    const runBatchBtn = document.getElementById('runBatchBtn');
+    const modelListEl = document.getElementById('modelList');
+    const resultsEl = document.getElementById('results');
+    const statusTitle = document.getElementById('statusTitle');
+    const statusText = document.getElementById('statusText');
+
+    function getApiKey(){ return apiKeyInput.value.trim() || localStorage.getItem(KEY_STORAGE) || ''; }
+    function setStatus(title,text){ statusTitle.textContent = title; statusText.textContent = text; }
+    function init(){
+      const saved = localStorage.getItem(KEY_STORAGE) || '';
+      if(saved) apiKeyInput.value = saved;
+      singleModelEl.innerHTML = MODELS.map(m => `<option value="${m.id}">${m.label}</option>`).join('');
+      modelListEl.innerHTML = MODELS.map(m => `<div class="model"><div class="model-head"><div><strong>${m.label}</strong><div class="small mono">${m.id}</div></div></div><div class="small">${m.note}</div></div>`).join('');
+    }
+    function appendResult(html, prepend=true){
+      const div = document.createElement('div'); div.className='result'; div.innerHTML = html;
+      if(resultsEl.children.length===1 && resultsEl.textContent.includes('No tests run yet.')) resultsEl.innerHTML='';
+      prepend ? resultsEl.prepend(div) : resultsEl.append(div);
+    }
+    function bytesToDataUrl(mimeType, base64){ return `data:${mimeType || 'image/png'};base64,${base64}`; }
+    async function runOne(modelId){
+      const apiKey = getApiKey();
+      if(!apiKey){ setStatus('Missing key','Paste or save a Gemini API key first.'); return; }
+      const prompt = promptEl.value.trim();
+      if(!prompt){ setStatus('Missing prompt','Add a prompt first.'); return; }
+      setStatus('Testing…', `Running ${modelId}...`);
+      runOneBtn.disabled = true; runBatchBtn.disabled = true;
+      const started = performance.now();
+      try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(modelId)}:generateContent?key=${encodeURIComponent(apiKey)}`;
+        const body = {
+          contents:[{parts:[{text:prompt}]}],
+          generationConfig:{temperature:0.7,responseModalities:['TEXT','IMAGE']},
+          imageConfig:{aspectRatio:aspectRatioEl.value,imageSize:imageSizeEl.value}
+        };
+        const res = await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+        const data = await res.json().catch(()=>({}));
+        const ms = Math.round(performance.now()-started);
+        if(!res.ok){
+          const err = data?.error?.message || `HTTP ${res.status}`;
+          appendResult(`<div><strong class="err">Failed</strong> · <span class="mono">${modelId}</span> · ${ms} ms</div><div class="small mono">${err}</div>`);
+          setStatus('Failure', `${modelId} failed: ${err}`);
+          return;
+        }
+        const candidates = data.candidates || [];
+        let foundImage = null; let foundText = '';
+        for(const cand of candidates){
+          const parts = cand?.content?.parts || cand?.parts || [];
+          for(const part of parts){
+            if(part.text && !foundText) foundText = part.text;
+            if(part.inlineData?.data){ foundImage = { data: part.inlineData.data, mimeType: part.inlineData.mimeType || 'image/png' }; break; }
+            if(part.inline_data?.data){ foundImage = { data: part.inline_data.data, mimeType: part.inline_data.mime_type || 'image/png' }; break; }
+          }
+          if(foundImage) break;
+        }
+        if(foundImage){
+          const src = bytesToDataUrl(foundImage.mimeType, foundImage.data);
+          appendResult(`<div><strong class="ok">Success</strong> · <span class="mono">${modelId}</span> · ${ms} ms</div><div class="small">Image returned successfully.${foundText ? ' Model text: ' + foundText.replace(/</g,'&lt;') : ''}</div><img alt="Generated preview for ${modelId}" src="${src}">`);
+          setStatus('Success', `${modelId} returned an image successfully.`);
+        } else {
+          appendResult(`<div><strong class="warn">No image found</strong> · <span class="mono">${modelId}</span> · ${ms} ms</div><div class="small mono">Request succeeded, but no inline image was returned.${foundText ? ' Text: ' + foundText.replace(/</g,'&lt;') : ''}</div>`);
+          setStatus('Partial success', `${modelId} responded but did not return an inline image.`);
+        }
+      } catch(err) {
+        appendResult(`<div><strong class="err">Exception</strong> · <span class="mono">${modelId}</span></div><div class="small mono">${String(err).replace(/</g,'&lt;')}</div>`);
+        setStatus('Exception', String(err));
+      } finally {
+        runOneBtn.disabled = false; runBatchBtn.disabled = false;
+      }
+    }
+    async function runBatch(){
+      for(const m of MODELS){ await runOne(m.id); }
+    }
+    saveKeyBtn.addEventListener('click', ()=>{ const k=apiKeyInput.value.trim(); if(!k){ setStatus('Nothing to save','Paste a key first.'); return; } localStorage.setItem(KEY_STORAGE,k); setStatus('Saved','Key saved in this browser localStorage.'); });
+    clearKeyBtn.addEventListener('click', ()=>{ localStorage.removeItem(KEY_STORAGE); apiKeyInput.value=''; setStatus('Cleared','Saved key removed from this browser.'); });
+    runOneBtn.addEventListener('click', ()=>runOne(singleModelEl.value));
+    runBatchBtn.addEventListener('click', runBatch);
+    init();
+  </script>
+
+  <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.href=href;const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const p=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(p.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(p.top??10,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const wm=m;d=null;save(el,key);if(!wm&&click)await click();});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}const fs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const sync=()=>fsFab.textContent=fs()?'🡼':'⛶';const tfs=async()=>{try{const t=document.documentElement;if(!fs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');drag(fab,'rvHomeFabPos');drag(fsFab,'rvFullscreenFabPos',tfs);drag(backFab,'rvBackFabPos',()=>{if(history.length>1)history.back();else location.href=href;});document.addEventListener('fullscreenchange',sync);sync();})();</script>
+</body>
+</html>
