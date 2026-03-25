@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Balance Force Map · Widescreen Test · 2026-03-25</title>
+  <title>Balance · Force Map · 2026-03-25</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
@@ -11,10 +11,10 @@
     :root{
       --text:#edf4ff;
       --muted:#b8c7da;
-      --blue:#5aa2ff; --blue-soft:rgba(90,162,255,.16); --blue-strong:rgba(90,162,255,.28); --blue-solid:#13263d;
-      --red:#ff7d95; --red-soft:rgba(255,125,149,.16); --red-strong:rgba(255,125,149,.28); --red-solid:#341922;
-      --gold:#e7bd69; --gold-soft:rgba(231,189,105,.16); --gold-strong:rgba(231,189,105,.28); --gold-solid:#332712;
-      --green:#6ed7a0; --green-soft:rgba(110,215,160,.16); --green-strong:rgba(110,215,160,.28); --green-solid:#112c23;
+      --blue:#5aa2ff; --blue-soft:rgba(90,162,255,.16); --blue-strong:rgba(90,162,255,.28);
+      --red:#ff7d95; --red-soft:rgba(255,125,149,.16); --red-strong:rgba(255,125,149,.28);
+      --gold:#e7bd69; --gold-soft:rgba(231,189,105,.16); --gold-strong:rgba(231,189,105,.28);
+      --green:#6ed7a0; --green-soft:rgba(110,215,160,.16); --green-strong:rgba(110,215,160,.28);
       --shadow:0 28px 90px rgba(0,0,0,.34);
       --radius:28px;
     }
@@ -40,26 +40,13 @@
       padding:24px;
     }
     .grid{
-      position:relative;
       width:min(1460px, calc(100vw - 48px));
       height:min(840px, calc(100vh - 48px));
       display:grid;
       grid-template-columns:1fr 1fr;
       grid-template-rows:1fr 1fr;
       gap:18px;
-      isolation:isolate;
     }
-    .overlay{
-      position:absolute;
-      inset:-12px;
-      background:rgba(4,9,15,.52);
-      opacity:0;
-      pointer-events:none;
-      transition:opacity .45s ease;
-      border-radius:34px;
-      z-index:8;
-    }
-    .grid.focus-mode .overlay{opacity:1}
     .force{
       position:relative;
       border-radius:var(--radius);
@@ -67,290 +54,74 @@
       background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
       box-shadow:var(--shadow);
       overflow:hidden;
-      padding:22px 22px 20px;
+      padding:24px 24px 22px;
       display:flex;
       flex-direction:column;
       min-height:0;
-      transition:opacity .42s ease, filter .42s ease, transform .42s ease;
-      z-index:1;
     }
     .force::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 88% 12%, rgba(255,255,255,.12), transparent 28%);pointer-events:none}
     .force.blue{box-shadow:var(--shadow), inset 0 0 0 1px rgba(90,162,255,.14)}
     .force.red{box-shadow:var(--shadow), inset 0 0 0 1px rgba(255,125,149,.14)}
     .force.gold{box-shadow:var(--shadow), inset 0 0 0 1px rgba(231,189,105,.14)}
     .force.green{box-shadow:var(--shadow), inset 0 0 0 1px rgba(110,215,160,.14)}
-    .grid.focus-mode .force:not(.active){opacity:.18;filter:blur(2px) saturate(.75);transform:scale(.96);pointer-events:none}
-
-    .accent{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px}
+    .accent{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px}
     .accent::before{content:"";width:11px;height:11px;border-radius:999px;background:currentColor;box-shadow:0 0 24px currentColor}
     .blue .accent{color:var(--blue)} .red .accent{color:var(--red)} .gold .accent{color:var(--gold)} .green .accent{color:var(--green)}
-    .force h2{margin:0 0 10px;font-family:Fraunces,serif;font-size:clamp(1.55rem,2.15vw,2.35rem);line-height:1.02;letter-spacing:-.03em;max-width:none}
-    .summary{display:flex;flex-direction:column;min-height:0;flex:1}
-    .force p{margin:0;color:var(--muted);line-height:1.6;font-size:.96rem;max-width:none;text-wrap:pretty}
-    .action-row{margin:16px 0 16px;display:flex;align-items:center;gap:10px;min-height:44px}
-    .next-btn,.close-btn{appearance:none;border:1px solid transparent;border-radius:999px;padding:10px 14px;font-size:.84rem;font-weight:800;letter-spacing:.04em;cursor:pointer;transition:transform .2s ease, filter .2s ease, background .2s ease, border-color .2s ease}
-    .next-btn:hover,.close-btn:hover{transform:translateY(-1px);filter:brightness(1.06)}
-    .blue .next-btn,.blue .close-btn{background:var(--blue-soft);border-color:var(--blue-strong);color:#dcecff}
-    .red .next-btn,.red .close-btn{background:var(--red-soft);border-color:var(--red-strong);color:#ffe0e6}
-    .gold .next-btn,.gold .close-btn{background:var(--gold-soft);border-color:var(--gold-strong);color:#fff0cc}
-    .green .next-btn,.green .close-btn{background:var(--green-soft);border-color:var(--green-strong);color:#dcffec}
-    .close-btn{display:none}
-
+    .force h2{margin:0 0 12px;font-family:Fraunces,serif;font-size:clamp(1.65rem,2.2vw,2.45rem);line-height:1.02;letter-spacing:-.03em;max-width:none;text-wrap:balance}
+    .force p{margin:0 0 18px;color:var(--muted);line-height:1.62;font-size:.98rem;max-width:none;text-wrap:pretty}
     .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
     .chip{padding:7px 10px;border-radius:999px;border:1px solid transparent;font-size:.79rem;font-weight:600;color:#eef4ff}
     .blue .chip{background:var(--blue-soft);border-color:rgba(90,162,255,.24);color:#dcecff}
     .red .chip{background:var(--red-soft);border-color:rgba(255,125,149,.24);color:#ffe0e6}
     .gold .chip{background:var(--gold-soft);border-color:rgba(231,189,105,.24);color:#fff0cc}
     .green .chip{background:var(--green-soft);border-color:rgba(110,215,160,.24);color:#dcffec}
-
-    .steps{margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08);opacity:0;max-height:0;overflow:hidden;transition:opacity .28s ease,max-height .5s ease,transform .5s ease;transform:translateY(8px)}
-    .steps h3{margin:0 0 10px;font-size:.84rem;letter-spacing:.14em;text-transform:uppercase}
-    .blue .steps h3{color:var(--blue)} .red .steps h3{color:var(--red)} .gold .steps h3{color:var(--gold)} .green .steps h3{color:var(--green)}
-    .step-list{display:grid;gap:10px}
-    .step{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.035)}
-    .step-num{flex:0 0 auto;width:26px;height:26px;border-radius:999px;display:grid;place-items:center;font-size:.78rem;font-weight:800}
-    .step-text{font-size:.92rem;line-height:1.45;color:#ebf2ff}
-    .step-text small{display:block;margin-top:2px;color:var(--muted);font-size:.8rem}
-    .blue .step-num{background:var(--blue-soft);color:#dcecff;border:1px solid var(--blue-strong)}
-    .red .step-num{background:var(--red-soft);color:#ffe0e6;border:1px solid var(--red-strong)}
-    .gold .step-num{background:var(--gold-soft);color:#fff0cc;border:1px solid var(--gold-strong)}
-    .green .step-num{background:var(--green-soft);color:#dcffec;border:1px solid var(--green-strong)}
-
-    .expander{
-      position:fixed;
-      left:0; top:0;
-      width:0; height:0;
-      border-radius:var(--radius);
-      overflow:hidden;
-      opacity:0;
-      pointer-events:none;
-      z-index:30;
-      transition:left .54s cubic-bezier(.22,.8,.2,1), top .54s cubic-bezier(.22,.8,.2,1), width .54s cubic-bezier(.22,.8,.2,1), height .54s cubic-bezier(.22,.8,.2,1), opacity .18s ease;
-    }
-    .expander.open{opacity:1}
-    .expander-card{
-      width:100%;height:100%;border-radius:var(--radius);border:1px solid rgba(255,255,255,.08);box-shadow:0 46px 120px rgba(0,0,0,.5);padding:28px 30px 26px;display:flex;flex-direction:column;position:relative;overflow:hidden;
-    }
-    .expander-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 88% 12%, rgba(255,255,255,.09), transparent 28%);pointer-events:none}
-    .expander.blue .expander-card{background:linear-gradient(180deg, #11233a, #0d1828)}
-    .expander.red .expander-card{background:linear-gradient(180deg, #311822, #24131a)}
-    .expander.gold .expander-card{background:linear-gradient(180deg, #312510, #241b0c)}
-    .expander.green .expander-card{background:linear-gradient(180deg, #112920, #0d1f19)}
-    .expander .accent{font-size:.78rem;margin-bottom:12px}
-    .expander h2{margin:0 0 10px;font-family:Fraunces,serif;font-size:clamp(2.1rem,3vw,3.2rem);line-height:1.02;letter-spacing:-.03em;max-width:18ch}
-    .expander p{margin:0;color:var(--muted);line-height:1.64;font-size:1rem;max-width:none}
-    .expander .action-row{margin:18px 0 18px}
-    .expander .close-btn{display:inline-flex}
-    .expander .next-btn{display:none}
-    .expander .chips{margin-top:0}
-    .expander .steps{opacity:1;max-height:320px;transform:translateY(0)}
-
     @media (max-width:1000px){
       body{overflow:auto}
       .stage{padding:16px}
       .grid{height:auto;min-height:unset;grid-template-columns:1fr}
-      .force{min-height:unset}
-      .overlay{display:none}
-      .expander{display:none}
-      .grid.focus-mode .force:not(.active){display:none}
-      .grid.focus-mode .force.active{opacity:1;filter:none;transform:none}
-      .force.active{padding:24px 22px 22px;background:linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.03))}
-      .force.active .close-btn{display:inline-flex}
-      .force.active .next-btn{display:none}
-      .force.active .steps{opacity:1;max-height:320px;transform:translateY(0)}
+      .force{min-height:unset;padding:22px 20px 20px}
     }
   </style>
 </head>
 <body>
   <main class="stage">
-    <section class="grid" id="forceGrid" aria-label="Balance Force Map">
-      <div class="overlay"></div>
-      <article class="force blue" data-force="venture">
+    <section class="grid" aria-label="Balance Force Map">
+      <article class="force blue">
         <div class="accent">Venture / Applied AI</div>
-        <div class="summary">
-          <h2>Turn fascination into useful, credible work.</h2>
-          <p>This is the force of ambition, skill, leverage, usefulness, and economic reality — where applied AI becomes actual value instead of just interesting possibility.</p>
-          <div class="action-row">
-            <button class="next-btn" type="button">Next Steps</button>
-            <button class="close-btn" type="button">Back to Map</button>
-          </div>
-          <div class="chips">
-            <span class="chip">applied AI</span><span class="chip">AI + healthcare</span><span class="chip">expertise</span><span class="chip">credibility</span><span class="chip">reach</span><span class="chip">usefulness</span><span class="chip">money</span><span class="chip">value</span><span class="chip">ambition</span><span class="chip">risk</span>
-          </div>
-          <div class="steps">
-            <h3>Next Steps</h3>
-            <div class="step-list">
-              <div class="step"><div class="step-num">1</div><div class="step-text">Vercel for citation app<small>server-side keys + cleaner tester flow</small></div></div>
-              <div class="step"><div class="step-num">2</div><div class="step-text">Citation app V1 plan<small>define minimum believable deployment</small></div></div>
-              <div class="step"><div class="step-num">3</div><div class="step-text">Reliability pass<small>confidence, ambiguities, source classification</small></div></div>
-            </div>
-          </div>
+        <h2>Turn fascination into useful, credible work.</h2>
+        <p>This is the force of ambition, skill, leverage, usefulness, and economic reality — where applied AI becomes actual value instead of just interesting possibility.</p>
+        <div class="chips">
+          <span class="chip">applied AI</span><span class="chip">AI + healthcare</span><span class="chip">expertise</span><span class="chip">credibility</span><span class="chip">reach</span><span class="chip">usefulness</span><span class="chip">money</span><span class="chip">value</span><span class="chip">ambition</span><span class="chip">risk</span>
         </div>
       </article>
 
-      <article class="force red" data-force="connection">
+      <article class="force red">
         <div class="accent">Connection / Relational Identity</div>
-        <div class="summary">
-          <h2>The human world you belong to and shape.</h2>
-          <p>This is relationships, belonging, home, social readability, and your relationship to yourself — the part of life that makes identity interpersonal rather than abstract.</p>
-          <div class="action-row">
-            <button class="next-btn" type="button">Next Steps</button>
-            <button class="close-btn" type="button">Back to Map</button>
-          </div>
-          <div class="chips">
-            <span class="chip">parents</span><span class="chip">brother</span><span class="chip">Rose</span><span class="chip">friends</span><span class="chip">community</span><span class="chip">self</span><span class="chip">home</span><span class="chip">status</span><span class="chip">thought</span><span class="chip">philosophy</span>
-          </div>
-          <div class="steps">
-            <h3>Next Steps</h3>
-            <div class="step-list">
-              <div class="step"><div class="step-num">1</div><div class="step-text">Share portal upgrade<small>improve the external-facing bridge</small></div></div>
-              <div class="step"><div class="step-num">2</div><div class="step-text">Rose tester flow review<small>see the app through a real tester’s eyes</small></div></div>
-              <div class="step"><div class="step-num">3</div><div class="step-text">Publishing grammar<small>honest repeatable public-expression workflow</small></div></div>
-            </div>
-          </div>
+        <h2>The human world you belong to and shape.</h2>
+        <p>This is relationships, belonging, home, social readability, and your relationship to yourself — the part of life that makes identity interpersonal rather than abstract.</p>
+        <div class="chips">
+          <span class="chip">parents</span><span class="chip">brother</span><span class="chip">Rose</span><span class="chip">friends</span><span class="chip">community</span><span class="chip">self</span><span class="chip">home</span><span class="chip">status</span><span class="chip">thought</span><span class="chip">philosophy</span>
         </div>
       </article>
 
-      <article class="force gold" data-force="stewardship">
+      <article class="force gold">
         <div class="accent">Life Stewardship</div>
-        <div class="summary">
-          <h2>Handle reality with discipline and dignity.</h2>
-          <p>This is body, health, maintenance, preparation, and money management — the force that keeps life viable, stable, and physically supportable.</p>
-          <div class="action-row">
-            <button class="next-btn" type="button">Next Steps</button>
-            <button class="close-btn" type="button">Back to Map</button>
-          </div>
-          <div class="chips">
-            <span class="chip">health</span><span class="chip">vitality</span><span class="chip">fitness</span><span class="chip">ability</span><span class="chip">preparation</span><span class="chip">gym</span><span class="chip">sauna</span><span class="chip">cardio</span><span class="chip">diet</span><span class="chip">finances</span>
-          </div>
-          <div class="steps">
-            <h3>Next Steps</h3>
-            <div class="step-list">
-              <div class="step"><div class="step-num">1</div><div class="step-text">Office hours refinement<small>turn it into an operational weekly system</small></div></div>
-              <div class="step"><div class="step-num">2</div><div class="step-text">Boundary architecture pass<small>separate work, admin, and reflection better</small></div></div>
-              <div class="step"><div class="step-num">3</div><div class="step-text">Continuity cleanup<small>keep surfaces and re-entry clean</small></div></div>
-            </div>
-          </div>
+        <h2>Handle reality with discipline and dignity.</h2>
+        <p>This is body, health, maintenance, preparation, and money management — the force that keeps life viable, stable, and physically supportable.</p>
+        <div class="chips">
+          <span class="chip">health</span><span class="chip">vitality</span><span class="chip">fitness</span><span class="chip">ability</span><span class="chip">preparation</span><span class="chip">gym</span><span class="chip">sauna</span><span class="chip">cardio</span><span class="chip">diet</span><span class="chip">finances</span>
         </div>
       </article>
 
-      <article class="force green" data-force="adventure">
+      <article class="force green">
         <div class="accent">Adventure / Aliveness</div>
-        <div class="summary">
-          <h2>Direct contact with life, not just optimization.</h2>
-          <p>This is novelty, movement, beauty, nature, joy, and lived experience — the force that keeps life from collapsing into maintenance and ambition alone.</p>
-          <div class="action-row">
-            <button class="next-btn" type="button">Next Steps</button>
-            <button class="close-btn" type="button">Back to Map</button>
-          </div>
-          <div class="chips">
-            <span class="chip">novelty</span><span class="chip">nature</span><span class="chip">hiking</span><span class="chip">biking</span><span class="chip">kayaking</span><span class="chip">travel</span><span class="chip">camping</span><span class="chip">beach</span><span class="chip">snorkeling</span><span class="chip">joy</span>
-          </div>
-          <div class="steps">
-            <h3>Next Steps</h3>
-            <div class="step-list">
-              <div class="step"><div class="step-num">1</div><div class="step-text">Adventure card for Balance<small>define aliveness concretely in this model</small></div></div>
-              <div class="step"><div class="step-num">2</div><div class="step-text">Exploration lane capture<small>catch energizing ideas before they dissolve</small></div></div>
-              <div class="step"><div class="step-num">3</div><div class="step-text">One vivid experiment<small>pick a move that changes the week’s feel</small></div></div>
-            </div>
-          </div>
+        <h2>Direct contact with life, not just optimization.</h2>
+        <p>This is novelty, movement, beauty, nature, joy, and lived experience — the force that keeps life from collapsing into maintenance and ambition alone.</p>
+        <div class="chips">
+          <span class="chip">novelty</span><span class="chip">nature</span><span class="chip">hiking</span><span class="chip">biking</span><span class="chip">kayaking</span><span class="chip">travel</span><span class="chip">camping</span><span class="chip">beach</span><span class="chip">snorkeling</span><span class="chip">joy</span>
         </div>
       </article>
     </section>
   </main>
-
-  <div class="expander" id="expander" aria-hidden="true"></div>
-
-  <script>
-    const grid = document.getElementById('forceGrid');
-    const cards = [...document.querySelectorAll('.force')];
-    const expander = document.getElementById('expander');
-    let activeCard = null;
-
-    function buildExpander(card){
-      const cls = [...card.classList].find(c => ['blue','red','gold','green'].includes(c)) || '';
-      expander.className = `expander ${cls}`;
-      expander.innerHTML = `<div class="expander-card">${card.innerHTML}</div>`;
-      expander.querySelector('.close-btn').addEventListener('click', closeCards);
-    }
-
-    function openCard(card){
-      if (window.innerWidth <= 1000) {
-        grid.classList.add('focus-mode');
-        cards.forEach(c => c.classList.toggle('active', c === card));
-        activeCard = card;
-        return;
-      }
-
-      activeCard = card;
-      const rect = card.getBoundingClientRect();
-      buildExpander(card);
-      expander.style.left = rect.left + 'px';
-      expander.style.top = rect.top + 'px';
-      expander.style.width = rect.width + 'px';
-      expander.style.height = rect.height + 'px';
-      expander.setAttribute('aria-hidden', 'false');
-
-      requestAnimationFrame(() => {
-        grid.classList.add('focus-mode');
-        card.classList.add('active');
-        expander.classList.add('open');
-        const padX = Math.max(28, window.innerWidth * 0.06);
-        const padY = Math.max(24, window.innerHeight * 0.07);
-        expander.style.left = padX + 'px';
-        expander.style.top = padY + 'px';
-        expander.style.width = (window.innerWidth - padX * 2) + 'px';
-        expander.style.height = (window.innerHeight - padY * 2) + 'px';
-      });
-    }
-
-    function closeCards(){
-      if (window.innerWidth <= 1000) {
-        grid.classList.remove('focus-mode');
-        cards.forEach(c => c.classList.remove('active'));
-        activeCard = null;
-        return;
-      }
-      if (!activeCard) return;
-      const rect = activeCard.getBoundingClientRect();
-      expander.style.left = rect.left + 'px';
-      expander.style.top = rect.top + 'px';
-      expander.style.width = rect.width + 'px';
-      expander.style.height = rect.height + 'px';
-      expander.classList.remove('open');
-      grid.classList.remove('focus-mode');
-      cards.forEach(c => c.classList.remove('active'));
-      const done = () => {
-        expander.innerHTML = '';
-        expander.setAttribute('aria-hidden', 'true');
-        expander.removeEventListener('transitionend', done);
-      };
-      expander.addEventListener('transitionend', done);
-      activeCard = null;
-    }
-
-    cards.forEach(card => {
-      card.querySelector('.next-btn').addEventListener('click', () => openCard(card));
-      const close = card.querySelector('.close-btn');
-      if (close) close.addEventListener('click', closeCards);
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeCards();
-    });
-
-    window.addEventListener('resize', () => {
-      if (window.innerWidth <= 1000 && expander.innerHTML) {
-        expander.innerHTML = '';
-        expander.className = 'expander';
-        expander.setAttribute('aria-hidden', 'true');
-        if (activeCard) {
-          grid.classList.remove('focus-mode');
-          cards.forEach(c => c.classList.remove('active'));
-          activeCard = null;
-        }
-      }
-    });
-  </script>
 </body>
 </html>
