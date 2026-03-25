@@ -42,9 +42,10 @@
     .card-marker{font-size:1.08rem;color:#94a3b8;user-select:none}
     .meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
     .chip{display:inline-block;padding:6px 10px;border-radius:999px;font-size:.78rem;font-weight:800;letter-spacing:.03em}
-    .chip.venture{background:var(--venture);color:var(--venture-ink)}
-    .chip.connection{background:var(--connection);color:var(--connection-ink)}
-    .chip.stewardship{background:var(--stewardship);color:var(--stewardship-ink)}
+    .chip.venture{background:var(--venture);color:var(--venture-ink);border:1px solid rgba(29,78,216,.10)}
+    .chip.connection{background:var(--connection);color:var(--connection-ink);border:1px solid rgba(190,24,93,.10)}
+    .chip.stewardship{background:var(--stewardship);color:var(--stewardship-ink);border:1px solid rgba(22,101,52,.10)}
+    .chip.adventure{background:var(--adventure);color:var(--adventure-ink);border:1px solid rgba(161,98,7,.16);box-shadow:inset 0 0 0 1px rgba(255,255,255,.24)}
     .chip.placeholder{background:#f3f4f6;color:#6b7280}
     .idea p{margin:0 0 12px;color:#475467;line-height:1.75}
     .idea ul{margin:0;padding-left:1.2rem}
@@ -292,12 +293,6 @@
     wireDraggable(fsFab,'rvFullscreenFabPos',toggleFullscreen);
     wireDraggable(backFab,'rvBackFabPos',()=>{if(window.history.length>1)window.history.back();else window.location.href=href;});
     document.addEventListener('fullscreenchange',syncFsIcon);
-    syncFsIcon();
-  })();
-  </script>
-</body>
-</html>
-eenchange',syncFsIcon);
     syncFsIcon();
   })();
   </script>
