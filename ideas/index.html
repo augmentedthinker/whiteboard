@@ -12,7 +12,8 @@
       --stewardship:#dcfce7;--stewardship-line:#86efac;--stewardship-ink:#166534;
       --adventure:#fef3c7;--adventure-line:#fcd34d;--adventure-ink:#a16207;
     }
-    *{box-sizing:border-box} html,body{margin:0}
+    *{box-sizing:border-box}
+    html,body{margin:0}
     body{min-height:100vh;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#f7f8fa,#f1f3f6 52%,#eceff3);color:var(--text);padding:max(12px,env(safe-area-inset-top)) 12px max(16px,env(safe-area-inset-bottom));line-height:1.55}
     .container{max-width:980px;margin:0 auto}
     .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
@@ -27,7 +28,8 @@
     .force.connection{border-color:var(--connection-line);background:linear-gradient(180deg, rgba(252,231,243,.58), rgba(255,255,255,.92))}
     .force.stewardship{border-color:var(--stewardship-line);background:linear-gradient(180deg, rgba(220,252,231,.56), rgba(255,255,255,.92))}
     .force.adventure{border-color:var(--adventure-line);background:linear-gradient(180deg, rgba(254,243,199,.62), rgba(255,255,255,.92))}
-    .force-toggle{width:100%;border:0;background:transparent;text-align:left;padding:16px 18px;display:flex;align-items:flex-start;justify-content:space-between;gap:14px;cursor:pointer}
+    .force-toggle{width:100%;border:0;background:transparent;text-align:left;padding:16px 18px;display:flex;align-items:flex-start;justify-content:space-between;gap:14px;cursor:pointer;list-style:none}
+    .force-toggle::-webkit-details-marker{display:none}
     .force-toggle:hover{background:rgba(255,255,255,.28)}
     .force-copy h2{margin:0 0 6px;font-size:1.2rem;letter-spacing:-.02em}
     .force-copy p{margin:0;color:var(--muted);line-height:1.65}
@@ -41,13 +43,28 @@
     .meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
     .chip{display:inline-block;padding:6px 10px;border-radius:999px;font-size:.78rem;font-weight:800;letter-spacing:.03em}
     .chip.venture{background:var(--venture);color:var(--venture-ink)}
+    .chip.connection{background:var(--connection);color:var(--connection-ink)}
+    .chip.stewardship{background:var(--stewardship);color:var(--stewardship-ink)}
     .chip.placeholder{background:#f3f4f6;color:#6b7280}
     .idea p{margin:0 0 12px;color:#475467;line-height:1.75}
-    .idea ul{margin:0;padding-left:1.2rem}.idea li{margin:.28rem 0;color:#475467;line-height:1.6}
-    @media (max-width:760px){body{padding:10px 0 24px;background:#fff}.container{max-width:100%}.hero,.force,.idea{border-radius:0;box-shadow:none;border-left:0;border-right:0}.hero{padding:18px 14px 14px}.force-toggle{padding:14px}.cards{padding:0 14px 14px}.idea{padding:16px 14px}.topbar{padding:0 10px}.link{padding:9px 12px;font-size:.9rem;box-shadow:none}h1{font-size:1.9rem}.sub,.idea p,.idea li,.force-copy p{overflow-wrap:anywhere}}
+    .idea ul{margin:0;padding-left:1.2rem}
+    .idea li{margin:.28rem 0;color:#475467;line-height:1.6}
+    @media (max-width:760px){
+      body{padding:10px 0 24px;background:#fff}
+      .container{max-width:100%}
+      .hero,.force,.idea{border-radius:0;box-shadow:none;border-left:0;border-right:0}
+      .hero{padding:18px 14px 14px}
+      .force-toggle{padding:14px}
+      .cards{padding:0 14px 14px}
+      .idea{padding:16px 14px}
+      .topbar{padding:0 10px}
+      .link{padding:9px 12px;font-size:.9rem;box-shadow:none}
+      h1{font-size:1.9rem}
+      .sub,.idea p,.idea li,.force-copy p{overflow-wrap:anywhere}
+    }
   </style>
-<style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging{cursor:grabbing}.rv-hidden-back-nav{display:none !important}.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none;left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-back-fab.dragging{cursor:grabbing}</style>
-<style id="rv-mobile-opt-style">html{-webkit-text-size-adjust:100%}body{overflow-x:hidden}img,video,canvas,iframe{max-width:100%;height:auto}*{word-wrap:break-word}@media (max-width: 768px){.container,.wrap,.doc-wrap,.hero,.topbar-inner,main{max-width:100% !important}body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}}</style>
+  <style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}</style>
+  <style id="rv-mobile-opt-style">html{-webkit-text-size-adjust:100%}body{overflow-x:hidden}img,video,canvas,iframe{max-width:100%;height:auto}*{word-wrap:break-word}@media (max-width:768px){.container,.wrap,.doc-wrap,.hero,.topbar-inner,main{max-width:100% !important}body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}}</style>
 </head>
 <body>
   <div class="container">
@@ -84,6 +101,19 @@
               <li>better fit than GitHub Pages for product-like app behavior</li>
             </ul>
           </article>
+          <article class="idea">
+            <div class="idea-head">
+              <h3>Social Media Plan</h3>
+              <div class="card-marker" aria-hidden="true">◫</div>
+            </div>
+            <div class="meta"><span class="chip venture">Venture</span></div>
+            <p>Clarify how social media should function as proof-of-work, signal, and strategic visibility without drifting into empty performance.</p>
+            <ul>
+              <li>decide the real role of X in the system</li>
+              <li>define what is worth posting versus keeping private</li>
+              <li>turn instinct into a repeatable lightweight plan</li>
+            </ul>
+          </article>
         </div>
       </details>
 
@@ -98,21 +128,20 @@
         <div class="cards">
           <article class="idea">
             <div class="idea-head">
-              <h3>Social Media Plan</h3>
+              <h3>New Idea Card</h3>
               <div class="card-marker" aria-hidden="true">◫</div>
             </div>
-            <div class="meta"><span class="chip placeholder">Connection</span></div>
-            <p>Clarify how social media should function as expression, proof-of-work, and signal without drifting into performance or pressure theater.</p>
+            <div class="meta"><span class="chip placeholder">Placeholder</span></div>
+            <p>An open slot for the next real idea we want to add in this force.</p>
             <ul>
-              <li>decide the real role of X in the system</li>
-              <li>define what is worth posting versus keeping private</li>
-              <li>turn instinct into a repeatable lightweight plan</li>
+              <li>replace placeholder language when ready</li>
+              <li>add a relationship-facing or trust-facing next move</li>
             </ul>
           </article>
         </div>
       </details>
 
-      <details class="force stewardship">
+      <details class="force stewardship" open>
         <summary class="force-toggle">
           <div class="force-copy">
             <h2>Life Stewardship</h2>
@@ -123,14 +152,28 @@
         <div class="cards">
           <article class="idea">
             <div class="idea-head">
-              <h3>New Idea Card</h3>
+              <h3>Doctor Appointment</h3>
               <div class="card-marker" aria-hidden="true">◫</div>
             </div>
-            <div class="meta"><span class="chip placeholder">Placeholder</span></div>
-            <p>An open slot for the next real idea we want to add in this force.</p>
+            <div class="meta"><span class="chip stewardship">Stewardship</span></div>
+            <p>Make sure a doctor appointment is identified, scheduled, and not left drifting in the background.</p>
             <ul>
-              <li>drop in a systems or self-management idea</li>
-              <li>use this area for grounded upkeep moves</li>
+              <li>figure out what type of appointment is needed</li>
+              <li>confirm provider, insurance, or booking path</li>
+              <li>get it onto the calendar</li>
+            </ul>
+          </article>
+          <article class="idea">
+            <div class="idea-head">
+              <h3>Dentist Cleaning</h3>
+              <div class="card-marker" aria-hidden="true">◫</div>
+            </div>
+            <div class="meta"><span class="chip stewardship">Stewardship</span></div>
+            <p>Schedule a routine dental cleaning so it stays in the cared-for category instead of becoming overdue maintenance.</p>
+            <ul>
+              <li>check last cleaning timing</li>
+              <li>identify dentist office or booking route</li>
+              <li>lock in a date</li>
             </ul>
           </article>
         </div>
@@ -161,11 +204,68 @@
       </details>
     </section>
   </div>
-<a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
-<button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
-<button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
-<script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const placeFromStorage=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(pos.top??10,6,maxTop)+'px';el.style.right='auto';}catch(_){}};const savePos=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function wireDraggable(el,key,onClick){let drag=null,moved=false;el.addEventListener('pointerdown',e=>{drag={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};moved=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!drag||e.pointerId!==drag.id)return;const dx=e.clientX-drag.startX,dy=e.clientY-drag.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)moved=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(drag.left+dx,6,maxLeft)+'px';el.style.top=clamp(drag.top+dy,6,maxTop)+'px';el.style.right='auto';});el.addEventListener('pointerup',async e=>{if(!drag||e.pointerId!==drag.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const wasMoved=moved;drag=null;savePos(el,key);if(!wasMoved&&onClick)await onClick(e);});el.addEventListener('click',e=>{if(moved){e.preventDefault();moved=false;}});}const isFullscreen=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const syncFsIcon=()=>{fsFab.textContent=isFullscreen()?'🡼':'⛶';};const toggleFullscreen=async()=>{try{const target=document.documentElement;if(!isFullscreen()){if(target.requestFullscreen)await target.requestFullscreen();else if(target.webkitRequestFullscreen)target.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}syncFsIcon();};placeFromStorage(fab,'rvHomeFabPos','left');placeFromStorage(fsFab,'rvFullscreenFabPos','right');placeFromStorage(backFab,'rvBackFabPos','left');wireDraggable(fab,'rvHomeFabPos');wireDraggable(fsFab,'rvFullscreenFabPos',toggleFullscreen);wireDraggable(backFab,'rvBackFabPos',()=>{if(window.history.length>1)window.history.back();else window.location.href=href;});document.addEventListener('fullscreenchange',syncFsIcon);syncFsIcon();})();</script>
-</body>
-</html>ent.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}syncFsIcon();};placeFromStorage(fab,'rvHomeFabPos','left');placeFromStorage(fsFab,'rvFullscreenFabPos','right');placeFromStorage(backFab,'rvBackFabPos','left');wireDraggable(fab,'rvHomeFabPos');wireDraggable(fsFab,'rvFullscreenFabPos',toggleFullscreen);wireDraggable(backFab,'rvBackFabPos',()=>{if(window.history.length>1)window.history.back();else window.location.href=href;});document.addEventListener('fullscreenchange',syncFsIcon);syncFsIcon();})();</script>
+
+  <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
+  <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
+  <button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
+  <script id="rv-home-fab-script">
+  (function(){
+    const fab=document.getElementById('rvHomeFab');
+    const fsFab=document.getElementById('rvFullscreenFab');
+    const backFab=document.getElementById('rvBackFab');
+    if(!fab||!fsFab||!backFab) return;
+    const path=location.pathname;
+    const marker='/remote-viewer/';
+    const idx=path.indexOf(marker);
+    const href=idx>=0?path.slice(0,idx+marker.length):'/';
+    fab.setAttribute('href',href);
+    const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
+    const placeFromStorage=(el,key,side='left')=>{
+      try{
+        const raw=localStorage.getItem(key);
+        if(!raw) return;
+        const pos=JSON.parse(raw);
+        const maxLeft=window.innerWidth-el.offsetWidth-6;
+        const maxTop=window.innerHeight-el.offsetHeight-6;
+        el.style.left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';
+        el.style.top=clamp(pos.top??10,6,maxTop)+'px';
+        el.style.right='auto';
+      }catch(_){ }
+    };
+    const savePos=(el,key)=>{
+      try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}));}catch(_){ }
+    };
+    function wireDraggable(el,key,onClick){
+      let drag=null,moved=false;
+      el.addEventListener('pointerdown',e=>{drag={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};moved=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});
+      el.addEventListener('pointermove',e=>{if(!drag||e.pointerId!==drag.id)return;const dx=e.clientX-drag.startX,dy=e.clientY-drag.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)moved=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(drag.left+dx,6,maxLeft)+'px';el.style.top=clamp(drag.top+dy,6,maxTop)+'px';el.style.right='auto';});
+      el.addEventListener('pointerup',async e=>{if(!drag||e.pointerId!==drag.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId);}catch(_){}const wasMoved=moved;drag=null;savePos(el,key);if(!wasMoved&&onClick)await onClick(e);});
+      el.addEventListener('click',e=>{if(moved){e.preventDefault();moved=false;}});
+    }
+    const isFullscreen=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);
+    const syncFsIcon=()=>{fsFab.textContent=isFullscreen()?'🡼':'⛶';};
+    const toggleFullscreen=async()=>{
+      try{
+        const target=document.documentElement;
+        if(!isFullscreen()){
+          if(target.requestFullscreen) await target.requestFullscreen();
+          else if(target.webkitRequestFullscreen) target.webkitRequestFullscreen();
+        }else{
+          if(document.exitFullscreen) await document.exitFullscreen();
+          else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+        }
+      }catch(_){ }
+      syncFsIcon();
+    };
+    placeFromStorage(fab,'rvHomeFabPos','left');
+    placeFromStorage(fsFab,'rvFullscreenFabPos','right');
+    placeFromStorage(backFab,'rvBackFabPos','left');
+    wireDraggable(fab,'rvHomeFabPos');
+    wireDraggable(fsFab,'rvFullscreenFabPos',toggleFullscreen);
+    wireDraggable(backFab,'rvBackFabPos',()=>{if(window.history.length>1)window.history.back();else window.location.href=href;});
+    document.addEventListener('fullscreenchange',syncFsIcon);
+    syncFsIcon();
+  })();
+  </script>
 </body>
 </html>
