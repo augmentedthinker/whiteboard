@@ -10,212 +10,132 @@
   <style>
     :root{
       --bg:#071018;
-      --panel:rgba(12,18,28,.82);
-      --line:rgba(167,198,255,.14);
       --text:#edf4ff;
       --muted:#b4c3d8;
+      --line:rgba(167,198,255,.12);
       --blue:#5aa2ff;
+      --blue-soft:rgba(90,162,255,.16);
       --red:#ff7d95;
+      --red-soft:rgba(255,125,149,.16);
       --gold:#e7bd69;
+      --gold-soft:rgba(231,189,105,.16);
       --green:#6ed7a0;
+      --green-soft:rgba(110,215,160,.16);
       --shadow:0 28px 90px rgba(0,0,0,.34);
     }
     *{box-sizing:border-box}
-    html,body{margin:0}
+    html,body{margin:0;height:100%}
     body{
       min-height:100vh;
       font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
       color:var(--text);
       background:
-        radial-gradient(circle at 15% 18%, rgba(90,162,255,.16), transparent 22%),
-        radial-gradient(circle at 83% 22%, rgba(255,125,149,.12), transparent 18%),
-        radial-gradient(circle at 52% 82%, rgba(231,189,105,.09), transparent 22%),
+        radial-gradient(circle at 15% 18%, rgba(90,162,255,.14), transparent 22%),
+        radial-gradient(circle at 83% 22%, rgba(255,125,149,.10), transparent 18%),
+        radial-gradient(circle at 52% 82%, rgba(231,189,105,.08), transparent 22%),
+        radial-gradient(circle at 20% 82%, rgba(110,215,160,.08), transparent 20%),
         linear-gradient(180deg,#06101a,#0b1420 52%, #0e1724);
-      padding:22px 20px 34px;
-      overflow-x:hidden;
-    }
-    .wrap{max-width:1480px;margin:0 auto}
-    .topbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
-    .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.04);font-weight:700}
-    .hero{
-      border:1px solid var(--line);
-      border-radius:30px;
-      background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
-      box-shadow:var(--shadow);
       overflow:hidden;
     }
-    .hero-grid{
-      display:grid;
-      grid-template-columns: 1.06fr 1.3fr;
-      min-height:780px;
-    }
-    .intro{
-      padding:42px 36px 34px;
-      border-right:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+    .stage{
+      min-height:100vh;
       display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      gap:26px;
-    }
-    .eyebrow{margin:0 0 10px;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:#b7d3ff;font-weight:800}
-    h1{margin:0 0 14px;font-family:Fraunces,serif;font-size:clamp(2.8rem,4.5vw,4.7rem);line-height:.94;letter-spacing:-.04em;max-width:9ch}
-    .lede{margin:0;color:var(--muted);font-size:1.02rem;line-height:1.8;max-width:42ch}
-    .term-box,.why-box{
-      padding:16px 18px;
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:20px;
-      background:rgba(255,255,255,.03);
-    }
-    .term-box strong,.why-box strong{display:block;margin-bottom:6px;color:var(--text);font-size:.95rem}
-    .term-box span,.why-box span{display:block;color:var(--muted);line-height:1.7;font-size:.94rem}
-    .explain{display:grid;gap:12px}
-    .force-area{
+      align-items:center;
+      justify-content:center;
       padding:24px;
-      display:grid;
-      grid-template-rows:auto 1fr;
-      gap:16px;
     }
-    .force-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;padding:8px 6px 0}
-    .force-head h2{margin:0;font-size:.9rem;letter-spacing:.16em;text-transform:uppercase;color:#a9c8fb}
-    .force-head p{margin:6px 0 0;color:var(--muted);font-size:.95rem}
     .grid{
+      width:min(1400px, calc(100vw - 48px));
+      height:min(820px, calc(100vh - 48px));
       display:grid;
       grid-template-columns:1fr 1fr;
-      gap:16px;
-      align-content:stretch;
+      grid-template-rows:1fr 1fr;
+      gap:18px;
     }
     .force{
       position:relative;
-      min-height:320px;
-      border-radius:26px;
-      border:1px solid rgba(255,255,255,.08);
+      border-radius:28px;
+      border:1px solid rgba(255,255,255,.07);
       background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
       overflow:hidden;
-      padding:22px 22px 20px;
+      padding:20px 20px 18px;
+      display:flex;
+      flex-direction:column;
+      min-height:0;
     }
     .force::before{
       content:"";
       position:absolute;
       inset:0;
-      background:radial-gradient(circle at 88% 12%, rgba(255,255,255,.14), transparent 28%);
+      background:radial-gradient(circle at 88% 12%, rgba(255,255,255,.12), transparent 28%);
       pointer-events:none;
     }
-    .force.blue{box-shadow: inset 0 0 0 1px rgba(90,162,255,.12)}
-    .force.red{box-shadow: inset 0 0 0 1px rgba(255,125,149,.12)}
-    .force.gold{box-shadow: inset 0 0 0 1px rgba(231,189,105,.12)}
-    .force.green{box-shadow: inset 0 0 0 1px rgba(110,215,160,.12)}
-    .accent{display:inline-flex;align-items:center;gap:10px;font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:14px}
+    .force.blue{box-shadow:var(--shadow), inset 0 0 0 1px rgba(90,162,255,.14)}
+    .force.red{box-shadow:var(--shadow), inset 0 0 0 1px rgba(255,125,149,.14)}
+    .force.gold{box-shadow:var(--shadow), inset 0 0 0 1px rgba(231,189,105,.14)}
+    .force.green{box-shadow:var(--shadow), inset 0 0 0 1px rgba(110,215,160,.14)}
+    .accent{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px}
     .accent::before{content:"";width:11px;height:11px;border-radius:999px;background:currentColor;box-shadow:0 0 24px currentColor}
     .blue .accent{color:var(--blue)}
     .red .accent{color:var(--red)}
     .gold .accent{color:var(--gold)}
     .green .accent{color:var(--green)}
-    .force h3{margin:0 0 10px;font-family:Fraunces,serif;font-size:clamp(1.6rem,2.2vw,2.4rem);line-height:1.02;letter-spacing:-.03em}
-    .force p{margin:0 0 14px;color:var(--muted);line-height:1.72;font-size:.97rem;max-width:46ch}
-    .chips{display:flex;flex-wrap:wrap;gap:9px}
-    .chip{padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:.84rem;color:#eef4ff}
-    .footer-note{padding:6px 4px 0;color:#9bb0ca;font-size:.88rem}
-    @media (max-width:1120px){
-      .hero-grid{grid-template-columns:1fr}
-      .intro{border-right:0;border-bottom:1px solid var(--line)}
-    }
-    @media (max-width:760px){
-      body{padding:8px 0 24px}
-      .topbar{padding:0 10px;overflow-x:auto;flex-wrap:nowrap}
-      .pill{white-space:nowrap;flex:0 0 auto}
-      .hero{border-radius:0;border-left:0;border-right:0;box-shadow:none}
-      .intro,.force-area{padding:18px 14px}
-      h1{font-size:2.15rem;max-width:none}
-      .grid{grid-template-columns:1fr}
-      .force{min-height:auto;padding:18px 16px 16px;border-radius:22px}
+    .force h2{margin:0 0 8px;font-family:Fraunces,serif;font-size:clamp(1.4rem,2vw,2.15rem);line-height:1.02;letter-spacing:-.03em;max-width:14ch}
+    .force p{margin:0 0 12px;color:var(--muted);line-height:1.55;font-size:.92rem;max-width:52ch}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+    .chip{padding:7px 10px;border-radius:999px;border:1px solid transparent;font-size:.79rem;font-weight:600;color:#eef4ff}
+    .blue .chip{background:var(--blue-soft);border-color:rgba(90,162,255,.24);color:#dcecff}
+    .red .chip{background:var(--red-soft);border-color:rgba(255,125,149,.24);color:#ffe0e6}
+    .gold .chip{background:var(--gold-soft);border-color:rgba(231,189,105,.24);color:#fff0cc}
+    .green .chip{background:var(--green-soft);border-color:rgba(110,215,160,.24);color:#dcffec}
+    @media (max-width:1000px){
+      body{overflow:auto}
+      .stage{padding:16px}
+      .grid{height:auto;min-height:unset;grid-template-columns:1fr}
+      .force{min-height:unset}
     }
   </style>
-  <style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}</style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="topbar">
-      <a class="pill" href="../../today/index.html">← Today’s Artifacts</a>
-      <a class="pill" href="./signature.html">✒️ Signature</a>
-    </div>
-
-    <section class="hero">
-      <div class="hero-grid">
-        <div class="intro">
-          <div>
-            <p class="eyebrow">Balance test artifact · Chromebook / widescreen</p>
-            <h1>Balance Force Map</h1>
-            <p class="lede">A concise widescreen experiment for Balance: four forces, real specifics, almost no fluff. The point is not to philosophize at length — just to make the structure legible enough that you can feel where life is pulling.</p>
-          </div>
-
-          <div class="explain">
-            <div class="term-box">
-              <strong>Best naming:</strong>
-              <span>Use <strong>Chromebook / widescreen</strong> versus <strong>mobile</strong>. It’s clearer than “laptop view,” and it matches how we’ve actually been reviewing these pages.</span>
-            </div>
-            <div class="why-box">
-              <strong>What this version is testing:</strong>
-              <span>Whether Balance works better as a single concise visual field instead of a heavier conceptual artifact. If this lands, we can either evolve it or replace the current surface later without guessing.</span>
-            </div>
-          </div>
+  <main class="stage">
+    <section class="grid" aria-label="Balance Force Map">
+      <article class="force blue">
+        <div class="accent">Venture / Applied AI</div>
+        <h2>Turn fascination into useful, credible work.</h2>
+        <p>This is the force of ambition, skill, leverage, usefulness, and economic reality — where applied AI becomes actual value instead of just interesting possibility.</p>
+        <div class="chips">
+          <span class="chip">applied AI</span><span class="chip">AI + healthcare</span><span class="chip">expertise</span><span class="chip">credibility</span><span class="chip">reach</span><span class="chip">usefulness</span><span class="chip">money</span><span class="chip">value</span><span class="chip">ambition</span><span class="chip">risk</span>
         </div>
+      </article>
 
-        <div class="force-area">
-          <div class="force-head">
-            <div>
-              <h2>The four forces</h2>
-              <p>Each quadrant keeps the practical specifics visible and gives just enough explanation to remember what the category is for.</p>
-            </div>
-          </div>
-
-          <div class="grid">
-            <article class="force blue">
-              <div class="accent">Venture / Applied AI</div>
-              <h3>Turn fascination into useful, credible work.</h3>
-              <p>This is the force of ambition, skill, leverage, usefulness, and economic reality — where applied AI becomes actual value instead of just interesting possibility.</p>
-              <div class="chips">
-                <span class="chip">applied AI</span><span class="chip">AI + healthcare</span><span class="chip">expertise</span><span class="chip">credibility</span><span class="chip">reach</span><span class="chip">usefulness</span><span class="chip">money</span><span class="chip">value</span><span class="chip">ambition</span><span class="chip">risk</span>
-              </div>
-            </article>
-
-            <article class="force red">
-              <div class="accent">Connection / Relational Identity</div>
-              <h3>The human world you belong to and shape.</h3>
-              <p>This is relationships, belonging, home, social readability, and your relationship to yourself — the part of life that makes identity interpersonal rather than abstract.</p>
-              <div class="chips">
-                <span class="chip">parents</span><span class="chip">brother</span><span class="chip">Rose</span><span class="chip">friends</span><span class="chip">community</span><span class="chip">self</span><span class="chip">home</span><span class="chip">status</span><span class="chip">thought</span><span class="chip">philosophy</span>
-              </div>
-            </article>
-
-            <article class="force gold">
-              <div class="accent">Life Stewardship</div>
-              <h3>Handle reality with discipline and dignity.</h3>
-              <p>This is body, health, maintenance, preparation, and money management — the force that keeps life viable, stable, and physically supportable.</p>
-              <div class="chips">
-                <span class="chip">health</span><span class="chip">vitality</span><span class="chip">fitness</span><span class="chip">ability</span><span class="chip">preparation</span><span class="chip">gym</span><span class="chip">sauna</span><span class="chip">cardio</span><span class="chip">diet</span><span class="chip">finances</span>
-              </div>
-            </article>
-
-            <article class="force green">
-              <div class="accent">Adventure / Aliveness</div>
-              <h3>Direct contact with life, not just optimization.</h3>
-              <p>This is novelty, movement, beauty, nature, joy, and lived experience — the force that keeps life from collapsing into maintenance and ambition alone.</p>
-              <div class="chips">
-                <span class="chip">novelty</span><span class="chip">nature</span><span class="chip">hiking</span><span class="chip">biking</span><span class="chip">kayaking</span><span class="chip">travel</span><span class="chip">camping</span><span class="chip">beach</span><span class="chip">snorkeling</span><span class="chip">joy</span>
-              </div>
-            </article>
-          </div>
-
-          <div class="footer-note">Prototype goal: make the structure instantly readable on the Chromebook before deciding whether the current Balance artifact deserves replacement.</div>
+      <article class="force red">
+        <div class="accent">Connection / Relational Identity</div>
+        <h2>The human world you belong to and shape.</h2>
+        <p>This is relationships, belonging, home, social readability, and your relationship to yourself — the part of life that makes identity interpersonal rather than abstract.</p>
+        <div class="chips">
+          <span class="chip">parents</span><span class="chip">brother</span><span class="chip">Rose</span><span class="chip">friends</span><span class="chip">community</span><span class="chip">self</span><span class="chip">home</span><span class="chip">status</span><span class="chip">thought</span><span class="chip">philosophy</span>
         </div>
-      </div>
+      </article>
+
+      <article class="force gold">
+        <div class="accent">Life Stewardship</div>
+        <h2>Handle reality with discipline and dignity.</h2>
+        <p>This is body, health, maintenance, preparation, and money management — the force that keeps life viable, stable, and physically supportable.</p>
+        <div class="chips">
+          <span class="chip">health</span><span class="chip">vitality</span><span class="chip">fitness</span><span class="chip">ability</span><span class="chip">preparation</span><span class="chip">gym</span><span class="chip">sauna</span><span class="chip">cardio</span><span class="chip">diet</span><span class="chip">finances</span>
+        </div>
+      </article>
+
+      <article class="force green">
+        <div class="accent">Adventure / Aliveness</div>
+        <h2>Direct contact with life, not just optimization.</h2>
+        <p>This is novelty, movement, beauty, nature, joy, and lived experience — the force that keeps life from collapsing into maintenance and ambition alone.</p>
+        <div class="chips">
+          <span class="chip">novelty</span><span class="chip">nature</span><span class="chip">hiking</span><span class="chip">biking</span><span class="chip">kayaking</span><span class="chip">travel</span><span class="chip">camping</span><span class="chip">beach</span><span class="chip">snorkeling</span><span class="chip">joy</span>
+        </div>
+      </article>
     </section>
-  </div>
-
-  <a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
-  <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
-  <button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
-  <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(pos.top??10,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const moved=m;d=null;save(el,key);if(!moved&&click)await click();});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}const isFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const sync=()=>fsFab.textContent=isFs()?'🡼':'⛶';const toggle=async()=>{try{const t=document.documentElement;if(!isFs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');drag(fab,'rvHomeFabPos');drag(fsFab,'rvFullscreenFabPos',toggle);drag(backFab,'rvBackFabPos',()=>{if(history.length>1)history.back();else location.href=href;});document.addEventListener('fullscreenchange',sync);sync();})();</script>
+  </main>
 </body>
 </html>
