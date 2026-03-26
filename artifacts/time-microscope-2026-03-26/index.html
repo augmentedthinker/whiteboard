@@ -50,7 +50,10 @@
     .slot{display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:center;padding:8px 10px;border:1px solid rgba(255,255,255,.06);border-radius:12px;background:rgba(255,255,255,.03)}
     .slot-time{font-size:.84rem;font-weight:800;color:#cfe0f7;letter-spacing:.04em}
     .slot-label{font-size:.9rem;color:var(--muted)}
-    .slot-label.active{color:#f6fbff;font-weight:700}
+    .slot-label.active{font-weight:700}
+    .slot-label.sleep{color:var(--sleep)}
+    .slot-label.work{color:var(--work)}
+    .slot-label.prep{color:var(--prep)}
     .clock{
       width:min(320px,78vw);
       height:min(320px,78vw);
@@ -149,10 +152,10 @@
     const schedule = document.getElementById('schedule');
 
     function labelForHour(hour, isWorkDay){
-      if (hour >= 21 || hour < 5) return { text: 'Sleep', active: true };
-      if (isWorkDay && hour >= 5 && hour < 7) return { text: 'Preparation', active: true };
-      if (isWorkDay && hour >= 7 && hour < 15) return { text: 'Hospital shift', active: true };
-      return { text: '', active: false };
+      if (hour >= 21 || hour < 5) return { text: 'Sleep', active: true, cls: 'sleep' };
+      if (isWorkDay && hour >= 5 && hour < 7) return { text: 'Preparation', active: true, cls: 'prep' };
+      if (isWorkDay && hour >= 7 && hour < 15) return { text: 'Hospital shift', active: true, cls: 'work' };
+      return { text: '', active: false, cls: '' };
     }
 
     function renderSchedule(isWorkDay){
@@ -161,7 +164,7 @@
       schedule.innerHTML = hours.map(h => {
         const item = labelForHour(h % 24, isWorkDay);
         const hh = String(h).padStart(2,'0') + '00';
-        return `<div class="slot"><div class="slot-time">${hh}</div><div class="slot-label${item.active ? ' active' : ''}">${item.text}</div></div>`;
+        return `<div class="slot"><div class="slot-time">${hh}</div><div class="slot-label${item.active ? ' active ' + item.cls : ''}">${item.text}</div></div>`;
       }).join('');
     }
 
