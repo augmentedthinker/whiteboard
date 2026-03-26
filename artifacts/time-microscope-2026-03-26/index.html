@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Time Microscope · 2026-03-26</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1220;
+      --bg2:#111b2d;
+      --panel:rgba(14,24,43,.82);
+      --line:rgba(157,201,255,.20);
+      --text:#edf4ff;
+      --muted:#b3c5df;
+      --sleep:#5aa2ff;
+      --work:#ff8aa1;
+      --free:#7be0a8;
+      --other:#f2cb79;
+      --shadow:0 20px 50px rgba(0,0,0,.28);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      min-height:100vh;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 18%, rgba(90,162,255,.16), transparent 24%),
+        radial-gradient(circle at 82% 20%, rgba(255,138,161,.10), transparent 20%),
+        linear-gradient(180deg,var(--bg),var(--bg2));
+      padding:16px 14px 28px;
+    }
+    .wrap{max-width:640px;margin:0 auto}
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.06);font-weight:700}
+    .hero,.card{border:1px solid var(--line);border-radius:24px;background:var(--panel);box-shadow:var(--shadow)}
+    .hero{padding:20px 18px 18px;margin-bottom:14px}
+    .eyebrow{margin:0 0 8px;color:#9fcaff;font-size:.75rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 10px;font-family:Fraunces,serif;font-size:clamp(2rem,8vw,3rem);line-height:.95;letter-spacing:-.04em}
+    .hero p{margin:0;color:var(--muted);line-height:1.7;font-size:1rem}
+    .stack{display:grid;gap:14px}
+    .card{padding:18px}
+    .label{display:inline-block;margin-bottom:8px;color:#9fcaff;font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+    h2{margin:0 0 8px;font-size:1.22rem;line-height:1.2}
+    .sub{margin:0 0 16px;color:var(--muted);line-height:1.65;font-size:.96rem}
+    .chart-wrap{display:grid;place-items:center;margin:6px 0 16px}
+    .chart{
+      --size:280px;
+      width:min(var(--size), 82vw);
+      height:min(var(--size), 82vw);
+      border-radius:50%;
+      position:relative;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.04), 0 18px 40px rgba(0,0,0,.24);
+    }
+    .chart::after{
+      content:"";
+      position:absolute;
+      inset:22%;
+      border-radius:50%;
+      background:linear-gradient(180deg, rgba(10,16,28,.96), rgba(17,27,45,.98));
+      box-shadow:inset 0 0 0 1px rgba(157,201,255,.10);
+    }
+    .center{
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      z-index:1;
+      pointer-events:none;
+    }
+    .center strong{display:block;font-size:1.45rem;line-height:1;color:#f6fbff}
+    .center span{display:block;margin-top:6px;font-size:.86rem;color:var(--muted);font-weight:600}
+    .legend{display:grid;gap:10px}
+    .row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:10px 12px;border:1px solid rgba(255,255,255,.06);border-radius:14px;background:rgba(255,255,255,.03)}
+    .dot{width:12px;height:12px;border-radius:999px}
+    .name{font-size:.97rem;font-weight:600}
+    .hrs{font-size:.95rem;color:var(--muted);font-weight:700}
+    .note{margin-top:14px;padding-top:14px;border-top:1px solid rgba(157,201,255,.10);color:var(--muted);line-height:1.7;font-size:.94rem}
+    .wday{background:conic-gradient(var(--sleep) 0deg 120deg, var(--work) 120deg 240deg, var(--other) 240deg 360deg)}
+    .fday{background:conic-gradient(var(--sleep) 0deg 120deg, var(--free) 120deg 360deg)}
+    @media (max-width:640px){
+      body{padding:10px 10px 20px}
+      .hero,.card{border-radius:18px}
+      .hero{padding:16px 14px 14px}
+      .card{padding:16px 14px}
+      h1{font-size:2rem}
+      .chart{--size:260px}
+      .row{padding:9px 10px}
+    }
+  </style>
+  <style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="pill" href="../../today/index.html">← Today’s Artifacts</a>
+    </div>
+
+    <section class="hero">
+      <p class="eyebrow">Time Reality Check</p>
+      <h1>Time Microscope</h1>
+      <p>A very simple first pass: not what life could be, but how a 24-hour day is structurally divided before anything else gets added.</p>
+    </section>
+
+    <main class="stack">
+      <section class="card">
+        <span class="label">Work Day</span>
+        <h2>Hospital shift days</h2>
+        <p class="sub">Sleep and hospital time are fixed first. What remains is the space you actually have to work with.</p>
+        <div class="chart-wrap">
+          <div class="chart wday" aria-label="Work day pie chart showing 8 hours sleep, 8 hours hospital shift, 8 hours remaining">
+            <div class="center"><div><strong>24h</strong><span>8 + 8 + 8</span></div></div>
+          </div>
+        </div>
+        <div class="legend">
+          <div class="row"><span class="dot" style="background:var(--sleep)"></span><span class="name">Sleep</span><span class="hrs">8h</span></div>
+          <div class="row"><span class="dot" style="background:var(--work)"></span><span class="name">Hospital shift</span><span class="hrs">8h</span></div>
+          <div class="row"><span class="dot" style="background:var(--other)"></span><span class="name">Everything else</span><span class="hrs">8h</span></div>
+        </div>
+        <p class="note">This is the honest constraint on a work day: after sleep and the shift, only one-third of the day is still unassigned.</p>
+      </section>
+
+      <section class="card">
+        <span class="label">Free Day</span>
+        <h2>Non-work days</h2>
+        <p class="sub">Without the shift, the available space doubles. That is where intention — or drift — becomes much more visible.</p>
+        <div class="chart-wrap">
+          <div class="chart fday" aria-label="Free day pie chart showing 8 hours sleep and 16 hours awake time">
+            <div class="center"><div><strong>24h</strong><span>8 + 16</span></div></div>
+          </div>
+        </div>
+        <div class="legend">
+          <div class="row"><span class="dot" style="background:var(--sleep)"></span><span class="name">Sleep</span><span class="hrs">8h</span></div>
+          <div class="row"><span class="dot" style="background:var(--free)"></span><span class="name">Everything else</span><span class="hrs">16h</span></div>
+        </div>
+        <p class="note">This is the bigger question: when the day is more open, where does that 16 hours really go?</p>
+      </section>
+    </main>
+  </div>
+
+  <a id="rvHomeFab" class="rv-home-fab" href="#">⌂</a>
+  <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button">⛶</button>
+  <button id="rvBackFab" class="rv-back-fab" type="button">←</button>
+  <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(pos.top??10,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const moved=m;d=null;save(el,key);if(!moved&&click)await click();});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}const isFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const sync=()=>fsFab.textContent=isFs()?'🡼':'⛶';const toggle=async()=>{try{const t=document.documentElement;if(!isFs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');drag(fab,'rvHomeFabPos');drag(fsFab,'rvFullscreenFabPos',toggle);drag(backFab,'rvBackFabPos',()=>{if(history.length>1)history.back();else location.href=href;});document.addEventListener('fullscreenchange',sync);sync();})();</script>
+</body>
+</html>
