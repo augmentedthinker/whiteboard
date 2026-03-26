@@ -45,6 +45,11 @@
     .tab{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:var(--muted);border-radius:12px;padding:10px 0;font-size:.8rem;font-weight:700}
     .tab.active{background:rgba(90,162,255,.18);color:#eef6ff;border-color:rgba(90,162,255,.32)}
     .chart-wrap{display:grid;place-items:center}
+    .schedule{margin-top:16px;display:grid;gap:6px}
+    .slot{display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:center;padding:8px 10px;border:1px solid rgba(255,255,255,.06);border-radius:12px;background:rgba(255,255,255,.03)}
+    .slot-time{font-size:.84rem;font-weight:800;color:#cfe0f7;letter-spacing:.04em}
+    .slot-label{font-size:.9rem;color:var(--muted)}
+    .slot-label.active{color:#f6fbff;font-weight:700}
     .clock{
       width:min(320px,78vw);
       height:min(320px,78vw);
@@ -91,6 +96,8 @@
           <div class="center"><div><strong id="centerDay">Mon</strong><span>24-hour view</span></div></div>
         </div>
       </div>
+
+      <div class="schedule" id="schedule"></div>
     </section>
   </div>
 
@@ -138,12 +145,31 @@
     const tabs = document.getElementById('tabs');
     const clock = document.getElementById('clock');
     const centerDay = document.getElementById('centerDay');
+    const schedule = document.getElementById('schedule');
+
+    function labelForHour(hour, isWorkDay){
+      if (hour >= 21 || hour < 5) return { text: 'Sleep', active: true };
+      if (isWorkDay && hour >= 5 && hour < 7) return { text: 'Preparation', active: true };
+      if (isWorkDay && hour >= 7 && hour < 15) return { text: 'Hospital shift', active: true };
+      return { text: '', active: false };
+    }
+
+    function renderSchedule(isWorkDay){
+      const hours = [];
+      for (let h = 6; h <= 22; h++) hours.push(h);
+      schedule.innerHTML = hours.map(h => {
+        const item = labelForHour(h % 24, isWorkDay);
+        const hh = String(h).padStart(2,'0') + '00';
+        return `<div class="slot"><div class="slot-time">${hh}</div><div class="slot-label${item.active ? ' active' : ''}">${item.text}</div></div>`;
+      }).join('');
+    }
 
     function render(i){
       [...tabs.children].forEach((btn, idx) => btn.classList.toggle('active', idx === i));
       const day = days[i];
       centerDay.textContent = day.short;
       clock.style.setProperty('--clock-bg', segmentString(buildSegments(day.work)));
+      renderSchedule(day.work);
     }
 
     days.forEach((day, i) => {
