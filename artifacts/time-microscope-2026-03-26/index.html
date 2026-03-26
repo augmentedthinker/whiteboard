@@ -11,18 +11,17 @@
     :root{
       --bg:#0b1220;
       --bg2:#111b2d;
-      --panel:rgba(14,24,43,.82);
+      --panel:rgba(14,24,43,.88);
       --line:rgba(157,201,255,.20);
       --text:#edf4ff;
       --muted:#b3c5df;
       --sleep:#5aa2ff;
       --work:#ff8aa1;
-      --free:#7be0a8;
       --other:#f2cb79;
       --shadow:0 20px 50px rgba(0,0,0,.28);
     }
     *{box-sizing:border-box}
-    html,body{margin:0}
+    html,body{margin:0;height:100%}
     body{
       min-height:100vh;
       font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
@@ -31,65 +30,60 @@
         radial-gradient(circle at 15% 18%, rgba(90,162,255,.16), transparent 24%),
         radial-gradient(circle at 82% 20%, rgba(255,138,161,.10), transparent 20%),
         linear-gradient(180deg,var(--bg),var(--bg2));
-      padding:16px 14px 28px;
+      padding:14px 12px 20px;
+      overflow:hidden;
     }
-    .wrap{max-width:640px;margin:0 auto}
-    .topbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+    .wrap{max-width:760px;margin:0 auto;height:calc(100vh - 34px);display:flex;flex-direction:column}
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;flex:0 0 auto}
     .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.06);font-weight:700}
-    .hero,.card{border:1px solid var(--line);border-radius:24px;background:var(--panel);box-shadow:var(--shadow)}
-    .hero{padding:20px 18px 18px;margin-bottom:14px}
-    .eyebrow{margin:0 0 8px;color:#9fcaff;font-size:.75rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
-    h1{margin:0 0 10px;font-family:Fraunces,serif;font-size:clamp(2rem,8vw,3rem);line-height:.95;letter-spacing:-.04em}
-    .hero p{margin:0;color:var(--muted);line-height:1.7;font-size:1rem}
-    .stack{display:grid;gap:14px}
-    .card{padding:18px}
-    .label{display:inline-block;margin-bottom:8px;color:#9fcaff;font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
-    h2{margin:0 0 8px;font-size:1.22rem;line-height:1.2}
-    .sub{margin:0 0 16px;color:var(--muted);line-height:1.65;font-size:.96rem}
-    .chart-wrap{display:grid;place-items:center;margin:6px 0 16px}
-    .chart{
-      --size:280px;
-      width:min(var(--size), 82vw);
-      height:min(var(--size), 82vw);
+    .card{border:1px solid var(--line);border-radius:24px;background:var(--panel);box-shadow:var(--shadow)}
+    .hero{padding:16px 16px 14px;margin-bottom:12px;flex:0 0 auto}
+    .eyebrow{margin:0 0 6px;color:#9fcaff;font-size:.74rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 8px;font-family:Fraunces,serif;font-size:clamp(1.8rem,7vw,2.8rem);line-height:.95;letter-spacing:-.04em}
+    .hero p{margin:0;color:var(--muted);line-height:1.6;font-size:.96rem}
+    .viewer{padding:14px;display:grid;grid-template-rows:auto auto 1fr auto;gap:12px;flex:1 1 auto;min-height:0}
+    .day-tabs{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+    .tab{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:var(--muted);border-radius:12px;padding:10px 0;font-size:.84rem;font-weight:700}
+    .tab.active{background:rgba(90,162,255,.18);color:#eef6ff;border-color:rgba(90,162,255,.30)}
+    .day-head{text-align:center}
+    .day-head .k{display:block;color:#9fcaff;font-size:.74rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px}
+    .day-head h2{margin:0;font-size:1.25rem}
+    .day-head p{margin:6px 0 0;color:var(--muted);font-size:.92rem}
+    .main{display:grid;grid-template-columns:1.04fr .96fr;gap:12px;min-height:0;align-items:center}
+    .chart-wrap{display:grid;place-items:center;min-height:0}
+    .clock{
+      width:min(320px, 74vw);
+      height:min(320px, 74vw);
       border-radius:50%;
       position:relative;
       box-shadow:inset 0 0 0 1px rgba(255,255,255,.04), 0 18px 40px rgba(0,0,0,.24);
+      background:var(--clock-bg);
     }
-    .chart::after{
-      content:"";
-      position:absolute;
-      inset:22%;
-      border-radius:50%;
-      background:linear-gradient(180deg, rgba(10,16,28,.96), rgba(17,27,45,.98));
-      box-shadow:inset 0 0 0 1px rgba(157,201,255,.10);
-    }
-    .center{
-      position:absolute;
-      inset:0;
-      display:grid;
-      place-items:center;
-      text-align:center;
-      z-index:1;
-      pointer-events:none;
-    }
-    .center strong{display:block;font-size:1.45rem;line-height:1;color:#f6fbff}
-    .center span{display:block;margin-top:6px;font-size:.86rem;color:var(--muted);font-weight:600}
-    .legend{display:grid;gap:10px}
-    .row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:10px 12px;border:1px solid rgba(255,255,255,.06);border-radius:14px;background:rgba(255,255,255,.03)}
-    .dot{width:12px;height:12px;border-radius:999px}
-    .name{font-size:.97rem;font-weight:600}
-    .hrs{font-size:.95rem;color:var(--muted);font-weight:700}
-    .note{margin-top:14px;padding-top:14px;border-top:1px solid rgba(157,201,255,.10);color:var(--muted);line-height:1.7;font-size:.94rem}
-    .wday{background:conic-gradient(var(--sleep) 0deg 120deg, var(--work) 120deg 240deg, var(--other) 240deg 360deg)}
-    .fday{background:conic-gradient(var(--sleep) 0deg 120deg, var(--free) 120deg 360deg)}
+    .clock::after{content:"";position:absolute;inset:22%;border-radius:50%;background:linear-gradient(180deg, rgba(10,16,28,.96), rgba(17,27,45,.98));box-shadow:inset 0 0 0 1px rgba(157,201,255,.10)}
+    .center{position:absolute;inset:0;display:grid;place-items:center;text-align:center;z-index:2;pointer-events:none}
+    .center strong{display:block;font-size:1.35rem;line-height:1;color:#f6fbff}
+    .center span{display:block;margin-top:6px;font-size:.84rem;color:var(--muted);font-weight:600}
+    .marker{position:absolute;left:50%;top:50%;width:2px;height:50%;transform-origin:center top;background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0));opacity:.6}
+    .m0{transform:translate(-50%,-100%) rotate(0deg)} .m6{transform:translate(-50%,-100%) rotate(90deg)} .m12{transform:translate(-50%,-100%) rotate(180deg)} .m18{transform:translate(-50%,-100%) rotate(270deg)}
+    .label-hour{position:absolute;z-index:2;font-size:.74rem;font-weight:800;color:#c9d7eb;background:rgba(8,12,20,.55);padding:4px 7px;border-radius:999px;border:1px solid rgba(255,255,255,.06)}
+    .h0{top:10px;left:50%;transform:translateX(-50%)} .h6{right:10px;top:50%;transform:translateY(-50%)} .h12{bottom:10px;left:50%;transform:translateX(-50%)} .h18{left:10px;top:50%;transform:translateY(-50%)}
+    .legend{display:grid;gap:10px;align-content:start}
+    .row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:11px 12px;border:1px solid rgba(255,255,255,.06);border-radius:14px;background:rgba(255,255,255,.03)}
+    .dot{width:12px;height:12px;border-radius:999px}.name{font-size:.95rem;font-weight:600}.hrs{font-size:.92rem;color:var(--muted);font-weight:700}
+    .times{margin-top:2px;color:var(--muted);font-size:.82rem;grid-column:2 / 4}
+    .footer-note{padding-top:8px;border-top:1px solid rgba(157,201,255,.10);color:var(--muted);line-height:1.6;font-size:.9rem}
     @media (max-width:640px){
-      body{padding:10px 10px 20px}
-      .hero,.card{border-radius:18px}
-      .hero{padding:16px 14px 14px}
-      .card{padding:16px 14px}
-      h1{font-size:2rem}
-      .chart{--size:260px}
-      .row{padding:9px 10px}
+      body{padding:10px 10px 16px}
+      .wrap{height:calc(100vh - 26px)}
+      .card{border-radius:18px}
+      .hero{padding:14px 14px 12px}
+      .viewer{padding:12px}
+      .day-tabs{gap:5px}
+      .tab{font-size:.76rem;padding:9px 0}
+      .main{grid-template-columns:1fr;gap:10px}
+      .clock{width:min(280px,72vw);height:min(280px,72vw)}
+      .row{padding:10px}
+      .times{font-size:.8rem}
     }
   </style>
   <style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}</style>
@@ -100,51 +94,138 @@
       <a class="pill" href="../../today/index.html">← Today’s Artifacts</a>
     </div>
 
-    <section class="hero">
+    <section class="hero card">
       <p class="eyebrow">Time Reality Check</p>
       <h1>Time Microscope</h1>
-      <p>A very simple first pass: not what life could be, but how a 24-hour day is structurally divided before anything else gets added.</p>
+      <p>One day-card at a time. Same sleep block every day, work blocks on Wednesday through Friday, and the rest shown honestly as unassigned waking time.</p>
     </section>
 
-    <main class="stack">
-      <section class="card">
-        <span class="label">Work Day</span>
-        <h2>Hospital shift days</h2>
-        <p class="sub">Sleep and hospital time are fixed first. What remains is the space you actually have to work with.</p>
+    <section class="viewer card">
+      <div class="day-tabs" id="tabs"></div>
+      <div class="day-head">
+        <span class="k">Selected Day</span>
+        <h2 id="dayTitle">Monday</h2>
+        <p id="daySubtitle">Sleep from 9:00 p.m. to 5:00 a.m.</p>
+      </div>
+      <div class="main">
         <div class="chart-wrap">
-          <div class="chart wday" aria-label="Work day pie chart showing 8 hours sleep, 8 hours hospital shift, 8 hours remaining">
-            <div class="center"><div><strong>24h</strong><span>8 + 8 + 8</span></div></div>
+          <div class="clock" id="clock">
+            <div class="marker m0"></div><div class="marker m6"></div><div class="marker m12"></div><div class="marker m18"></div>
+            <div class="label-hour h0">00</div><div class="label-hour h6">06</div><div class="label-hour h12">12</div><div class="label-hour h18">18</div>
+            <div class="center"><div><strong id="centerBig">24h</strong><span id="centerSmall">1 day view</span></div></div>
           </div>
         </div>
-        <div class="legend">
-          <div class="row"><span class="dot" style="background:var(--sleep)"></span><span class="name">Sleep</span><span class="hrs">8h</span></div>
-          <div class="row"><span class="dot" style="background:var(--work)"></span><span class="name">Hospital shift</span><span class="hrs">8h</span></div>
-          <div class="row"><span class="dot" style="background:var(--other)"></span><span class="name">Everything else</span><span class="hrs">8h</span></div>
-        </div>
-        <p class="note">This is the honest constraint on a work day: after sleep and the shift, only one-third of the day is still unassigned.</p>
-      </section>
-
-      <section class="card">
-        <span class="label">Free Day</span>
-        <h2>Non-work days</h2>
-        <p class="sub">Without the shift, the available space doubles. That is where intention — or drift — becomes much more visible.</p>
-        <div class="chart-wrap">
-          <div class="chart fday" aria-label="Free day pie chart showing 8 hours sleep and 16 hours awake time">
-            <div class="center"><div><strong>24h</strong><span>8 + 16</span></div></div>
-          </div>
-        </div>
-        <div class="legend">
-          <div class="row"><span class="dot" style="background:var(--sleep)"></span><span class="name">Sleep</span><span class="hrs">8h</span></div>
-          <div class="row"><span class="dot" style="background:var(--free)"></span><span class="name">Everything else</span><span class="hrs">16h</span></div>
-        </div>
-        <p class="note">This is the bigger question: when the day is more open, where does that 16 hours really go?</p>
-      </section>
-    </main>
+        <div class="legend" id="legend"></div>
+      </div>
+      <div class="footer-note" id="footnote">This view treats the rest of the day as one visible block so the question becomes: where does it actually go?</div>
+    </section>
   </div>
 
   <a id="rvHomeFab" class="rv-home-fab" href="#">⌂</a>
   <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button">⛶</button>
   <button id="rvBackFab" class="rv-back-fab" type="button">←</button>
+
+  <script>
+    const days = [
+      {name:'Monday', work:false},
+      {name:'Tuesday', work:false},
+      {name:'Wednesday', work:true},
+      {name:'Thursday', work:true},
+      {name:'Friday', work:true},
+      {name:'Saturday', work:false},
+      {name:'Sunday', work:false},
+    ];
+
+    const sleep = { label:'Sleep', start:21, end:29, hours:8, color:'var(--sleep)', time:'9:00 p.m. → 5:00 a.m.' };
+    const work =  { label:'Hospital shift', start:7, end:15, hours:8, color:'var(--work)', time:'7:00 a.m. → 3:00 p.m.' };
+
+    function seg(label, start, end, hours, color, time){ return {label,start,end,hours,color,time}; }
+
+    function buildDay(day){
+      if(day.work){
+        return {
+          title: day.name,
+          subtitle: 'Sleep 9:00 p.m. to 5:00 a.m. · Work 7:00 a.m. to 3:00 p.m.',
+          note: 'On work days, 16 of 24 hours are already structurally spoken for before anything else gets added.',
+          segments: [
+            seg('Sleep', 21, 29, 8, 'var(--sleep)', '9:00 p.m. → 5:00 a.m.'),
+            seg('Hospital shift', 7, 15, 8, 'var(--work)', '7:00 a.m. → 3:00 p.m.'),
+            seg('Everything else', 5, 7, 2, 'var(--other)', '5:00 a.m. → 7:00 a.m.'),
+            seg('Everything else', 15, 21, 6, 'var(--other)', '3:00 p.m. → 9:00 p.m.')
+          ],
+          legend: [
+            {label:'Sleep', hours:8, color:'var(--sleep)', time:'9:00 p.m. → 5:00 a.m.'},
+            {label:'Hospital shift', hours:8, color:'var(--work)', time:'7:00 a.m. → 3:00 p.m.'},
+            {label:'Everything else', hours:8, color:'var(--other)', time:'5:00 a.m. → 7:00 a.m. and 3:00 p.m. → 9:00 p.m.'}
+          ]
+        };
+      }
+      return {
+        title: day.name,
+        subtitle: 'Sleep 9:00 p.m. to 5:00 a.m. · no hospital shift.',
+        note: 'On free days, the visible question is what actually happens inside the remaining 16 waking hours.',
+        segments: [
+          seg('Sleep', 21, 29, 8, 'var(--sleep)', '9:00 p.m. → 5:00 a.m.'),
+          seg('Everything else', 5, 21, 16, 'var(--other)', '5:00 a.m. → 9:00 p.m.')
+        ],
+        legend: [
+          {label:'Sleep', hours:8, color:'var(--sleep)', time:'9:00 p.m. → 5:00 a.m.'},
+          {label:'Everything else', hours:16, color:'var(--other)', time:'5:00 a.m. → 9:00 p.m.'}
+        ]
+      };
+    }
+
+    function segmentString(segments){
+      const pieces = [];
+      for(const s of segments){
+        const startDeg = (s.start / 24) * 360;
+        const endDeg = (s.end / 24) * 360;
+        if(endDeg <= 360){
+          pieces.push(`${s.color} ${startDeg}deg ${endDeg}deg`);
+        } else {
+          pieces.push(`${s.color} ${startDeg}deg 360deg`);
+          pieces.push(`${s.color} 0deg ${(endDeg - 360)}deg`);
+        }
+      }
+      return `conic-gradient(from -90deg, ${pieces.join(', ')})`;
+    }
+
+    const tabs = document.getElementById('tabs');
+    const clock = document.getElementById('clock');
+    const legend = document.getElementById('legend');
+    const dayTitle = document.getElementById('dayTitle');
+    const daySubtitle = document.getElementById('daySubtitle');
+    const footnote = document.getElementById('footnote');
+
+    function render(index){
+      [...tabs.children].forEach((btn,i)=>btn.classList.toggle('active', i===index));
+      const day = buildDay(days[index]);
+      dayTitle.textContent = day.title;
+      daySubtitle.textContent = day.subtitle;
+      footnote.textContent = day.note;
+      clock.style.setProperty('--clock-bg', segmentString(day.segments));
+      legend.innerHTML = day.legend.map(item => `
+        <div class="row">
+          <span class="dot" style="background:${item.color}"></span>
+          <span class="name">${item.label}</span>
+          <span class="hrs">${item.hours}h</span>
+          <div class="times">${item.time}</div>
+        </div>
+      `).join('');
+    }
+
+    days.forEach((day, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'tab' + (i===0 ? ' active' : '');
+      btn.textContent = day.name.slice(0,3);
+      btn.type = 'button';
+      btn.addEventListener('click', () => render(i));
+      tabs.appendChild(btn);
+    });
+
+    render(0);
+  </script>
+
   <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(pos.top??10,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const moved=m;d=null;save(el,key);if(!moved&&click)await click();});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}const isFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const sync=()=>fsFab.textContent=isFs()?'🡼':'⛶';const toggle=async()=>{try{const t=document.documentElement;if(!isFs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');drag(fab,'rvHomeFabPos');drag(fsFab,'rvFullscreenFabPos',toggle);drag(backFab,'rvBackFabPos',()=>{if(history.length>1)history.back();else location.href=href;});document.addEventListener('fullscreenchange',sync);sync();})();</script>
 </body>
 </html>
