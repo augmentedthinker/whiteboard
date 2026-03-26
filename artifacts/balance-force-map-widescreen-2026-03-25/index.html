@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Balance · Force Map · 2026-03-25</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --text:#edf4ff;
+      --muted:#b8c7da;
+      --blue:#5aa2ff; --blue-soft:rgba(90,162,255,.16); --blue-strong:rgba(90,162,255,.28);
+      --red:#ff7d95; --red-soft:rgba(255,125,149,.16); --red-strong:rgba(255,125,149,.28);
+      --gold:#e7bd69; --gold-soft:rgba(231,189,105,.16); --gold-strong:rgba(231,189,105,.28);
+      --green:#6ed7a0; --green-soft:rgba(110,215,160,.16); --green-strong:rgba(110,215,160,.28);
+      --shadow:0 28px 90px rgba(0,0,0,.34);
+      --radius:28px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%}
+    body{
+      min-height:100vh;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 18%, rgba(90,162,255,.14), transparent 22%),
+        radial-gradient(circle at 83% 22%, rgba(255,125,149,.10), transparent 18%),
+        radial-gradient(circle at 52% 82%, rgba(231,189,105,.08), transparent 22%),
+        radial-gradient(circle at 20% 82%, rgba(110,215,160,.08), transparent 20%),
+        linear-gradient(180deg,#06101a,#0b1420 52%, #0e1724);
+      overflow:hidden;
+    }
+    .stage{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
+    .grid{
+      width:min(1460px, calc(100vw - 48px));
+      height:min(840px, calc(100vh - 48px));
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      grid-template-rows:1fr 1fr;
+      gap:18px;
+    }
+    .force{
+      position:relative;
+      border-radius:var(--radius);
+      border:1px solid rgba(255,255,255,.07);
+      background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      padding:24px 24px 22px;
+      display:flex;
+      flex-direction:column;
+      min-height:0;
+      isolation:isolate;
+    }
+    .force::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 88% 12%, rgba(255,255,255,.12), transparent 28%);pointer-events:none;z-index:0}
+    .force > *{position:relative;z-index:2}
+    .force.venture-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg, rgba(8,14,24,.78) 0%, rgba(8,14,24,.54) 38%, rgba(8,14,24,.32) 62%, rgba(8,14,24,.54) 100%), url('./assets/venture-applied-ai-bg-2026-03-25.svg');background-size:cover;background-position:center;pointer-events:none;z-index:1}
+    .force.connection-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg, rgba(20,10,16,.76) 0%, rgba(20,10,16,.5) 38%, rgba(20,10,16,.28) 62%, rgba(20,10,16,.5) 100%), url('./assets/connection-relational-identity-bg-2026-03-25.png');background-size:cover;background-position:center;pointer-events:none;z-index:1}
+    .force.blue{box-shadow:var(--shadow), inset 0 0 0 1px rgba(90,162,255,.14)}
+    .force.red{box-shadow:var(--shadow), inset 0 0 0 1px rgba(255,125,149,.14)}
+    .force.gold{box-shadow:var(--shadow), inset 0 0 0 1px rgba(231,189,105,.14)}
+    .force.green{box-shadow:var(--shadow), inset 0 0 0 1px rgba(110,215,160,.14)}
+    .accent{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px}
+    .accent::before{content:"";width:11px;height:11px;border-radius:999px;background:currentColor;box-shadow:0 0 24px currentColor}
+    .blue .accent{color:var(--blue)} .red .accent{color:var(--red)} .gold .accent{color:var(--gold)} .green .accent{color:var(--green)}
+    .force h2{margin:0 0 12px;font-family:Fraunces,serif;font-size:clamp(1.65rem,2.2vw,2.45rem);line-height:1.02;letter-spacing:-.03em;max-width:none;text-wrap:balance}
+    .force p{margin:0 0 18px;color:var(--muted);line-height:1.62;font-size:.98rem;max-width:none;text-wrap:pretty}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+    .chip{padding:7px 10px;border-radius:999px;border:1px solid transparent;font-size:.79rem;font-weight:600;color:#eef4ff}
+    .blue .chip{background:var(--blue-soft);border-color:rgba(90,162,255,.24);color:#dcecff}
+    .red .chip{background:var(--red-soft);border-color:rgba(255,125,149,.24);color:#ffe0e6}
+    .gold .chip{background:var(--gold-soft);border-color:rgba(231,189,105,.24);color:#fff0cc}
+    .green .chip{background:var(--green-soft);border-color:rgba(110,215,160,.24);color:#dcffec}
+    @media (max-width:1000px){
+      body{overflow:auto}
+      .stage{padding:16px}
+      .grid{height:auto;min-height:unset;grid-template-columns:1fr}
+      .force{min-height:unset;padding:22px 20px 20px}
+    }
+  </style>
+  <link rel="stylesheet" href="../../assets/shared/rv-floating-nav.css" />
+</head>
+<body>
+  <main class="stage">
+    <section class="grid" aria-label="Balance Force Map">
+      <article class="force blue venture-bg">
+        <div class="accent">Venture / Applied AI</div>
+        <h2>Turn fascination into useful, credible work.</h2>
+        <p>This is the force of ambition, skill, leverage, usefulness, and economic reality — where applied AI becomes actual value instead of just interesting possibility.</p>
+        <div class="chips">
+          <span class="chip">applied AI</span><span class="chip">AI + healthcare</span><span class="chip">expertise</span><span class="chip">credibility</span><span class="chip">reach</span><span class="chip">usefulness</span><span class="chip">money</span><span class="chip">value</span><span class="chip">ambition</span><span class="chip">risk</span>
+        </div>
+      </article>
+
+      <article class="force red connection-bg">
+        <div class="accent">Connection / Relational Identity</div>
+        <h2>The human world you belong to and shape.</h2>
+        <p>This is relationships, belonging, home, social readability, and your relationship to yourself — the part of life that makes identity interpersonal rather than abstract.</p>
+        <div class="chips">
+          <span class="chip">parents</span><span class="chip">brother</span><span class="chip">Rose</span><span class="chip">friends</span><span class="chip">community</span><span class="chip">self</span><span class="chip">home</span><span class="chip">status</span><span class="chip">thought</span><span class="chip">philosophy</span>
+        </div>
+      </article>
+
+      <article class="force gold">
+        <div class="accent">Life Stewardship</div>
+        <h2>Handle reality with discipline and dignity.</h2>
+        <p>This is body, health, maintenance, preparation, and money management — the force that keeps life viable, stable, and physically supportable.</p>
+        <div class="chips">
+          <span class="chip">health</span><span class="chip">vitality</span><span class="chip">fitness</span><span class="chip">ability</span><span class="chip">preparation</span><span class="chip">gym</span><span class="chip">sauna</span><span class="chip">cardio</span><span class="chip">diet</span><span class="chip">finances</span>
+        </div>
+      </article>
+
+      <article class="force green">
+        <div class="accent">Adventure / Aliveness</div>
+        <h2>Direct contact with life, not just optimization.</h2>
+        <p>This is novelty, movement, beauty, nature, joy, and lived experience — the force that keeps life from collapsing into maintenance and ambition alone.</p>
+        <div class="chips">
+          <span class="chip">novelty</span><span class="chip">nature</span><span class="chip">hiking</span><span class="chip">biking</span><span class="chip">kayaking</span><span class="chip">travel</span><span class="chip">camping</span><span class="chip">beach</span><span class="chip">snorkeling</span><span class="chip">joy</span>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script src="../../assets/shared/rv-floating-nav.js"></script>
+</body>
+</html>
