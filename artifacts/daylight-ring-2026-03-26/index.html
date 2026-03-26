@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Daylight Ring · 2026-03-26</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1220; --bg2:#111b2d; --panel:rgba(14,24,43,.88); --line:rgba(157,201,255,.18);
+      --text:#edf4ff; --muted:#b3c5df; --day:#f4a64c; --night:#5aa2ff; --shadow:0 20px 50px rgba(0,0,0,.28);
+    }
+    *{box-sizing:border-box} html,body{margin:0;height:100%}
+    body{
+      min-height:100vh; font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; color:var(--text);
+      background:radial-gradient(circle at 18% 18%, rgba(244,166,76,.10), transparent 20%), radial-gradient(circle at 82% 20%, rgba(90,162,255,.14), transparent 22%), linear-gradient(180deg,var(--bg),var(--bg2));
+      padding:14px 12px 18px; overflow:hidden;
+    }
+    .wrap{max-width:620px;margin:0 auto}
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.06);font-weight:700}
+    .card{border:1px solid var(--line);border-radius:26px;background:var(--panel);box-shadow:var(--shadow);padding:16px 14px 18px}
+    .eyebrow{margin:0 0 6px;color:#9fcaff;font-size:.74rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 8px;font-family:Fraunces,serif;font-size:clamp(1.9rem,7vw,2.8rem);line-height:.95;letter-spacing:-.04em}
+    .sub{margin:0 0 14px;color:var(--muted);line-height:1.55;font-size:.95rem}
+    .month-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:16px}
+    .tab{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:var(--muted);border-radius:12px;padding:10px 0;font-size:.8rem;font-weight:700}
+    .tab.active{background:rgba(244,166,76,.18);color:#fff4e8;border-color:rgba(244,166,76,.32)}
+    .chart-wrap{display:grid;place-items:center}
+    .clock{width:min(320px,78vw);height:min(320px,78vw);border-radius:50%;position:relative;background:var(--clock-bg);box-shadow:inset 0 0 0 1px rgba(255,255,255,.04), 0 18px 40px rgba(0,0,0,.24)}
+    .clock::after{content:"";position:absolute;inset:24%;border-radius:50%;background:linear-gradient(180deg, rgba(10,16,28,.97), rgba(17,27,45,.99));box-shadow:inset 0 0 0 1px rgba(157,201,255,.10)}
+    .center{position:absolute;inset:0;display:grid;place-items:center;text-align:center;z-index:2;pointer-events:none}
+    .center strong{display:block;font-size:1.35rem;line-height:1;color:#f6fbff}
+    .center span{display:block;margin-top:6px;font-size:.85rem;color:var(--muted);font-weight:600}
+    .marker{position:absolute;left:50%;top:50%;width:2px;height:50%;transform-origin:center top;background:linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,0));opacity:.6}
+    .m0{transform:translate(-50%,-100%) rotate(0deg)} .m6{transform:translate(-50%,-100%) rotate(90deg)} .m12{transform:translate(-50%,-100%) rotate(180deg)} .m18{transform:translate(-50%,-100%) rotate(270deg)}
+    .label-hour{position:absolute;z-index:2;font-size:.74rem;font-weight:800;color:#c9d7eb;background:rgba(8,12,20,.55);padding:4px 7px;border-radius:999px;border:1px solid rgba(255,255,255,.06)}
+    .h0{top:10px;left:50%;transform:translateX(-50%)} .h6{right:10px;top:50%;transform:translateY(-50%)} .h12{bottom:10px;left:50%;transform:translateX(-50%)} .h18{left:10px;top:50%;transform:translateY(-50%)}
+    .legend{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+    .legend-card{padding:12px;border:1px solid rgba(255,255,255,.08);border-radius:14px;background:rgba(255,255,255,.03)}
+    .legend-card .k{display:flex;align-items:center;gap:8px;font-size:.88rem;font-weight:700;margin-bottom:4px}
+    .dot{width:12px;height:12px;border-radius:999px}.legend-card p{margin:0;color:var(--muted);font-size:.9rem}
+    @media (max-width:640px){body{padding:10px 10px 16px}.card{border-radius:20px;padding:14px 12px 16px}.month-tabs{gap:5px}.tab{font-size:.76rem;padding:9px 0}.clock{width:min(300px,80vw);height:min(300px,80vw)}}
+  </style>
+  <style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="pill" href="../../today/index.html">← Today’s Artifacts</a>
+    </div>
+
+    <section class="card">
+      <p class="eyebrow">Seasonal Light / Dark View</p>
+      <h1>Daylight Ring</h1>
+      <p class="sub">A simple month-toggle view of daylight and darkness. Orange = daylight. Blue = darkness.</p>
+
+      <div class="month-tabs" id="tabs"></div>
+
+      <div class="chart-wrap">
+        <div class="clock" id="clock" aria-label="24-hour daylight ring">
+          <div class="marker m0"></div><div class="marker m6"></div><div class="marker m12"></div><div class="marker m18"></div>
+          <div class="label-hour h0">1200</div><div class="label-hour h6">1800</div><div class="label-hour h12">0000</div><div class="label-hour h18">0600</div>
+          <div class="center"><div><strong id="centerMonth">Jan</strong><span id="centerMeta">12h light · 12h dark</span></div></div>
+        </div>
+      </div>
+
+      <div class="legend">
+        <div class="legend-card">
+          <div class="k"><span class="dot" style="background:var(--day)"></span>Daylight</div>
+          <p id="dayText">6:00 a.m. → 6:00 p.m.</p>
+        </div>
+        <div class="legend-card">
+          <div class="k"><span class="dot" style="background:var(--night)"></span>Darkness</div>
+          <p id="nightText">6:00 p.m. → 6:00 a.m.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <a id="rvHomeFab" class="rv-home-fab" href="#">⌂</a>
+  <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button">⛶</button>
+  <button id="rvBackFab" class="rv-back-fab" type="button">←</button>
+
+  <script>
+    const months = [
+      {name:'Jan', light:8, sunrise:8, sunset:16},
+      {name:'Feb', light:10, sunrise:7, sunset:17},
+      {name:'Mar', light:12, sunrise:6, sunset:18},
+      {name:'Apr', light:14, sunrise:5, sunset:19},
+      {name:'May', light:16, sunrise:4, sunset:20},
+      {name:'Jun', light:18, sunrise:3, sunset:21},
+      {name:'Jul', light:18, sunrise:3, sunset:21},
+      {name:'Aug', light:16, sunrise:4, sunset:20},
+      {name:'Sep', light:14, sunrise:5, sunset:19},
+      {name:'Oct', light:12, sunrise:6, sunset:18},
+      {name:'Nov', light:10, sunrise:7, sunset:17},
+      {name:'Dec', light:12, sunrise:6, sunset:18}
+    ];
+
+    function fmt(h){
+      return String(h).padStart(2,'0') + '00';
+    }
+
+    function gradientFor(month){
+      const sunriseDeg = (month.sunrise/24)*360;
+      const sunsetDeg = (month.sunset/24)*360;
+      return `conic-gradient(from 180deg, var(--night) 0deg ${sunriseDeg}deg, var(--day) ${sunriseDeg}deg ${sunsetDeg}deg, var(--night) ${sunsetDeg}deg 360deg)`;
+    }
+
+    const tabs = document.getElementById('tabs');
+    const clock = document.getElementById('clock');
+    const centerMonth = document.getElementById('centerMonth');
+    const centerMeta = document.getElementById('centerMeta');
+    const dayText = document.getElementById('dayText');
+    const nightText = document.getElementById('nightText');
+
+    function render(i){
+      [...tabs.children].forEach((btn, idx) => btn.classList.toggle('active', idx === i));
+      const month = months[i];
+      centerMonth.textContent = month.name;
+      centerMeta.textContent = `${month.light}h light · ${24 - month.light}h dark`;
+      dayText.textContent = `${fmt(month.sunrise)} → ${fmt(month.sunset)}`;
+      nightText.textContent = `${fmt(month.sunset)} → ${fmt(month.sunrise)}`;
+      clock.style.setProperty('--clock-bg', gradientFor(month));
+    }
+
+    months.forEach((month, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'tab' + (i === 11 ? ' active' : '');
+      btn.type = 'button';
+      btn.textContent = month.name;
+      btn.addEventListener('click', () => render(i));
+      tabs.appendChild(btn);
+    });
+
+    render(11);
+  </script>
+
+  <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6;const maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(pos.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(pos.top??10,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const moved=m;d=null;save(el,key);if(!moved&&click)await click();});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}const isFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const sync=()=>fsFab.textContent=isFs()?'🡼':'⛶';const toggle=async()=>{try{const t=document.documentElement;if(!isFs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');drag(fab,'rvHomeFabPos');drag(fsFab,'rvFullscreenFabPos',toggle);drag(backFab,'rvBackFabPos',()=>{if(history.length>1)history.back();else location.href=href;});document.addEventListener('fullscreenchange',sync);sync();})();</script>
+</body>
+</html>
