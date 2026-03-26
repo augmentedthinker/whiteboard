@@ -12,12 +12,12 @@
       --bg:#0b1220;
       --bg2:#111b2d;
       --panel:rgba(14,24,43,.88);
-      --line:rgba(157,201,255,.20);
+      --line:rgba(157,201,255,.18);
       --text:#edf4ff;
       --muted:#b3c5df;
       --sleep:#5aa2ff;
       --work:#ff8aa1;
-      --other:#f2cb79;
+      --empty:rgba(255,255,255,.08);
       --shadow:0 20px 50px rgba(0,0,0,.28);
     }
     *{box-sizing:border-box}
@@ -30,60 +30,42 @@
         radial-gradient(circle at 15% 18%, rgba(90,162,255,.16), transparent 24%),
         radial-gradient(circle at 82% 20%, rgba(255,138,161,.10), transparent 20%),
         linear-gradient(180deg,var(--bg),var(--bg2));
-      padding:14px 12px 20px;
+      padding:14px 12px 18px;
       overflow:hidden;
     }
-    .wrap{max-width:760px;margin:0 auto;height:calc(100vh - 34px);display:flex;flex-direction:column}
-    .topbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;flex:0 0 auto}
+    .wrap{max-width:620px;margin:0 auto}
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
     .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.06);font-weight:700}
-    .card{border:1px solid var(--line);border-radius:24px;background:var(--panel);box-shadow:var(--shadow)}
-    .hero{padding:16px 16px 14px;margin-bottom:12px;flex:0 0 auto}
+    .card{border:1px solid var(--line);border-radius:26px;background:var(--panel);box-shadow:var(--shadow);padding:16px 14px 18px}
     .eyebrow{margin:0 0 6px;color:#9fcaff;font-size:.74rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
-    h1{margin:0 0 8px;font-family:Fraunces,serif;font-size:clamp(1.8rem,7vw,2.8rem);line-height:.95;letter-spacing:-.04em}
-    .hero p{margin:0;color:var(--muted);line-height:1.6;font-size:.96rem}
-    .viewer{padding:14px;display:grid;grid-template-rows:auto auto 1fr auto;gap:12px;flex:1 1 auto;min-height:0}
-    .day-tabs{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
-    .tab{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:var(--muted);border-radius:12px;padding:10px 0;font-size:.84rem;font-weight:700}
-    .tab.active{background:rgba(90,162,255,.18);color:#eef6ff;border-color:rgba(90,162,255,.30)}
-    .day-head{text-align:center}
-    .day-head .k{display:block;color:#9fcaff;font-size:.74rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px}
-    .day-head h2{margin:0;font-size:1.25rem}
-    .day-head p{margin:6px 0 0;color:var(--muted);font-size:.92rem}
-    .main{display:grid;grid-template-columns:1.04fr .96fr;gap:12px;min-height:0;align-items:center}
-    .chart-wrap{display:grid;place-items:center;min-height:0}
+    h1{margin:0 0 8px;font-family:Fraunces,serif;font-size:clamp(1.9rem,7vw,2.8rem);line-height:.95;letter-spacing:-.04em}
+    .sub{margin:0 0 14px;color:var(--muted);line-height:1.55;font-size:.95rem}
+    .day-tabs{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:16px}
+    .tab{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:var(--muted);border-radius:12px;padding:10px 0;font-size:.8rem;font-weight:700}
+    .tab.active{background:rgba(90,162,255,.18);color:#eef6ff;border-color:rgba(90,162,255,.32)}
+    .chart-wrap{display:grid;place-items:center}
     .clock{
-      width:min(320px, 74vw);
-      height:min(320px, 74vw);
+      width:min(320px,78vw);
+      height:min(320px,78vw);
       border-radius:50%;
       position:relative;
-      box-shadow:inset 0 0 0 1px rgba(255,255,255,.04), 0 18px 40px rgba(0,0,0,.24);
       background:var(--clock-bg);
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.04), 0 18px 40px rgba(0,0,0,.24);
     }
-    .clock::after{content:"";position:absolute;inset:22%;border-radius:50%;background:linear-gradient(180deg, rgba(10,16,28,.96), rgba(17,27,45,.98));box-shadow:inset 0 0 0 1px rgba(157,201,255,.10)}
+    .clock::after{content:"";position:absolute;inset:24%;border-radius:50%;background:linear-gradient(180deg, rgba(10,16,28,.97), rgba(17,27,45,.99));box-shadow:inset 0 0 0 1px rgba(157,201,255,.10)}
     .center{position:absolute;inset:0;display:grid;place-items:center;text-align:center;z-index:2;pointer-events:none}
-    .center strong{display:block;font-size:1.35rem;line-height:1;color:#f6fbff}
-    .center span{display:block;margin-top:6px;font-size:.84rem;color:var(--muted);font-weight:600}
-    .marker{position:absolute;left:50%;top:50%;width:2px;height:50%;transform-origin:center top;background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,0));opacity:.6}
+    .center strong{display:block;font-size:1.45rem;line-height:1;color:#f6fbff}
+    .center span{display:block;margin-top:6px;font-size:.85rem;color:var(--muted);font-weight:600}
+    .marker{position:absolute;left:50%;top:50%;width:2px;height:50%;transform-origin:center top;background:linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,0));opacity:.6}
     .m0{transform:translate(-50%,-100%) rotate(0deg)} .m6{transform:translate(-50%,-100%) rotate(90deg)} .m12{transform:translate(-50%,-100%) rotate(180deg)} .m18{transform:translate(-50%,-100%) rotate(270deg)}
     .label-hour{position:absolute;z-index:2;font-size:.74rem;font-weight:800;color:#c9d7eb;background:rgba(8,12,20,.55);padding:4px 7px;border-radius:999px;border:1px solid rgba(255,255,255,.06)}
     .h0{top:10px;left:50%;transform:translateX(-50%)} .h6{right:10px;top:50%;transform:translateY(-50%)} .h12{bottom:10px;left:50%;transform:translateX(-50%)} .h18{left:10px;top:50%;transform:translateY(-50%)}
-    .legend{display:grid;gap:10px;align-content:start}
-    .row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:11px 12px;border:1px solid rgba(255,255,255,.06);border-radius:14px;background:rgba(255,255,255,.03)}
-    .dot{width:12px;height:12px;border-radius:999px}.name{font-size:.95rem;font-weight:600}.hrs{font-size:.92rem;color:var(--muted);font-weight:700}
-    .times{margin-top:2px;color:var(--muted);font-size:.82rem;grid-column:2 / 4}
-    .footer-note{padding-top:8px;border-top:1px solid rgba(157,201,255,.10);color:var(--muted);line-height:1.6;font-size:.9rem}
     @media (max-width:640px){
       body{padding:10px 10px 16px}
-      .wrap{height:calc(100vh - 26px)}
-      .card{border-radius:18px}
-      .hero{padding:14px 14px 12px}
-      .viewer{padding:12px}
+      .card{border-radius:20px;padding:14px 12px 16px}
       .day-tabs{gap:5px}
       .tab{font-size:.76rem;padding:9px 0}
-      .main{grid-template-columns:1fr;gap:10px}
-      .clock{width:min(280px,72vw);height:min(280px,72vw)}
-      .row{padding:10px}
-      .times{font-size:.8rem}
+      .clock{width:min(300px,80vw);height:min(300px,80vw)}
     }
   </style>
   <style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab,.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-back-fab{left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging,.rv-back-fab.dragging{cursor:grabbing}</style>
@@ -94,30 +76,20 @@
       <a class="pill" href="../../today/index.html">← Today’s Artifacts</a>
     </div>
 
-    <section class="hero card">
+    <section class="card">
       <p class="eyebrow">Time Reality Check</p>
       <h1>Time Microscope</h1>
-      <p>One day-card at a time. Same sleep block every day, work blocks on Wednesday through Friday, and the rest shown honestly as unassigned waking time.</p>
-    </section>
+      <p class="sub">Tap a day. Blue = sleep. Pink = work.</p>
 
-    <section class="viewer card">
       <div class="day-tabs" id="tabs"></div>
-      <div class="day-head">
-        <span class="k">Selected Day</span>
-        <h2 id="dayTitle">Monday</h2>
-        <p id="daySubtitle">Sleep from 9:00 p.m. to 5:00 a.m.</p>
-      </div>
-      <div class="main">
-        <div class="chart-wrap">
-          <div class="clock" id="clock">
-            <div class="marker m0"></div><div class="marker m6"></div><div class="marker m12"></div><div class="marker m18"></div>
-            <div class="label-hour h0">00</div><div class="label-hour h6">06</div><div class="label-hour h12">12</div><div class="label-hour h18">18</div>
-            <div class="center"><div><strong id="centerBig">24h</strong><span id="centerSmall">1 day view</span></div></div>
-          </div>
+
+      <div class="chart-wrap">
+        <div class="clock" id="clock" aria-label="24-hour ring view">
+          <div class="marker m0"></div><div class="marker m6"></div><div class="marker m12"></div><div class="marker m18"></div>
+          <div class="label-hour h0">00</div><div class="label-hour h6">06</div><div class="label-hour h12">12</div><div class="label-hour h18">18</div>
+          <div class="center"><div><strong id="centerDay">Mon</strong><span>24-hour view</span></div></div>
         </div>
-        <div class="legend" id="legend"></div>
       </div>
-      <div class="footer-note" id="footnote">This view treats the rest of the day as one visible block so the question becomes: where does it actually go?</div>
     </section>
   </div>
 
@@ -127,98 +99,57 @@
 
   <script>
     const days = [
-      {name:'Monday', work:false},
-      {name:'Tuesday', work:false},
-      {name:'Wednesday', work:true},
-      {name:'Thursday', work:true},
-      {name:'Friday', work:true},
-      {name:'Saturday', work:false},
-      {name:'Sunday', work:false},
+      {name:'Monday', short:'Mon', work:false},
+      {name:'Tuesday', short:'Tue', work:false},
+      {name:'Wednesday', short:'Wed', work:true},
+      {name:'Thursday', short:'Thu', work:true},
+      {name:'Friday', short:'Fri', work:true},
+      {name:'Saturday', short:'Sat', work:false},
+      {name:'Sunday', short:'Sun', work:false},
     ];
 
-    const sleep = { label:'Sleep', start:21, end:29, hours:8, color:'var(--sleep)', time:'9:00 p.m. → 5:00 a.m.' };
-    const work =  { label:'Hospital shift', start:7, end:15, hours:8, color:'var(--work)', time:'7:00 a.m. → 3:00 p.m.' };
-
-    function seg(label, start, end, hours, color, time){ return {label,start,end,hours,color,time}; }
-
-    function buildDay(day){
-      if(day.work){
-        return {
-          title: day.name,
-          subtitle: 'Sleep 9:00 p.m. to 5:00 a.m. · Work 7:00 a.m. to 3:00 p.m.',
-          note: 'On work days, 16 of 24 hours are already structurally spoken for before anything else gets added.',
-          segments: [
-            seg('Sleep', 21, 29, 8, 'var(--sleep)', '9:00 p.m. → 5:00 a.m.'),
-            seg('Hospital shift', 7, 15, 8, 'var(--work)', '7:00 a.m. → 3:00 p.m.'),
-            seg('Everything else', 5, 7, 2, 'var(--other)', '5:00 a.m. → 7:00 a.m.'),
-            seg('Everything else', 15, 21, 6, 'var(--other)', '3:00 p.m. → 9:00 p.m.')
-          ],
-          legend: [
-            {label:'Sleep', hours:8, color:'var(--sleep)', time:'9:00 p.m. → 5:00 a.m.'},
-            {label:'Hospital shift', hours:8, color:'var(--work)', time:'7:00 a.m. → 3:00 p.m.'},
-            {label:'Everything else', hours:8, color:'var(--other)', time:'5:00 a.m. → 7:00 a.m. and 3:00 p.m. → 9:00 p.m.'}
-          ]
-        };
+    function buildSegments(isWorkDay){
+      const segs = [
+        {start:0,end:5,color:'var(--sleep)'},
+        {start:5,end:21,color:'var(--empty)'},
+        {start:21,end:24,color:'var(--sleep)'}
+      ];
+      if(isWorkDay){
+        return [
+          {start:0,end:5,color:'var(--sleep)'},
+          {start:5,end:7,color:'var(--empty)'},
+          {start:7,end:15,color:'var(--work)'},
+          {start:15,end:21,color:'var(--empty)'},
+          {start:21,end:24,color:'var(--sleep)'}
+        ];
       }
-      return {
-        title: day.name,
-        subtitle: 'Sleep 9:00 p.m. to 5:00 a.m. · no hospital shift.',
-        note: 'On free days, the visible question is what actually happens inside the remaining 16 waking hours.',
-        segments: [
-          seg('Sleep', 21, 29, 8, 'var(--sleep)', '9:00 p.m. → 5:00 a.m.'),
-          seg('Everything else', 5, 21, 16, 'var(--other)', '5:00 a.m. → 9:00 p.m.')
-        ],
-        legend: [
-          {label:'Sleep', hours:8, color:'var(--sleep)', time:'9:00 p.m. → 5:00 a.m.'},
-          {label:'Everything else', hours:16, color:'var(--other)', time:'5:00 a.m. → 9:00 p.m.'}
-        ]
-      };
+      return segs;
     }
 
     function segmentString(segments){
-      const pieces = [];
-      for(const s of segments){
-        const startDeg = (s.start / 24) * 360;
-        const endDeg = (s.end / 24) * 360;
-        if(endDeg <= 360){
-          pieces.push(`${s.color} ${startDeg}deg ${endDeg}deg`);
-        } else {
-          pieces.push(`${s.color} ${startDeg}deg 360deg`);
-          pieces.push(`${s.color} 0deg ${(endDeg - 360)}deg`);
-        }
-      }
-      return `conic-gradient(from -90deg, ${pieces.join(', ')})`;
+      return 'conic-gradient(from -90deg, ' + segments.map(s => {
+        const a = (s.start/24)*360;
+        const b = (s.end/24)*360;
+        return `${s.color} ${a}deg ${b}deg`;
+      }).join(', ') + ')';
     }
 
     const tabs = document.getElementById('tabs');
     const clock = document.getElementById('clock');
-    const legend = document.getElementById('legend');
-    const dayTitle = document.getElementById('dayTitle');
-    const daySubtitle = document.getElementById('daySubtitle');
-    const footnote = document.getElementById('footnote');
+    const centerDay = document.getElementById('centerDay');
 
-    function render(index){
-      [...tabs.children].forEach((btn,i)=>btn.classList.toggle('active', i===index));
-      const day = buildDay(days[index]);
-      dayTitle.textContent = day.title;
-      daySubtitle.textContent = day.subtitle;
-      footnote.textContent = day.note;
-      clock.style.setProperty('--clock-bg', segmentString(day.segments));
-      legend.innerHTML = day.legend.map(item => `
-        <div class="row">
-          <span class="dot" style="background:${item.color}"></span>
-          <span class="name">${item.label}</span>
-          <span class="hrs">${item.hours}h</span>
-          <div class="times">${item.time}</div>
-        </div>
-      `).join('');
+    function render(i){
+      [...tabs.children].forEach((btn, idx) => btn.classList.toggle('active', idx === i));
+      const day = days[i];
+      centerDay.textContent = day.short;
+      clock.style.setProperty('--clock-bg', segmentString(buildSegments(day.work)));
     }
 
     days.forEach((day, i) => {
       const btn = document.createElement('button');
-      btn.className = 'tab' + (i===0 ? ' active' : '');
-      btn.textContent = day.name.slice(0,3);
+      btn.className = 'tab' + (i === 0 ? ' active' : '');
       btn.type = 'button';
+      btn.textContent = day.short;
       btn.addEventListener('click', () => render(i));
       tabs.appendChild(btn);
     });
