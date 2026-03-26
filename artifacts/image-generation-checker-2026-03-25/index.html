@@ -28,7 +28,7 @@
     .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;word-break:break-word}
     @media (max-width:960px){.grid{grid-template-columns:1fr}.row,.row2,.controls{grid-template-columns:1fr}}
   </style>
-  <style id="rv-home-fab-style">.rv-home-fab,.rv-fullscreen-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}.rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}.rv-home-fab.dragging,.rv-fullscreen-fab.dragging{cursor:grabbing}.rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none;left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}.rv-back-fab.dragging{cursor:grabbing}</style>
+  <style id="rv-home-fab-style">.rv-combo-fab{position:fixed;left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));z-index:9999;width:48px;height:94px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;overflow:hidden;display:flex;flex-direction:column}.rv-combo-fab.dragging{cursor:grabbing}.rv-combo-half{flex:1;display:grid;place-items:center;font-size:18px;font-weight:800;text-decoration:none;color:#eaf5ff;background:transparent;border:0;padding:0;margin:0;cursor:pointer}.rv-combo-half + .rv-combo-half{border-top:1px solid rgba(255,255,255,.22)}</style>
 </head>
 <body>
   <div class="wrap">
@@ -102,113 +102,8 @@
     </section>
   </div>
 
-  <a id="rvHomeFab" class="rv-home-fab" href="#">⌂</a>
-  <button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button">⛶</button>
-  <button id="rvBackFab" class="rv-back-fab" type="button">←</button>
+  <div id="rvComboFab" class="rv-combo-fab"><a id="rvHomeFab" class="rv-combo-half" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a><button id="rvFullscreenFab" class="rv-combo-half" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button></div>
+  <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvComboFab');const home=document.getElementById('rvHomeFab');const fs=document.getElementById('rvFullscreenFab');if(!fab||!home||!fs)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';home.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=()=>{try{const raw=localStorage.getItem('rvComboFabPos');if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-fab.offsetWidth-6;const maxTop=window.innerHeight-fab.offsetHeight-6;fab.style.left=clamp(pos.left??10,6,maxLeft)+'px';fab.style.top=clamp(pos.top??10,6,maxTop)+'px';fab.style.right='auto';fab.style.bottom='auto';}catch(_){}};const save=()=>{try{localStorage.setItem('rvComboFabPos',JSON.stringify({left:fab.offsetLeft,top:fab.offsetTop}))}catch(_){}};let d=null,m=false;fab.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:fab.offsetLeft,top:fab.offsetTop};m=false;fab.classList.add('dragging');fab.setPointerCapture(e.pointerId);e.preventDefault();});fab.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-fab.offsetWidth-6,maxTop=window.innerHeight-fab.offsetHeight-6;fab.style.left=clamp(d.left+dx,6,maxLeft)+'px';fab.style.top=clamp(d.top+dy,6,maxTop)+'px';fab.style.right='auto';fab.style.bottom='auto';});fab.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;fab.classList.remove('dragging');try{fab.releasePointerCapture(e.pointerId)}catch(_){}const moved=m;const target=e.target.closest('.rv-combo-half');d=null;save();if(moved||!target)return;if(target===fs){try{const t=document.documentElement;const isFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);if(!isFs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}fs.textContent=(document.fullscreenElement||document.webkitFullscreenElement)?'🡼':'⛶';}else if(target===home){location.href=href;}});fab.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});document.addEventListener('fullscreenchange',()=>{fs.textContent=(document.fullscreenElement||document.webkitFullscreenElement)?'🡼':'⛶';});place();fs.textContent=(document.fullscreenElement||document.webkitFullscreenElement)?'🡼':'⛶';})();</script>
 
-  <script>
-    const KEY_STORAGE = 'remoteViewer.geminiApiKey';
-    const MODELS = [
-      { id:'gemini-3.1-flash-image-preview', label:'Nano Banana / Gemini 3.1 Flash Image Preview', note:'Confirmed working in this checker. Practical Nano Banana-aligned fast image lane.' },
-      { id:'gemini-3-pro-image-preview', label:'Nano Banana / Gemini 3 Pro Image Preview', note:'Confirmed working in this checker. Practical Nano Banana-aligned primary image lane.' },
-      { id:'imagen-3.0-generate-002', label:'Imagen 3.0 Generate 002', note:'Not valid on this current v1beta generateContent route.' },
-      { id:'gemini-2.0-flash-preview-image-generation', label:'Gemini 2.0 Flash Preview Image Generation', note:'Not valid on this current v1beta generateContent route.' }
-    ];
-
-    const apiKeyInput = document.getElementById('apiKey');
-    const saveKeyBtn = document.getElementById('saveKeyBtn');
-    const clearKeyBtn = document.getElementById('clearKeyBtn');
-    const aspectRatioEl = document.getElementById('aspectRatio');
-    const imageSizeEl = document.getElementById('imageSize');
-    const promptEl = document.getElementById('prompt');
-    const singleModelEl = document.getElementById('singleModel');
-    const runOneBtn = document.getElementById('runOneBtn');
-    const runBatchBtn = document.getElementById('runBatchBtn');
-    const modelListEl = document.getElementById('modelList');
-    const resultsEl = document.getElementById('results');
-    const statusTitle = document.getElementById('statusTitle');
-    const statusText = document.getElementById('statusText');
-
-    function getApiKey(){ return apiKeyInput.value.trim() || localStorage.getItem(KEY_STORAGE) || ''; }
-    function setStatus(title,text){ statusTitle.textContent = title; statusText.textContent = text; }
-    function init(){
-      const saved = localStorage.getItem(KEY_STORAGE) || '';
-      if(saved) apiKeyInput.value = saved;
-      singleModelEl.innerHTML = MODELS.map(m => `<option value="${m.id}">${m.label}</option>`).join('');
-      modelListEl.innerHTML = MODELS.map(m => `<div class="model"><div class="model-head"><div><strong>${m.label}</strong><div class="small mono">${m.id}</div></div></div><div class="small">${m.note}</div></div>`).join('');
-    }
-    function appendResult(html, prepend=true){
-      const div = document.createElement('div'); div.className='result'; div.innerHTML = html;
-      if(resultsEl.children.length===1 && resultsEl.textContent.includes('No tests run yet.')) resultsEl.innerHTML='';
-      prepend ? resultsEl.prepend(div) : resultsEl.append(div);
-    }
-    function bytesToDataUrl(mimeType, base64){ return `data:${mimeType || 'image/png'};base64,${base64}`; }
-    async function runOne(modelId){
-      const apiKey = getApiKey();
-      if(!apiKey){ setStatus('Missing key','Paste or save a Gemini API key first.'); return; }
-      const prompt = promptEl.value.trim();
-      if(!prompt){ setStatus('Missing prompt','Add a prompt first.'); return; }
-      setStatus('Testing…', `Running ${modelId}...`);
-      runOneBtn.disabled = true; runBatchBtn.disabled = true;
-      const started = performance.now();
-      try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(modelId)}:generateContent?key=${encodeURIComponent(apiKey)}`;
-        const body = {
-          contents:[{parts:[{text:prompt}]}],
-          generationConfig:{
-            temperature:0.7,
-            responseModalities:['TEXT','IMAGE'],
-            imageConfig:{
-              aspectRatio:aspectRatioEl.value,
-              imageSize:imageSizeEl.value
-            }
-          }
-        };
-        const res = await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
-        const data = await res.json().catch(()=>({}));
-        const ms = Math.round(performance.now()-started);
-        if(!res.ok){
-          const err = data?.error?.message || `HTTP ${res.status}`;
-          appendResult(`<div><strong class="err">Failed</strong> · <span class="mono">${modelId}</span> · ${ms} ms</div><div class="small mono">${err}</div>`);
-          setStatus('Failure', `${modelId} failed: ${err}`);
-          return;
-        }
-        const candidates = data.candidates || [];
-        let foundImage = null; let foundText = '';
-        for(const cand of candidates){
-          const parts = cand?.content?.parts || cand?.parts || [];
-          for(const part of parts){
-            if(part.text && !foundText) foundText = part.text;
-            if(part.inlineData?.data){ foundImage = { data: part.inlineData.data, mimeType: part.inlineData.mimeType || 'image/png' }; break; }
-            if(part.inline_data?.data){ foundImage = { data: part.inline_data.data, mimeType: part.inline_data.mime_type || 'image/png' }; break; }
-          }
-          if(foundImage) break;
-        }
-        if(foundImage){
-          const src = bytesToDataUrl(foundImage.mimeType, foundImage.data);
-          appendResult(`<div><strong class="ok">Success</strong> · <span class="mono">${modelId}</span> · ${ms} ms</div><div class="small">Image returned successfully.${foundText ? ' Model text: ' + foundText.replace(/</g,'&lt;') : ''}</div><img alt="Generated preview for ${modelId}" src="${src}">`);
-          setStatus('Success', `${modelId} returned an image successfully.`);
-        } else {
-          appendResult(`<div><strong class="warn">No image found</strong> · <span class="mono">${modelId}</span> · ${ms} ms</div><div class="small mono">Request succeeded, but no inline image was returned.${foundText ? ' Text: ' + foundText.replace(/</g,'&lt;') : ''}</div>`);
-          setStatus('Partial success', `${modelId} responded but did not return an inline image.`);
-        }
-      } catch(err) {
-        appendResult(`<div><strong class="err">Exception</strong> · <span class="mono">${modelId}</span></div><div class="small mono">${String(err).replace(/</g,'&lt;')}</div>`);
-        setStatus('Exception', String(err));
-      } finally {
-        runOneBtn.disabled = false; runBatchBtn.disabled = false;
-      }
-    }
-    async function runBatch(){
-      for(const m of MODELS){ await runOne(m.id); }
-    }
-    saveKeyBtn.addEventListener('click', ()=>{ const k=apiKeyInput.value.trim(); if(!k){ setStatus('Nothing to save','Paste a key first.'); return; } localStorage.setItem(KEY_STORAGE,k); setStatus('Saved','Key saved in this browser localStorage.'); });
-    clearKeyBtn.addEventListener('click', ()=>{ localStorage.removeItem(KEY_STORAGE); apiKeyInput.value=''; setStatus('Cleared','Saved key removed from this browser.'); });
-    runOneBtn.addEventListener('click', ()=>runOne(singleModelEl.value));
-    runBatchBtn.addEventListener('click', runBatch);
-    init();
-  </script>
-
-  <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvHomeFab');const fsFab=document.getElementById('rvFullscreenFab');const backFab=document.getElementById('rvBackFab');if(!fab||!fsFab||!backFab)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';fab.href=href;const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=(el,key,side='left')=>{try{const raw=localStorage.getItem(key);if(!raw)return;const p=JSON.parse(raw);const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(p.left??(side==='left'?10:maxLeft),6,maxLeft)+'px';el.style.top=clamp(p.top??10,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';}catch(_){}};const save=(el,key)=>{try{localStorage.setItem(key,JSON.stringify({left:el.offsetLeft,top:el.offsetTop}))}catch(_){}};function drag(el,key,click){let d=null,m=false;el.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop};m=false;el.classList.add('dragging');el.setPointerCapture(e.pointerId);e.preventDefault();});el.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-el.offsetWidth-6,maxTop=window.innerHeight-el.offsetHeight-6;el.style.left=clamp(d.left+dx,6,maxLeft)+'px';el.style.top=clamp(d.top+dy,6,maxTop)+'px';el.style.right='auto';el.style.bottom='auto';});el.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;el.classList.remove('dragging');try{el.releasePointerCapture(e.pointerId)}catch(_){}const wm=m;d=null;save(el,key);if(!wm&&click)await click();});el.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});}const fs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const sync=()=>fsFab.textContent=fs()?'🡼':'⛶';const tfs=async()=>{try{const t=document.documentElement;if(!fs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}sync();};place(fab,'rvHomeFabPos','left');place(fsFab,'rvFullscreenFabPos','right');place(backFab,'rvBackFabPos','left');drag(fab,'rvHomeFabPos');drag(fsFab,'rvFullscreenFabPos',tfs);drag(backFab,'rvBackFabPos',()=>{if(history.length>1)history.back();else location.href=href;});document.addEventListener('fullscreenchange',sync);sync();})();</script>
-</body>
+  </body>
 </html>

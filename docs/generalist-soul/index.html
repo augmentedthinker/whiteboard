@@ -6,16 +6,7 @@
   <title>Generalist | Soul</title>
   <style>:root{--bg:#07101d;--panel:#0d1728;--panel2:#101d33;--line:#243a66;--text:#edf5ff;--muted:#a9bfdc;--accent:#8dd8ff;--accent2:#7a92ff}*{box-sizing:border-box}html,body{margin:0}body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:radial-gradient(circle at top right, rgba(141,216,255,.12), transparent 28%),linear-gradient(180deg,#0a1323,#050a14);color:var(--text);min-height:100vh}.topbar{position:sticky;top:0;z-index:10;background:rgba(5,10,20,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}.topbar-inner{max-width:1100px;margin:0 auto;padding:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn,.link{text-decoration:none;border:1px solid var(--line);background:linear-gradient(135deg,var(--panel2),var(--panel));color:var(--text);border-radius:999px;padding:10px 14px;font-weight:700;font-size:.95rem;display:inline-block}.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#08111f;border:0}#status{color:var(--muted);font-size:.92rem}.hero{max-width:1100px;margin:0 auto;padding:20px 14px 8px}.eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}h1{margin:0 0 6px;font-size:clamp(1.4rem,5vw,2.2rem)}.sub{margin:0;color:var(--muted);max-width:70ch;line-height:1.6}.path-card{margin-top:14px;padding:14px 16px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(160deg, rgba(14,24,42,.9), rgba(10,18,32,.88));box-shadow:0 14px 34px rgba(0,0,0,.24)}.path-label{display:block;margin-bottom:8px;color:var(--muted);font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}.path-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.path-value{flex:1 1 560px;min-width:0;padding:12px 14px;border-radius:14px;background:rgba(6,12,22,.88);border:1px solid rgba(141,216,255,.16);color:#dbeaff;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92rem;overflow-wrap:anywhere}.doc-wrap{max-width:1100px;margin:0 auto;padding:0 14px 28px}#viewer{display:none;margin-top:10px;padding:22px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(160deg, rgba(15,25,42,.94), rgba(9,15,28,.92));box-shadow:0 20px 60px rgba(0,0,0,.35)}#viewer h1,#viewer h2,#viewer h3,#viewer h4{line-height:1.28;margin:1.05em 0 .45em}#viewer h1:first-child{margin-top:0}#viewer p,#viewer li{font-size:1.02rem;line-height:1.72}#viewer ul,#viewer ol{padding-left:1.35em}#viewer code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:7px}#viewer pre{background:#091221;border:1px solid #26395f;border-radius:12px;padding:12px;overflow:auto}#viewer blockquote{border-left:3px solid #42649a;margin:0;padding:.2em 0 .2em .9em;color:#dce8ff}@media print {.topbar,.hero{display:none!important} body{background:#fff;color:#000} #viewer{display:block!important;border:0;box-shadow:none;padding:0}}</style>
 
-<style id="rv-home-fab-style">
-  .rv-home-fab,.rv-fullscreen-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none}
-  .rv-home-fab{left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));cursor:grab}
-  .rv-fullscreen-fab{right:max(10px, env(safe-area-inset-right));top:max(10px, env(safe-area-inset-top));cursor:grab}
-  .rv-home-fab.dragging,.rv-fullscreen-fab.dragging{cursor:grabbing}
-  .rv-hidden-back-nav{display:none !important}
-  .rv-back-fab{position:fixed;z-index:9999;width:46px;height:46px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;display:grid;place-items:center;font-size:18px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;text-decoration:none;left:max(10px, env(safe-area-inset-left));bottom:max(10px, env(safe-area-inset-bottom));cursor:grab}
-  .rv-back-fab.dragging{cursor:grabbing}
-
-</style>
+<style id="rv-home-fab-style">.rv-combo-fab{position:fixed;left:max(10px, env(safe-area-inset-left));top:max(10px, env(safe-area-inset-top));z-index:9999;width:48px;height:94px;border-radius:999px;border:1px solid rgba(126,186,255,.95);background:#2f8cff;color:#eaf5ff;box-shadow:0 12px 28px rgba(0,0,0,.28);backdrop-filter:blur(8px);touch-action:none;user-select:none;overflow:hidden;display:flex;flex-direction:column}.rv-combo-fab.dragging{cursor:grabbing}.rv-combo-half{flex:1;display:grid;place-items:center;font-size:18px;font-weight:800;text-decoration:none;color:#eaf5ff;background:transparent;border:0;padding:0;margin:0;cursor:pointer}.rv-combo-half + .rv-combo-half{border-top:1px solid rgba(255,255,255,.22)}</style>
 
 <style id="rv-mobile-opt-style">
   html{-webkit-text-size-adjust:100%}
@@ -29,121 +20,7 @@
 </style>
 </head>
 <body><div class="topbar"><div class="topbar-inner"><a class="link" href="../../agents/generalist.html">← Generalist</a><button id="openBtn" class="btn primary">Open / Refresh</button><button id="pdfBtn" class="btn">Download as PDF</button><span id="status"></span></div></div><header class="hero"><p class="eyebrow">Generalist · Soul</p><h1>Soul File</h1><p class="sub">A clean reading surface for the Generalist agent’s internal operating stance and purpose.</p><div class="path-card"><span class="path-label">Workspace file path</span><div class="path-row"><div class="path-value" id="pathValue">/home/augmentedthinker/.openclaw/workspace-generalist/SOUL.md</div><button id="copyPathBtn" class="btn">Copy Local Path</button></div></div></header><main class="doc-wrap"><article id="viewer"></article></main><script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script><script>const btn=document.getElementById('openBtn'); const pdfBtn=document.getElementById('pdfBtn'); const copyPathBtn=document.getElementById('copyPathBtn'); const pathValue=document.getElementById('pathValue'); const status=document.getElementById('status'); const viewer=document.getElementById('viewer'); async function openDoc(){ btn.disabled=true; status.textContent='Loading...'; try{ const res=await fetch('./soul.md',{cache:'no-store'}); if(!res.ok) throw new Error('Could not load markdown file.'); const md=await res.text(); viewer.innerHTML=marked.parse(md); viewer.style.display='block'; status.textContent='Ready'; }catch(err){ status.textContent='Error loading document'; alert(err.message);}finally{ btn.disabled=false; } } async function copyPath(){ try{ await navigator.clipboard.writeText(pathValue.textContent.trim()); const old=copyPathBtn.textContent; copyPathBtn.textContent='Copied'; status.textContent='Local path copied'; setTimeout(()=>copyPathBtn.textContent=old,1400);}catch(err){ status.textContent='Could not copy path'; alert('Copy failed on this browser. Path: ' + pathValue.textContent.trim()); } } btn.addEventListener('click',openDoc); pdfBtn.addEventListener('click',()=>window.print()); copyPathBtn.addEventListener('click',copyPath); openDoc();</script>
-<a id="rvHomeFab" class="rv-home-fab" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a>
-<button id="rvFullscreenFab" class="rv-fullscreen-fab" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button>
-<button id="rvBackFab" class="rv-back-fab" type="button" aria-label="Go back" title="Go back">←</button>
-<script id="rv-home-fab-script">
-(function(){
-  const fab=document.getElementById('rvHomeFab');
-  const fsFab=document.getElementById('rvFullscreenFab');
-  const backFab=document.getElementById('rvBackFab');
-  if(!fab || !fsFab || !backFab) return;
-  const path=location.pathname;
-  const marker='/remote-viewer/';
-  const idx=path.indexOf(marker);
-  const href=idx>=0 ? path.slice(0, idx + marker.length) : '/';
-  fab.setAttribute('href', href);
-
-  const clamp = (v,min,max)=>Math.max(min, Math.min(max, v));
-  const placeFromStorage = (el,key,side='left') => {
-    try {
-      const raw = localStorage.getItem(key);
-      if(!raw) return;
-      const pos = JSON.parse(raw);
-      const maxLeft = window.innerWidth - el.offsetWidth - 6;
-      const maxTop = window.innerHeight - el.offsetHeight - 6;
-      const left = clamp(pos.left ?? (side==='left'?10:maxLeft), 6, maxLeft);
-      const top = clamp(pos.top ?? 10, 6, maxTop);
-      el.style.left = left + 'px';
-      el.style.top = top + 'px';
-      el.style.right = 'auto';
-    } catch(_) {}
-  };
-  const savePos = (el,key) => {
-    try { localStorage.setItem(key, JSON.stringify({left: el.offsetLeft, top: el.offsetTop})); } catch(_) {}
-  };
-
-  function wireDraggable(el, key, onClick){
-    let drag=null, moved=false;
-    el.addEventListener('pointerdown', (e)=>{ drag={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:el.offsetLeft,top:el.offsetTop}; moved=false; el.classList.add('dragging'); el.setPointerCapture(e.pointerId); e.preventDefault(); });
-    el.addEventListener('pointermove', (e)=>{ if(!drag||e.pointerId!==drag.id) return; const dx=e.clientX-drag.startX, dy=e.clientY-drag.startY; if(Math.abs(dx)>3||Math.abs(dy)>3) moved=true; const maxLeft=window.innerWidth-el.offsetWidth-6, maxTop=window.innerHeight-el.offsetHeight-6; const nextLeft=clamp(drag.left+dx, 6, maxLeft); const nextTop=clamp(drag.top+dy, 6, maxTop); el.style.left=nextLeft+'px'; el.style.top=nextTop+'px'; el.style.right='auto'; });
-    el.addEventListener('pointerup', async (e)=>{ if(!drag||e.pointerId!==drag.id) return; el.classList.remove('dragging'); try{el.releasePointerCapture(e.pointerId);}catch(_){} const wasMoved=moved; drag=null; savePos(el,key); if(!wasMoved && onClick) await onClick(e); });
-    el.addEventListener('pointercancel', ()=>{ el.classList.remove('dragging'); drag=null; savePos(el,key); });
-    el.addEventListener('click', (e)=>{ if(moved){ e.preventDefault(); moved=false; } });
-  }
-
-  const isFullscreen = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
-  const syncFsIcon = () => { fsFab.textContent = isFullscreen() ? '🡼' : '⛶'; };
-  const toggleFullscreen = async () => {
-    try {
-      const target = document.documentElement;
-      if (!isFullscreen()) {
-        if (target.requestFullscreen) await target.requestFullscreen();
-        else if (target.webkitRequestFullscreen) target.webkitRequestFullscreen();
-        try { localStorage.setItem('rvFullscreenPreferred', '1'); } catch(_) {}
-      } else {
-        if (document.exitFullscreen) await document.exitFullscreen();
-        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-        try { localStorage.setItem('rvFullscreenPreferred', '0'); } catch(_) {}
-      }
-    } catch(_) {}
-    syncFsIcon();
-  };
-  const tryApplyFullscreenPreference = async () => {
-    let preferred = false;
-    try { preferred = localStorage.getItem('rvFullscreenPreferred') === '1'; } catch(_) {}
-    if (!preferred || isFullscreen()) return;
-    try {
-      const target = document.documentElement;
-      if (target.requestFullscreen) await target.requestFullscreen();
-      else if (target.webkitRequestFullscreen) target.webkitRequestFullscreen();
-    } catch(_) {}
-    syncFsIcon();
-  };
-  const armFullscreenCarry = () => {
-    let preferred = false;
-    try { preferred = localStorage.getItem('rvFullscreenPreferred') === '1'; } catch(_) {}
-    if (!preferred) return;
-    const handler = () => {
-      tryApplyFullscreenPreference();
-      window.removeEventListener('pointerdown', handler, true);
-      window.removeEventListener('keydown', handler, true);
-      window.removeEventListener('touchstart', handler, true);
-    };
-    window.addEventListener('pointerdown', handler, true);
-    window.addEventListener('keydown', handler, true);
-    window.addEventListener('touchstart', handler, true);
-  };
-
-  placeFromStorage(fab, 'rvHomeFabPos', 'left');
-  placeFromStorage(fsFab, 'rvFullscreenFabPos', 'right');
-  placeFromStorage(backFab, 'rvBackFabPos', 'left');
-  wireDraggable(fab, 'rvHomeFabPos');
-  wireDraggable(fsFab, 'rvFullscreenFabPos', toggleFullscreen);
-  wireDraggable(backFab, 'rvBackFabPos', ()=>{ if(window.history.length>1){ window.history.back(); } else { window.location.href = href; } });
-  document.addEventListener('fullscreenchange', syncFsIcon);
-  document.addEventListener('webkitfullscreenchange', syncFsIcon);
-  syncFsIcon();
-
-  const hideBackNav = () => {
-    const selectors = 'a,button,.btn,.link,.back';
-    document.querySelectorAll(selectors).forEach(el => {
-      if (el.id === 'rvHomeFab' || el.id === 'rvFullscreenFab' || el.id === 'rvBackFab' || el.id === 'fsBtn') return;
-      const text = (el.textContent || '').replace(/\s+/g,' ').trim().toLowerCase();
-      const hrefAttr = (el.getAttribute && (el.getAttribute('href') || '') || '').toLowerCase();
-      const title = (el.getAttribute && (el.getAttribute('title') || '') || '').toLowerCase();
-      const looksBack = text.startsWith('←') || text.startsWith('back to') || text === 'back' || text === 'today’s artifacts' || text === "today's artifacts" || title.includes('back to');
-      const navHref = hrefAttr.includes('../index.html') || hrefAttr.endsWith('/index.html') || hrefAttr === 'index.html';
-      if (looksBack || (navHref && text.includes('back'))) el.classList.add('rv-hidden-back-nav');
-    });
-  };
-
-  const init = () => { hideBackNav(); armFullscreenCarry(); };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, {once:true});
-  else init();
-  window.addEventListener('resize', ()=>{ placeFromStorage(fab, 'rvHomeFabPos', 'left'); placeFromStorage(fsFab, 'rvFullscreenFabPos', 'right');
-  placeFromStorage(backFab, 'rvBackFabPos', 'left'); });
-})();
-</script>
+<div id="rvComboFab" class="rv-combo-fab"><a id="rvHomeFab" class="rv-combo-half" href="#" aria-label="Back to menu page" title="Back to menu page">⌂</a><button id="rvFullscreenFab" class="rv-combo-half" type="button" aria-label="Toggle fullscreen" title="Toggle fullscreen">⛶</button></div>
+  <script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvComboFab');const home=document.getElementById('rvHomeFab');const fs=document.getElementById('rvFullscreenFab');if(!fab||!home||!fs)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';home.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=()=>{try{const raw=localStorage.getItem('rvComboFabPos');if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-fab.offsetWidth-6;const maxTop=window.innerHeight-fab.offsetHeight-6;fab.style.left=clamp(pos.left??10,6,maxLeft)+'px';fab.style.top=clamp(pos.top??10,6,maxTop)+'px';fab.style.right='auto';fab.style.bottom='auto';}catch(_){}};const save=()=>{try{localStorage.setItem('rvComboFabPos',JSON.stringify({left:fab.offsetLeft,top:fab.offsetTop}))}catch(_){}};let d=null,m=false;fab.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:fab.offsetLeft,top:fab.offsetTop};m=false;fab.classList.add('dragging');fab.setPointerCapture(e.pointerId);e.preventDefault();});fab.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-fab.offsetWidth-6,maxTop=window.innerHeight-fab.offsetHeight-6;fab.style.left=clamp(d.left+dx,6,maxLeft)+'px';fab.style.top=clamp(d.top+dy,6,maxTop)+'px';fab.style.right='auto';fab.style.bottom='auto';});fab.addEventListener('pointerup',async e=>{if(!d||e.pointerId!==d.id)return;fab.classList.remove('dragging');try{fab.releasePointerCapture(e.pointerId)}catch(_){}const moved=m;const target=e.target.closest('.rv-combo-half');d=null;save();if(moved||!target)return;if(target===fs){try{const t=document.documentElement;const isFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);if(!isFs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}fs.textContent=(document.fullscreenElement||document.webkitFullscreenElement)?'🡼':'⛶';}else if(target===home){location.href=href;}});fab.addEventListener('click',e=>{if(m){e.preventDefault();m=false;}});document.addEventListener('fullscreenchange',()=>{fs.textContent=(document.fullscreenElement||document.webkitFullscreenElement)?'🡼':'⛶';});place();fs.textContent=(document.fullscreenElement||document.webkitFullscreenElement)?'🡼':'⛶';})();</script>
 </body>
 </html>
