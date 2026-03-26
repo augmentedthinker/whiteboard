@@ -17,6 +17,7 @@
       --muted:#b3c5df;
       --sleep:#5aa2ff;
       --work:#ff8aa1;
+      --prep:#c6a27a;
       --empty:rgba(255,255,255,.08);
       --shadow:0 20px 50px rgba(0,0,0,.28);
     }
@@ -79,7 +80,7 @@
     <section class="card">
       <p class="eyebrow">Time Reality Check</p>
       <h1>Time Microscope</h1>
-      <p class="sub">Tap a day. Blue = sleep. Pink = work.</p>
+      <p class="sub">Tap a day. Blue = sleep. Pink = work. Light brown = preparation.</p>
 
       <div class="day-tabs" id="tabs"></div>
 
@@ -117,7 +118,7 @@
       if(isWorkDay){
         return [
           {start:0,end:5,color:'var(--sleep)'},
-          {start:5,end:7,color:'var(--empty)'},
+          {start:5,end:7,color:'var(--prep)'},
           {start:7,end:15,color:'var(--work)'},
           {start:15,end:21,color:'var(--empty)'},
           {start:21,end:24,color:'var(--sleep)'}
