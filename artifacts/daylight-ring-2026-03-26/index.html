@@ -16,7 +16,7 @@
     body{
       min-height:100vh; font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; color:var(--text);
       background:radial-gradient(circle at 18% 18%, rgba(244,166,76,.10), transparent 20%), radial-gradient(circle at 82% 20%, rgba(90,162,255,.14), transparent 22%), linear-gradient(180deg,var(--bg),var(--bg2));
-      padding:14px 12px 18px; overflow-x:hidden; overflow-y:auto;
+      padding:14px 12px 18px; overflow:hidden;
     }
     .wrap{max-width:620px;margin:0 auto}
     .topbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
@@ -80,7 +80,63 @@
     </section>
   </div>
 
+  
+
+  <script>
+    const months = [
+      {name:'Jan', light:10, sunrise:7, sunset:17},
+      {name:'Feb', light:11, sunrise:7, sunset:18},
+      {name:'Mar', light:12, sunrise:6, sunset:18},
+      {name:'Apr', light:13, sunrise:5, sunset:18},
+      {name:'May', light:14, sunrise:5, sunset:19},
+      {name:'Jun', light:15, sunrise:4, sunset:19},
+      {name:'Jul', light:14, sunrise:5, sunset:19},
+      {name:'Aug', light:14, sunrise:5, sunset:19},
+      {name:'Sep', light:12, sunrise:6, sunset:18},
+      {name:'Oct', light:11, sunrise:7, sunset:18},
+      {name:'Nov', light:10, sunrise:7, sunset:17},
+      {name:'Dec', light:9, sunrise:8, sunset:17}
+    ];
+
+    function fmt(h){
+      return String(h).padStart(2,'0') + '00';
+    }
+
+    function gradientFor(month){
+      const sunriseDeg = (month.sunrise/24)*360;
+      const sunsetDeg = (month.sunset/24)*360;
+      return `conic-gradient(from 180deg, var(--night) 0deg ${sunriseDeg}deg, var(--day) ${sunriseDeg}deg ${sunsetDeg}deg, var(--night) ${sunsetDeg}deg 360deg)`;
+    }
+
+    const tabs = document.getElementById('tabs');
+    const clock = document.getElementById('clock');
+    const centerMonth = document.getElementById('centerMonth');
+    const centerMeta = document.getElementById('centerMeta');
+    const dayText = document.getElementById('dayText');
+    const nightText = document.getElementById('nightText');
+
+    function render(i){
+      [...tabs.children].forEach((btn, idx) => btn.classList.toggle('active', idx === i));
+      const month = months[i];
+      centerMonth.textContent = month.name;
+      centerMeta.textContent = `${month.light}h light · ${24 - month.light}h dark`;
+      dayText.textContent = `${fmt(month.sunrise)} → ${fmt(month.sunset)}`;
+      nightText.textContent = `${fmt(month.sunset)} → ${fmt(month.sunrise)}`;
+      clock.style.setProperty('--clock-bg', gradientFor(month));
+    }
+
+    months.forEach((month, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'tab' + (i === 11 ? ' active' : '');
+      btn.type = 'button';
+      btn.textContent = month.name;
+      btn.addEventListener('click', () => render(i));
+      tabs.appendChild(btn);
+    });
+
+    render(11);
+  </script>
+
   <script src="../../assets/shared/rv-floating-nav.js"></script>
-<script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvComboFab');const home=document.getElementById('rvHomeFab');const fs=document.getElementById('rvFullscreenFab');if(!fab||!home||!fs)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';home.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=()=>{try{const raw=localStorage.getItem('rvComboFabPos');if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-fab.offsetWidth-6;const maxTop=window.innerHeight-fab.offsetHeight-6;fab.style.left=clamp(pos.left??10,6,maxLeft)+'px';fab.style.top=clamp(pos.top??10,6,maxTop)+'px';fab.style.right='auto';fab.style.bottom='auto';}catch(_){}};const save=()=>{try{localStorage.setItem('rvComboFabPos',JSON.stringify({left:fab.offsetLeft,top:fab.offsetTop}))}catch(_){}};let d=null,m=false;fab.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:fab.offsetLeft,top:fab.offsetTop};m=false;fab.classList.add('dragging');fab.setPointerCapture(e.pointerId);e.preventDefault();});fab.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-fab.offsetWidth-6,maxTop=window.innerHeight-fab.offsetHeight-6;fab.style.left=clamp(d.left+dx,6,maxLeft)+'px';fab.style.top=clamp(d.top+dy,6,maxTop)+'px';fab.style.right='auto';fab.style.bottom='auto';});fab.addEventListener('pointerup',e=>{if(!d||e.pointerId!==d.id)return;fab.classList.remove('dragging');try{fab.releasePointerCapture(e.pointerId)}catch(_){}d=null;save();setTimeout(()=>{m=false;},0);});fab.addEventListener('click',e=>{if(m){e.preventDefault();e.stopPropagation();m=false;}});home.addEventListener('click',e=>{e.preventDefault();location.href=href;});fs.addEventListener('click',async e=>{e.preventDefault();e.stopPropagation();if(m)return;try{const isFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const t=document.documentElement;if(!isFs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}fs.textContent=(document.fullscreenElement||document.webkitFullscreenElement)?'🡼':'⛶';});document.addEventListener('fullscreenchange',()=>{fs.textContent=(document.fullscreenElement||document.webkitFullscreenElement)?'🡼':'⛶';});place();fs.textContent=(document.fullscreenElement||document.webkitFullscreenElement)?'🡼':'⛶';})();</script>
 </body>
 </html>

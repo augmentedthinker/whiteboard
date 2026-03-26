@@ -105,7 +105,87 @@
     </section>
   </div>
 
+  
+
+  <script>
+    const days = [
+      {name:'Monday', short:'Mon', work:false},
+      {name:'Tuesday', short:'Tue', work:false},
+      {name:'Wednesday', short:'Wed', work:true},
+      {name:'Thursday', short:'Thu', work:true},
+      {name:'Friday', short:'Fri', work:true},
+      {name:'Saturday', short:'Sat', work:false},
+      {name:'Sunday', short:'Sun', work:false},
+    ];
+
+    function buildSegments(isWorkDay){
+      const segs = [
+        {start:0,end:5,color:'var(--sleep)'},
+        {start:5,end:21,color:'var(--empty)'},
+        {start:21,end:24,color:'var(--sleep)'}
+      ];
+      if(isWorkDay){
+        return [
+          {start:0,end:5,color:'var(--sleep)'},
+          {start:5,end:7,color:'var(--prep)'},
+          {start:7,end:15,color:'var(--work)'},
+          {start:15,end:21,color:'var(--empty)'},
+          {start:21,end:24,color:'var(--sleep)'}
+        ];
+      }
+      return segs;
+    }
+
+    function segmentString(segments){
+      return 'conic-gradient(from 180deg, ' + segments.map(s => {
+        const a = (s.start/24)*360;
+        const b = (s.end/24)*360;
+        return `${s.color} ${a}deg ${b}deg`;
+      }).join(', ') + ')';
+    }
+
+    const tabs = document.getElementById('tabs');
+    const clock = document.getElementById('clock');
+    const centerDay = document.getElementById('centerDay');
+    const schedule = document.getElementById('schedule');
+
+    function labelForHour(hour, isWorkDay){
+      if (hour >= 21 || hour < 5) return { text: 'Sleep', active: true, cls: 'sleep' };
+      if (isWorkDay && hour >= 5 && hour < 7) return { text: 'Preparation', active: true, cls: 'prep' };
+      if (isWorkDay && hour >= 7 && hour < 15) return { text: 'Hospital shift', active: true, cls: 'work' };
+      return { text: '', active: false, cls: '' };
+    }
+
+    function renderSchedule(isWorkDay){
+      const hours = [];
+      for (let h = 6; h <= 22; h++) hours.push(h);
+      schedule.innerHTML = hours.map(h => {
+        const item = labelForHour(h % 24, isWorkDay);
+        const hh = String(h).padStart(2,'0') + '00';
+        return `<div class="slot"><div class="slot-time">${hh}</div><div class="slot-label${item.active ? ' active ' + item.cls : ''}">${item.text}</div></div>`;
+      }).join('');
+    }
+
+    function render(i){
+      [...tabs.children].forEach((btn, idx) => btn.classList.toggle('active', idx === i));
+      const day = days[i];
+      centerDay.textContent = day.short;
+      clock.style.setProperty('--clock-bg', segmentString(buildSegments(day.work)));
+      renderSchedule(day.work);
+    }
+
+    days.forEach((day, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'tab' + (i === 0 ? ' active' : '');
+      btn.type = 'button';
+      btn.textContent = day.short;
+      btn.addEventListener('click', () => render(i));
+      tabs.appendChild(btn);
+    });
+
+    render(0);
+  </script>
+
   <script src="../../assets/shared/rv-floating-nav.js"></script>
-<script id="rv-home-fab-script">(function(){const fab=document.getElementById('rvComboFab');const home=document.getElementById('rvHomeFab');const fs=document.getElementById('rvFullscreenFab');if(!fab||!home||!fs)return;const path=location.pathname;const marker='/remote-viewer/';const idx=path.indexOf(marker);const href=idx>=0?path.slice(0,idx+marker.length):'/';home.setAttribute('href',href);const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));const place=()=>{try{const raw=localStorage.getItem('rvComboFabPos');if(!raw)return;const pos=JSON.parse(raw);const maxLeft=window.innerWidth-fab.offsetWidth-6;const maxTop=window.innerHeight-fab.offsetHeight-6;fab.style.left=clamp(pos.left??10,6,maxLeft)+'px';fab.style.top=clamp(pos.top??10,6,maxTop)+'px';fab.style.right='auto';fab.style.bottom='auto';}catch(_){}};const save=()=>{try{localStorage.setItem('rvComboFabPos',JSON.stringify({left:fab.offsetLeft,top:fab.offsetTop}))}catch(_){}};let d=null,m=false;fab.addEventListener('pointerdown',e=>{d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:fab.offsetLeft,top:fab.offsetTop};m=false;fab.classList.add('dragging');fab.setPointerCapture(e.pointerId);e.preventDefault();});fab.addEventListener('pointermove',e=>{if(!d||e.pointerId!==d.id)return;const dx=e.clientX-d.startX,dy=e.clientY-d.startY;if(Math.abs(dx)>3||Math.abs(dy)>3)m=true;const maxLeft=window.innerWidth-fab.offsetWidth-6,maxTop=window.innerHeight-fab.offsetHeight-6;fab.style.left=clamp(d.left+dx,6,maxLeft)+'px';fab.style.top=clamp(d.top+dy,6,maxTop)+'px';fab.style.right='auto';fab.style.bottom='auto';});fab.addEventListener('pointerup',e=>{if(!d||e.pointerId!==d.id)return;fab.classList.remove('dragging');try{fab.releasePointerCapture(e.pointerId)}catch(_){}d=null;save();setTimeout(()=>{m=false;},0);});fab.addEventListener('click',e=>{if(m){e.preventDefault();e.stopPropagation();m=false;}});home.addEventListener('click',e=>{e.preventDefault();location.href=href;});fs.addEventListener('click',async e=>{e.preventDefault();e.stopPropagation();if(m)return;try{const isFs=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);const t=document.documentElement;if(!isFs()){if(t.requestFullscreen)await t.requestFullscreen();else if(t.webkitRequestFullscreen)t.webkitRequestFullscreen();}else{if(document.exitFullscreen)await document.exitFullscreen();else if(document.webkitExitFullscreen)document.webkitExitFullscreen();}}catch(_){}fs.textContent=(document.fullscreenElement||document.webkitFullscreenElement)?'🡼':'⛶';});document.addEventListener('fullscreenchange',()=>{fs.textContent=(document.fullscreenElement||document.webkitFullscreenElement)?'🡼':'⛶';});place();fs.textContent=(document.fullscreenElement||document.webkitFullscreenElement)?'🡼':'⛶';})();</script>
 </body>
 </html>
