@@ -127,7 +127,7 @@
     }
 
     function segmentString(segments){
-      return 'conic-gradient(from -90deg, ' + segments.map(s => {
+      return 'conic-gradient(from 0deg, ' + segments.map(s => {
         const a = (s.start/24)*360;
         const b = (s.end/24)*360;
         return `${s.color} ${a}deg ${b}deg`;
