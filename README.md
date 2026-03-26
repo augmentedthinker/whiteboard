@@ -1,292 +1,284 @@
 # Remote Viewer
 
-Remote Viewer is the live browser surface for Christopher’s evolving human+agent workspace.
+Remote Viewer is Christopher’s live browser surface for the broader human + agent workspace.
 
-It is no longer just an artifact launcher. It has become a hybrid of:
-- **dashboard**
-- **documentation site**
-- **artifact gallery**
-- **continuity browser**
-- **personal operating surface**
+It is no longer best understood as just an artifact gallery. In its current form, it is a hybrid of:
+- **main menu / launcher**
+- **artifact review surface**
+- **documentation browser**
+- **tool and experiment hub**
+- **continuity / re-entry layer**
 
-In practice, Remote Viewer is where current work, identity context, capability maps, analysis pages, and selected experiments become visible, legible, and re-enterable.
-
----
-
-## Current state
-
-Remote Viewer now serves five main roles:
-
-1. **Launcher for current work**  
-   A clean browser entrypoint for the most relevant pages, tools, and featured artifacts.
-
-2. **Context surface**  
-   Important files and operating context can be viewed in-browser instead of remaining trapped in local markdown.
-
-3. **Continuity layer**  
-   Discussion primers, analyses, and summaries can be published as readable pages that support fast re-entry after a break or reboot.
-
-4. **Capability / priority surface**  
-   The repo now includes practical pages for thinking about what the system can do, what it should do next, and where effort should be focused.
-
-5. **Public-facing proof-of-work layer**  
-   Interactive artifacts, experiments, demos, and visual concept pages make the broader Christopher & Co. system easier to show, understand, and eventually share.
+In practice, Remote Viewer is the browser-native place where current pages, working concepts, documentation, tools, and selected experiments are made visible and revisitable.
 
 ---
 
-## What changed recently
+## Current live structure
 
-Remote Viewer has moved meaningfully beyond its earlier form.
+At the moment, Remote Viewer is organized around a small set of active front-door surfaces.
 
-### Major direction changes
+### Main menu (`index.html`)
+The main menu is intentionally more selective than it used to be.
 
-- The old landing flow was simplified so the **main menu is now the actual landing page**.
-- The project now includes more explicit **priority / capability thinking**, not just aesthetic artifacts.
-- It has become a stronger **continuity instrument** through analysis pages and discussion primers.
-- Today’s Artifacts increasingly includes **conceptual operating pages**, not only visual experiments.
-- The system is starting to hold more of Christopher’s broader context: work, learning, publishing ideas, life architecture, and strategic direction.
+Current active buttons on the main menu are:
+- **Artifacts** → `today/index.html`
+- **Balance** → `artifacts/balance-force-map-widescreen-2026-03-25/index.html`
+- **Next Steps** → `ideas/index.html`
+- **Styles** → `styles/index.html`
+- **Tools** → `tools/index.html`
+- **Agents** → `agents/index.html`
+- **Games** → `games/index.html`
+- **Share** → `docs/friend-viewer/index.html`
+- **Archive** → `archive/index.html`
 
-### Recent notable additions
+Notably, some pages that were previously on the main menu have now been moved off the front door and into Today’s Artifacts instead, including:
+- **X Social**
+- **Blogger**
+- **Value**
 
-Recent artifacts and pages include things like:
-- **Capability Map** — capabilities, near-horizon jobs, and priority direction
-- **X Post Lab** — early thinking on credibility-first public posting
-- **Learning Radar** — curation + next-horizon learning framework
-- **Life Constellation** — a nine-part life map / balance framework
-- **Threshold of Voice** and other reflective/artistic artifacts
-- discussion primers and analysis pages that help reconstruct context quickly
-
-This means Remote Viewer is increasingly useful both as a **creative surface** and as a **thinking surface**.
-
----
-
-## Why this repo matters operationally
-
-Remote Viewer is becoming one of the best context objects in the whole system.
-
-Why that matters:
-- it gives Christopher a browser-native way to inspect the state of the project
-- it gives the agent a stable place to publish structured context
-- it supports session re-entry and discussion priming
-- it turns scattered ideas into durable, navigable objects
-- it can eventually function as a lightweight command center for what to learn, build, review, and share
-
-For that reason, it should increasingly be treated as part of the broader startup / re-entry workflow, especially when trying to quickly recover the current state of the system.
+That reflects an active curation decision: the main menu should stay lean, while Today’s Artifacts can hold more of the currently relevant but not permanently front-stage surfaces.
 
 ---
 
-## Core design principles
+## Today’s Artifacts (`today/`)
 
-### 1. Legibility
-Pages should be easy to scan, especially on mobile.
+Today’s Artifacts is now acting less like a broad historical gallery and more like a curated live working shelf.
 
-### 2. Inspectability
-Important parts of the system should be visible in-browser instead of hidden in backend-only files.
+Current notable entries include:
+- **Value**
+- **X Social**
+- **Blogger**
+- **Time Management · 2026-03-26**
+- **Daylight Ring · 2026-03-26**
+- **Image Generation Checker · 2026-03-25**
+- plus any short-lived temporary items that have not yet been cleared
 
-### 3. Continuity
-The repo should help preserve momentum across sessions, not just host isolated pages.
+A major recent cleanup happened here:
+- older TEMP artifacts were removed
+- many stale EXPANSION artifacts that were no longer in active use were also deleted
+- only a tighter set of currently relevant surfaces remain
 
-### 4. Curation over clutter
-The landing page should stay selective. Not every experiment deserves front-stage placement.
-
-### 5. Operational usefulness
-Each lane should either help run the system, understand the system, or preserve meaningful work.
-
-### 6. Layered meaning
-Remote Viewer should support multiple depths at once:
-- quick launch
-- medium-depth inspection
-- long-form reflection / analysis
+This means Today’s Artifacts should now be read as a **live curation lane**, not a full archive of everything ever made.
 
 ---
 
-## High-level structure
+## Active lane descriptions
+
+### 1. Artifacts / Today
+This is the current front-stage artifact lane.
+
+Right now it includes:
+- the two new ring-based thinking tools built on 2026-03-26
+- selected publishing / value surfaces moved off the main menu
+- a small number of still-useful support pages
+
+### 2. Balance
+Balance currently points to the live widescreen force-map version inside `artifacts/`.
+
+This means Balance is currently represented in Remote Viewer as a **browser-based conceptual operating surface**, not as the older standalone app entry path.
+
+### 3. Next Steps
+`ideas/index.html` is the current structured next-step page.
+
+This page is organized around the four-force structure and is meant to hold practical next-step thinking in a more usable form than scattered notes.
+
+### 4. Styles
+`styles/index.html` is the visual style library.
+
+This remains important because style selection and reusable visual language are becoming a recurring part of artifact production.
+
+### 5. Tools
+`tools/index.html` is the operational utility lane.
+
+Current highlighted tools include:
+- Gemini diagnostics / ping checker
+- Image generation checker
+- Veo / video generation checker
+- TTS voice checker
+
+This lane is meant for things that are genuinely useful to operate with, not just things that are visually interesting.
+
+### 6. Agents
+`agents/index.html` remains the surface for agent/user-facing profiles and related context.
+
+### 7. Games
+`games/index.html` remains a portal to external and experimental game experiences, including links out to projects like RPG 2.0.
+
+### 8. Share
+`docs/friend-viewer/index.html` is the sharing-oriented lane.
+
+### 9. Archive
+`archive/index.html` remains the holding area for older material that is no longer front-stage but not necessarily gone forever.
+
+---
+
+## Documentation layer
+
+Remote Viewer still contains an important documentation / context layer under `docs/`.
+
+Some of the most practically relevant live pages there now include:
+- `docs/x-social/`
+- `docs/blogger-hub/`
+- `docs/friend-viewer/`
+- other context and inspection surfaces built over time
+
+An important recent curation move is that **X Social** and **Blogger** are no longer on the main menu, but they are still active and accessible through Today’s Artifacts.
+
+---
+
+## Architecture notes
+
+### Multi-page site, not single-file app
+One important lesson from the recent iteration cycle is that Remote Viewer behaves like a **multi-page site**, not like a single-page game/app such as RPG 2.0.
+
+That matters because features like persistent fullscreen and universal floating controls behave differently in this architecture.
+
+### Shared floating navigation assets
+A recent architectural improvement is that the floating Remote Viewer control is no longer embedded separately in every page.
+
+It now lives in shared assets:
+- `assets/shared/rv-floating-nav.css`
+- `assets/shared/rv-floating-nav.js`
+
+This is an important step because it introduces a more reusable system pattern:
+- shared styling
+- shared UI behavior
+- less page-by-page duplication
+- lower risk when future global changes are needed
+
+This is not yet a full app shell architecture, but it is a meaningful move in that direction.
+
+---
+
+## Recent important changes
+
+### Curation changes
+Recent cleanup materially changed the structure of the repo:
+- most TEMP Today-page artifacts were deleted
+- many stale EXPANSION artifacts were also removed
+- Today’s Artifacts was reduced to a smaller active set
+- X Social, Blogger, and Value were moved off the main menu and into Today’s Artifacts
+
+### New 2026-03-26 artifact lane
+Two new ring-based artifacts were created and kept:
+- **Time Management**
+- **Daylight Ring**
+
+These are useful because they are simple, visually legible, and conceptually aligned with larger life-structure thinking.
+
+### Shared component direction
+The floating navigation refactor clarified an important broader design direction:
+- Remote Viewer should increasingly use **shared CSS / JS assets** for universal behavior
+- not every page should remain a fully isolated handcrafted object forever
+
+That is a meaningful architectural shift in how this repo should be maintained.
+
+---
+
+## What belongs here now
+
+Remote Viewer is currently best used for things that satisfy at least one of these roles:
+- a page worth opening repeatedly
+- a page that clarifies live priorities
+- a tool that helps operate the broader system
+- a documentation surface that improves re-entry
+- a concept page that is still actively steering decisions
+
+This means the project should continue favoring:
+- **legibility**
+- **curation**
+- **mobile usability**
+- **browser-native usefulness**
+- **shared components where possible**
+
+And it should continue avoiding:
+- front-stage clutter
+- stale conceptual debris
+- duplicated universal UI logic when shared assets would do better
+
+---
+
+## High-level folder roles
 
 ### `index.html`
-Main menu / root launcher.
-
-This should stay clean, fast, and readable. It is the front door.
+The main menu / front door.
 
 ### `today/`
-The curated “show now” lane.
-
-This is where the most relevant current artifacts are surfaced.
+The current curated artifact shelf.
 
 ### `artifacts/`
-The underlying artifact store.
-
-This includes:
-- visual and interactive experiments
-- conceptual pages
-- planning / framework pages
-- signature / provenance pages
-- generated media used by artifacts
+The underlying artifact store for pages that are still being actively surfaced or directly linked.
 
 ### `docs/`
-The documentation and inspection layer.
+Context, publishing, friend-viewing, and other documentation-style surfaces.
 
-This area includes pages for:
-- identity and soul context
-- user context
-- tools/environment context
-- skills and capabilities
-- long-form analysis
-- discussion primers and summaries
+### `tools/`
+Operational browser-side utilities.
 
-### `docs/analysis/`
-The long-form continuity archive.
+### `styles/`
+Style library / visual systems showroom.
 
-This lane is especially important for:
-- discussion primers
-- end-of-session analyses
-- strategic writeups
-- future narrative continuity docs
+### `ideas/`
+Current structured next-step thinking.
 
 ### `agents/`
-Agent and user-facing profile surfaces.
+Agent and participant profile surfaces.
 
-This helps make the participants in the system legible, not just the outputs.
+### `games/`
+Game portal / external interactive experiments.
 
 ### `archive/`
-Staging lane for older artifacts before permanent deletion.
+Cooling-off and preservation lane for older material.
 
-Use this lane as a cooling-off area:
-- move older artifacts out of `today/` and front-stage surfaces
-- keep them temporarily available for review/rollback
-- delete them in a later cleanup pass when confidence is high
-
-### Other lanes
-Additional areas may exist as needed, including:
-- `games/`
-- `ideas/`
-- project-specific experiments
+### `assets/shared/`
+Shared reusable browser assets, currently including the floating nav system.
 
 ---
 
-## What belongs in Today’s Artifacts now
+## Operational guidance
 
-Today’s Artifacts is no longer only for purely aesthetic experiments.
+### When updating Remote Viewer
+A good update pass usually includes:
+1. inspect what is actually live now
+2. decide whether something belongs on the main menu, Today page, docs, tools, or archive
+3. prefer shared assets for universal behavior
+4. smoke-test key navigation paths
+5. push with rollback-friendly commits
 
-It can now reasonably include:
-- interactive art / visual pieces
-- concept pages
-- capability maps
-- operating frameworks
-- publishing strategy pages
-- learning systems
-- life architecture pages
+### Important smoke-test surfaces
+After meaningful edits, the most important pages to check are usually:
+- `index.html`
+- `today/index.html`
+- `tools/index.html`
+- `styles/index.html`
+- any newly edited artifact pages
+- any shared asset changes under `assets/shared/`
 
-The common requirement is not “art.”
-The common requirement is **that the page is worth opening and thinking with**.
-
----
-
-## Artifact standard
-
-A good artifact now usually has some combination of:
-- a clear idea or purpose
-- a visually coherent presentation layer
-- a stable live URL
-- a place in the curation flow
-- a signature page when useful
-
-Artifacts do not all need the same tone.
-Some will be:
-- atmospheric
-- practical
-- strategic
-- reflective
-- demonstrative
-
-That variety is a feature, not a bug.
+### Curation rule
+The current direction is clear:
+- **main menu = lean**
+- **Today’s Artifacts = curated but active**
+- **archive = cooling-off lane**
+- **deleted = genuinely no longer useful**
 
 ---
 
-## Relationship to continuity and re-entry
+## Relationship to continuity
 
-One of the strongest emerging uses of Remote Viewer is **re-entry**.
+Remote Viewer remains one of the best browser-native continuity objects in the whole workspace.
 
-It helps answer questions like:
-- What have we been building?
-- What matters right now?
-- What capabilities are emerging?
-- What should we focus on next?
-- What should be shared publicly?
+It helps answer:
+- what is currently active
+- what has moved off the front door
+- what still matters enough to keep visible
+- what the larger system is trying to become
 
-That makes Remote Viewer more than presentation. It becomes memory-shaped infrastructure.
-
-This is also why discussion primers, analysis pages, priority maps, and similar artifacts matter: they reduce the cost of recovering context.
+That makes it more than presentation. It is increasingly part of the re-entry and orientation workflow.
 
 ---
 
-## Relationship to the shared workspace
+## Path
 
-Path:
 - `/mnt/chromeos/MyFiles/Downloads/shared_workspace/remote-viewer`
 
-This repo lives inside the shared workspace and should be treated as one of the primary active projects in Christopher’s environment.
-
-It is one of the clearest browser-facing representations of the larger Christopher + OpenClaw ecosystem.
-
----
-
-## Publishing workflow
-
-Typical workflow:
-
-1. build or update a page locally
-2. connect it to the appropriate navigation surface
-3. sanity-check links and reading flow
-4. add a signature page when appropriate
-5. commit with a clear message
-6. push to `main`
-7. let GitHub Pages publish the live version
-
----
-
-## Curation / cleanup workflow
-
-Keep the system alive without letting it become noisy.
-
-1. identify what is truly current
-2. reduce navigation exposure before deleting anything
-3. move stale material to `archive/` first (temporary holding lane)
-4. review after a cooling-off window; then delete if still clearly stale
-5. smoke-test key lanes
-6. commit and push with rollback-friendly messages
-
-Important smoke-test areas usually include:
-- root landing page
-- today
-- artifacts referenced from today
-- docs
-- analysis
-- any newly promoted priority or operating pages
-
----
-
-## Project principle
-
-**Keep Remote Viewer legible, intentional, alive, and increasingly useful as context.**
-
-Every page should do at least one of these well:
-- help run the system
-- help explain the system
-- help re-enter the system
-- preserve meaningful continuity
-- present a worthwhile artifact, framework, or experiment
-
-Everything else should be refined, archived, or left out.
-
----
-
-## Privacy and boundary note
-
-Some material is appropriate for local/shared use but not for broad public exposure.
-
-When deciding what to surface, prefer:
-- curated context over raw private detail
-- useful summaries over sensitive internals
-- legibility without oversharing
-
-As Remote Viewer becomes more central, this boundary becomes more important — not less.
+This repo remains one of the primary active browser-facing projects in the shared workspace.
