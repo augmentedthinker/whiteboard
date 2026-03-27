@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Deep To-Do · 2026-03-27</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#09111f;--bg2:#101a31;--panel:rgba(14,24,45,.84);--panel2:rgba(255,255,255,.04);
+      --line:rgba(157,201,255,.18);--text:#edf4ff;--muted:#b7cae6;--accent:#9fd2ff;--gold:#ffd38f;
+      --venture:#8ecbff;--connection:#ffb0cf;--stewardship:#9de4a8;--adventure:#ffd07c;--shadow:0 22px 60px rgba(0,0,0,.30);
+    }
+    *{box-sizing:border-box} html,body{margin:0}
+    body{min-height:100vh;background:linear-gradient(180deg,var(--bg),var(--bg2) 58%,#0d1528);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:14px;overflow-x:hidden;-webkit-text-size-adjust:100%}
+    .wrap{max-width:940px;margin:0 auto}.topbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.06);font-weight:700}
+    .hero,.section,.note{border:1px solid var(--line);border-radius:24px;background:var(--panel);box-shadow:var(--shadow)}
+    .hero{padding:22px 18px;margin-bottom:14px}.eyebrow{margin:0 0 8px;color:var(--accent);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 10px;font-family:Fraunces,serif;font-size:clamp(2.05rem,7vw,3.15rem);line-height:.95;letter-spacing:-.04em}
+    .hero p{margin:0;color:var(--muted);line-height:1.8}.meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.chip{padding:6px 10px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);font-size:.78rem;font-weight:700;color:var(--accent)}
+    .section{padding:18px 16px;margin-bottom:12px}h2{margin:0 0 10px;font-size:1.12rem;line-height:1.25}h3{margin:18px 0 8px;font-size:1rem;color:var(--gold)}
+    p{margin:0 0 12px;color:var(--muted);line-height:1.82}strong{color:var(--text)} ul{margin:0;padding-left:18px} li{margin:0 0 10px;color:var(--muted);line-height:1.72}
+    .lane{margin-top:16px;padding:14px;border:1px solid rgba(255,255,255,.08);border-radius:18px;background:rgba(255,255,255,.03)}
+    .lane h3{margin-top:0}.tag{display:inline-block;margin:0 0 10px;padding:5px 9px;border-radius:999px;font-size:.74rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+    .venture{background:rgba(142,203,255,.13);color:var(--venture);border:1px solid rgba(142,203,255,.22)}
+    .connection{background:rgba(255,176,207,.13);color:var(--connection);border:1px solid rgba(255,176,207,.22)}
+    .stewardship{background:rgba(157,228,168,.13);color:var(--stewardship);border:1px solid rgba(157,228,168,.22)}
+    .adventure{background:rgba(255,208,124,.13);color:var(--adventure);border:1px solid rgba(255,208,124,.22)}
+    .note{padding:16px;margin-top:14px}
+    @media (max-width:640px){body{padding:10px}.hero,.section,.note{border-radius:18px}.hero{padding:16px 14px}.section{padding:15px 13px}h1{font-size:2rem}p,li{line-height:1.72}}
+  </style>
+  <link rel="stylesheet" href="../../assets/shared/rv-floating-nav.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="pill" href="../../today/index.html">← Today’s Artifacts</a>
+      <a class="pill" href="./signature.html">✒️ Signature</a>
+    </div>
+
+    <section class="hero">
+      <p class="eyebrow">Trajectory-Oriented Operating List</p>
+      <h1>Deep To-Do</h1>
+      <p>A broader operating list than the Next Steps page: grounded in memory, but willing to infer where Christopher is actually headed. This is less a shopping list and more a map of what should happen if the current trajectory is taken seriously.</p>
+      <div class="meta">
+        <span class="chip">Mobile-first</span>
+        <span class="chip">Memory-grounded</span>
+        <span class="chip">Trajectory inferred</span>
+        <span class="chip">Organized by force</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>How to read this page</h2>
+      <p>The existing <strong>Next Steps</strong> page is the concise front-stage action shelf. This page goes deeper. It includes not only the obvious next actions, but also the infrastructure, clarifications, sequencing, and medium-term moves that seem necessary if your current work is going to become more coherent, profitable, and real.</p>
+      <p>Some items below are direct carry-forwards from memory. Others are inferred from the direction those memories imply. The question behind this page is simple:</p>
+      <p><strong>If we take your actual trajectory seriously, what work should exist around it?</strong></p>
+    </section>
+
+    <section class="section">
+      <h2>Priority stack</h2>
+      <p>If I had to compress the whole page into a top-order sequence, it would be:</p>
+      <ul>
+        <li><strong>1. Stabilize the operating environment</strong> — storage pressure, troubleshooting clarity, and infrastructure confidence.</li>
+        <li><strong>2. Build a real output rhythm</strong> — especially proof-of-work publishing and structured AI learning distillation.</li>
+        <li><strong>3. Advance one monetizable lane</strong> — most likely citation workflow / legal-tool direction before broader empire-building.</li>
+        <li><strong>4. Keep Balance alive, but demand consequence from it</strong> — it should shape life, not merely symbolize it.</li>
+        <li><strong>5. Protect the human substrate</strong> — health, relationships, rhythm, recovery, and actual aliveness.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>The actual to-do list</h2>
+
+      <div class="lane">
+        <span class="tag venture">Venture / Applied AI</span>
+        <h3>Build a repeatable AI learning pipeline</h3>
+        <ul>
+          <li>Choose the core channels/sources that genuinely matter instead of letting AI media sprawl across all available attention.</li>
+          <li>Define a weekly cadence for intake: when you watch/read, how long, and what counts as enough.</li>
+          <li>Create a distillation habit: convert long-form inputs into short mirrored notes, bullet summaries, or public-ready takes.</li>
+          <li>Decide which distilled outputs should stay private, which should feed X, and which deserve expansion into Blogger essays.</li>
+        </ul>
+
+        <h3>Turn publishing into a system, not a mood</h3>
+        <ul>
+          <li>Refine the social-media strategy into a lightweight publishing grammar: what kinds of posts exist, what tone they take, and how often they appear.</li>
+          <li>Establish a reliable end-of-day or end-of-session packaging rhythm for proof-of-work.</li>
+          <li>Keep X manual and honest, but reduce friction by preparing better ready-to-review draft packages.</li>
+          <li>Deepen the Blogger lane around lived OpenClaw field notes, not generic AI discourse.</li>
+        </ul>
+
+        <h3>Pick one first-dollar lane and move it forward on purpose</h3>
+        <ul>
+          <li>Treat the citation/legal workflow as the most legible first-revenue candidate unless a stronger near-term offer emerges.</li>
+          <li>Clarify whether the near-term offer is a product, a service-assisted workflow, or a hybrid.</li>
+          <li>Define what “good enough to show a real person” means without overstating capability.</li>
+          <li>Create a small, concrete client-facing narrative: who it helps, what pain it removes, what level of trust it can honestly claim.</li>
+        </ul>
+
+        <h3>Advance backend capability where it actually matters</h3>
+        <ul>
+          <li>Explore Vercel or similar backend infrastructure for stateful systems, server-side secrets, and cross-device continuity.</li>
+          <li>Use that not just for the legal app, but for future systems like Next Steps completion tracking or agent accountability loops.</li>
+          <li>Decide which projects still belong on GitHub Pages and which are now outgrowing static hosting.</li>
+        </ul>
+      </div>
+
+      <div class="lane">
+        <span class="tag venture">Remote Viewer / System Architecture</span>
+        <h3>Keep Remote Viewer curated and operationally honest</h3>
+        <ul>
+          <li>Continue protecting the main menu from clutter.</li>
+          <li>Use Today’s Artifacts as the living working shelf rather than a sentimental archive.</li>
+          <li>Promote only what is genuinely active; archive or remove stale conceptual debris.</li>
+          <li>Keep signature pages and provenance discipline strong so the system stays legible over time.</li>
+        </ul>
+
+        <h3>Decide what Remote Viewer is becoming</h3>
+        <ul>
+          <li>Clarify whether it is primarily a launcher, a living artifact shelf, a control surface, or a browser-native continuity operating system.</li>
+          <li>Let that decision shape future page additions instead of growing by accumulation alone.</li>
+          <li>Use the Troubleshooting page, Styles lane, and Today curation as early evidence of a more structured ecosystem.</li>
+        </ul>
+
+        <h3>Strengthen reusable architecture</h3>
+        <ul>
+          <li>Keep moving universal UI into shared assets where it actually reduces maintenance risk.</li>
+          <li>Be careful with broad replacement passes that can damage handcrafted pages.</li>
+          <li>Smoke-test key surfaces after shared changes: main menu, Today, Tools, Styles, and any heavily customized artifacts.</li>
+        </ul>
+      </div>
+
+      <div class="lane">
+        <span class="tag venture">Troubleshooting / Reliability</span>
+        <h3>Reduce ambient technical uncertainty</h3>
+        <ul>
+          <li>Investigate the degraded <strong>memory_search</strong> path so smart retrieval works as well as raw file access.</li>
+          <li>Continue documenting cron behavior separately by creation path, execution path, and delivery path.</li>
+          <li>Track the browser relay problem as a tool-handoff issue, not merely a browser-extension issue.</li>
+          <li>Keep clarifying whether Chromebook friction is a storage problem, a Crostini startup problem, or a broader session-state problem.</li>
+        </ul>
+
+        <h3>Make troubleshooting more durable</h3>
+        <ul>
+          <li>Use the Troubleshooting page for active recurring issues.</li>
+          <li>When an issue becomes deep enough, write a formal incident report so future-you does not have to rediscover the diagnosis.</li>
+          <li>Separate symptoms, evidence, theories, and confirmed fixes more explicitly.</li>
+        </ul>
+      </div>
+
+      <div class="lane">
+        <span class="tag connection">Connection / Relational Identity</span>
+        <h3>Prevent the frontier project from swallowing ordinary human life</h3>
+        <ul>
+          <li>Actually schedule one low-friction hangout rather than keeping friendship as a background ideal.</li>
+          <li>Keep public-facing identity honest: proof-of-work over performance, signal over cosplay.</li>
+          <li>Notice which parts of relational life are being postponed by fascination with tools, systems, and future-building.</li>
+        </ul>
+
+        <h3>Give spiritual life real form</h3>
+        <ul>
+          <li>Clarify what “spiritual journey” means in practice right now rather than as an abstract noble phrase.</li>
+          <li>Choose one repeatable form: reading, prayer, contemplation, community, ritual, journaling, or something adjacent.</li>
+          <li>See whether this lane belongs partly under Connection because it changes how you relate, not just what you believe.</li>
+        </ul>
+      </div>
+
+      <div class="lane">
+        <span class="tag stewardship">Life Stewardship</span>
+        <h3>Handle real-world maintenance before it becomes psychic drag</h3>
+        <ul>
+          <li>Schedule the doctor appointment.</li>
+          <li>Schedule the dentist cleaning.</li>
+          <li>Reduce storage pressure on the ChromeOS/shared side before it becomes a recurring destabilizer.</li>
+          <li>Keep the two-Chromebook architecture intentional rather than accidental: one as primary human-facing machine, one as more agent-dedicated environment.</li>
+        </ul>
+
+        <h3>Make continuity maintenance routine</h3>
+        <ul>
+          <li>Keep using the three-lane continuity push before resets, updates, or reboots.</li>
+          <li>Periodically review memory lanes and promote durable lessons into long-term memory.</li>
+          <li>Continue using long-form session reports when a day meaningfully changes system direction.</li>
+        </ul>
+      </div>
+
+      <div class="lane">
+        <span class="tag adventure">Adventure / Aliveness</span>
+        <h3>Refuse the life of endless optimization</h3>
+        <ul>
+          <li>Pick one genuinely new experience and actually do it.</li>
+          <li>Do not let “interesting future work” become a substitute for present-tense vividness.</li>
+          <li>Preserve some lane in the system for beauty, warmth, play, and emotional restoration — not all valuable artifacts need to be strategic.</li>
+        </ul>
+
+        <h3>Protect the sense of being alive inside the build</h3>
+        <ul>
+          <li>Keep making room for artifacts or experiences that regulate mood and recover spirit, not only sharpen strategy.</li>
+          <li>Let Balance measure aliveness honestly rather than turning it into another moral performance metric.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>What feels most strategic over the next 2–4 weeks</h2>
+      <ul>
+        <li>Clarify the first-dollar lane and make one small external-facing move that tests it.</li>
+        <li>Create the structured AI learning/publishing rhythm so AI intake turns into output instead of private overwhelm.</li>
+        <li>Clean and stabilize the environment enough that infrastructure anxiety drops.</li>
+        <li>Keep Remote Viewer curated so it remains a truthful mirror rather than a beautiful junk drawer.</li>
+        <li>Pick one action from Connection and one from Stewardship so the system does not become all frontier and no life.</li>
+      </ul>
+    </section>
+
+    <section class="note">
+      <h2 style="margin-top:0">Bottom line</h2>
+      <p style="margin-bottom:0">The deeper to-do is not merely “do more things.” It is: <strong>stabilize the environment, turn learning into output, turn capability into one real offer, and keep the human life underneath it from becoming collateral damage.</strong></p>
+    </section>
+  </div>
+  <script src="../../assets/shared/rv-floating-nav.js"></script>
+</body>
+</html>
