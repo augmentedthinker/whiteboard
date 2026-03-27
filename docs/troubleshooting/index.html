@@ -108,6 +108,17 @@
           <li>That suggests discovery/indexing is weaker than raw access, not that memory itself is missing.</li>
         </ul>
       </article>
+
+      <article class="card">
+        <span class="status">Known tool-handoff issue</span>
+        <h2>Browser relay connected, but browser control may not reach this session</h2>
+        <p>The browser relay/extension can appear successfully installed and connected on Christopher’s side while this active chat session still fails to receive usable browser-control capability.</p>
+        <ul>
+          <li>The likely failure point is <strong>tool handoff into the active session</strong>, not necessarily the relay connection itself.</li>
+          <li>This means “relay connected” should not be treated as proof that browser control is actually available here.</li>
+          <li>The issue seems to live in the gap between <strong>browser-side connection</strong> and <strong>session-side tool exposure</strong>.</li>
+        </ul>
+      </article>
     </section>
 
     <section class="note">
