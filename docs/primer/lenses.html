@@ -9,17 +9,38 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
   <style>
     :root{--bg:#0d1427;--panel:rgba(16,26,48,.86);--panel-soft:rgba(255,255,255,.04);--border:rgba(157,201,255,.16);--line:rgba(255,255,255,.08);--text:#eef4ff;--muted:#b9c8e4;--accent:#9fd2ff;--accent2:#c9b8ff;--shadow:0 20px 60px rgba(0,0,0,.30)}
-    *{box-sizing:border-box} html,body{margin:0} body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:radial-gradient(circle at top left, rgba(159,210,255,.09), transparent 24%),linear-gradient(180deg,#10182f 0%, #0a1020 100%);min-height:100vh;line-height:1.6;padding:max(20px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom))}
-    .container{max-width:1120px;margin:0 auto}.hero{border:1px solid var(--border);border-radius:24px;padding:28px;background:linear-gradient(180deg,rgba(20,33,60,.92),rgba(12,20,38,.9));box-shadow:var(--shadow)}
+    *{box-sizing:border-box} html,body{margin:0}
+    body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:radial-gradient(circle at top left, rgba(159,210,255,.09), transparent 24%),linear-gradient(180deg,#10182f 0%, #0a1020 100%);min-height:100vh;line-height:1.6;padding:max(20px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom))}
+    .container{max-width:1120px;margin:0 auto}
+    .hero{border:1px solid var(--border);border-radius:24px;padding:28px;background:linear-gradient(180deg,rgba(20,33,60,.92),rgba(12,20,38,.9));box-shadow:var(--shadow)}
     .eyebrow{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;padding:8px 12px;border-radius:999px;background:rgba(159,210,255,.1);color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
-    h1{margin:0 0 12px;font-family:Fraunces,serif;font-size:clamp(2rem,5vw,3rem);line-height:1.06;letter-spacing:-.03em}.lead{margin:0;max-width:800px;color:var(--muted);font-size:1.04rem;line-height:1.76}
-    .section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 2px 14px}.section-title h2{margin:0;font-size:1.05rem;letter-spacing:.02em}.section-title p{margin:0;color:var(--muted);font-size:.96rem}
-    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{border:1px solid var(--border);border-radius:22px;padding:22px;background:var(--panel);box-shadow:0 10px 30px rgba(0,0,0,.18)}
-    .kicker{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.06);color:#dcecff;font-size:.76rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
-    .card h3{margin:0 0 8px;font-size:1.2rem;line-height:1.25}.card p{margin:0 0 12px;color:var(--muted)}.label{margin:14px 0 8px;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:800}.bullets{margin:0;padding-left:1.1rem}.bullets li{margin:0 0 8px;color:var(--muted);line-height:1.68}
-    .prompt{margin-top:16px;padding:14px 16px;border-radius:16px;border:1px solid rgba(201,184,255,.18);background:linear-gradient(180deg,rgba(201,184,255,.10),rgba(159,210,255,.06));color:#e7efff}.prompt strong{display:block;margin-bottom:8px;color:var(--text)}.prompt code{white-space:normal;font-family:inherit;color:#f5f8ff}
-    .swatch-row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0}.swatch{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.08);font-size:.82rem;color:#eef4ff}.dot{width:10px;height:10px;border-radius:999px;display:inline-block}
+    h1{margin:0 0 12px;font-family:Fraunces,serif;font-size:clamp(2rem,5vw,3rem);line-height:1.06;letter-spacing:-.03em}
+    .lead{margin:0;max-width:800px;color:var(--muted);font-size:1.04rem;line-height:1.76}
+    .section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 2px 14px}
+    .section-title h2{margin:0;font-size:1.05rem;letter-spacing:.02em}
+    .section-title p{margin:0;color:var(--muted);font-size:.96rem}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+    .card{border:1px solid var(--card-border, var(--border));border-radius:22px;padding:22px;background:var(--card-bg, var(--panel));box-shadow:0 10px 30px rgba(0,0,0,.18)}
+    .kicker{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;background:var(--kicker-bg, rgba(255,255,255,.06));color:var(--kicker-text, #dcecff);font-size:.76rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+    .card h3{margin:0 0 8px;font-size:1.2rem;line-height:1.25;color:var(--title-color, var(--text))}
+    .card p{margin:0 0 12px;color:var(--body-color, var(--muted))}
+    .label{margin:14px 0 8px;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;color:var(--label-color, var(--accent));font-weight:800}
+    .bullets{margin:0;padding-left:1.1rem}
+    .bullets li{margin:0 0 8px;color:var(--body-color, var(--muted));line-height:1.68}
+    .prompt{margin-top:16px;padding:14px 16px;border-radius:16px;border:1px solid var(--prompt-border, rgba(201,184,255,.18));background:var(--prompt-bg, linear-gradient(180deg,rgba(201,184,255,.10),rgba(159,210,255,.06)));color:#e7efff}
+    .prompt strong{display:block;margin-bottom:8px;color:var(--title-color, var(--text))}
+    .prompt code{white-space:normal;font-family:inherit;color:#f5f8ff}
+    .swatch-row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0}
+    .swatch{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.08);font-size:.82rem;color:#eef4ff;background:rgba(255,255,255,.04)}
+    .dot{width:10px;height:10px;border-radius:999px;display:inline-block}
     .footer-note{margin-top:24px;padding:16px 18px;border-radius:18px;border:1px dashed rgba(157,201,255,.24);background:rgba(255,255,255,.04);color:var(--muted)}
+
+    .lens-philosophical{--card-border:rgba(124,140,255,.34);--card-bg:linear-gradient(180deg,rgba(124,140,255,.14),rgba(182,156,255,.08) 45%,rgba(16,26,48,.88));--kicker-bg:rgba(124,140,255,.18);--kicker-text:#dfe4ff;--title-color:#edf0ff;--body-color:#cdd5f6;--label-color:#bfc7ff;--prompt-border:rgba(182,156,255,.28);--prompt-bg:linear-gradient(180deg,rgba(182,156,255,.14),rgba(124,140,255,.08))}
+    .lens-motivational{--card-border:rgba(255,122,89,.34);--card-bg:linear-gradient(180deg,rgba(255,122,89,.14),rgba(255,179,71,.08) 45%,rgba(39,22,20,.88));--kicker-bg:rgba(255,122,89,.18);--kicker-text:#ffe4de;--title-color:#fff0ea;--body-color:#f1d1c5;--label-color:#ffbe9f;--prompt-border:rgba(255,179,71,.28);--prompt-bg:linear-gradient(180deg,rgba(255,179,71,.14),rgba(255,122,89,.08))}
+    .lens-gratitude{--card-border:rgba(127,214,163,.34);--card-bg:linear-gradient(180deg,rgba(127,214,163,.14),rgba(242,198,109,.08) 45%,rgba(18,31,27,.88));--kicker-bg:rgba(127,214,163,.18);--kicker-text:#e2fff0;--title-color:#effff5;--body-color:#d1eadc;--label-color:#a9efc5;--prompt-border:rgba(242,198,109,.24);--prompt-bg:linear-gradient(180deg,rgba(127,214,163,.12),rgba(242,198,109,.08))}
+    .lens-strategic{--card-border:rgba(95,179,255,.34);--card-bg:linear-gradient(180deg,rgba(95,179,255,.14),rgba(154,165,177,.08) 45%,rgba(20,28,39,.88));--kicker-bg:rgba(95,179,255,.18);--kicker-text:#e1f2ff;--title-color:#eff7ff;--body-color:#d1dceb;--label-color:#a8d7ff;--prompt-border:rgba(95,179,255,.24);--prompt-bg:linear-gradient(180deg,rgba(95,179,255,.12),rgba(154,165,177,.08))}
+    .lens-restorative{--card-border:rgba(143,211,199,.34);--card-bg:linear-gradient(180deg,rgba(143,211,199,.14),rgba(215,198,247,.08) 45%,rgba(19,30,34,.88));--kicker-bg:rgba(143,211,199,.18);--kicker-text:#e4fffb;--title-color:#f0fffc;--body-color:#d1e7e3;--label-color:#afe9de;--prompt-border:rgba(215,198,247,.24);--prompt-bg:linear-gradient(180deg,rgba(143,211,199,.12),rgba(215,198,247,.08))}
+
     @media (max-width:860px){.grid{grid-template-columns:1fr}}
   </style>
   <link rel="stylesheet" href="../../assets/shared/rv-floating-nav.css" />
@@ -38,7 +59,7 @@
     </div>
 
     <section class="grid">
-      <article class="card">
+      <article class="card lens-philosophical">
         <div class="kicker">Lens 01</div>
         <h3>Philosophical / Existential</h3>
         <p>Use this when the morning calls for meaning, identity, and the deeper shape of the season rather than mere task framing.</p>
@@ -51,7 +72,7 @@
         <div class="prompt"><strong>Suggested invocation</strong><code>Read the Daily Session Primer spec, then generate today’s primer through a philosophical / existential lens. Keep it grounded and practical, but emphasize meaning, identity, and the deeper shape of the season.</code></div>
       </article>
 
-      <article class="card">
+      <article class="card lens-motivational">
         <div class="kicker">Lens 02</div>
         <h3>Motivational / Forward-Motion</h3>
         <p>Use this when drift is the enemy and the morning needs more ignition, edge, and movement.</p>
@@ -64,7 +85,7 @@
         <div class="prompt"><strong>Suggested invocation</strong><code>Read the Daily Session Primer spec, then generate today’s primer in a motivational / forward-motion style. Make it energizing and clarifying without turning into generic hustle language.</code></div>
       </article>
 
-      <article class="card">
+      <article class="card lens-gratitude">
         <div class="kicker">Lens 03</div>
         <h3>Gratitude / Grounded-Abundance</h3>
         <p>Use this when you want to begin from steadiness, appreciation, and a truer sense of what is already working.</p>
@@ -77,7 +98,7 @@
         <div class="prompt"><strong>Suggested invocation</strong><code>Read the Daily Session Primer spec, then generate today’s primer through a gratitude and grounded-abundance lens. Keep it honest and unsentimental, but let appreciation shape the reading of the day.</code></div>
       </article>
 
-      <article class="card">
+      <article class="card lens-strategic">
         <div class="kicker">Lens 04</div>
         <h3>Strategic / Operator</h3>
         <p>Use this when you want a sharper chief-of-staff style briefing: leverage, sequencing, constraints, tradeoffs, and what to ignore.</p>
@@ -90,7 +111,7 @@
         <div class="prompt"><strong>Suggested invocation</strong><code>Read the Daily Session Primer spec, then generate today’s primer through a strategic operator lens. Prioritize leverage, sequencing, constraints, and practical decision-shaping.</code></div>
       </article>
 
-      <article class="card">
+      <article class="card lens-restorative">
         <div class="kicker">Lens 05</div>
         <h3>Restorative / Humane</h3>
         <p>Use this when the day needs intelligence without pressure — especially after stress, poor sleep, emotional heaviness, or cumulative strain.</p>
