@@ -68,7 +68,6 @@
 
   let d=null,m=false;
   fab.addEventListener('pointerdown',e=>{
-    if(e.target && e.target.closest && e.target.closest('.rv-combo-half')) return;
     d={id:e.pointerId,startX:e.clientX,startY:e.clientY,left:fab.offsetLeft,top:fab.offsetTop};
     m=false;
     fab.classList.add('dragging');
@@ -97,32 +96,18 @@
   fab.addEventListener('click',e=>{
     if(m){e.preventDefault();e.stopPropagation();m=false;}
   });
-  const stopInner=(e)=>{ e.stopPropagation(); };
-  ['pointerdown','mousedown','touchstart'].forEach(type=>{
-    home.addEventListener(type,stopInner,{passive:true});
-    fs.addEventListener(type,stopInner,{passive:true});
-  });
-  let lastActionAt=0;
-  const shouldIgnoreFollowup=()=>{
-    const now=Date.now();
-    if(now-lastActionAt<350) return true;
-    lastActionAt=now;
-    return false;
-  };
   const goHome=(e)=>{
     if(e){ e.preventDefault(); e.stopPropagation(); }
-    if(shouldIgnoreFollowup()) return;
+    if(m) return;
     location.href=href;
   };
   const onFs=async(e)=>{
     if(e){ e.preventDefault(); e.stopPropagation(); }
-    if(m||shouldIgnoreFollowup()) return;
+    if(m) return;
     await toggleFs();
   };
   home.addEventListener('click',goHome);
   fs.addEventListener('click',onFs);
-  home.addEventListener('pointerup',goHome);
-  fs.addEventListener('pointerup',onFs);
   document.addEventListener('fullscreenchange',()=>{if(!isNativeFs()&&!wanted()) applyAppFs(false); sync();});
   window.addEventListener('pageshow',()=>{applyAppFs(wanted());sync();});
 

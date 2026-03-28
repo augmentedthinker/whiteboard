@@ -189,10 +189,6 @@
       z-index:0;
     }
 
-    .btn.sweep-active::before{
-      animation:glintSweep 1.8s ease-in-out 1;
-    }
-
     .btn:hover{transform:translateY(-1px);background:linear-gradient(160deg, rgba(38,25,17,.78), rgba(16,11,8,.78));border-color:rgba(255,184,132,.95)}
     .btn strong{display:block;font-size:1.14rem;margin-bottom:0;letter-spacing:.06em;text-transform:uppercase;font-family:'Audiowide', sans-serif;position:relative;z-index:1}
     .btn small{display:none}
@@ -254,7 +250,6 @@
 
     @media (prefers-reduced-motion: reduce){
       .btn::before,
-      .btn.sweep-active::before,
       header::before{ animation: none !important; opacity:.22; }
     }
   </style>
@@ -304,10 +299,6 @@
     const fx = fxCanvas.getContext('2d');
     const particles = [];
     const mainMenu = document.getElementById('mainMenu');
-    const menuButtons = Array.from(document.querySelectorAll('.portal-grid .btn'));
-    let sweepIndex = 0;
-    let sweepTimer = null;
-    let sweepResetTimer = null;
 
     function resizeAmbient(){
       fxCanvas.width = window.innerWidth;
@@ -368,40 +359,14 @@
       requestAnimationFrame(tickAmbient);
     }
 
-    function normalizeButtonWidths(){}
-
-    function triggerNextButtonSweep(){
-      if(!menuButtons.length) return;
-      menuButtons.forEach(btn => btn.classList.remove('sweep-active'));
-      const btn = menuButtons[sweepIndex];
-      if(btn){
-        btn.classList.add('sweep-active');
-        clearTimeout(sweepResetTimer);
-        sweepResetTimer = setTimeout(() => btn.classList.remove('sweep-active'), 1800);
-      }
-      sweepIndex = (sweepIndex + 1) % menuButtons.length;
-    }
-
-    function startButtonSweep(){
-      if(!menuButtons.length) return;
-      clearInterval(sweepTimer);
-      clearTimeout(sweepResetTimer);
-      sweepIndex = 0;
-      triggerNextButtonSweep();
-      sweepTimer = setInterval(triggerNextButtonSweep, 2200);
-    }
-
     window.addEventListener('load', () => {
       resizeAmbient();
       initAmbient();
       tickAmbient();
-      normalizeButtonWidths();
-      startButtonSweep();
     });
     window.addEventListener('resize', () => {
       resizeAmbient();
       initAmbient();
-      normalizeButtonWidths();
     });
   </script>
 
