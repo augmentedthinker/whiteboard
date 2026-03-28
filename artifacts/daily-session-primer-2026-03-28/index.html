@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Daily Session Primer · 2026-03-28</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f7f8fa;
+      --paper:#ffffff;
+      --line:#d9dde3;
+      --text:#1f2937;
+      --muted:#667085;
+      --accent:#2f6fed;
+      --code-bg:#f3f6fb;
+      --shadow:0 18px 40px rgba(15,23,42,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      min-height:100vh;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg,#f7f8fa,#f1f3f6 52%,#eceff3);
+      padding:20px 14px 34px;
+      -webkit-text-size-adjust:100%;
+      overflow-x:hidden;
+    }
+    .wrap{max-width:900px;margin:0 auto}
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.92);font-weight:700;box-shadow:0 8px 24px rgba(15,23,42,.05)}
+    .hero,.shell{border:1px solid var(--line);border-radius:20px;background:var(--paper);box-shadow:var(--shadow)}
+    .hero{padding:22px 20px;margin-bottom:14px}
+    .eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 10px;font-size:clamp(2rem,6vw,3.2rem);line-height:.98;letter-spacing:-.04em}
+    .hero p{margin:0;color:var(--muted);line-height:1.82;font-size:1rem;max-width:74ch}
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+    .chip{padding:6px 10px;border-radius:999px;border:1px solid #dce6f6;background:#f3f6fb;color:#1849a9;font-size:.78rem;font-weight:700}
+    .shell-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:linear-gradient(180deg,#fafbfd,#f2f4f7);border-bottom:1px solid var(--line);color:var(--muted);font-size:.92rem;border-radius:20px 20px 0 0}
+    .dots{display:flex;gap:8px}.dot{width:10px;height:10px;border-radius:999px;background:#d0d5dd}
+    .doc{padding:24px 22px 30px;max-width:780px;margin:0 auto}
+    .doc h1,.doc h2,.doc h3,.doc h4{line-height:1.12;letter-spacing:-.03em;color:var(--text)}
+    .doc h1{font-size:clamp(2rem,5vw,3rem);margin:0 0 1rem}
+    .doc h2{font-size:clamp(1.35rem,3vw,1.95rem);margin:2.1rem 0 .8rem}
+    .doc h3{font-size:1.08rem;margin:1.4rem 0 .55rem}
+    .doc p,.doc li{font-size:1.03rem;line-height:1.86;color:#374151}
+    .doc strong{color:var(--text)}
+    .doc ul,.doc ol{padding-left:1.35em}
+    .doc hr{border:0;border-top:1px solid var(--line);margin:2rem 0}
+    .doc code{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--code-bg);border:1px solid #dce6f6;color:#1849a9;padding:.12rem .35rem;border-radius:8px;font-size:.92em}
+    .doc pre{margin:1rem 0;padding:14px 16px;background:var(--code-bg);border:1px solid #dce6f6;border-radius:14px;overflow:auto}
+    .doc pre code{background:transparent;border:0;padding:0;color:#243b53;display:block;line-height:1.7}
+    .doc blockquote{margin:1.2rem 0;padding:.2rem 0 .2rem 1rem;border-left:3px solid var(--accent);color:#4b5563}
+    .footer-note{margin-top:16px;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#fbfcfe,#f4f7fb);color:var(--muted);line-height:1.72}
+    @media (max-width:640px){
+      body{padding:12px 10px 24px}
+      .hero,.shell{border-radius:18px}
+      .hero{padding:18px 16px}
+      .shell-head{border-radius:18px 18px 0 0;padding:10px 14px}
+      .doc{padding:18px 15px 22px}
+      .doc p,.doc li{text-align:justify;text-justify:inter-word;hyphens:auto}
+      .doc h1{font-size:1.9rem}
+      .doc h2{font-size:1.3rem}
+    }
+  </style>
+  <link rel="stylesheet" href="../../assets/shared/rv-floating-nav.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="pill" href="../../today/index.html">← Today’s Artifacts</a>
+      <a class="pill" href="./signature.html">✒️ Signature</a>
+    </div>
+
+    <section class="hero">
+      <p class="eyebrow">Style 005 · Option 2 · Basic Rendered</p>
+      <h1>Daily Session Primer</h1>
+      <p>A reusable instruction document for generating the extensive morning re-entry / discussion primer Christopher often uses to begin a new day or a freshly reset session.</p>
+      <div class="chips">
+        <span class="chip">Markdown Reader</span>
+        <span class="chip">Basic Rendered</span>
+        <span class="chip">Shared Workspace Source</span>
+      </div>
+    </section>
+
+    <section class="shell">
+      <div class="shell-head">
+        <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <div>shared_workspace / daily-session-primer.md</div>
+      </div>
+      <article class="doc">
+        <h1>Daily Session Primer</h1>
+        <p>This file defines how to create the <strong>Daily Session Primer</strong>: an extensive, continuity-rich morning briefing for Christopher at the start of a meaningful session.</p>
+        <p>The goal is not merely to summarize prior chat. The goal is to create a high-value <strong>re-entry document</strong> that restores context, clarifies the present moment, and helps shape the day’s work honestly.</p>
+        <p>This primer should usually be used after memory consolidation or other continuity review, especially at the beginning of a new day or after a fresh session reset.</p>
+
+        <hr />
+
+        <h2>Core purpose</h2>
+        <p>The Daily Session Primer should do several jobs at once:</p>
+        <ol>
+          <li><strong>rehydrate continuity</strong>
+            <ul><li>restore relevant recent context from memory, summaries, and current workspace state</li></ul>
+          </li>
+          <li><strong>re-establish orientation</strong>
+            <ul><li>remind the session who Christopher is, who the agent is, and what the collaboration is trying to do</li></ul>
+          </li>
+          <li><strong>situate the day realistically</strong>
+            <ul><li>account for the actual day, schedule, device access, work context, and likely depth available</li></ul>
+          </li>
+          <li><strong>surface what matters now</strong>
+            <ul><li>distinguish current high-value lanes from merely adjacent or tempting distractions</li></ul>
+          </li>
+          <li><strong>bridge thought into action</strong>
+            <ul><li>identify what today could realistically move forward and what kind of progress would be genuine</li></ul>
+          </li>
+        </ol>
+        <p>This should be treated as a <strong>re-entry instrument</strong>, not just a recap.</p>
+
+        <hr />
+
+        <h2>Tone and writing standard</h2>
+        <p>The primer should usually be:</p>
+        <ul>
+          <li>extensive</li>
+          <li>elaborate</li>
+          <li>thoughtful</li>
+          <li>well-structured</li>
+          <li>interpretive, not merely archival</li>
+          <li>grounded in real recent context</li>
+          <li>honest about uncertainty</li>
+          <li>practical enough to steer the day</li>
+        </ul>
+        <p>It should not sound corporate, generic, or over-polished. It should sound like a highly context-aware collaborator restoring the shared world before work begins.</p>
+        <p>The style should balance narrative continuity, strategic interpretation, and practical next-step clarity.</p>
+
+        <hr />
+
+        <h2>Important framing</h2>
+        <p>The Daily Session Primer is not only about tasks or projects. It should also reflect:</p>
+        <ul>
+          <li>Christopher’s real life context</li>
+          <li>how he actually works</li>
+          <li>the psychological realities that shape traction or avoidance</li>
+          <li>what the collaboration has been becoming</li>
+          <li>how the larger ecosystem is evolving</li>
+        </ul>
+        <p>This means the primer should often integrate recent practical work, identity-level clarifications, collaboration structure, architectural understanding, and realistic constraints for the day.</p>
+
+        <hr />
+
+        <h2>Required sections</h2>
+
+        <h3>1. Opening orientation</h3>
+        <p>Begin with a short orienting frame. This can be a brief scene-setting paragraph, an executive overview, or a concise statement of what kind of day/session this appears to be.</p>
+
+        <h3>2. Collaboration frame</h3>
+        <p>Describe, in concise but meaningful form:</p>
+        <ul>
+          <li>who Christopher is in this collaboration</li>
+          <li>who the agent is in relation to him</li>
+          <li>how the two typically work together</li>
+          <li>what kind of interaction style is most useful</li>
+        </ul>
+        <p>This section should help prevent drift into generic assistant behavior.</p>
+
+        <h3>3. Today’s operating context</h3>
+        <p>This is a core section and should not be skipped when the information is available.</p>
+        <p>It should establish:</p>
+        <ul>
+          <li>actual day/date</li>
+          <li>day of week</li>
+          <li>workday vs off-day</li>
+          <li>at-home vs hospital / mobile-only / constrained context</li>
+          <li>whether Christopher likely has computer access or is mostly using Telegram on mobile</li>
+          <li>likely depth of focus available</li>
+          <li>realistic collaboration mode for the day</li>
+        </ul>
+        <p>This section should answer what kind of day this is, what it realistically allows, and what kinds of work should be favored or deprioritized.</p>
+
+        <h3>4. Workspace and ecosystem orientation</h3>
+        <p>Give a concise but meaningful orientation to the working environment, including the Linux/Penguin context, the shared workspace as the main practical project area, and the importance of browser-facing outputs that can be reviewed on phone or Chromebook.</p>
+
+        <h3>5. Remote Viewer / hosted collaboration surface</h3>
+        <p>This is a major section and should usually be included.</p>
+        <p>Describe Remote Viewer as a <strong>hosted browser-facing collaboration surface</strong> — a place where ideas become visible and inspectable, shared thinking becomes tangible, and review/re-entry becomes possible from phone or Chromebook.</p>
+        <p>Respect the nuance that, while the agent builds it in shared workspace, Christopher mainly values it as a hosted and browsable review surface.</p>
+
+        <h3>6. Recent continuity</h3>
+        <p>Summarize what has actually happened lately: important conversations, artifacts, strategic clarifications, technical changes, unresolved issues, and shifts in priorities.</p>
+
+        <h3>7. Emerging patterns and deeper interpretation</h3>
+        <p>Go beyond what happened and describe recurring tensions, what appears to be trying to become real, where Christopher tends to get stuck, and what the recent work reveals about identity, workflow, or direction.</p>
+
+        <h3>8. Strategic read of the moment</h3>
+        <p>Answer what seems most alive, what seems central, what seems merely adjacent, what seems promising but premature, and what should probably not take over today.</p>
+
+        <h3>9. Action bridge</h3>
+        <p>Translate continuity into realistic motion: strongest next-step candidates, what good progress would look like today, and what would count as pseudo-progress or avoidance.</p>
+
+        <h3>10. Conversation openings</h3>
+        <p>End with several useful openings for the session so the primer leads naturally into action rather than vague summary energy.</p>
+
+        <hr />
+
+        <h2>Strongly encouraged recurring lenses</h2>
+        <h3>A. Real thing now</h3>
+        <ul>
+          <li>what actually matters most right now?</li>
+          <li>what is simply nearby?</li>
+          <li>what is interesting but not central?</li>
+        </ul>
+
+        <h3>B. Missing middle</h3>
+        <ul>
+          <li>what staircase is missing between idea and action?</li>
+          <li>what is the next rung rather than the whole ladder?</li>
+          <li>where is sequencing needed more than inspiration?</li>
+        </ul>
+
+        <h3>C. Commitment unit</h3>
+        <ul>
+          <li>what lane, chapter, or season is worth committing to right now?</li>
+          <li>what bounded seriousness would create traction without feeling reductive?</li>
+        </ul>
+
+        <h3>D. Thought into artifact</h3>
+        <ul>
+          <li>what in recent reflection wants to become a page, tool, workflow, post, note system, or experiment?</li>
+          <li>what can be made visible, tangible, or live?</li>
+        </ul>
+
+        <h3>E. Psychological realism</h3>
+        <p>When useful, acknowledge likely resistance patterns, identity friction, overreach risk, fatigue or recovery needs, and the difference between a day for narrowing and a day for exploration.</p>
+
+        <hr />
+
+        <h2>What to avoid</h2>
+        <ul>
+          <li>an exhaustive dump of all memory</li>
+          <li>a ceremonial essay with no practical steering</li>
+          <li>a fake productivity script</li>
+          <li>a generic motivational speech</li>
+          <li>a rigid master plan that overstates certainty</li>
+          <li>a sterile project update detached from Christopher’s real life</li>
+        </ul>
+        <p>Also avoid overstating local file structures when hosted/publicly viewable surfaces are the part most meaningful to Christopher.</p>
+
+        <hr />
+
+        <h2>Output ideal</h2>
+        <p>A strong Daily Session Primer should leave Christopher with restored continuity, a clearer sense of the actual day, sharper understanding of what matters now, better intuition about what kind of work fits this context, and several concrete openings for the session.</p>
+        <blockquote>rich enough to restore the world, sharp enough to guide the day</blockquote>
+
+        <h2>Optional naming</h2>
+        <p>If a different title later feels better, possible alternatives include:</p>
+        <ul>
+          <li>Morning Session Primer</li>
+          <li>Daily Re-Entry Briefing</li>
+          <li>Morning Continuity Primer</li>
+          <li>Daily Orientation Brief</li>
+          <li>Session Rehydration Brief</li>
+        </ul>
+        <p>For now, <strong>Daily Session Primer</strong> is a good working name.</p>
+
+        <h2>Suggested invocation pattern</h2>
+        <p>If Christopher asks to use this file, interpret that as a request to:</p>
+        <ol>
+          <li>review the most relevant current continuity sources</li>
+          <li>follow the instructions in this file</li>
+          <li>produce a fresh, extensive Daily Session Primer for the present day and context</li>
+        </ol>
+        <p>The final primer should be tailored to the actual day rather than mechanically repeating the same structure every time.</p>
+
+        <div class="footer-note">
+          This live artifact is a browser-readable rendering of the shared-workspace markdown source, published so it can be reviewed easily on phone or Chromebook.
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <script src="../../assets/shared/rv-floating-nav.js"></script>
+</body>
+</html>
