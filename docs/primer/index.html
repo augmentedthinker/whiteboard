@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Primer | Remote Viewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#f5f7fb;--panel:#ffffff;--panel-soft:#fbfcff;--border:#d7dfeb;--line:#e7edf6;--text:#182235;--muted:#5f6d82;--accent:#255cff;--accent-soft:#eef3ff;--shadow:0 18px 48px rgba(19,33,68,.08)}
+    *{box-sizing:border-box} html,body{margin:0}
+    body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:radial-gradient(circle at top left, rgba(37,92,255,.06), transparent 22%),linear-gradient(180deg,#fbfcfe 0%, #f3f6fa 100%);min-height:100vh;line-height:1.6;padding:max(20px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom))}
+    .container{max-width:1120px;margin:0 auto}.hero{background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(252,253,255,.98));border:1px solid var(--border);border-radius:24px;padding:28px;box-shadow:var(--shadow)}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;padding:8px 12px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    h1{margin:0 0 12px;font-size:clamp(1.9rem,4.8vw,3rem);line-height:1.06;letter-spacing:-.03em}.lead{margin:0;max-width:780px;color:var(--muted);font-size:1.04rem;line-height:1.72}
+    .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:22px}.hero-note,.hero-side{border:1px solid var(--line);border-radius:18px;background:var(--panel-soft);padding:18px}.hero-note strong,.hero-side strong{display:block;margin-bottom:8px;font-size:.98rem}.hero-note p,.hero-side p{margin:0;color:var(--muted)}
+    .section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 2px 14px}.section-title h2{margin:0;font-size:1.05rem;letter-spacing:.02em}.section-title p{margin:0;color:var(--muted);font-size:.96rem}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.item{background:var(--panel);border:1px solid var(--border);border-radius:22px;padding:22px;cursor:pointer;transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;box-shadow:0 10px 28px rgba(19,33,68,.05)}.item:hover{transform:translateY(-2px);border-color:#c6d2e2;box-shadow:0 18px 40px rgba(19,33,68,.08)}
+    .kicker{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;background:#f2f5fa;color:#445169;font-size:.76rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}.item h3{margin:0 0 8px;font-size:1.18rem;line-height:1.25}.item p{margin:0;color:var(--muted)}.meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.chip{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;border:1px solid var(--line);background:#fff;color:#536175;font-size:.84rem;font-weight:600}
+    .footer-note{margin-top:24px;padding:16px 18px;border-radius:18px;border:1px dashed #cfd8e4;background:rgba(255,255,255,.72);color:var(--muted)}
+    @media (max-width:860px){.hero-grid,.grid{grid-template-columns:1fr}.hero{padding:22px}}
+  </style>
+  <link rel="stylesheet" href="../../assets/shared/rv-floating-nav.css" />
+</head>
+<body>
+  <main class="container">
+    <section class="hero">
+      <div class="eyebrow">Primer Lane</div>
+      <h1>The morning re-entry system, made explicit.</h1>
+      <p class="lead">This page is the stable home for the Daily Session Primer system: the base markdown/spec that defines how primers should work, the live example for today, and the lens page that lets the same structure be biased toward different moods, needs, and kinds of mornings.</p>
+      <div class="hero-grid">
+        <div class="hero-note">
+          <strong>How to use this lane</strong>
+          <p>When you want a primer, the base instruction is: read the Daily Session Primer spec and generate today’s primer. If you want a particular tone or bias, add a lens — for example philosophical, strategic, motivational, gratitude, or restorative.</p>
+        </div>
+        <div class="hero-side">
+          <strong>What this solves</strong>
+          <p>It turns a loose morning ritual into a reusable collaboration protocol: one shared base structure, multiple useful lenses, and a cleaner way to request the style of re-entry you want.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-title">
+      <h2>Primer surfaces</h2>
+      <p>Spec, example, and lens definitions</p>
+    </div>
+
+    <section class="grid">
+      <article class="item" onclick="window.location.href='../../artifacts/daily-session-primer-2026-03-28/index.html'" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.location.href='../../artifacts/daily-session-primer-2026-03-28/index.html'}">
+        <div class="kicker">Base Spec</div>
+        <h3>Daily Session Primer</h3>
+        <p>The browser-readable source document defining what the primer is for, what sections it should include, how it should think, and what it should avoid.</p>
+        <div class="meta">
+          <span class="chip">Shared-workspace markdown</span>
+          <span class="chip">Structural base</span>
+          <span class="chip">Reusable invocation</span>
+        </div>
+      </article>
+
+      <article class="item" onclick="window.location.href='../../artifacts/morning-session-primer-2026-03-28/index.html'" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.location.href='../../artifacts/morning-session-primer-2026-03-28/index.html'}">
+        <div class="kicker">Live Example</div>
+        <h3>Morning Session Primer · 2026-03-28</h3>
+        <p>The first real generated primer built from the new spec — a continuity-rich Saturday-morning read of the current landscape, strongest lane, and practical openings.</p>
+        <div class="meta">
+          <span class="chip">Today’s generated output</span>
+          <span class="chip">Long-form reader</span>
+          <span class="chip">Reference example</span>
+        </div>
+      </article>
+
+      <article class="item" onclick="window.location.href='lenses.html'" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.location.href='lenses.html'}">
+        <div class="kicker">Lens Library</div>
+        <h3>Primer Lenses</h3>
+        <p>A dedicated guide to the tone/bias variants that can shape a primer without replacing the base structure: philosophical, motivational, gratitude, strategic, and restorative.</p>
+        <div class="meta">
+          <span class="chip">Tone control</span>
+          <span class="chip">Prompting shorthand</span>
+          <span class="chip">Reusable language</span>
+        </div>
+      </article>
+    </section>
+
+    <div class="footer-note">Suggested invocation pattern: <strong>Read the Daily Session Primer spec, then generate today’s primer using the [chosen lens] lens.</strong></div>
+  </main>
+  <script src="../../assets/shared/rv-floating-nav.js"></script>
+</body>
+</html>
