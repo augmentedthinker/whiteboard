@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Daily Session Primer · 2026-03-29</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f3efe7;
+      --bg-2:#ebe4d8;
+      --paper:#fffdf8;
+      --paper-soft:rgba(255,250,242,.76);
+      --line:rgba(47,40,28,.12);
+      --line-strong:rgba(47,40,28,.18);
+      --text:#1f1a15;
+      --muted:#61594d;
+      --accent:#275df1;
+      --accent-soft:#dfe7ff;
+      --gold:#b07b3b;
+      --shadow:0 18px 50px rgba(28,23,16,.12);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      min-height:100vh;
+      color:var(--text);
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(255,255,255,.78), transparent 34%),
+        linear-gradient(180deg,var(--bg),var(--bg-2) 58%,#e6ded1);
+      padding:24px 18px 56px;
+    }
+    .wrap{max-width:1360px;margin:0 auto}
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.9);font-weight:700;box-shadow:0 8px 22px rgba(28,23,16,.06)}
+    .hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(360px,.9fr);gap:22px;align-items:stretch;margin-bottom:18px}
+    .hero-main,.hero-image-card,.section,.sidebar-card,.opening,.signature-strip{border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}
+    .hero-main{padding:28px;background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,250,242,.78))}
+    .eyebrow{margin:0 0 10px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 14px;font-family:Fraunces,serif;font-size:clamp(2.5rem,5vw,4.6rem);line-height:.94;letter-spacing:-.045em}
+    .hero-main p{margin:0;color:var(--muted);font-size:1.06rem;line-height:1.88;max-width:70ch}
+    .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .chip{padding:7px 11px;border-radius:999px;border:1px solid rgba(39,93,241,.14);background:rgba(39,93,241,.07);color:#214abf;font-size:.8rem;font-weight:800;letter-spacing:.02em}
+    .hero-image-card{overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,248,238,.84));display:flex;flex-direction:column}
+    .hero-image{display:block;width:100%;height:100%;min-height:340px;object-fit:cover}
+    .hero-image-caption{padding:14px 16px;border-top:1px solid var(--line);color:var(--muted);font-size:.92rem;line-height:1.65;background:rgba(255,255,255,.7)}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px;align-items:start}
+    .article{display:grid;gap:18px}
+    .section{padding:24px 24px 22px;background:var(--paper)}
+    .section h2{margin:0 0 12px;font-size:1.34rem;letter-spacing:-.02em}
+    .section p,.section li{color:var(--muted);line-height:1.9;font-size:1.02rem}
+    .section p:last-child{margin-bottom:0}
+    .section strong{color:var(--text)}
+    .section ul{margin:0;padding-left:1.2rem}
+    .section li{margin:0 0 10px}
+    .callout{margin:16px 0 4px;padding:16px 16px 4px;border-radius:18px;border:1px solid rgba(39,93,241,.14);background:linear-gradient(180deg,rgba(39,93,241,.06),rgba(176,123,59,.05))}
+    .two-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .opening{padding:16px 16px 14px;background:linear-gradient(180deg,#fffdf8,#faf5ec)}
+    .opening strong{display:block;margin-bottom:8px}
+    .sidebar{display:grid;gap:18px;position:sticky;top:18px}
+    .sidebar-card{padding:18px;background:var(--paper-soft);backdrop-filter:blur(6px)}
+    .sidebar-card h3{margin:0 0 10px;font-size:1rem;letter-spacing:-.02em}
+    .sidebar-card p,.sidebar-card li{margin:0 0 10px;color:var(--muted);line-height:1.75;font-size:.96rem}
+    .sidebar-card ul{margin:0;padding-left:1.15rem}
+    .mini-label{margin:0 0 8px;color:var(--gold);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .signature-strip{padding:18px 20px;background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(249,244,236,.88));display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
+    .signature-strip p{margin:0;color:var(--muted);line-height:1.75;font-size:.95rem}
+    .signature-strip strong{display:block;margin-bottom:6px;color:var(--text)}
+    @media (max-width:1100px){
+      .hero,.layout,.two-col{grid-template-columns:1fr}
+      .sidebar{position:static}
+    }
+    @media (max-width:720px){
+      body{padding:14px 10px 34px}
+      .hero-main,.section,.sidebar-card,.opening,.signature-strip{border-radius:20px}
+      .hero-main,.section{padding:18px 16px}
+      .signature-strip{padding:16px;display:grid}
+      h1{font-size:2.2rem}
+    }
+  </style>
+  <link rel="stylesheet" href="../../assets/shared/rv-floating-nav.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="pill" href="../../today/index.html">← Today’s Artifacts</a>
+      <a class="pill" href="./signature.html">✒️ Signature</a>
+      <a class="pill" href="../../styles/markdown-reader/index.html">Style 005 reference</a>
+    </div>
+
+    <section class="hero">
+      <div class="hero-main">
+        <p class="eyebrow">Daily Session Primer · Sunday, March 29, 2026</p>
+        <h1>Restore the world, then choose the lane that can actually move.</h1>
+        <p>This is the base Daily Session Primer for this morning: continuity-rich, desktop-friendly, and designed as a full presentation surface rather than a bare markdown dump. The goal is not just to remember what has been happening, but to feel the current terrain clearly enough to choose today’s real work on purpose.</p>
+        <div class="chips">
+          <span class="chip">Style 005 · Option 4</span>
+          <span class="chip">Desktop / Chromebook optimized</span>
+          <span class="chip">Hosted review surface</span>
+          <span class="chip">Sunday depth available</span>
+        </div>
+      </div>
+      <div class="hero-image-card">
+        <img class="hero-image" src="../../styles/assets/generated/2026-03-16/2026-03-16-21-54-00-paper-editorial-modern-reference.png" alt="Paper Editorial Modern reference image with warm editorial composition" />
+        <div class="hero-image-caption">Visual framing leans into the authored side of Style 005: warm editorial atmosphere, readable long-form structure, and enough presentation weight that the primer feels like a real morning object rather than a transient note.</div>
+      </div>
+    </section>
+
+    <div class="layout">
+      <main class="article">
+        <section class="section">
+          <h2>Opening orientation</h2>
+          <p>It is Sunday morning. That matters. This is not one of the fragmented hospital days, and it does not look like a context that needs to be reduced to tiny tactical motions unless the day becomes unexpectedly crowded. The deeper opportunity here is re-entry with real latitude: enough room to think clearly, enough room to shape an artifact or workflow properly, and enough room to resist drifting into vague adjacent possibility space.</p>
+          <p>The most important thing this morning is not to generate more conceptual weather. It is to restore the actual map of the terrain and then choose one lane that can translate into visible consequence.</p>
+        </section>
+
+        <section class="section">
+          <h2>Collaboration frame</h2>
+          <p>Christopher uses this collaboration as a continuity-aware thinking partnership, not as a generic assistant layer. The work is strongest when conversation becomes structure, structure becomes an artifact or workflow, and that artifact becomes something visible enough to review from lived context — on phone, on Chromebook, or inside the larger hosted ecosystem.</p>
+          <p>My role is to help compress ambiguity into a clearer operating picture without flattening it into fake certainty. That means noticing the deeper pattern, identifying the missing middle, and helping choose actions that are real enough to matter rather than merely elegant enough to discuss.</p>
+        </section>
+
+        <section class="section">
+          <h2>Today’s operating context</h2>
+          <p>Today is an off-day weekend morning with good odds of desktop or Chromebook access and a realistic possibility for deeper work. That opens up several kinds of work that are harder to do well on constrained or mobile-only days: richer artifact design, repo-level refinement, hosted-surface curation, structured planning, and more serious sequencing of an idea or workflow.</p>
+          <div class="callout">
+            <p><strong>Practical read of the day:</strong> this looks like a day for an honest block of depth. If used well, it can produce something more substantial than checking in, tinkering, or lightly grooming the edges of the ecosystem.</p>
+          </div>
+          <p>It also means there is less excuse for pseudo-progress. On a day like this, the bar should be higher than “I touched the system.” The better question is whether one lane became more operational, more hosted, more usable, or more real.</p>
+        </section>
+
+        <section class="section">
+          <h2>Workspace and ecosystem orientation</h2>
+          <p>OpenClaw lives inside Penguin, but the real working ecosystem lives across layers. The shared workspace remains the practical project area. More importantly, the browser-facing surfaces matter because they turn internal work into something visible and reviewable. Christopher’s relationship to the work is not only through local files; it is strongly mediated through what becomes hosted, legible, and inspectable.</p>
+          <p>That distinction matters because it quietly shapes priorities. Local change alone is often not enough to feel real. A hosted page, a live artifact, a visible workflow surface, or a published object tends to create a very different quality of consequence.</p>
+        </section>
+
+        <section class="section">
+          <h2>Remote Viewer as hosted collaboration surface</h2>
+          <p>Remote Viewer continues to evolve into the most tangible browser-facing expression of the collaboration. It is not just a repo full of pages. It is a hosted review surface where ideas, documentation, tools, strategy, atmosphere, and continuity objects can be judged in their actual lived form. That is one reason it keeps becoming the place where thought stops being vapor.</p>
+          <p>The current structure is also getting cleaner and more mature. The main menu has been intentionally slimmed down. Today’s Artifacts functions more like a curated live shelf than an indiscriminate gallery. Shared floating-nav assets mark a real architectural move toward reusable components. The direction is clearer now: less clutter, stronger curation, more browser-native usefulness.</p>
+          <p>One especially useful clarification from recent work remains active: from Christopher’s side, the deeper value of Remote Viewer is usually not that it sits in shared workspace, but that its outputs become visible, hosted, and inspectable on real devices.</p>
+        </section>
+
+        <section class="section">
+          <h2>Recent continuity</h2>
+          <p>The last stretch of work has been rich in clarification. Yesterday produced the Daily Session Primer spec itself plus several morning-primer variants, including lens and persona versions, all made visible as live artifacts. The day before that produced a cluster of substantial continuity pages: opening-state summary, deeper self-reading, a more elaborate to-do structure, a review of the day, and a stronger articulation of next steps for the AI learning workflow. A Troubleshooting page was also added to Remote Viewer to house recurring operational issues instead of scattering them across memory and chat.</p>
+          <p>A major practical and philosophical clarification has held steady through this recent arc: the <strong>structured AI learning / distillation workflow</strong> is now the strongest near-term lane. It fits Christopher’s actual strengths unusually well — reading, synthesis, language, reflective structure, and converting learning into proof-of-work without forcing borrowed founder theater or premature brand identity.</p>
+          <p>Other surrounding truths remain important too. The citation app is increasingly best understood as a serious first-client rehearsal rather than a fantasy of instant revenue. Many major ideas are better diagnosed as under-sequenced than unrealistic. And the healthier form of commitment still appears to be lane-based or season-based seriousness rather than identity foreclosure.</p>
+        </section>
+
+        <section class="section">
+          <h2>Emerging patterns and deeper interpretation</h2>
+          <p>A recurring pattern is now hard to miss: the ecosystem no longer lacks interesting directions. What it lacks, over and over, is the <strong>missing middle</strong> between concept and reliable motion. There is enough vision. There is enough taste. There is enough philosophical and architectural material. The recurring bottleneck is the staircase between the idea and the repeatable lane.</p>
+          <p>Another pattern is that the work is strongest when it begins from Christopher’s actual life texture rather than imported startup abstractions. Systems thinking, reflective structure, AI learning, communication, practical life architecture, and psychologically real workflow design all feel native. They create energy because they are already present. More abstract “find some AI business” thinking tends to dissolve into atmosphere unless it gets grounded by one real offering or one real protocol.</p>
+          <p>A third pattern matters at the identity level. Christopher resists premature narrowing for reasons that are not trivial. He does not want to be flattened into a niche, a performance surface, or a self-description that becomes a cage. That resistance is not merely avoidance. But it does create a tension: openness protects truth, while openness without bounded seriousness can quietly protect drift. The likely answer is still the same one recently clarified — a lane or season that is serious enough to produce consequence, but not treated as eternal self-definition.</p>
+        </section>
+
+        <section class="section">
+          <h2>Strategic read of the moment</h2>
+          <p><strong>Most alive right now:</strong> the AI learning / distillation workflow. This lane can hold source selection, note capture, synthesis, storage, and routing into visible outputs like X drafts, Blogger seeds, or hosted artifacts. It is authentic to Christopher’s mind, and it solves a real problem: how to move from thought and consumption into durable language and externalized work.</p>
+          <p><strong>Secondary valid lanes:</strong> Remote Viewer curation and hosted-surface strengthening; operational troubleshooting where it removes recurring friction; and the citation-app lane as a realism-driven rehearsal for first-client style utility.</p>
+          <p><strong>Lower-signal temptations for today:</strong> hopping among adjacent futures, over-designing identity, or polishing aesthetics without clarifying what operational lane those aesthetics are meant to serve.</p>
+        </section>
+
+        <section class="section">
+          <h2>Action bridge</h2>
+          <p>If today is used well, good progress will probably look like <strong>one lane becoming noticeably more real</strong>, not several lanes becoming slightly more discussed.</p>
+          <ul>
+            <li><strong>Best move:</strong> define the AI learning workflow as an end-to-end repeatable system — source selection, intake format, distillation template, storage home, output routing, and what counts as done.</li>
+            <li><strong>Very strong companion move:</strong> give that workflow a hosted surface so the system itself becomes inspectable and reusable, not just described in chat.</li>
+            <li><strong>Another good option:</strong> choose one under-sequenced idea and build its next three rungs instead of contemplating the entire ambition space.</li>
+          </ul>
+          <div class="callout">
+            <p><strong>Pseudo-progress warning:</strong> letting the day disappear into beautiful framing, broad reflection, or strategic adjacency without choosing an operational lane that can be tested, used, or shipped.</p>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Conversation openings</h2>
+          <div class="two-col">
+            <div class="opening"><strong>1. Build the workflow.</strong> Define the AI learning / distillation process as a real reusable template we can start using today.</div>
+            <div class="opening"><strong>2. Make it hosted.</strong> Turn that workflow into a live Remote Viewer artifact or tool so the process becomes inspectable and easier to re-enter.</div>
+            <div class="opening"><strong>3. Sequence one idea.</strong> Pick one under-sequenced lane — citation app, publishing grammar, or another candidate — and build the next few rungs rather than the whole ladder.</div>
+            <div class="opening"><strong>4. Curate the shelf.</strong> Do a Today’s Artifacts pass so the visible front stage reflects the strongest live direction more honestly.</div>
+            <div class="opening"><strong>5. Package proof-of-work.</strong> Convert one recent clarification into a publishable or hosted object so the collaboration remains tied to visible consequence.</div>
+            <div class="opening"><strong>6. Test the system.</strong> Use this morning to validate one surface-dependent OpenClaw behavior, if reducing uncertainty would help the broader workflow architecture.</div>
+          </div>
+        </section>
+
+        <section class="signature-strip">
+          <div>
+            <strong>Style note</strong>
+            <p>Built in the Style 005 family, Option 4 / Artifact Wrapper, then adjusted toward a warmer desktop editorial presentation for Chromebook viewing.</p>
+          </div>
+          <div>
+            <strong>Intent</strong>
+            <p>Not merely to summarize context, but to restore the lived world of the collaboration and shape today’s attention around what can genuinely move.</p>
+          </div>
+        </section>
+      </main>
+
+      <aside class="sidebar">
+        <section class="sidebar-card">
+          <p class="mini-label">Today at a glance</p>
+          <h3>High-signal lane</h3>
+          <p><strong>Structured AI learning / distillation workflow</strong></p>
+          <p>Best candidate because it is authentic to Christopher’s actual mind and can feed both internal clarity and public proof-of-work.</p>
+        </section>
+
+        <section class="sidebar-card">
+          <p class="mini-label">What good progress looks like</p>
+          <ul>
+            <li>a real template exists</li>
+            <li>the workflow has a visible home</li>
+            <li>one lane becomes operational</li>
+            <li>today produces something inspectable</li>
+          </ul>
+        </section>
+
+        <section class="sidebar-card">
+          <p class="mini-label">What to resist</p>
+          <ul>
+            <li>identity theater</li>
+            <li>adjacent-future hopping</li>
+            <li>pure aesthetic polishing without purpose</li>
+            <li>mistaking thought for sequence</li>
+          </ul>
+        </section>
+
+        <section class="sidebar-card">
+          <p class="mini-label">Grounding sources</p>
+          <p>Recent daily memory, long-term memory, Remote Viewer structure, Today’s Artifacts state, and the Daily Session Primer spec itself.</p>
+        </section>
+      </aside>
+    </div>
+  </div>
+  <script src="../../assets/shared/rv-floating-nav.js"></script>
+</body>
+</html>
