@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Signal Atlas · Taste-Skill Test · 2026-03-29</title>
+  <meta name="description" content="A hosted test artifact built using the design grammar of the taste-skill repository to evaluate whether it should become a native Remote Viewer style." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f7f5ef;
+      --surface:#ffffff;
+      --surface-soft:#fbfaf6;
+      --ink:#191816;
+      --muted:#6f6a61;
+      --line:rgba(34,31,24,.1);
+      --line-strong:rgba(34,31,24,.16);
+      --accent:#c47a2c;
+      --accent-ink:#7b4a16;
+      --shadow:0 24px 50px -18px rgba(18,14,10,.08);
+      --section-gap:clamp(3rem,8vw,6rem);
+      --ease:cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    html,body{margin:0}
+    body{
+      min-height:100vh;
+      color:var(--ink);
+      font-family:Outfit,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(255,232,205,.55), transparent 24%),
+        radial-gradient(circle at top left, rgba(255,255,255,.82), transparent 28%),
+        linear-gradient(180deg,#faf8f2 0%, var(--bg) 42%, #f3eee3 100%);
+      padding:20px 16px 56px;
+      overflow-x:hidden;
+    }
+    .noise{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.028;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");mix-blend-mode:multiply}
+    .wrap{position:relative;z-index:1;max-width:1400px;margin:0 auto}
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:rgba(255,255,255,.84);font-weight:700;backdrop-filter:blur(10px);box-shadow:0 8px 20px rgba(17,13,9,.05);transition:transform .3s var(--ease), background .3s var(--ease), border-color .3s var(--ease)}
+    .pill:hover{transform:translateY(-1px);background:#fff;border-color:var(--line-strong)}
+    .hero{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(340px,.92fr);gap:24px;align-items:stretch;min-height:min(100dvh,920px)}
+    .hero-copy,.hero-media,.section,.bento-card,.cta-shell,.footer-shell{background:rgba(255,255,255,.72);border:1px solid var(--line);box-shadow:var(--shadow);backdrop-filter:blur(14px)}
+    .hero-copy{border-radius:36px;padding:30px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+    .hero-copy::before{content:"";position:absolute;inset:1.5px;border:1px solid rgba(255,255,255,.48);border-radius:34px;pointer-events:none}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:var(--accent)}
+    .eyebrow::before{content:"";width:24px;height:1px;background:currentColor;opacity:.7}
+    h1{margin:18px 0 18px;font-size:clamp(3rem,7vw,6.25rem);line-height:.9;letter-spacing:-.055em;max-width:10ch;text-wrap:balance}
+    .hero-lead{max-width:62ch;font-size:1.08rem;line-height:1.82;color:var(--muted);margin:0 0 24px}
+    .hero-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+    .metric{padding:14px 14px 12px;border-radius:24px;border:1px solid rgba(34,31,24,.08);background:rgba(255,250,243,.72)}
+    .metric-label{display:block;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+    .metric strong{font-size:1.35rem;letter-spacing:-.03em}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:22px}
+    .btn{display:inline-flex;align-items:center;gap:12px;text-decoration:none;font-weight:700;border-radius:999px;padding:10px 12px 10px 18px;transition:transform .3s var(--ease), background .3s var(--ease), border-color .3s var(--ease)}
+    .btn:active{transform:scale(.98)}
+    .btn-primary{background:var(--ink);color:#fff;border:1px solid rgba(0,0,0,.04)}
+    .btn-primary .trail{width:34px;height:34px;border-radius:999px;display:grid;place-items:center;background:rgba(255,255,255,.1);transition:transform .3s var(--ease), background .3s var(--ease)}
+    .btn-primary:hover .trail{transform:translateX(2px) translateY(-1px);background:rgba(255,255,255,.16)}
+    .btn-secondary{color:var(--ink);border:1px solid var(--line);background:rgba(255,255,255,.6)}
+    .hero-media{border-radius:36px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+    .hero-media::before{content:"";position:absolute;inset:1.5px;border:1px solid rgba(255,255,255,.38);border-radius:34px;pointer-events:none;z-index:2}
+    .hero-media img{display:block;width:100%;height:100%;object-fit:cover;min-height:420px}
+    .hero-caption{padding:14px 16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;background:rgba(255,255,255,.88);font-size:.92rem;color:var(--muted)}
+    .hero-caption strong{color:var(--ink)}
+    .section{margin-top:var(--section-gap);border-radius:34px;padding:28px 24px;position:relative;overflow:hidden}
+    .section::before{content:"";position:absolute;inset:1.5px;border:1px solid rgba(255,255,255,.42);border-radius:32px;pointer-events:none}
+    .section-header{display:flex;justify-content:space-between;gap:18px;align-items:end;flex-wrap:wrap;margin-bottom:28px}
+    .section-header h2{margin:0;font-size:clamp(1.8rem,3vw,3rem);letter-spacing:-.04em;line-height:.96;max-width:12ch}
+    .section-header p{margin:0;max-width:60ch;color:var(--muted);line-height:1.8}
+    .bento{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;align-items:stretch}
+    .bento-card{border-radius:28px;padding:22px;position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(250,247,240,.9));transition:transform .6s var(--ease), box-shadow .6s var(--ease), border-color .6s var(--ease)}
+    .bento-card:hover{transform:translateY(-3px);box-shadow:0 28px 60px -22px rgba(18,14,10,.12);border-color:rgba(196,122,44,.26)}
+    .bento-card .card-kicker{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:10px}
+    .bento-card h3{margin:0 0 10px;font-size:1.36rem;letter-spacing:-.03em}
+    .bento-card p{margin:0;color:var(--muted);line-height:1.75}
+    .wide-card{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(260px,.9fr);gap:18px;align-items:stretch;min-height:340px}
+    .list-shell{border-radius:24px;border:1px solid rgba(34,31,24,.08);background:rgba(249,245,236,.82);padding:16px}
+    .list-item{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid rgba(34,31,24,.08)}
+    .list-item:first-child{border-top:none;padding-top:0}
+    .list-rank{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.82rem;color:var(--muted)}
+    .list-meta{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.76rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+    .signal-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(196,122,44,.1);color:var(--accent-ink);font-size:.78rem;font-weight:700;letter-spacing:.03em}
+    .signal-pill::before{content:"";width:8px;height:8px;border-radius:999px;background:currentColor;box-shadow:0 0 0 6px rgba(196,122,44,.12)}
+    .mini-grid{display:grid;gap:12px}
+    .mini-tile{padding:16px;border-radius:22px;border:1px solid rgba(34,31,24,.08);background:rgba(255,255,255,.7)}
+    .mini-tile strong{display:block;font-size:1.4rem;letter-spacing:-.03em;margin-top:8px}
+    .feature-zig{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .feature{padding:22px;border-radius:28px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(248,244,236,.82));box-shadow:var(--shadow)}
+    .feature h3{margin:0 0 10px;font-size:1.3rem;letter-spacing:-.03em}
+    .feature p{margin:0 0 18px;color:var(--muted);line-height:1.76}
+    .feature ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+    .feature li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;color:var(--muted);line-height:1.7}
+    .feature li::before{content:"/";font-family:"IBM Plex Mono",ui-monospace,monospace;color:var(--accent);font-weight:700}
+    .cta-shell{margin-top:var(--section-gap);border-radius:36px;padding:30px;background:linear-gradient(135deg,rgba(255,250,241,.96),rgba(247,241,228,.92));display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center}
+    .cta-shell h2{margin:0 0 10px;font-size:clamp(2rem,4vw,3.6rem);letter-spacing:-.05em;line-height:.94;max-width:11ch}
+    .cta-shell p{margin:0;max-width:60ch;color:var(--muted);line-height:1.8}
+    .footer-shell{margin-top:24px;border-radius:28px;padding:18px 20px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.92rem;color:var(--muted)}
+    [data-reveal]{opacity:0;transform:translateY(18px);filter:blur(8px);transition:opacity .8s var(--ease), transform .8s var(--ease), filter .8s var(--ease)}
+    [data-reveal].is-visible{opacity:1;transform:translateY(0);filter:blur(0)}
+    [data-reveal][data-delay="1"]{transition-delay:.08s}
+    [data-reveal][data-delay="2"]{transition-delay:.16s}
+    [data-reveal][data-delay="3"]{transition-delay:.24s}
+    @media (max-width:1100px){
+      .hero,.bento,.feature-zig,.cta-shell{grid-template-columns:1fr}
+      .wide-card{grid-template-columns:1fr}
+      .hero{min-height:auto}
+    }
+    @media (max-width:760px){
+      body{padding:12px 10px 36px}
+      .hero-copy,.hero-media,.section,.bento-card,.cta-shell,.footer-shell{border-radius:24px}
+      .hero-copy,.section,.cta-shell{padding:18px 16px}
+      .hero-metrics{grid-template-columns:1fr}
+      h1{max-width:12ch;font-size:clamp(2.5rem,12vw,4rem)}
+      .hero-media img{min-height:280px}
+      .section-header{margin-bottom:18px}
+      .topbar{margin-bottom:14px}
+    }
+  </style>
+  <link rel="stylesheet" href="../../assets/shared/rv-floating-nav.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="topbar" data-reveal>
+      <a class="pill" href="../../today/index.html">← Today’s Artifacts</a>
+      <a class="pill" href="./signature.html">✒️ Signature</a>
+      <a class="pill" href="#assessment">Field test notes</a>
+    </div>
+
+    <section class="hero">
+      <div class="hero-copy" data-reveal>
+        <div>
+          <span class="eyebrow">Taste-Skill field test · Signal Atlas</span>
+          <h1>Find the signal before the day fragments.</h1>
+          <p class="hero-lead">This page is a deliberate test of the <strong>taste-skill</strong> design grammar: asymmetry over generic centering, one warm accent instead of AI-purple glow, stronger typography, tighter premium spacing, and more considered product-marketing composition. The subject is fictional, but the test is real: does this feel more alive than our usual baseline?</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#assessment">Review the verdict <span class="trail">↗</span></a>
+            <a class="btn btn-secondary" href="#system">See the system notes</a>
+          </div>
+        </div>
+        <div class="hero-metrics">
+          <div class="metric">
+            <span class="metric-label">Variance</span>
+            <strong>8 / 10</strong>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Motion intent</span>
+            <strong>6 / 10</strong>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Density</span>
+            <strong>4 / 10</strong>
+          </div>
+        </div>
+      </div>
+      <div class="hero-media" data-reveal data-delay="1">
+        <img src="./assets/signal-atlas-hero.png" alt="AI-generated premium editorial hero image for Signal Atlas" />
+        <div class="hero-caption">
+          <span><strong>Fresh AI image</strong> generated during this test build</span>
+          <span>Warm neutral palette · single amber accent · no neon slop</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="system" data-reveal>
+      <div class="section-header">
+        <h2>What this test is trying to prove</h2>
+        <p>Rather than immediately distilling the repo into a new house style, this artifact tries to use its design grammar more faithfully first. The question is whether a page shaped by those instructions actually produces a noticeable jump in quality, composition, and intentionality.</p>
+      </div>
+      <div class="bento">
+        <article class="bento-card wide-card" data-reveal>
+          <div>
+            <p class="card-kicker">Operator signal</p>
+            <h3>The page should feel premium without reading like cloned startup sludge.</h3>
+            <p>The repo pushes several strong anti-generic rules: ban the default 3-card row, use one accent color, increase asymmetry, tighten typography, reduce lazy gradients, and make product surfaces look like they were designed on purpose.</p>
+            <div class="list-shell" style="margin-top:20px;">
+              <div class="list-item">
+                <span class="list-rank">01</span>
+                <div>
+                  <strong>Typography with more character</strong><br />
+                  <span class="list-meta">Outfit + mono metadata instead of generic defaults</span>
+                </div>
+                <span class="signal-pill">Applied</span>
+              </div>
+              <div class="list-item">
+                <span class="list-rank">02</span>
+                <div>
+                  <strong>Asymmetric, split-screen hero</strong><br />
+                  <span class="list-meta">No centered H1 / button pileup</span>
+                </div>
+                <span class="signal-pill">Applied</span>
+              </div>
+              <div class="list-item">
+                <span class="list-rank">03</span>
+                <div>
+                  <strong>One warm accent</strong><br />
+                  <span class="list-meta">No purple-blue AI glow system</span>
+                </div>
+                <span class="signal-pill">Applied</span>
+              </div>
+            </div>
+          </div>
+          <div class="mini-grid">
+            <div class="mini-tile">
+              <span class="metric-label">Hero posture</span>
+              <strong>Split + offset</strong>
+            </div>
+            <div class="mini-tile">
+              <span class="metric-label">Component rule</span>
+              <strong>No equal card row</strong>
+            </div>
+            <div class="mini-tile">
+              <span class="metric-label">Motion strategy</span>
+              <strong>Reveal only, restrained</strong>
+            </div>
+          </div>
+        </article>
+        <article class="bento-card" data-reveal data-delay="1">
+          <p class="card-kicker">Taste dial</p>
+          <h3>Variance over symmetry</h3>
+          <p>Higher variance means the page should avoid the obvious centered hero, evenly repeated rows, and overboxed sections.</p>
+        </article>
+        <article class="bento-card" data-reveal data-delay="2">
+          <p class="card-kicker">Taste dial</p>
+          <h3>Restraint over spectacle</h3>
+          <p>Motion is present in reveal behavior and button physics, but the page is not trying to become a motion demo reel.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" data-reveal>
+      <div class="section-header">
+        <h2>Signals the repo gets right</h2>
+        <p>Even without literally installing the skill into an external agent flow, a lot of its instruction logic is already usable as design grammar. These are the parts that feel strongest on first contact.</p>
+      </div>
+      <div class="feature-zig">
+        <article class="feature" data-reveal>
+          <h3>Anti-generic pattern discipline</h3>
+          <p>The repo is very explicit about what not to do. That matters. It bans a lot of lazy defaults that make AI-generated frontend work look instantly predictable.</p>
+          <ul>
+            <li>No generic equal-width 3-card feature stripe</li>
+            <li>No purple neon AI gradients as default identity</li>
+            <li>No placeholder copywriting theater</li>
+            <li>No filler motion that ignores performance</li>
+          </ul>
+        </article>
+        <article class="feature" data-reveal data-delay="1">
+          <h3>System-level taste, not just prettier heroes</h3>
+          <p>The repo thinks in terms of layout rules, motion constraints, typography, density, loading states, and product-surface behavior. That is much more valuable than a one-off styling trick.</p>
+          <ul>
+            <li>Layout variance is a real control, not a vibe word</li>
+            <li>Density changes how UI should breathe</li>
+            <li>Motion intensity has implementation implications</li>
+            <li>Performance rules are part of the style, not separate from it</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="assessment" data-reveal>
+      <div class="section-header">
+        <h2>Verdict from the field test</h2>
+        <p>This is not yet a permanent new house style. But it is strong enough to justify creating a native Style 006 later, as long as we distill it honestly rather than copying its branding wholesale.</p>
+      </div>
+      <div class="bento" style="grid-template-columns:1.3fr 1fr 1fr;">
+        <article class="bento-card" data-reveal>
+          <p class="card-kicker">What worked</p>
+          <h3>The page feels more deliberately composed than our default baseline.</h3>
+          <p>The asymmetry, type scale, restrained accent logic, and product-marketing composition all helped. It feels more premium and less like a generic artifact wrapper.</p>
+        </article>
+        <article class="bento-card" data-reveal data-delay="1">
+          <p class="card-kicker">What to keep</p>
+          <h3>The dials</h3>
+          <p>Variance, density, and motion are worth carrying forward. They map cleanly onto how we already think about styles and artifact behavior.</p>
+        </article>
+        <article class="bento-card" data-reveal data-delay="2">
+          <p class="card-kicker">What to avoid</p>
+          <h3>Do not turn this into a universal overlay.</h3>
+          <p>This grammar is strong for product-forward, premium-web surfaces. It should remain an intentional option, not become the default for every artifact.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="cta-shell" data-reveal>
+      <div>
+        <h2>If this feels strong enough, the next move is Style 006.</h2>
+        <p>The honest path now is to use this artifact as evidence. If it feels genuinely better, then we build a native Remote Viewer style card and showroom page based on what actually worked here rather than summarizing the repo from a distance.</p>
+      </div>
+      <a class="btn btn-primary" href="./signature.html">Open the implementation notes <span class="trail">↗</span></a>
+    </section>
+
+    <footer class="footer-shell" data-reveal>
+      <span>Taste-Skill test artifact · hosted in Today’s Artifacts</span>
+      <span>Signal Atlas is fictional; the design test is real</span>
+    </footer>
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver((entries)=>{
+      for (const entry of entries){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      }
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+  </script>
+  <script src="../../assets/shared/rv-floating-nav.js"></script>
+</body>
+</html>
