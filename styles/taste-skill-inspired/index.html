@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Style 006 | Taste-Skill Inspired</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
+    :root{
+      --bg:#f7f5ef;
+      --paper:#ffffff;
+      --paper-soft:#fbfaf6;
+      --line:rgba(34,31,24,.1);
+      --line-strong:rgba(34,31,24,.16);
+      --text:#191816;
+      --muted:#6f6a61;
+      --accent:#c47a2c;
+      --accent-ink:#7b4a16;
+      --shadow:0 24px 50px -18px rgba(18,14,10,.08);
+      --ease:cubic-bezier(0.16,1,0.3,1);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      min-height:100vh;
+      font-family:Outfit,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(255,232,205,.55), transparent 24%),
+        radial-gradient(circle at top left, rgba(255,255,255,.82), transparent 28%),
+        linear-gradient(180deg,#faf8f2 0%, var(--bg) 42%, #f3eee3 100%);
+      padding:24px 16px 44px;
+    }
+    .wrap{max-width:1180px;margin:0 auto}
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+    .link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.84);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 20px rgba(17,13,9,.05)}
+    .hero,.section,.term,.dial,.specimen,.recipe,.card-shell{border:1px solid var(--line);background:rgba(255,255,255,.78);box-shadow:var(--shadow)}
+    .hero{padding:30px 26px;border-radius:30px;margin-bottom:18px}
+    .eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 12px;font-size:clamp(2rem,5vw,3.7rem);line-height:.98;letter-spacing:-.05em}
+    .sub{margin:0;max-width:78ch;color:var(--muted);line-height:1.8;font-size:1.04rem}
+    .sections{display:grid;gap:18px}
+    .section{padding:22px;border-radius:26px}
+    .section h2{margin:0 0 12px;font-size:1.34rem;letter-spacing:-.03em}
+    .section p,.section li{color:var(--muted);line-height:1.82}
+    .section strong{color:var(--text)}
+    .terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
+    .term{padding:14px 15px;border-radius:18px;background:linear-gradient(180deg,#fff,#faf7f0)}
+    .term h3{margin:0 0 8px;font-size:1rem;color:var(--text)}
+    .term p{margin:0;font-size:.96rem}
+    .dial-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+    .dial{padding:16px;border-radius:20px;background:linear-gradient(180deg,#fff,#faf7f0)}
+    .dial span{display:block;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:10px}
+    .dial strong{display:block;font-size:1.45rem;letter-spacing:-.04em;margin-bottom:8px}
+    .specimen{padding:0;border-radius:28px;overflow:hidden;background:linear-gradient(180deg,#fff,#faf7f0)}
+    .specimen-top{display:grid;grid-template-columns:1.1fr .9fr;gap:0;border-bottom:1px solid var(--line)}
+    .specimen-copy{padding:24px 22px 22px}
+    .specimen-kicker{margin:0 0 10px;color:var(--accent);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .specimen h3{margin:0 0 12px;font-size:clamp(1.8rem,4vw,3.2rem);line-height:.94;letter-spacing:-.05em;max-width:10ch}
+    .specimen p{margin:0;color:var(--muted);line-height:1.82}
+    .specimen-side{padding:18px;border-left:1px solid var(--line);background:rgba(255,255,255,.54);display:flex;align-items:end}
+    .specimen-window{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;padding:18px;background:linear-gradient(180deg,#fbfaf6,#f3eee3)}
+    .card-shell{padding:18px;border-radius:24px;background:linear-gradient(180deg,#fff,#faf7f0);transition:transform .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease)}
+    .card-shell:hover{transform:translateY(-3px);border-color:rgba(196,122,44,.24);box-shadow:0 28px 60px -22px rgba(18,14,10,.12)}
+    .card-shell small{display:block;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:10px}
+    .card-shell strong{display:block;font-size:1.22rem;letter-spacing:-.03em;margin-bottom:8px}
+    .recipe{margin-top:14px;padding:16px 18px;border-radius:18px;background:linear-gradient(180deg,#fff,#f8f4eb);overflow:auto}
+    pre{margin:0;white-space:pre-wrap;font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#4b3c2b;line-height:1.64;font-size:.92rem}
+    .ask-list{display:grid;gap:10px;margin-top:14px}
+    .ask{padding:14px 15px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.62);color:var(--muted)}
+    .ask strong{display:block;color:var(--text);margin-bottom:6px}
+    @media (max-width:900px){.specimen-top,.specimen-window,.dial-grid{grid-template-columns:1fr}.specimen-side{border-left:0;border-top:1px solid var(--line)}}
+    @media (max-width:640px){body{padding:18px 12px 32px}.hero,.section{padding:18px}}
+  </style>
+  <link rel="stylesheet" href="../../assets/shared/rv-floating-nav.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="link" href="../index.html">← Styles</a>
+      <a class="link" href="../../index.html">Remote Viewer</a>
+      <a class="link" href="../../artifacts/taste-skill-test-2026-03-29/index.html">Field Test Artifact</a>
+    </div>
+
+    <section class="hero">
+      <p class="eyebrow">Style 006</p>
+      <h1>Taste-Skill Inspired</h1>
+      <p class="sub">A new style entry based on the design grammar proven in the Taste-Skill field test: premium product-web composition, asymmetry over generic centering, one controlled accent color, stronger typography, anti-slop layout rules, and a more deliberate founder-operator polish. This is not a literal copy of the external repo. It is the Remote Viewer-native version of what actually felt useful.</p>
+    </section>
+
+    <div class="sections">
+      <section class="section">
+        <h2>What this style is in plain English</h2>
+        <p>This is the style to use when you want a page to feel more like a <strong>high-end product or concept website</strong> than a document or artifact wrapper. It should feel premium, modern, asymmetrical, and intentionally composed — without collapsing into generic startup sludge or neon AI branding.</p>
+        <p>The emotional ingredients are: <strong>taste, restraint, product confidence, layout intention, and practical elegance</strong>. It is especially good for concept pages, premium landing surfaces, high-value hosted experiments, and pages where design quality itself is part of what is being tested.</p>
+      </section>
+
+      <section class="section">
+        <h2>Core principles</h2>
+        <div class="terms">
+          <div class="term"><h3>Asymmetry over default centering</h3><p>Avoid the generic centered hero with evenly repeated rows. Prefer split layouts, offset composition, and a clearer sense of design intent.</p></div>
+          <div class="term"><h3>One accent color only</h3><p>Use one controlled accent for the whole page. Avoid the default purple-blue AI glow system and oversaturated visual noise.</p></div>
+          <div class="term"><h3>Typography with more character</h3><p>Use fonts with more presence than generic defaults. Headlines should carry real hierarchy through scale, spacing, and weight.</p></div>
+          <div class="term"><h3>No generic feature grid</h3><p>Ban the standard three-equal-cards row. Use bento variation, split sections, or more thoughtful grouping.</p></div>
+          <div class="term"><h3>Premium but restrained motion</h3><p>Use motion for reveal, tactility, and rhythm — not for spectacle. Product confidence should beat showy animation.</p></div>
+          <div class="term"><h3>Product-marketing composition</h3><p>Think in terms of the full page as a designed surface, not a pile of components. Hero, supporting modules, and proof sections should feel related.</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Style dials</h2>
+        <p>This style benefits from the same three practical dials that made the original repo useful. We can tune them per page without changing the whole visual language.</p>
+        <div class="dial-grid">
+          <div class="dial"><span>Variance</span><strong>8 / 10</strong><p>Lean away from symmetry. Use offset or split composition. Fall back cleanly to single-column on mobile.</p></div>
+          <div class="dial"><span>Motion</span><strong>6 / 10</strong><p>Use reveal, hover, and tactile button feedback. Avoid turning the page into a motion experiment unless explicitly requested.</p></div>
+          <div class="dial"><span>Density</span><strong>4 / 10</strong><p>Keep breathing room. This style should feel premium and composed, not dashboard-dense by default.</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Mini specimen</h2>
+        <div class="specimen">
+          <div class="specimen-top">
+            <div class="specimen-copy">
+              <p class="specimen-kicker">Premium product-web / Taste-driven</p>
+              <h3>Find the signal before the page gets generic.</h3>
+              <p>The style should feel like a careful product-marketing page with stronger taste: asymmetrical framing, one warm accent, more deliberate hierarchy, and cleaner anti-slop discipline.</p>
+            </div>
+            <div class="specimen-side">
+              <p>This is the right style when the goal is to test visual quality itself — not just to wrap information in a readable shell.</p>
+            </div>
+          </div>
+          <div class="specimen-window">
+            <div class="card-shell">
+              <small>Hero posture</small>
+              <strong>Split + offset</strong>
+              <p>Prefer left-copy / right-asset or asymmetric whitespace over the default centered stack.</p>
+            </div>
+            <div class="card-shell">
+              <small>Accent rule</small>
+              <strong>One color</strong>
+              <p>Warm amber, deep blue, or another single controlled accent — not multiple competing signals.</p>
+            </div>
+            <div class="card-shell">
+              <small>Anti-pattern</small>
+              <strong>No 3-card stripe</strong>
+              <p>Use a more considered section architecture instead of the default generic row.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>What this style is good for</h2>
+        <ul>
+          <li>premium concept pages</li>
+          <li>product or workflow landing surfaces</li>
+          <li>hosted experiments where visual quality is part of the test</li>
+          <li>operator / founder-style presentation pages</li>
+          <li>stronger public-facing proof-of-work pages</li>
+        </ul>
+        <p>It is less ideal for simple markdown reading, dense dashboards, or pages whose job is mainly quiet documentation. Those should usually remain in other style families.</p>
+      </section>
+
+      <section class="section">
+        <h2>How to ask for it later</h2>
+        <div class="ask-list">
+          <div class="ask"><strong>“Use Style 006.”</strong> The shortest operational reference.</div>
+          <div class="ask"><strong>“Use the taste-skill-inspired premium product-web style.”</strong> Good when you want the design intent stated explicitly.</div>
+          <div class="ask"><strong>“Make it feel more like the Signal Atlas test page.”</strong> Useful when referencing the field test artifact directly.</div>
+          <div class="ask"><strong>“Use a high-variance, one-accent, product-marketing layout.”</strong> Best when you want the principles rather than the label.</div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Minimal technical recipe</h2>
+        <p>If we wanted to reproduce the style quickly, this is the simplest starting grammar:</p>
+        <div class="recipe"><pre>:root {
+  --bg: #f7f5ef;
+  --paper: #ffffff;
+  --line: rgba(34,31,24,.1);
+  --text: #191816;
+  --muted: #6f6a61;
+  --accent: #c47a2c;
+}
+
+body {
+  color: var(--text);
+  background:
+    radial-gradient(circle at top right, rgba(255,232,205,.55), transparent 24%),
+    radial-gradient(circle at top left, rgba(255,255,255,.82), transparent 28%),
+    linear-gradient(180deg, #faf8f2 0%, var(--bg) 42%, #f3eee3 100%);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0,1.1fr) minmax(320px,.9fr);
+  gap: 24px;
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(255,255,255,.78);
+  box-shadow: 0 24px 50px -18px rgba(18,14,10,.08);
+}
+
+/* Rules */
+/* - one accent color only */
+/* - avoid centered hero defaults */
+/* - avoid equal 3-card feature rows */
+/* - use stronger typography than generic defaults */</pre></div>
+      </section>
+    </div>
+  </div>
+
+  <script src="../../assets/shared/rv-floating-nav.js"></script>
+</body>
+</html>
