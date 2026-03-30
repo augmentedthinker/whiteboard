@@ -13,7 +13,7 @@
 </head>
 <body class="rv-style-one">
   <div class="rv-wrap">
-    <div class="rv-topbar"><a class="rv-link" href="../../index.html">← Remote Viewer</a><a class="rv-link" href="../../styles/index.html">Style One</a></div>
+    <div class="rv-topbar"><div class="rv-topbar-left"><a class="rv-link" href="../../index.html">← Remote Viewer</a><a class="rv-link" href="../../styles/index.html">Style One</a></div></div>
     <section class="rv-hero"><p class="rv-eyebrow">Operational Diagnostics</p><h1 class="rv-title">Troubleshooting</h1><p class="rv-sub">A focused page for recurring system issues and unresolved technical weirdness across OpenClaw, Remote Viewer, Chromebook/Crostini behavior, and related workflow infrastructure. This page now imports the shared Style One package.</p></section>
     <section class="trouble-grid">
       <article class="rv-card"><span class="trouble-status">Active issue</span><h2>Cron reliability is still inconsistent</h2><p>The current understanding is that cron creation and cron delivery/execution are separate questions, and both have shown different failure modes depending on the surface.</p><ul><li><strong>Telegram-session CLI path</strong> has failed with gateway websocket closure.</li><li><strong>Control/main surface</strong> has been able to create jobs more successfully.</li><li>At least one job appeared to be picked up by the scheduler and then stalled or disappeared in a <strong>runningAtMs</strong> state without delivering.</li></ul></article>

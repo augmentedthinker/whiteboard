@@ -28,7 +28,7 @@ body.rv-style-one{
 }
 
 .rv-wrap{max-width:1180px;margin:0 auto}
-.rv-topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.rv-topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:18px}
 .rv-link,.rv-pill,.rv-btn{
   display:inline-block;
   text-decoration:none;
@@ -111,5 +111,13 @@ body.rv-style-one[data-theme="dark"] code{background:rgba(255,255,255,.06);paddi
   justify-content:center;
   cursor:pointer;
   appearance:none;
+  padding:10px 14px;
+  border-radius:999px;
+  border:1px solid var(--rv-line);
+  background:rgba(255,255,255,.84);
+  color:var(--rv-text);
+  box-shadow:0 8px 20px rgba(17,13,9,.05);
   font:700 0.95rem Outfit,system-ui,sans-serif;
 }
+
+.rv-topbar-left{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
