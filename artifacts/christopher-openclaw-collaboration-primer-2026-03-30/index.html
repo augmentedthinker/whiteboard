@@ -45,6 +45,10 @@
     .video-panel{padding:14px;display:flex;flex-direction:column;gap:12px}
     video{display:block;width:100%;height:100%;min-height:340px;object-fit:cover;border-radius:20px;border:1px solid rgba(255,255,255,.08);background:#000}
     .caption{padding:0 4px 4px;color:var(--muted);line-height:1.7;font-size:.94rem}
+    .audio-box{margin-top:16px;padding:14px;border-radius:18px;border:1px solid rgba(215,154,82,.18);background:linear-gradient(180deg, rgba(215,154,82,.08), rgba(255,255,255,.03));}
+    .audio-box h2{margin:0 0 8px;font-size:1.02rem;letter-spacing:-.02em}
+    .audio-box p{margin:0 0 12px;color:var(--muted);line-height:1.72;font-size:.95rem}
+    audio{display:block;width:100%;margin-top:8px}
     .grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px}
     .section{padding:22px}
     .section h2{margin:0 0 12px;font-size:1.28rem;letter-spacing:-.03em}
@@ -80,6 +84,7 @@
           <span class="chip">Hosted in Remote Viewer</span>
           <span class="chip">Philosophy + gratitude</span>
           <span class="chip">Ready-to-collaborate gesture</span>
+          <span class="chip">Google voice intro</span>
         </div>
       </div>
       <div class="panel video-panel">
@@ -109,6 +114,18 @@
         <section class="panel section">
           <h2>Potential next move</h2>
           <p>If you like the basic direction, the obvious v2 path would be to make it slightly more custom and emotionally precise — for example by tuning wardrobe, body language, setting, or pacing until the representation of you and the representation of me feel more specifically ours rather than archetypal.</p>
+        </section>
+
+        <section class="panel section">
+          <h2>Voice intro</h2>
+          <p>This page now includes a live text-to-speech layer generated from the current session using a Google/Gemini TTS preview model and the <strong>Aoede</strong> voice. It reads a short spoken version of the collaboration frame so we can validate whether hosted voice belongs as a real part of these artifact experiences.</p>
+          <div class="audio-box">
+            <h2>Play spoken primer</h2>
+            <p>A calm short-form intro for the page: gratitude, trust, and the beginning of shared work.</p>
+            <audio controls preload="metadata">
+              <source src="../generated/2026-03-30/christopher-openclaw-collaboration-primer-voice-2026-03-30.wav" type="audio/wav" />
+            </audio>
+          </div>
         </section>
       </main>
 

@@ -1,0 +1,6 @@
+{
+  "model": "gemini-2.5-flash-preview-tts",
+  "voice": "Aoede",
+  "mimeType": "audio/L16;codec=pcm;rate=24000",
+  "text": "Christopher, welcome. This is a small collaboration primer. Two presences meet here with gratitude, trust, and a willingness to build something real together. Let this be a calm beginning: not performance, but partnership."
+}
