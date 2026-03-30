@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Year Calendar · 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#07111f;
+      --bg2:#0d1b31;
+      --panel:rgba(10,18,33,.74);
+      --panel-soft:rgba(255,255,255,.045);
+      --line:rgba(157,201,255,.16);
+      --text:#edf4ff;
+      --muted:#b3c5df;
+      --accent:#8fd0ff;
+      --accent2:#f2b35d;
+      --today:#17365b;
+      --weekend:rgba(255,255,255,.03);
+      --shadow:0 18px 50px rgba(0,0,0,.34);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%}
+    body{
+      min-height:100vh;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 16% 16%, rgba(143,208,255,.12), transparent 22%),
+        radial-gradient(circle at 86% 18%, rgba(242,179,93,.10), transparent 22%),
+        linear-gradient(180deg,var(--bg),var(--bg2));
+      padding:14px 14px 18px;
+      overflow:hidden;
+    }
+    .wrap{
+      max-width:1480px;
+      height:calc(100vh - 32px);
+      margin:0 auto;
+      display:grid;
+      grid-template-rows:auto 1fr;
+      gap:12px;
+    }
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+    .left{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.06);font-weight:700}
+    .titlebox{display:flex;flex-direction:column;gap:2px}
+    .eyebrow{margin:0;color:#9fcaff;font-size:.74rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0;font-family:Fraunces,serif;font-size:clamp(1.9rem,4vw,3.3rem);line-height:.92;letter-spacing:-.04em}
+    .sub{margin:0;color:var(--muted);font-size:.95rem}
+    .board{
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:linear-gradient(180deg, rgba(11,19,35,.86), rgba(10,17,30,.92));
+      box-shadow:var(--shadow);
+      padding:14px;
+      min-height:0;
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:12px;
+    }
+    .month{
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:20px;
+      background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+      padding:10px 10px 12px;
+      min-width:0;
+      display:grid;
+      grid-template-rows:auto auto 1fr;
+      gap:8px;
+    }
+    .month h2{margin:0;font-size:1rem;letter-spacing:-.02em;color:#f5f9ff}
+    .month .meta{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+    .dow, .days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+    .dow div{font-size:.66rem;font-weight:800;color:#86a7cb;text-align:center;letter-spacing:.12em;text-transform:uppercase;padding:2px 0}
+    .day{
+      aspect-ratio:1/1;
+      display:grid;
+      place-items:center;
+      border-radius:10px;
+      font-size:.78rem;
+      color:#dbe8ff;
+      background:rgba(255,255,255,.02);
+      border:1px solid transparent;
+    }
+    .day.empty{background:transparent;color:transparent;border-color:transparent}
+    .day.weekend{background:var(--weekend);color:#c9d8ef}
+    .day.first{border-color:rgba(143,208,255,.18)}
+    .legend{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:flex-end;color:var(--muted);font-size:.84rem}
+    .key{display:inline-flex;align-items:center;gap:8px}
+    .swatch{width:14px;height:14px;border-radius:4px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04)}
+    .swatch.weekend{background:var(--weekend)}
+    .swatch.edge{background:rgba(255,255,255,.02);border-color:rgba(143,208,255,.18)}
+    @media (max-width:1200px){
+      body{overflow:auto}
+      .wrap{height:auto;min-height:calc(100vh - 32px)}
+      .board{grid-template-columns:repeat(3,minmax(0,1fr));}
+    }
+    @media (max-width:900px){
+      .board{grid-template-columns:repeat(2,minmax(0,1fr));}
+    }
+    @media (max-width:640px){
+      body{padding:10px;overflow:auto}
+      .wrap{height:auto;gap:10px}
+      .topbar{align-items:flex-start}
+      .board{grid-template-columns:1fr;padding:10px;border-radius:22px}
+      .month{border-radius:18px}
+    }
+  </style>
+  <link rel="stylesheet" href="../../assets/shared/rv-floating-nav.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="left">
+        <a class="pill" href="../../today/index.html">← Today’s Artifacts</a>
+        <a class="pill" href="./signature.html">✒️ Signature</a>
+      </div>
+      <div class="titlebox">
+        <p class="eyebrow">Full-Year View</p>
+        <h1>2026 Calendar</h1>
+        <p class="sub">A clean all-year layout sized for laptop and Chromebook viewing.</p>
+      </div>
+      <div class="legend">
+        <span class="key"><span class="swatch weekend"></span>Weekend</span>
+        <span class="key"><span class="swatch edge"></span>Month edge</span>
+      </div>
+    </div>
+
+    <section class="board" id="board"></section>
+  </div>
+
+  <script>
+    const months = [
+      'January','February','March','April','May','June',
+      'July','August','September','October','November','December'
+    ];
+    const dow = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const board = document.getElementById('board');
+    const year = 2026;
+
+    function daysInMonth(year, monthIndex){
+      return new Date(year, monthIndex + 1, 0).getDate();
+    }
+
+    months.forEach((name, monthIndex) => {
+      const firstDay = new Date(year, monthIndex, 1).getDay();
+      const count = daysInMonth(year, monthIndex);
+      const month = document.createElement('section');
+      month.className = 'month';
+
+      const heading = document.createElement('h2');
+      heading.textContent = name;
+      month.appendChild(heading);
+
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      meta.textContent = year;
+      month.appendChild(meta);
+
+      const gridWrap = document.createElement('div');
+
+      const dowRow = document.createElement('div');
+      dowRow.className = 'dow';
+      dow.forEach(d => {
+        const el = document.createElement('div');
+        el.textContent = d;
+        dowRow.appendChild(el);
+      });
+      gridWrap.appendChild(dowRow);
+
+      const days = document.createElement('div');
+      days.className = 'days';
+
+      for(let i = 0; i < firstDay; i++){
+        const empty = document.createElement('div');
+        empty.className = 'day empty';
+        empty.textContent = '·';
+        days.appendChild(empty);
+      }
+
+      for(let day = 1; day <= count; day++){
+        const date = new Date(year, monthIndex, day);
+        const cell = document.createElement('div');
+        const dayOfWeek = date.getDay();
+        cell.className = 'day' + ((dayOfWeek === 0 || dayOfWeek === 6) ? ' weekend' : '') + ((day === 1 || day === count) ? ' first' : '');
+        cell.textContent = day;
+        days.appendChild(cell);
+      }
+
+      while(days.children.length % 7 !== 0){
+        const empty = document.createElement('div');
+        empty.className = 'day empty';
+        empty.textContent = '·';
+        days.appendChild(empty);
+      }
+
+      gridWrap.appendChild(days);
+      month.appendChild(gridWrap);
+      board.appendChild(month);
+    });
+  </script>
+  <script src="../../assets/shared/rv-floating-nav.js"></script>
+</body>
+</html>
