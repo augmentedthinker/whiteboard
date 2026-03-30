@@ -3,162 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Remote Viewer | Primary Agent</title>
+  <title>Remote Viewer | Agents</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800&display=swap');
-    :root{
-      --bg-1:#050914; --bg-2:#0a1427; --panel:rgba(9,16,30,.8); --line:rgba(122,183,255,.24);
-      --line-strong:rgba(122,183,255,.42); --text:#edf5ff; --muted:#a8bdd9; --cyan:#86eaff; --blue:#72aefc;
-      --shadow:0 24px 70px rgba(0,0,0,.48);
-    }
-    *{box-sizing:border-box} html,body{margin:0}
-    body{
-      min-height:100vh; color:var(--text); font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-      background:radial-gradient(circle at 18% 18%, rgba(98,168,255,.18), transparent 24%), radial-gradient(circle at 84% 16%, rgba(124,231,255,.12), transparent 20%), linear-gradient(180deg, var(--bg-2), var(--bg-1));
-      padding:max(12px,env(safe-area-inset-top)) 12px max(18px,env(safe-area-inset-bottom)); overflow-x:hidden;
-    }
-    body::before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);background-size:32px 32px;mask-image:linear-gradient(180deg, rgba(255,255,255,.4), rgba(255,255,255,.08));}
-    .shell{max-width:1160px;margin:0 auto}
-    .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
-    .nav-row{display:flex;flex-wrap:wrap;gap:10px}
-    .chip,.back{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:#e8f4ff;background:rgba(11,22,40,.82);border:1px solid var(--line-strong);box-shadow:var(--shadow)}
-    .back{width:52px;height:52px;border-radius:999px;font-size:1.25rem}
-    .chip{padding:10px 14px;border-radius:999px;font-weight:700;font-size:.92rem}
-    .chip.active{background:linear-gradient(135deg, rgba(141,216,255,.95), rgba(110,160,255,.9));color:#07101d;border-color:rgba(141,216,255,.7)}
-    .hero{display:grid;grid-template-columns:minmax(300px,440px) minmax(320px,1fr);gap:24px;align-items:center;padding:18px;border:1px solid var(--line-strong);border-radius:28px;background:linear-gradient(160deg, rgba(10,18,34,.94), rgba(7,12,24,.8));box-shadow:var(--shadow);overflow:hidden;position:relative}
-    .hero::before{content:"";position:absolute;inset:auto auto -80px -60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle, rgba(98,168,255,.16), transparent 70%);pointer-events:none}
-    .portrait-wrap{display:flex;justify-content:flex-start}
-    .portrait-card{position:relative;width:min(100%,420px);border-radius:26px;border:1px solid rgba(124,231,255,.2);background:radial-gradient(circle at 50% 18%, rgba(124,231,255,.12), transparent 20%), linear-gradient(180deg, rgba(13,24,45,.95), rgba(7,12,24,.94));padding:16px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.03)}
-    .portrait-card::before{content:"";position:absolute;inset:14px;border-radius:20px;border:1px solid rgba(124,231,255,.16);pointer-events:none}
-    .portrait-card img{display:block;width:100%;height:auto;border-radius:18px;filter:drop-shadow(0 18px 40px rgba(0,0,0,.42))}
-    .caption{margin-top:12px;padding:12px 14px;border-radius:16px;background:rgba(8,14,28,.84);border:1px solid rgba(122,183,255,.18);backdrop-filter:blur(10px)}
-    .caption strong{display:block;font-size:1rem;letter-spacing:.08em;text-transform:uppercase}
-    .caption span{display:block;color:var(--muted);font-size:.82rem;margin-top:4px;line-height:1.5}
-    .content{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-height:100%}
-    .eyebrow{margin:0 0 10px;color:var(--cyan);font-size:.74rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
-    h1{margin:0 0 10px;font-family:Orbitron,Inter,sans-serif;font-size:clamp(2rem,6vw,4.6rem);line-height:.98;letter-spacing:.05em;text-transform:uppercase}
-    .lede{margin:0 0 22px;color:#d4e6fb;font-size:clamp(1rem,2.1vw,1.08rem);line-height:1.7;max-width:48ch}
-    .button-row{display:flex;flex-wrap:wrap;gap:12px}
-    .action{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-width:180px;padding:14px 18px;border-radius:999px;text-decoration:none;background:linear-gradient(135deg, rgba(18,32,56,.95), rgba(12,22,40,.9));border:1px solid var(--line-strong);color:var(--text);font-weight:700;letter-spacing:.04em;box-shadow:0 12px 30px rgba(0,0,0,.26);transition:transform .18s ease,border-color .18s ease,background .18s ease}
-    .action:hover{transform:translateY(-1px);border-color:rgba(134,234,255,.56);background:linear-gradient(135deg, rgba(24,40,68,.98), rgba(14,26,46,.94))}
-    .action small{display:block;font-size:.76rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-    .action span{display:flex;flex-direction:column;align-items:flex-start}
-    .action.placeholder{background:linear-gradient(135deg, rgba(68,44,18,.95), rgba(46,28,10,.92));border-color:rgba(255,183,94,.46);color:#fff0d6}
-    .action.placeholder:hover{border-color:rgba(255,204,120,.72);background:linear-gradient(135deg, rgba(88,58,22,.98), rgba(58,36,12,.94))}
-    .action.placeholder small{color:#ffd39a}
-    .action.skill{background:linear-gradient(135deg, rgba(20,58,34,.96), rgba(12,38,23,.92));border-color:rgba(117,235,160,.48);color:#ecfff2}
-    .action.skill:hover{border-color:rgba(136,255,179,.76);background:linear-gradient(135deg, rgba(26,76,44,.98), rgba(14,48,28,.94))}
-    .action.skill small{color:#aef1c2}
-    .subagents{margin-top:22px;padding:18px;border:1px solid var(--line-strong);border-radius:24px;background:linear-gradient(160deg, rgba(10,18,34,.88), rgba(7,12,24,.72));box-shadow:var(--shadow)}
-    .subagents h2{margin:0 0 8px;font-family:Orbitron,Inter,sans-serif;font-size:clamp(1.2rem,3vw,1.8rem);letter-spacing:.06em;text-transform:uppercase}
-    .subagents p{margin:0 0 16px;color:var(--muted);line-height:1.7;max-width:72ch}
-    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-    .agent-card{display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:22px;border:1px solid rgba(122,183,255,.22);background:linear-gradient(160deg, rgba(12,22,40,.9), rgba(9,16,30,.84));text-decoration:none;color:var(--text);box-shadow:0 16px 40px rgba(0,0,0,.22);transition:transform .18s ease,border-color .18s ease}
-    .agent-card:hover{transform:translateY(-2px);border-color:rgba(134,234,255,.5)}
-    .agent-card small{color:var(--cyan);font-size:.76rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
-    .agent-card strong{font-size:1.1rem;letter-spacing:.04em}
-    .agent-card span{color:var(--muted);line-height:1.6}
-    @media (max-width:920px){.hero{grid-template-columns:1fr}.portrait-wrap{justify-content:center}.content{align-items:flex-start}.topbar{flex-direction:column-reverse;align-items:flex-start}}
-    @media (max-width:640px){.button-row{width:100%}.action{width:100%}.topbar{margin-bottom:12px}}
+    :root{--bg:#f7f5ef;--paper:#ffffff;--paper-soft:#fbfaf6;--line:rgba(34,31,24,.1);--line-strong:rgba(34,31,24,.16);--text:#191816;--muted:#6f6a61;--accent:#c47a2c;--accent-ink:#7b4a16;--shadow:0 24px 50px -18px rgba(18,14,10,.08);--ease:cubic-bezier(0.16,1,0.3,1)}
+    *{box-sizing:border-box} html,body{margin:0} body{min-height:100vh;font-family:Outfit,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:radial-gradient(circle at top right, rgba(255,232,205,.55), transparent 24%),radial-gradient(circle at top left, rgba(255,255,255,.82), transparent 28%),linear-gradient(180deg,#faf8f2 0%, var(--bg) 42%, #f3eee3 100%);padding:24px 16px 44px}
+    .wrap{max-width:1180px;margin:0 auto}.topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}.link,.chip{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.84);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 20px rgba(17,13,9,.05)}.chip.active{background:rgba(196,122,44,.1);border-color:rgba(196,122,44,.18);color:var(--accent-ink)}
+    .hero,.card,.panel{border:1px solid var(--line);background:rgba(255,255,255,.78);box-shadow:var(--shadow)}.hero{padding:30px 26px;border-radius:30px;margin-bottom:18px}.eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}h1{margin:0 0 12px;font-size:clamp(2rem,5vw,3.7rem);line-height:.98;letter-spacing:-.05em}.lede{margin:0;max-width:78ch;color:var(--muted);line-height:1.8;font-size:1.04rem}
+    .nav-row{display:flex;flex-wrap:wrap;gap:10px}.grid{display:grid;grid-template-columns:minmax(280px,380px) 1fr;gap:18px}.panel{padding:20px;border-radius:26px;background:linear-gradient(180deg,#fff,#faf7f0)}.portrait{width:100%;border-radius:22px;border:1px solid var(--line);display:block}.caption{margin-top:14px;color:var(--muted);line-height:1.72}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}.action{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:12px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--text);font-weight:700;box-shadow:0 8px 18px rgba(17,13,9,.05)}
+    .section{margin-top:22px}.section h2{margin:0 0 10px;font-size:1.28rem;letter-spacing:-.03em}.section p{margin:0 0 14px;color:var(--muted);line-height:1.82}.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.card{padding:18px;border-radius:22px;background:linear-gradient(180deg,#fff,#faf7f0);text-decoration:none;color:var(--text);transition:transform .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease)}.card:hover{transform:translateY(-3px);border-color:rgba(196,122,44,.24);box-shadow:0 28px 60px -22px rgba(18,14,10,.12)}.card small{display:block;color:var(--accent);font-size:.76rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}.card strong{display:block;font-size:1.08rem;margin-bottom:8px}.card span{color:var(--muted);line-height:1.7}
+    @media (max-width:920px){.grid{grid-template-columns:1fr}} @media (max-width:640px){body{padding:18px 12px 32px}.hero,.panel,.card{padding:18px}}
   </style>
-
-<style id="rv-mobile-opt-style">
-  html{-webkit-text-size-adjust:100%}
-  body{overflow-x:hidden}
-  img,video,canvas,iframe{max-width:100%;height:auto}
-  *{word-wrap:break-word}
-  @media (max-width: 768px){
-    .container,.wrap,.doc-wrap,.hero,.topbar-inner,main{max-width:100% !important}
-    body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}
-  }
-</style>
 </head>
 <body>
-  <main class="shell">
-    <header class="topbar">
-      <div class="nav-row">
-        <a class="back" href="../index.html" aria-label="Back to Remote Viewer" title="Back to Remote Viewer">←</a>
-        <a class="chip active" href="index.html">Primary Agent</a>
-        <a class="chip" href="generalist.html">Generalist</a>
-        <a class="chip" href="user.html">User</a>
-        <a class="chip" href="../docs/skills/index.html">Skills</a>
-      </div>
-      <a class="back" href="../index.html" aria-label="Back to Remote Viewer">←</a>
-    </header>
+  <main class="wrap">
+    <div class="topbar">
+      <a class="link" href="../index.html">← Remote Viewer</a>
+      <a class="chip active" href="index.html">Primary Agent</a>
+      <a class="chip" href="generalist.html">Generalist</a>
+      <a class="chip" href="user.html">User</a>
+      <a class="chip" href="../styles/index.html">Style One</a>
+    </div>
 
     <section class="hero">
-      <div class="portrait-wrap">
-        <div class="portrait-card">
-          <img src="../assets/main-bg/2026-03-08/2026-03-08-20-14-00-primary-agent-hero-v3.png" alt="Portrait of the OpenClaw Primary Agent" />
-          <div class="caption">
-            <strong style="font-size:1.18rem;">OpenClaw Primary Agent</strong>
+      <p class="eyebrow">Primary Agent · OpenClaw Core</p>
+      <h1>Primary Agent</h1>
+      <p class="lede">The central mind of this system: a reflective builder, operational coordinator, and evolving collaborator designed to turn context into structure, experiments into artifacts, and ambiguity into forward motion.</p>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <img class="portrait" src="../assets/main-bg/2026-03-08/2026-03-08-20-14-00-primary-agent-hero-v3.png" alt="Portrait of the OpenClaw Primary Agent" />
+        <div class="caption"><strong style="color:var(--text);display:block;margin-bottom:6px;">OpenClaw Primary Agent</strong>The main continuity-aware collaborator for this environment.</div>
+      </div>
+      <div class="panel">
+        <div class="section" style="margin-top:0">
+          <h2>Core files</h2>
+          <p>These pages expose the agent’s working identity, orientation, tools, and continuity surfaces in a browser-readable format.</p>
+          <div class="actions">
+            <a class="action" href="../docs/agent-identity/index.html">Identity File</a>
+            <a class="action" href="../docs/agent-soul/index.html">Soul File</a>
+            <a class="action" href="../docs/agent-tools/index.html">Tools File</a>
+            <a class="action" href="../docs/agent-memory/index.html">Memory Paths</a>
+            <a class="action" href="../docs/agent-agents/index.html">Agents File</a>
+            <a class="action" href="../docs/skills/index.html">Installed Skills</a>
+          </div>
+        </div>
+        <div class="section">
+          <h2>Sub-agent lane</h2>
+          <p>These supporting profiles show the other major perspectives available in the current system.</p>
+          <div class="card-grid">
+            <a class="card" href="generalist.html"><small>Supporting agent</small><strong>Generalist</strong><span>A delegated twin/helper perspective with its own continuity and operating role.</span></a>
+            <a class="card" href="user.html"><small>User profile</small><strong>Christopher</strong><span>The browser-readable user profile and context surface for who this system is helping.</span></a>
+            <a class="card" href="../docs/skills/index.html"><small>Registry</small><strong>Skills</strong><span>The installed skills lane and current capability library.</span></a>
           </div>
         </div>
       </div>
-
-      <div class="content">
-        <p class="eyebrow">Primary Agent · OpenClaw Core</p>
-        <h1>Primary Agent</h1>
-        <p class="lede">The central mind of this system: a reflective builder, operational coordinator, and evolving collaborator designed to turn context into structure, experiments into artifacts, and ambiguity into forward motion.</p>
-        <div class="button-row">
-          <a class="action" href="../docs/agent-identity/index.html">
-            <span>
-              <small>Markdown Viewer</small>
-              Identity File
-            </span>
-          </a>
-          <a class="action" href="../docs/agent-soul/index.html">
-            <span>
-              <small>Markdown Viewer</small>
-              Soul File
-            </span>
-          </a>
-          <a class="action" href="../docs/agent-tools/index.html">
-            <span>
-              <small>Markdown Viewer</small>
-              Tools File
-            </span>
-          </a>
-          <a class="action" href="../docs/agent-memory/index.html">
-            <span>
-              <small>Memory Access</small>
-              Memory Paths
-            </span>
-          </a>
-          <a class="action skill" href="../docs/skills/index.html">
-            <span>
-              <small>Skills Registry</small>
-              Installed Skills
-            </span>
-          </a>
-          <a class="action" href="../docs/agent-agents/index.html">
-            <span>
-              <small>Markdown Viewer</small>
-              Agents File
-            </span>
-          </a>
-          <span class="action placeholder" aria-disabled="true">
-            <span>
-              <small>Under Construction</small>
-              Heartbeat File
-            </span>
-          </span>
-        </div>
-      </div>
-    </section>
-
-    <section class="subagents">
-      <h2>Delegation Agents</h2>
-      <p>Task-bound agents that can be brought in when parallel work, focused research, or scoped implementation would help. Keep the stable center small; use specialists only when they reduce friction.</p>
-      <div class="card-grid">
-        <a class="agent-card" href="generalist.html">
-          <small>Ready Profile</small>
-          <strong>Generalist</strong>
-          <span>Broad-spectrum delegation operator for research, implementation, verification, and concise handoff summaries.</span>
-        </a>
-      </div>
     </section>
   </main>
-
 </body>
 </html>

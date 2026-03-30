@@ -4,235 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Remote Viewer | Next Steps</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#f6f7f9;--paper:#ffffff;--line:#d9dde3;--text:#1f2937;--muted:#667085;--accent:#2f6fed;--shadow:0 12px 30px rgba(15,23,42,.06);
-      --venture:#dbeafe;--venture-line:#93c5fd;--venture-ink:#1d4ed8;
-      --connection:#fce7f3;--connection-line:#f9a8d4;--connection-ink:#be185d;
-      --stewardship:#dcfce7;--stewardship-line:#86efac;--stewardship-ink:#166534;
-      --adventure:#fef3c7;--adventure-line:#fcd34d;--adventure-ink:#a16207;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0}
-    body{min-height:100vh;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,#f7f8fa,#f1f3f6 52%,#eceff3);color:var(--text);padding:max(12px,env(safe-area-inset-top)) 12px max(16px,env(safe-area-inset-bottom));line-height:1.55}
-    .container{max-width:980px;margin:0 auto}
-    .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
-    .link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.94);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 24px rgba(15,23,42,.05)}
-    .hero{padding:22px 20px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.88);box-shadow:var(--shadow);margin-bottom:14px}
-    .eyebrow{margin:0 0 10px;color:var(--accent);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
-    h1{margin:0 0 12px;font-size:clamp(2rem,6vw,3rem);line-height:1.02;letter-spacing:-.04em}
-    .sub{margin:0;color:var(--muted);line-height:1.8;font-size:1rem;max-width:72ch}
-    .forces{display:grid;gap:16px}
-    .force{border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.82);box-shadow:var(--shadow);overflow:hidden}
-    .force.venture{border-color:var(--venture-line);background:linear-gradient(180deg, rgba(219,234,254,.55), rgba(255,255,255,.92))}
-    .force.connection{border-color:var(--connection-line);background:linear-gradient(180deg, rgba(252,231,243,.58), rgba(255,255,255,.92))}
-    .force.stewardship{border-color:var(--stewardship-line);background:linear-gradient(180deg, rgba(220,252,231,.56), rgba(255,255,255,.92))}
-    .force.adventure{border-color:var(--adventure-line);background:linear-gradient(180deg, rgba(254,243,199,.62), rgba(255,255,255,.92))}
-    .force-toggle{width:100%;border:0;background:transparent;text-align:left;padding:16px 18px;display:flex;align-items:flex-start;justify-content:space-between;gap:14px;cursor:pointer;list-style:none}
-    .force-toggle::-webkit-details-marker{display:none}
-    .force-toggle:hover{background:rgba(255,255,255,.28)}
-    .force-copy h2{margin:0 0 6px;font-size:1.2rem;letter-spacing:-.02em}
-    .force-copy p{margin:0;color:var(--muted);line-height:1.65}
-    .chevron{flex:0 0 auto;font-size:1.2rem;color:#64748b;transition:transform .18s ease}
-    details[open] .chevron{transform:rotate(180deg)}
-    .cards{display:grid;gap:12px;padding:0 16px 16px}
-    .idea{padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--paper);box-shadow:0 8px 22px rgba(15,23,42,.05)}
-    .idea-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
-    .idea h3{margin:0;font-size:1.12rem;line-height:1.25;letter-spacing:-.02em}
-    .card-marker{font-size:1.08rem;color:#94a3b8;user-select:none}
-    .meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-    .chip{display:inline-block;padding:6px 10px;border-radius:999px;font-size:.78rem;font-weight:800;letter-spacing:.03em}
-    .chip.venture{background:var(--venture);color:var(--venture-ink);border:1px solid rgba(29,78,216,.10)}
-    .chip.connection{background:var(--connection);color:var(--connection-ink);border:1px solid rgba(190,24,93,.10)}
-    .chip.stewardship{background:var(--stewardship);color:var(--stewardship-ink);border:1px solid rgba(22,101,52,.10)}
-    .chip.adventure{background:var(--adventure);color:var(--adventure-ink);border:1px solid rgba(161,98,7,.16);box-shadow:inset 0 0 0 1px rgba(255,255,255,.24)}
-    .chip.placeholder{background:#f3f4f6;color:#6b7280}
-    .idea p{margin:0 0 12px;color:#475467;line-height:1.75}
-    .idea ul{margin:0;padding-left:1.2rem}
-    .idea li{margin:.28rem 0;color:#475467;line-height:1.6}
-    @media (max-width:760px){
-      body{padding:10px 0 24px;background:#fff}
-      .container{max-width:100%}
-      .hero,.force,.idea{border-radius:0;box-shadow:none;border-left:0;border-right:0}
-      .hero{padding:18px 14px 14px}
-      .force-toggle{padding:14px}
-      .cards{padding:0 14px 14px}
-      .idea{padding:16px 14px}
-      .topbar{padding:0 10px}
-      .link{padding:9px 12px;font-size:.9rem;box-shadow:none}
-      h1{font-size:1.9rem}
-      .sub,.idea p,.idea li,.force-copy p{overflow-wrap:anywhere}
-    }
+    :root{--bg:#f7f5ef;--paper:#ffffff;--paper-soft:#fbfaf6;--line:rgba(34,31,24,.1);--line-strong:rgba(34,31,24,.16);--text:#191816;--muted:#6f6a61;--accent:#c47a2c;--accent-ink:#7b4a16;--shadow:0 24px 50px -18px rgba(18,14,10,.08);--ease:cubic-bezier(0.16,1,0.3,1);--venture:#eef4ff;--venture-line:#bfd3ff;--venture-ink:#335eaa;--connection:#fff0f6;--connection-line:#f1bfd2;--connection-ink:#a24f74;--stewardship:#eefbf1;--stewardship-line:#bfe4c6;--stewardship-ink:#467756;--adventure:#fff8ea;--adventure-line:#edd7a2;--adventure-ink:#946c1f}
+    *{box-sizing:border-box} html,body{margin:0} body{min-height:100vh;font-family:Outfit,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:radial-gradient(circle at top right, rgba(255,232,205,.55), transparent 24%),radial-gradient(circle at top left, rgba(255,255,255,.82), transparent 28%),linear-gradient(180deg,#faf8f2 0%, var(--bg) 42%, #f3eee3 100%);padding:24px 16px 44px}
+    .wrap{max-width:1100px;margin:0 auto}.topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}.link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.84);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 20px rgba(17,13,9,.05)}
+    .hero,.force,.idea{border:1px solid var(--line);background:rgba(255,255,255,.78);box-shadow:var(--shadow)} .hero{padding:30px 26px;border-radius:30px;margin-bottom:18px}.eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}h1{margin:0 0 12px;font-size:clamp(2rem,5vw,3.7rem);line-height:.98;letter-spacing:-.05em}.sub{margin:0;max-width:78ch;color:var(--muted);line-height:1.8;font-size:1.04rem}
+    .forces{display:grid;gap:18px}.force{border-radius:26px;overflow:hidden}.force.venture{border-color:var(--venture-line);background:linear-gradient(180deg, rgba(238,244,255,.82), rgba(255,255,255,.94))}.force.connection{border-color:var(--connection-line);background:linear-gradient(180deg, rgba(255,240,246,.82), rgba(255,255,255,.94))}.force.stewardship{border-color:var(--stewardship-line);background:linear-gradient(180deg, rgba(238,251,241,.82), rgba(255,255,255,.94))}.force.adventure{border-color:var(--adventure-line);background:linear-gradient(180deg, rgba(255,248,234,.82), rgba(255,255,255,.94))}
+    .force-toggle{width:100%;border:0;background:transparent;text-align:left;padding:18px 20px;display:flex;align-items:flex-start;justify-content:space-between;gap:14px;cursor:pointer;list-style:none}.force-toggle::-webkit-details-marker{display:none}.force-copy h2{margin:0 0 6px;font-size:1.22rem;letter-spacing:-.02em}.force-copy p{margin:0;color:var(--muted);line-height:1.7}.chevron{flex:0 0 auto;font-size:1.2rem;color:#7e7366;transition:transform .18s ease}details[open] .chevron{transform:rotate(180deg)}
+    .cards{display:grid;gap:12px;padding:0 18px 18px}.idea{padding:18px;border-radius:20px;background:linear-gradient(180deg,#fff,#faf7f0)}.idea-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}.idea h3{margin:0;font-size:1.12rem;line-height:1.25;letter-spacing:-.02em}.card-marker{font-size:1.08rem;color:#b2a797;user-select:none}.meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.chip{display:inline-block;padding:6px 10px;border-radius:999px;font-size:.78rem;font-weight:800;letter-spacing:.03em}.chip.venture{background:var(--venture);color:var(--venture-ink);border:1px solid rgba(51,94,170,.12)}.chip.connection{background:var(--connection);color:var(--connection-ink);border:1px solid rgba(162,79,116,.12)}.chip.stewardship{background:var(--stewardship);color:var(--stewardship-ink);border:1px solid rgba(70,119,86,.12)}.chip.adventure{background:var(--adventure);color:var(--adventure-ink);border:1px solid rgba(148,108,31,.12)}.idea p,.idea li{margin:0 0 12px;color:var(--muted);line-height:1.75}.idea ul{margin:0;padding-left:1.2rem}
+    @media (max-width:760px){body{padding:18px 12px 32px}.hero,.force-toggle,.idea{padding:18px}.cards{padding:0 12px 12px}}
   </style>
-  <style id="rv-mobile-opt-style">html{-webkit-text-size-adjust:100%}body{overflow-x:hidden}img,video,canvas,iframe{max-width:100%;height:auto}*{word-wrap:break-word}@media (max-width:768px){.container,.wrap,.doc-wrap,.hero,.topbar-inner,main{max-width:100% !important}body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}}</style>
 </head>
 <body>
-  <div class="container">
-    <div class="topbar">
-      <a class="link" href="../index.html">← Remote Viewer</a>
-    </div>
-    <section class="hero">
-      <p class="eyebrow">Remote Viewer · Next Steps</p>
-      <h1>Next Steps</h1>
-      <p class="sub">A dedicated page for current next-step ideas, organized by the four forces. Open a force to view its cards.</p>
-    </section>
-
+  <div class="wrap">
+    <div class="topbar"><a class="link" href="../index.html">← Remote Viewer</a><a class="link" href="../styles/index.html">Style One</a></div>
+    <section class="hero"><p class="eyebrow">Remote Viewer · Next Steps</p><h1>Next Steps</h1><p class="sub">A dedicated page for current next-step ideas, organized by the four forces. This page now follows Style One: the house style by default, with the force colors kept as a softer lane-specific overlay rather than a separate visual universe.</p></section>
     <section class="forces">
-      <details class="force venture">
-        <summary class="force-toggle">
-          <div class="force-copy">
-            <h2>Venture / Applied AI</h2>
-            <p>Moves related to building, shipping, testing, technical leverage, and external usefulness.</p>
-          </div>
-          <div class="chevron">⌄</div>
-        </summary>
-        <div class="cards">
-          <article class="idea">
-            <div class="idea-head">
-              <h3>Vercel as a General Backend Option</h3>
-              <div class="card-marker" aria-hidden="true">◫</div>
-            </div>
-            <div class="meta"><span class="chip venture">Venture</span></div>
-            <p>Use Vercel as a lightweight backend/runtime layer for projects that need real state, server-side secrets, or cross-device continuity — not just for the citation app.</p>
-            <ul>
-              <li>server-side key storage for product-like tools</li>
-              <li>stateful systems such as next-step checkoffs and completion tracking</li>
-              <li>cleaner multi-device behavior than browser-only local storage</li>
-              <li>a better home for backend routes, persistence, and lightweight app logic</li>
-            </ul>
-          </article>
-          <article class="idea">
-            <div class="idea-head">
-              <h3>Social Media Plan</h3>
-              <div class="card-marker" aria-hidden="true">◫</div>
-            </div>
-            <div class="meta"><span class="chip venture">Venture</span></div>
-            <p>Clarify how social media should function as proof-of-work, signal, and strategic visibility without drifting into empty performance.</p>
-            <ul>
-              <li>decide the real role of X in the system</li>
-              <li>define what is worth posting versus keeping private</li>
-              <li>turn instinct into a repeatable lightweight plan</li>
-            </ul>
-          </article>
-          <article class="idea">
-            <div class="idea-head">
-              <h3>Structured AI Learning Plan</h3>
-              <div class="card-marker" aria-hidden="true">◫</div>
-            </div>
-            <div class="meta"><span class="chip venture">Venture</span></div>
-            <p>Create a deliberate rhythm for staying current with AI so learning happens on purpose instead of leaking into random moments of supposed rest.</p>
-            <ul>
-              <li>define a recurring cadence for watching, reading, and catching up</li>
-              <li>decide which channels and sources actually deserve regular attention</li>
-              <li>turn long-form content into short digestible summaries or mirrored notes</li>
-              <li>optionally route the best distilled takeaways into X or Blogger</li>
-            </ul>
-          </article>
-        </div>
-      </details>
-
-      <details class="force connection">
-        <summary class="force-toggle">
-          <div class="force-copy">
-            <h2>Connection / Relational Identity</h2>
-            <p>Moves related to relationships, presentation to other people, trust, and relational presence.</p>
-          </div>
-          <div class="chevron">⌄</div>
-        </summary>
-        <div class="cards">
-          <article class="idea">
-            <div class="idea-head">
-              <h3>Hangout with Friends</h3>
-              <div class="card-marker" aria-hidden="true">◫</div>
-            </div>
-            <div class="meta"><span class="chip connection">Connection</span></div>
-            <p>Make space for an actual social hangout so friendship stays lived rather than indefinitely deferred.</p>
-            <ul>
-              <li>decide who would feel good to reach out to</li>
-              <li>pick a low-friction format</li>
-              <li>get something on the calendar</li>
-            </ul>
-          </article>
-          <article class="idea">
-            <div class="idea-head">
-              <h3>Spiritual Journey</h3>
-              <div class="card-marker" aria-hidden="true">◫</div>
-            </div>
-            <div class="meta"><span class="chip connection">Connection</span></div>
-            <p>Give spiritual life more deliberate shape as part of relationship — to self, to meaning, to others, or to something larger.</p>
-            <ul>
-              <li>clarify what kind of spiritual practice feels real right now</li>
-              <li>choose one concrete form of engagement</li>
-              <li>make it part of lived relational life rather than abstract aspiration</li>
-            </ul>
-          </article>
-        </div>
-      </details>
-
-      <details class="force stewardship">
-        <summary class="force-toggle">
-          <div class="force-copy">
-            <h2>Life Stewardship</h2>
-            <p>Moves related to keeping life functional, cared for, organized, and sustainable.</p>
-          </div>
-          <div class="chevron">⌄</div>
-        </summary>
-        <div class="cards">
-          <article class="idea">
-            <div class="idea-head">
-              <h3>Doctor Appointment</h3>
-              <div class="card-marker" aria-hidden="true">◫</div>
-            </div>
-            <div class="meta"><span class="chip stewardship">Stewardship</span></div>
-            <p>Make sure a doctor appointment is identified, scheduled, and not left drifting in the background.</p>
-            <ul>
-              <li>figure out what type of appointment is needed</li>
-              <li>confirm provider, insurance, or booking path</li>
-              <li>get it onto the calendar</li>
-            </ul>
-          </article>
-          <article class="idea">
-            <div class="idea-head">
-              <h3>Dentist Cleaning</h3>
-              <div class="card-marker" aria-hidden="true">◫</div>
-            </div>
-            <div class="meta"><span class="chip stewardship">Stewardship</span></div>
-            <p>Schedule a routine dental cleaning so it stays in the cared-for category instead of becoming overdue maintenance.</p>
-            <ul>
-              <li>check last cleaning timing</li>
-              <li>identify dentist office or booking route</li>
-              <li>lock in a date</li>
-            </ul>
-          </article>
-        </div>
-      </details>
-
-      <details class="force adventure">
-        <summary class="force-toggle">
-          <div class="force-copy">
-            <h2>Adventure / Aliveness</h2>
-            <p>Moves related to novelty, energy, exploration, and what makes life feel vivid instead of merely efficient.</p>
-          </div>
-          <div class="chevron">⌄</div>
-        </summary>
-        <div class="cards">
-          <article class="idea">
-            <div class="idea-head">
-              <h3>New Experience</h3>
-              <div class="card-marker" aria-hidden="true">◫</div>
-            </div>
-            <div class="meta"><span class="chip adventure">Adventure</span></div>
-            <p>Create room for a genuinely new experience so life gains novelty and freshness, not just maintenance and output.</p>
-            <ul>
-              <li>pick something small but real</li>
-              <li>opt for lived novelty over vague fantasy</li>
-              <li>let it add texture to the week</li>
-            </ul>
-          </article>
-        </div>
-      </details>
+      <details class="force venture" open><summary class="force-toggle"><div class="force-copy"><h2>Venture / Applied AI</h2><p>Moves related to building, shipping, testing, technical leverage, and external usefulness.</p></div><div class="chevron">⌄</div></summary><div class="cards"><article class="idea"><div class="idea-head"><h3>Vercel as a General Backend Option</h3><div class="card-marker">◫</div></div><div class="meta"><span class="chip venture">Venture</span></div><p>Use Vercel as a lightweight backend/runtime layer for projects that need real state, server-side secrets, or cross-device continuity — not just for the citation app.</p><ul><li>server-side key storage for product-like tools</li><li>stateful systems such as next-step checkoffs and completion tracking</li><li>cleaner multi-device behavior than browser-only local storage</li><li>a better home for backend routes, persistence, and lightweight app logic</li></ul></article><article class="idea"><div class="idea-head"><h3>Social Media Plan</h3><div class="card-marker">◫</div></div><div class="meta"><span class="chip venture">Venture</span></div><p>Clarify how social media should function as proof-of-work, signal, and strategic visibility without drifting into empty performance.</p><ul><li>decide the real role of X in the system</li><li>define what is worth posting versus keeping private</li><li>turn instinct into a repeatable lightweight plan</li></ul></article><article class="idea"><div class="idea-head"><h3>Structured AI Learning Plan</h3><div class="card-marker">◫</div></div><div class="meta"><span class="chip venture">Venture</span></div><p>Create a deliberate rhythm for staying current with AI so learning happens on purpose instead of leaking into random moments of supposed rest.</p><ul><li>define a recurring cadence for watching, reading, and catching up</li><li>decide which channels and sources actually deserve regular attention</li><li>turn long-form content into short digestible summaries or mirrored notes</li><li>optionally route the best distilled takeaways into X or Blogger</li></ul></article></div></details>
+      <details class="force connection"><summary class="force-toggle"><div class="force-copy"><h2>Connection / Relational Identity</h2><p>Moves related to relationships, presentation to other people, trust, and relational presence.</p></div><div class="chevron">⌄</div></summary><div class="cards"><article class="idea"><div class="idea-head"><h3>Public-facing personal site clarity</h3><div class="card-marker">◫</div></div><div class="meta"><span class="chip connection">Connection</span></div><p>Clarify how Christopher should present himself publicly across hosted pages and social surfaces without flattening complexity or drifting into cosplay.</p></article></div></details>
+      <details class="force stewardship"><summary class="force-toggle"><div class="force-copy"><h2>Stewardship / Stability</h2><p>Moves related to environment reliability, maintenance, continuity, and keeping the system durable.</p></div><div class="chevron">⌄</div></summary><div class="cards"><article class="idea"><div class="idea-head"><h3>Remote Viewer style governance</h3><div class="card-marker">◫</div></div><div class="meta"><span class="chip stewardship">Stewardship</span></div><p>Keep turning the style system into something deliberate: house style by default, exceptions by intent, less random page drift over time.</p></article></div></details>
+      <details class="force adventure"><summary class="force-toggle"><div class="force-copy"><h2>Adventure / Aliveness</h2><p>Moves related to exploration, surprise, freshness, and keeping the system from collapsing into pure maintenance.</p></div><div class="chevron">⌄</div></summary><div class="cards"><article class="idea"><div class="idea-head"><h3>Protect the experimental lane</h3><div class="card-marker">◫</div></div><div class="meta"><span class="chip adventure">Adventure</span></div><p>Make room for pages and artifacts that are not merely practical — things that feel alive, playful, or conceptually strange in a good way.</p></article></div></details>
     </section>
   </div>
-
-  </body>
+</body>
 </html>

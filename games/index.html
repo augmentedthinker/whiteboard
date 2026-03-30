@@ -4,64 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Games Portal | Remote Viewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#0c1224;--panel:#131c36;--panel2:#10172d;--border:#2b396b;--text:#eaf0ff;--muted:#b4c0ea}
-    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at top right,#202f63,var(--bg) 48%);min-height:100vh;padding:16px}
-    .wrap{max-width:1040px;margin:0 auto}.hero{background:linear-gradient(145deg,var(--panel),var(--panel2));border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:16px}
-    h1{margin:0 0 6px;font-size:clamp(1.3rem,4.5vw,2rem)} p{margin:0;color:var(--muted)}
-    .section{margin-top:14px}.section h2{font-size:.95rem;text-transform:uppercase;letter-spacing:.06em;color:#c7d6ff;margin:10px 4px}
-    .item{display:block;text-decoration:none;color:inherit;background:linear-gradient(140deg,rgba(34,46,86,.92),rgba(24,34,66,.9));border:1px solid rgba(153,181,255,.42);border-radius:12px;padding:12px;margin-bottom:10px}
-    .item:hover{transform:translateY(-1px)} .item strong{display:block;margin-bottom:2px} .item small{color:#b7c3e8}
-    .good{border-left:4px solid #2ecc71}.maybe{border-left:4px solid #f1c40f}.archive{border-left:4px solid #e67e22}
-    .back{display:inline-block;margin-top:12px;text-decoration:none;color:#eaf0ff;border:1px solid rgba(153,181,255,.6);padding:10px 12px;border-radius:10px;background:rgba(28,40,74,.92)}
+    :root{--bg:#f7f5ef;--paper:#ffffff;--paper-soft:#fbfaf6;--line:rgba(34,31,24,.1);--line-strong:rgba(34,31,24,.16);--text:#191816;--muted:#6f6a61;--accent:#c47a2c;--accent-ink:#7b4a16;--shadow:0 24px 50px -18px rgba(18,14,10,.08);--ease:cubic-bezier(0.16,1,0.3,1)}
+    *{box-sizing:border-box} html,body{margin:0} body{min-height:100vh;font-family:Outfit,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:radial-gradient(circle at top right, rgba(255,232,205,.55), transparent 24%),radial-gradient(circle at top left, rgba(255,255,255,.82), transparent 28%),linear-gradient(180deg,#faf8f2 0%, var(--bg) 42%, #f3eee3 100%);padding:24px 16px 44px}
+    .wrap{max-width:1100px;margin:0 auto}.topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}.link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.84);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 20px rgba(17,13,9,.05)}
+    .hero,.item,.note{border:1px solid var(--line);background:rgba(255,255,255,.78);box-shadow:var(--shadow)}.hero{padding:30px 26px;border-radius:30px;margin-bottom:18px}.eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}h1{margin:0 0 12px;font-size:clamp(2rem,5vw,3.7rem);line-height:.98;letter-spacing:-.05em}.sub{margin:0;max-width:78ch;color:var(--muted);line-height:1.8;font-size:1.04rem}
+    .section{margin-top:18px}.section h2{margin:0 0 12px;font-size:1.18rem;letter-spacing:-.02em}.item{display:block;text-decoration:none;color:inherit;border-radius:22px;padding:18px;margin-bottom:12px;background:linear-gradient(180deg,#fff,#faf7f0);transition:transform .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease)}.item:hover{transform:translateY(-3px);border-color:rgba(196,122,44,.24);box-shadow:0 28px 60px -22px rgba(18,14,10,.12)}.item strong{display:block;margin-bottom:6px;font-size:1.05rem}.item small{color:var(--muted);line-height:1.7}.good{border-left:4px solid #7aa879}.maybe{border-left:4px solid #d6b15c}.archive{border-left:4px solid #c47a2c}.note{margin-top:18px;padding:16px 18px;border-radius:20px;background:linear-gradient(180deg,#fff,#f8f4eb);color:var(--muted)}
+    @media (max-width:640px){body{padding:18px 12px 32px}.hero,.item,.note{padding:18px}}
   </style>
-
-<style id="rv-mobile-opt-style">
-  html{-webkit-text-size-adjust:100%}
-  body{overflow-x:hidden}
-  img,video,canvas,iframe{max-width:100%;height:auto}
-  *{word-wrap:break-word}
-  @media (max-width: 768px){
-    .container,.wrap,.doc-wrap,.hero,.topbar-inner,main{max-width:100% !important}
-    body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}
-  }
-</style>
 </head>
 <body>
   <main class="wrap">
-    <a class="back" href="../index.html" style="margin:0 0 12px;display:inline-block;">← Remote Viewer</a>
-    <section class="hero">
-      <h1>🎮 Games Portal</h1>
-      <p>Curated game links grouped by current confidence: Good & Working, Maybe / Needs Work, plus an Archived drop-down.</p>
-    </section>
-
-    <section class="section">
-      <h2>✅ Good & Working</h2>
-      <a class="item good" href="https://augmentedthinker.github.io/1942/" target="_blank"><strong>1942</strong><small>Arcade shooter clone (browser).</small></a>
-      <a class="item good" href="https://augmentedthinker.github.io/smario/" target="_blank"><strong>smario</strong><small>Super Mini Bros clone (browser).</small></a>
-      <a class="item good" href="https://augmentedthinker.github.io/gameboy/" target="_blank"><strong>gameboy</strong><small>Retro multi-game interface.</small></a>
-    </section>
-
-    <section class="section">
-      <h2>🟡 Maybe / Needs Work</h2>
-      <a class="item maybe" href="https://augmentedthinker.github.io/fight/" target="_blank"><strong>RPG 1.0</strong><small>Renamed from fight branch.</small></a>
-      <a class="item maybe" href="https://augmentedthinker.github.io/FIGHT-TAVERN/" target="_blank"><strong>RPG 2.0</strong><small>Renamed from Fight Tavern branch.</small></a>
-      <a class="item maybe" href="https://augmentedthinker.github.io/DICE/" target="_blank"><strong>DICE</strong><small>Brought back from archive.</small></a>
-      <a class="item maybe" href="https://augmentedthinker.github.io/shootingballs/" target="_blank"><strong>shootingballs</strong><small>A-Frame / Quest references present.</small></a>
-      <a class="item maybe" href="https://augmentedthinker.github.io/walky/" target="_blank"><strong>walky</strong><small>Interactive prototype; classification pending.</small></a>
-    </section>
-
-    <section class="section">
-      <details>
-        <summary><h2 style="display:inline">🗄️ Archived (collapsed)</h2></summary>
-        <div style="margin-top:10px">
-          <p class="muted" style="margin:0">No archived game repos currently listed.</p>
-        </div>
-      </details>
-    </section>
-
-    <a class="back" href="../index.html">← Back to Remote Viewer</a>
+    <div class="topbar"><a class="link" href="../index.html">← Remote Viewer</a><a class="link" href="../styles/index.html">Style One</a></div>
+    <section class="hero"><p class="eyebrow">Remote Viewer · Games</p><h1>Games Portal</h1><p class="sub">A curated launcher for separate game experiences and repos. The hub itself now follows Style One, while the actual game links still open outward to their own hosted worlds.</p></section>
+    <section class="section"><h2>Good & Working</h2><a class="item good" href="https://augmentedthinker.github.io/1942/" target="_blank"><strong>1942</strong><small>Arcade shooter clone in the browser.</small></a><a class="item good" href="https://augmentedthinker.github.io/smario/" target="_blank"><strong>smario</strong><small>Super Mini Bros clone in the browser.</small></a><a class="item good" href="https://augmentedthinker.github.io/gameboy/" target="_blank"><strong>gameboy</strong><small>Retro multi-game interface.</small></a></section>
+    <section class="section"><h2>Maybe / Needs Work</h2><a class="item maybe" href="https://augmentedthinker.github.io/fight/" target="_blank"><strong>RPG 1.0</strong><small>Renamed from fight branch.</small></a><a class="item maybe" href="https://augmentedthinker.github.io/FIGHT-TAVERN/" target="_blank"><strong>RPG 2.0</strong><small>Renamed from Fight Tavern branch.</small></a><a class="item maybe" href="https://augmentedthinker.github.io/DICE/" target="_blank"><strong>DICE</strong><small>Brought back from archive.</small></a><a class="item maybe" href="https://augmentedthinker.github.io/shootingballs/" target="_blank"><strong>shootingballs</strong><small>A-Frame / Quest references present.</small></a><a class="item maybe" href="https://augmentedthinker.github.io/walky/" target="_blank"><strong>walky</strong><small>Interactive prototype; classification pending.</small></a></section>
+    <section class="section"><details><summary><h2 style="display:inline">Archived</h2></summary><div style="margin-top:10px"><p class="note" style="margin:0">No archived game repos currently listed.</p></div></details></section>
   </main>
-
 </body>
 </html>
