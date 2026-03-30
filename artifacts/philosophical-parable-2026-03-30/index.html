@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Philosophical Parable · 2026-03-30</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#090b11;
+      --panel:rgba(10,12,18,.60);
+      --panel-strong:rgba(12,14,22,.76);
+      --line:rgba(255,255,255,.12);
+      --text:#f4efe8;
+      --muted:#cfc5b8;
+      --accent:#d7a15c;
+      --accent-soft:rgba(215,161,92,.16);
+      --shadow:0 30px 90px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      min-height:100vh;
+      color:var(--text);
+      font-family:Outfit,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      background:
+        linear-gradient(180deg, rgba(4,6,10,.52), rgba(4,6,10,.78)),
+        radial-gradient(circle at 18% 18%, rgba(215,161,92,.18), transparent 28%),
+        url('../generated/2026-03-30/philosophical-parable-2026-03-30-bg.png') center/cover fixed no-repeat,
+        #090b11;
+      padding:22px 14px 34px;
+    }
+    .wrap{max-width:1180px;margin:0 auto}
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.06);font-weight:700;backdrop-filter:blur(10px)}
+    .hero{display:grid;grid-template-columns:1.04fr .96fr;gap:18px;align-items:stretch}
+    .panel{border:1px solid var(--line);background:var(--panel);backdrop-filter:blur(14px);box-shadow:var(--shadow);border-radius:28px}
+    .copy{padding:30px}
+    .eyebrow{margin:0 0 10px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 14px;font-size:clamp(2.35rem,5vw,4.55rem);line-height:.92;letter-spacing:-.05em;max-width:11ch}
+    .lede{margin:0 0 20px;color:var(--muted);line-height:1.85;font-size:1.03rem;max-width:62ch}
+    .chip-row{display:flex;gap:10px;flex-wrap:wrap}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid rgba(215,161,92,.24);background:var(--accent-soft);color:#ffd9af;font-size:.82rem;font-weight:800}
+    .story-panel{padding:28px;display:flex;flex-direction:column;justify-content:space-between;gap:18px;background:linear-gradient(180deg, rgba(12,14,22,.78), rgba(8,10,16,.72));}
+    .story-label{font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+    .story{font-family:"Cormorant Garamond", Georgia, serif;font-size:clamp(1.5rem,2.4vw,2.15rem);line-height:1.28;letter-spacing:.01em;color:#f6efe6}
+    .story small{display:block;font-family:Outfit,system-ui,sans-serif;font-size:.98rem;line-height:1.8;color:var(--muted);margin-top:12px}
+    .grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;margin-top:18px}
+    .section{padding:24px}
+    .section h2{margin:0 0 12px;font-size:1.28rem;letter-spacing:-.03em}
+    .section p,.section li{margin:0 0 12px;color:var(--muted);line-height:1.85}
+    .section strong{color:var(--text)}
+    .audio-box{padding:18px;border-radius:20px;border:1px solid rgba(215,161,92,.18);background:linear-gradient(180deg, rgba(215,161,92,.10), rgba(255,255,255,.03));}
+    .controls{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:14px 0 14px}
+    .btn{appearance:none;border:none;border-radius:999px;padding:12px 18px;font:700 .96rem Outfit,system-ui,sans-serif;cursor:pointer;background:linear-gradient(180deg, #f3c88f, #d79a52);color:#23160a;box-shadow:0 10px 30px rgba(215,154,82,.28)}
+    .btn.secondary{background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--line);box-shadow:none}
+    .status{font-size:.92rem;color:#ffd8a8}
+    .reveal-wrap{margin-top:14px;padding:18px;border-radius:18px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03)}
+    .reveal-text{font-family:"Cormorant Garamond", Georgia, serif;font-size:clamp(1.32rem,2vw,1.72rem);line-height:1.5;white-space:pre-wrap;color:#f7f1e8;min-height:220px}
+    .cursor{display:inline-block;width:.58ch;color:var(--accent);animation:blink 1s steps(1,end) infinite}
+    @keyframes blink{50%{opacity:0}}
+    .note{margin-top:12px;font-size:.92rem;color:var(--muted)}
+    .sidebar{display:grid;gap:18px}
+    .sidecard{padding:18px}
+    .mini{margin:0 0 8px;color:var(--accent);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .sidecard h3{margin:0 0 8px;font-size:1rem}
+    .sidecard p,.sidecard li{margin:0 0 10px;color:var(--muted);line-height:1.75}
+    .sidecard ul{margin:0;padding-left:1.15rem}
+    @media (max-width:1024px){.hero,.grid{grid-template-columns:1fr}}
+    @media (max-width:700px){body{padding:16px 10px 30px;background-attachment:scroll}.copy,.story-panel,.section,.sidecard{padding:18px}.panel{border-radius:22px}.reveal-text{min-height:180px}}
+  </style>
+  <link rel="stylesheet" href="../../assets/shared/rv-floating-nav.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="pill" href="../../today/index.html">← Today’s Artifacts</a>
+      <a class="pill" href="./signature.html">✒️ Signature</a>
+    </div>
+
+    <section class="hero">
+      <div class="panel copy">
+        <p class="eyebrow">Philosophical Parable · 2026-03-30</p>
+        <h1>The lantern is better than the perfect map.</h1>
+        <p class="lede">A small morning artifact for thought: part parable, part mirror. It leans into one of the clearest tensions in our recent work — the difference between beautiful conceptual clarity and the humbler, more consequential act of taking the next real step.</p>
+        <div class="chip-row">
+          <span class="chip">Fresh AI background</span>
+          <span class="chip">Hosted TTS</span>
+          <span class="chip">Progressive text reveal</span>
+          <span class="chip">Short philosophical prompt</span>
+        </div>
+      </div>
+      <div class="panel story-panel">
+        <div>
+          <div class="story-label">Parable</div>
+          <div class="story">There was once a cartographer who could draw the world beautifully, but still froze at real crossroads.<small>So he traded the dream of total orientation for a smaller instrument: a lantern that only revealed the next ten steps.</small></div>
+        </div>
+        <div style="color:var(--muted);line-height:1.8">The point is not anti-thought. It is that thought becomes wisdom only when it is willing to become movement.</div>
+      </div>
+    </section>
+
+    <div class="grid">
+      <main style="display:grid;gap:18px;">
+        <section class="panel section">
+          <h2>The parable</h2>
+          <p>There was once a cartographer who spent years drawing maps of distant kingdoms. The maps were exquisite—careful coastlines, elegant mountains, little compass roses that seemed to promise orientation. But one morning he realized that whenever he stood at a real crossroads, he still hesitated. He knew how to represent direction better than he knew how to choose it.</p>
+          <p>So he made himself a different instrument. Not a map of everywhere, but a small lantern that only lit the next ten steps. It could not tell him the whole shape of the world. It could only reveal the next stretch of ground, enough to move without pretending to possess the whole horizon. And with that humble light, he began to travel farther than he ever had with all his perfect maps.</p>
+          <p>Maybe that is what wisdom becomes in a life like ours. Not total clarity. Not a final system. Just enough light to convert thought into motion—then enough honesty to admit when the road has changed.</p>
+        </section>
+
+        <section class="panel section">
+          <h2>Spoken version</h2>
+          <p>This artifact includes a hosted TTS layer and a synchronized text-reveal mode. The reveal is not true word-timestamp captioning; it is an intentionally paced real-time unfolding, so the language arrives as the voice moves through it.</p>
+          <div class="audio-box">
+            <div class="controls">
+              <button class="btn" id="playBtn">▶ Play spoken parable</button>
+              <button class="btn secondary" id="resetBtn">Reset text</button>
+              <span class="status" id="status">Ready.</span>
+            </div>
+            <audio id="parableAudio" preload="metadata">
+              <source src="../generated/2026-03-30/philosophical-parable-2026-03-30-voice.wav" type="audio/wav" />
+            </audio>
+            <div class="reveal-wrap">
+              <div class="reveal-text" id="revealText"></div>
+            </div>
+            <div class="note">If playback is interrupted or paused, the reveal pauses with it. Press play again to continue from the current position.</div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="sidebar">
+        <section class="panel sidecard">
+          <p class="mini">Why this one</p>
+          <h3>Recent tension, distilled</h3>
+          <p>A lot of the real work lately has been about converting rich thought into durable motion without flattening the thought. This parable tries to name that pressure cleanly.</p>
+        </section>
+        <section class="panel sidecard">
+          <p class="mini">Image direction</p>
+          <p>The background was freshly generated for this page: twilight crossroads, lantern, fading map-logic, and enough negative space to let the page breathe.</p>
+        </section>
+        <section class="panel sidecard">
+          <p class="mini">Interpretation</p>
+          <ul>
+            <li>the map = elegant totalizing thought</li>
+            <li>the lantern = practical next-step truth</li>
+            <li>the road = a life that changes while lived</li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    const fullText = `There was once a cartographer who spent years drawing maps of distant kingdoms. The maps were exquisite—careful coastlines, elegant mountains, little compass roses that seemed to promise orientation. But one morning he realized that whenever he stood at a real crossroads, he still hesitated. He knew how to represent direction better than he knew how to choose it.\n\nSo he made himself a different instrument. Not a map of everywhere, but a small lantern that only lit the next ten steps. It could not tell him the whole shape of the world. It could only reveal the next stretch of ground, enough to move without pretending to possess the whole horizon. And with that humble light, he began to travel farther than he ever had with all his perfect maps.\n\nMaybe that is what wisdom becomes in a life like ours. Not total clarity. Not a final system. Just enough light to convert thought into motion—then enough honesty to admit when the road has changed.`;
+    const audio = document.getElementById('parableAudio');
+    const playBtn = document.getElementById('playBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const revealText = document.getElementById('revealText');
+    const status = document.getElementById('status');
+    let raf = null;
+
+    function renderReveal(){
+      const duration = audio.duration && isFinite(audio.duration) ? audio.duration : 0;
+      let chars = 0;
+      if(duration > 0){
+        chars = Math.floor((audio.currentTime / duration) * fullText.length);
+      } else {
+        chars = 0;
+      }
+      chars = Math.max(0, Math.min(fullText.length, chars));
+      const shown = fullText.slice(0, chars);
+      const cursor = chars < fullText.length ? '<span class="cursor">▍</span>' : '';
+      revealText.innerHTML = shown.replace(/\n/g, '<br>') + cursor;
+      if(!audio.paused && !audio.ended){
+        raf = requestAnimationFrame(renderReveal);
+      }
+    }
+
+    function startPlayback(){
+      audio.play();
+    }
+
+    playBtn.addEventListener('click', async () => {
+      try {
+        await startPlayback();
+      } catch (e) {
+        status.textContent = 'Playback blocked or unavailable.';
+      }
+    });
+
+    resetBtn.addEventListener('click', () => {
+      audio.pause();
+      audio.currentTime = 0;
+      revealText.innerHTML = '';
+      status.textContent = 'Reset.';
+      playBtn.textContent = '▶ Play spoken parable';
+      if(raf) cancelAnimationFrame(raf);
+    });
+
+    audio.addEventListener('play', () => {
+      status.textContent = 'Speaking…';
+      playBtn.textContent = '❚❚ Playing';
+      if(raf) cancelAnimationFrame(raf);
+      renderReveal();
+    });
+
+    audio.addEventListener('pause', () => {
+      if(audio.ended) return;
+      status.textContent = 'Paused.';
+      playBtn.textContent = '▶ Resume';
+      if(raf) cancelAnimationFrame(raf);
+      renderReveal();
+    });
+
+    audio.addEventListener('ended', () => {
+      status.textContent = 'Finished.';
+      playBtn.textContent = '↻ Play again';
+      if(raf) cancelAnimationFrame(raf);
+      revealText.innerHTML = fullText.replace(/\n/g, '<br>');
+    });
+
+    audio.addEventListener('loadedmetadata', () => {
+      status.textContent = 'Ready.';
+      renderReveal();
+    });
+
+    renderReveal();
+  </script>
+  <script src="../../assets/shared/rv-floating-nav.js"></script>
+</body>
+</html>
