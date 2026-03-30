@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Today Review · 2026-03-30</title>
+  <link rel="stylesheet" href="../../assets/styles/style-one/base.css" />
+  <style>
+    .review-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,.9fr);gap:18px}
+    .review-flow{display:grid;gap:18px}
+    .review-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+    .review-chip{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(196,122,44,.1);color:var(--rv-accent-ink);border:1px solid rgba(196,122,44,.18)}
+    .review-card h2{margin:0 0 12px;font-size:1.3rem;letter-spacing:-.03em}
+    .review-card h3{margin:18px 0 8px;font-size:1rem;letter-spacing:-.02em}
+    .review-card p,.review-card li{margin:0 0 12px;color:var(--rv-muted);line-height:1.82}
+    .review-card strong{color:var(--rv-text)}
+    .review-card ul{margin:0;padding-left:1.15rem}
+    .review-card ol{margin:0;padding-left:1.2rem}
+    .review-kicker{font-size:1.08rem;color:var(--rv-text)}
+    .review-callout{padding:18px;border-radius:20px;border:1px solid var(--rv-line);background:linear-gradient(180deg,var(--rv-paper),var(--rv-paper-soft))}
+    .review-callout p:last-child,.review-card p:last-child,.review-card li:last-child{margin-bottom:0}
+    .review-side .rv-card{position:sticky;top:18px}
+    .review-side ul{margin:0;padding-left:1.1rem}
+    .review-side li{margin:0 0 10px;color:var(--rv-muted);line-height:1.75}
+    .review-side h3{margin:0 0 10px;font-size:1rem}
+    .review-actions{margin-top:14px}
+    @media (max-width:940px){.review-grid{grid-template-columns:1fr}.review-side .rv-card{position:static}}
+  </style>
+</head>
+<body class="rv-style-one">
+  <div class="rv-wrap">
+    <div class="rv-topbar">
+      <div class="rv-topbar-left">
+        <a class="rv-link" href="../../today/index.html">← Today’s Artifacts</a>
+        <a class="rv-link" href="./signature.html">✒️ Signature</a>
+      </div>
+    </div>
+
+    <section class="rv-hero">
+      <p class="rv-eyebrow">Daily Review + Larger Context</p>
+      <h1 class="rv-title">Today Review · 2026-03-30</h1>
+      <p class="rv-sub">An extensive review of what actually moved today: not just a list of tasks, but the deeper pattern underneath them. This was a day of infrastructure becoming real — workflows, artifacts, media generation, styling governance, and browser-facing continuity all tightened into a more mature operating system.</p>
+      <div class="review-meta">
+        <span class="review-chip">Style One</span>
+        <span class="review-chip">Extensive review</span>
+        <span class="review-chip">Continuity artifact</span>
+        <span class="review-chip">Hosted re-entry surface</span>
+      </div>
+    </section>
+
+    <div class="review-grid">
+      <main class="review-flow">
+        <section class="rv-card review-card">
+          <h2>Executive summary</h2>
+          <p class="review-kicker">Today was a real consolidation day. Several capabilities crossed from <strong>interesting</strong> into <strong>operational</strong>, and just as importantly, the system got better at preserving them in forms that future sessions can actually recover.</p>
+          <p>The most important accomplishment was not any single page, image, video, or audio file. It was the strengthening of the pattern: <strong>prove a workflow, externalize the workflow, host the result, and make the result legible inside Remote Viewer.</strong></p>
+          <p>That means today materially advanced at least five layers at once:</p>
+          <ul>
+            <li><strong>workflow durability</strong> — repeatable playbooks now have a real home in shared workspace</li>
+            <li><strong>media capability</strong> — image generation, video generation, and Gemini TTS all moved further into proven territory</li>
+            <li><strong>artifact quality</strong> — today’s new pages were not just functional; they were increasingly shaped as hosted experiences</li>
+            <li><strong>style governance</strong> — Style One became more than a preference and is now acting like a reusable house system</li>
+            <li><strong>ecosystem maturity</strong> — the collaboration continues evolving from chat-plus-files into a real browser-facing operating environment</li>
+          </ul>
+        </section>
+
+        <section class="rv-card review-card">
+          <h2>What we accomplished today, in broad order</h2>
+          <h3>1. The shared-workspace architecture got sharper</h3>
+          <p>A new <strong>workflows/</strong> folder was created to hold durable operational playbooks, and it was intentionally wired into the broader README architecture. That matters because it formalizes a new rule: if a capability should survive resets, it should not live only in memory or chat lore.</p>
+          <p>The secrets layer was also clarified through a dedicated README, including the naming and formatting discipline required for scripts and local workflows to actually find what they need.</p>
+
+          <h3>2. The Gemini key problem was diagnosed correctly</h3>
+          <p>This was a small but important debugging win. The issue was not simply “missing key” in the abstract. The machine-readable secret file initially contained the assignment string rather than just the raw value, which meant the workflow had the right information in the wrong format. Once corrected, image generation worked.</p>
+          <p>That is exactly the kind of operational lesson that often disappears if it is not written down. Today, it was captured properly.</p>
+
+          <h3>3. A new daily primer artifact was created and strengthened</h3>
+          <p>The <strong>Daily Session Primer · 2026-03-30</strong> was built as a Style 006 artifact with a freshly generated AI hero image and later a real generated video. This wasn’t just another page. It functioned as a proof that a daily briefing surface can feel more like a premium hosted object than a plain recap wrapper.</p>
+
+          <h3>4. Video generation became genuinely operational from the main session</h3>
+          <p>This is one of the biggest achievements of the day. A real reusable script now exists for Veo generation through the long-running endpoint, and a real video was successfully generated, saved, and embedded into a live artifact.</p>
+          <p>That moves AI video generation from “interesting possibility” into <strong>repeatable working capability</strong>.</p>
+
+          <h3>5. Hosted delivery bugs were diagnosed and fixed</h3>
+          <p>The generated video initially pointed to a shared-workspace path outside the Remote Viewer repo, which meant GitHub Pages could not serve it. That bug was correctly understood and fixed by moving the media into the repo tree and rewiring the artifact to the in-repo path.</p>
+          <p>This matters because it sharpened a crucial architectural distinction: <strong>local accessibility is not the same thing as hosted accessibility</strong>.</p>
+
+          <h3>6. Gemini TTS was proven in a more serious way</h3>
+          <p>Today also established that Gemini TTS is not just nominally available — it can be used in a real artifact workflow. The working model, response-mode expectations, and audio-wrapping requirements were all clarified.</p>
+          <p>The most important implementation lesson was that the returned audio arrived as raw PCM bytes, not a browser-ready WAV. That meant playback required deliberate container wrapping rather than naive embedding.</p>
+
+          <h3>7. Two new browser-facing artifacts went live</h3>
+          <p>The day produced at least two notable live hosted surfaces beyond the primer itself:</p>
+          <ul>
+            <li><strong>Philosophical Parable · 2026-03-30</strong> — a more atmospheric artifact combining fresh image generation, TTS voice, and progressive text reveal</li>
+            <li><strong>Year Calendar · 2026</strong> — a practical full-year visual calendar built for laptop and Chromebook use</li>
+          </ul>
+          <p>This is a healthy sign. The ecosystem is supporting both <strong>reflective/artistic artifacts</strong> and <strong>simple useful tools</strong>.</p>
+
+          <h3>8. Remote Viewer navigation was simplified</h3>
+          <p>The old shared floating navigation system was fully removed after continued Chromebook click-and-drag friction. That is a good example of choosing practical usability over attachment to a clever interface pattern.</p>
+          <p>Main-menu behavior was also normalized so internal navigation stays in the same tab unless there is a real reason to branch outward.</p>
+
+          <h3>9. Style governance materially matured</h3>
+          <p>The Styles page became the canonical style reference, the old broader showroom was demoted, and <strong>Style One</strong> was clarified as the default house style unless you explicitly want something else.</p>
+          <p>More importantly, Style One was turned into a <strong>real shared package</strong> with a reusable base stylesheet and theme script. That means it is now infrastructure, not just taste.</p>
+
+          <h3>10. Theme behavior became shared rather than improvised</h3>
+          <p>The light/dark toggle now persists across pages importing Style One. That may sound small, but it is exactly the kind of cross-page behavioral coherence that makes a multi-page hosted system feel like an intentional environment rather than a pile of separate HTML files.</p>
+        </section>
+
+        <section class="rv-card review-card">
+          <h2>The most important outputs from today</h2>
+          <ul>
+            <li>a new shared-workspace <strong>workflows/</strong> lane with README architecture support</li>
+            <li>a new <strong>secrets/README.md</strong> clarifying operational secret handling</li>
+            <li>a corrected Gemini key formatting pattern that restored image-generation usability</li>
+            <li><strong>Daily Session Primer · 2026-03-30</strong> with generated image and generated video</li>
+            <li>a reusable Veo script at <strong>scripts/manual/veo_generate_video.sh</strong></li>
+            <li>a proven <strong>video-generation.md</strong> workflow playbook</li>
+            <li>a proven <strong>text-to-speech.md</strong> workflow playbook</li>
+            <li>the hosted <strong>Philosophical Parable · 2026-03-30</strong> artifact</li>
+            <li>the hosted <strong>Year Calendar · 2026</strong> utility artifact</li>
+            <li>a simplified Remote Viewer navigation model</li>
+            <li>a canonical <strong>Styles</strong> lane and a real reusable <strong>Style One</strong> package</li>
+            <li>shared theme toggle behavior across the standard Style One pages</li>
+          </ul>
+          <div class="review-callout">
+            <p><strong>The pattern matters more than the list:</strong> today repeatedly turned a successful experiment into a named, documented, hosted, reusable thing.</p>
+          </div>
+        </section>
+
+        <section class="rv-card review-card">
+          <h2>Why today matters in the larger picture</h2>
+          <h3>From memory-dependent capability to workflow-backed capability</h3>
+          <p>One of the clearest lessons today is that memory alone is not enough for serious operational continuity. Even when the system remembers that something was done before, that is not the same as being able to do it again cleanly under pressure.</p>
+          <p>The creation of the workflows lane is a structural answer to that problem. It says: <strong>repeatability deserves its own artifact class.</strong></p>
+
+          <h3>From artifact production to media-capable authorship</h3>
+          <p>Remote Viewer is no longer just a place where static pages get parked. It is becoming a surface where generated imagery, generated video, generated voice, operational diagnostics, and structured documentation all coexist in a browser-facing layer.</p>
+          <p>That broadens the collaboration’s expressive range substantially.</p>
+
+          <h3>From improvised style to house architecture</h3>
+          <p>Style One becoming a shared package matters because it marks a real architectural crossing. The design language is no longer merely implied by repeated taste. It is now implemented as reusable system infrastructure.</p>
+          <p>That improves speed, consistency, and long-term maintainability.</p>
+
+          <h3>From chat-centered work to browser-native operational life</h3>
+          <p>Today reinforces a theme that has been growing for weeks: the most important outputs are increasingly not the chat messages themselves, but the hosted surfaces, workflow docs, utility pages, artifact pages, and continuity objects produced from the chat.</p>
+          <p>That means the collaboration is becoming more visible, inspectable, and durable outside any single transcript.</p>
+        </section>
+
+        <section class="rv-card review-card">
+          <h2>The deeper pattern underneath the day</h2>
+          <p>If I zoom out, today looks like a day where the ecosystem got better at respecting reality.</p>
+          <ol>
+            <li><strong>Reality of formatting:</strong> a key can exist but still fail if its file format is wrong.</li>
+            <li><strong>Reality of hosting:</strong> a media file can exist locally but still fail if it is not served from the repo path GitHub Pages can reach.</li>
+            <li><strong>Reality of browser playback:</strong> raw PCM is not equivalent to ready-to-play audio.</li>
+            <li><strong>Reality of interface friction:</strong> shared floating nav can be elegant in theory and still be the wrong choice on an actual Chromebook workflow.</li>
+            <li><strong>Reality of continuity:</strong> a remembered success is weaker than a written workflow.</li>
+          </ol>
+          <p>That is a good sign. Healthy systems get stronger by becoming less romantic about assumptions and more precise about what actually works.</p>
+        </section>
+
+        <section class="rv-card review-card">
+          <h2>What feels especially strong now</h2>
+          <ul>
+            <li><strong>Remote Viewer’s role is clearer</strong> — it keeps proving itself as a browser-facing collaboration surface rather than a mere gallery</li>
+            <li><strong>AI media generation is increasingly practical</strong> — especially when paired with explicit local workflow docs</li>
+            <li><strong>Style decisions are becoming legible</strong> — not just aesthetic impulses but reusable operating choices</li>
+            <li><strong>The system is getting better at self-preservation</strong> — via README architecture, workflow capture, and hosted continuity objects</li>
+            <li><strong>The mix of utility and meaning is healthy</strong> — practical tools, continuity pages, and reflective artifacts all coexisted today</li>
+          </ul>
+        </section>
+
+        <section class="rv-card review-card">
+          <h2>Closing judgment</h2>
+          <p>Today was not primarily about one grand philosophical breakthrough or one giant public milestone. It was about something more durable: <strong>the operating environment got more competent.</strong></p>
+          <p>Capabilities that could have stayed half-proven became documented. Pages that could have stayed local became hosted. Styles that could have remained taste-based became packaged. Bugs that could have remained mysterious became legible.</p>
+          <p>That kind of day compounds. It reduces future reinvention, lowers friction, and increases the chance that tomorrow starts from a stronger floor instead of from memory haze.</p>
+        </section>
+
+        <section class="rv-note">
+          <strong>One-sentence version:</strong> Today substantially upgraded the collaboration from a set of successful experiments into a more durable media-capable operating system — one where workflows, styles, artifacts, and hosted continuity increasingly reinforce each other.
+        </section>
+      </main>
+
+      <aside class="review-side">
+        <section class="rv-card">
+          <span class="rv-label">At a glance</span>
+          <h3>Today’s strongest through-lines</h3>
+          <ul>
+            <li>workflow durability became explicit</li>
+            <li>video generation crossed into real operation</li>
+            <li>TTS became artifact-ready</li>
+            <li>hosted delivery bugs were understood, not just patched</li>
+            <li>Style One became reusable infrastructure</li>
+            <li>Remote Viewer became more coherent as a browser-native environment</li>
+          </ul>
+          <div class="review-actions rv-actions">
+            <a href="../daily-session-primer-2026-03-30/index.html">Open daily primer</a>
+            <a href="../philosophical-parable-2026-03-30/index.html">Open parable</a>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <script src="../../assets/styles/style-one/theme.js"></script>
+  </div>
+</body>
+</html>
