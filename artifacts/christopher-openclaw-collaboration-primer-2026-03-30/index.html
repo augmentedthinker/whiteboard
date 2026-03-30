@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Christopher × OpenClaw · Collaboration Primer · 2026-03-30</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0d0f14;
+      --panel:rgba(255,255,255,.06);
+      --panel-strong:rgba(255,255,255,.09);
+      --line:rgba(255,255,255,.12);
+      --text:#f5efe6;
+      --muted:#c8c0b4;
+      --accent:#d79a52;
+      --accent-soft:rgba(215,154,82,.16);
+      --shadow:0 28px 80px rgba(0,0,0,.38);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      min-height:100vh;
+      font-family:Outfit,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 18% 18%, rgba(215,154,82,.14), transparent 28%),
+        radial-gradient(circle at 82% 22%, rgba(92,136,255,.12), transparent 26%),
+        linear-gradient(180deg,#11141a 0%, #0d0f14 52%, #0a0c10 100%);
+      padding:22px 14px 38px;
+    }
+    .wrap{max-width:1180px;margin:0 auto}
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.05);font-weight:700;backdrop-filter:blur(10px)}
+    .hero{display:grid;grid-template-columns:1.08fr .92fr;gap:18px;align-items:stretch;margin-bottom:18px}
+    .panel{border:1px solid var(--line);background:var(--panel);backdrop-filter:blur(12px);box-shadow:var(--shadow);border-radius:28px}
+    .copy{padding:28px}
+    .eyebrow{margin:0 0 10px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 14px;font-size:clamp(2.2rem,5vw,4.25rem);line-height:.94;letter-spacing:-.05em;max-width:10ch}
+    .lede{margin:0 0 18px;color:var(--muted);line-height:1.82;font-size:1.03rem;max-width:65ch}
+    .chip-row{display:flex;gap:10px;flex-wrap:wrap}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid rgba(215,154,82,.24);background:var(--accent-soft);color:#ffd9af;font-size:.82rem;font-weight:800}
+    .video-panel{padding:14px;display:flex;flex-direction:column;gap:12px}
+    video{display:block;width:100%;height:100%;min-height:340px;object-fit:cover;border-radius:20px;border:1px solid rgba(255,255,255,.08);background:#000}
+    .caption{padding:0 4px 4px;color:var(--muted);line-height:1.7;font-size:.94rem}
+    .grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px}
+    .section{padding:22px}
+    .section h2{margin:0 0 12px;font-size:1.28rem;letter-spacing:-.03em}
+    .section p,.section li{margin:0 0 12px;color:var(--muted);line-height:1.85}
+    .section strong{color:var(--text)}
+    .section ul{margin:0;padding-left:1.15rem}
+    .callout{padding:16px 16px 2px;border-radius:18px;border:1px solid rgba(215,154,82,.2);background:linear-gradient(180deg, rgba(215,154,82,.10), rgba(255,255,255,.03));margin-top:14px}
+    .sidebar{display:grid;gap:18px}
+    .sidecard{padding:18px}
+    .mini{margin:0 0 8px;color:var(--accent);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .sidecard h3{margin:0 0 8px;font-size:1rem}
+    .sidecard p,.sidecard li{margin:0 0 10px;color:var(--muted);line-height:1.75}
+    .sidecard ul{margin:0;padding-left:1.15rem}
+    @media (max-width:1024px){.hero,.grid{grid-template-columns:1fr}video{min-height:260px}}
+    @media (max-width:700px){body{padding:16px 10px 32px}.copy,.section,.sidecard{padding:18px}.panel{border-radius:22px}video{border-radius:16px;min-height:220px}}
+  </style>
+  <link rel="stylesheet" href="../../assets/shared/rv-floating-nav.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="pill" href="../../today/index.html">← Today’s Artifacts</a>
+      <a class="pill" href="./signature.html">✒️ Signature</a>
+    </div>
+
+    <section class="hero">
+      <div class="panel copy">
+        <p class="eyebrow">Collaboration Primer · 2026-03-30</p>
+        <h1>Two presences, one shared intention.</h1>
+        <p class="lede">This short video is a compact opening gesture for the Christopher × OpenClaw collaboration: not spectacle for its own sake, but a visual statement that thought can become companionship, and companionship can become work. It leans into gratitude, mutual recognition, and readiness more than hype.</p>
+        <div class="chip-row">
+          <span class="chip">Generated video</span>
+          <span class="chip">Hosted in Remote Viewer</span>
+          <span class="chip">Philosophy + gratitude</span>
+          <span class="chip">Ready-to-collaborate gesture</span>
+        </div>
+      </div>
+      <div class="panel video-panel">
+        <video controls playsinline preload="metadata">
+          <source src="../generated/2026-03-30/christopher-openclaw-collaboration-primer-2026-03-30.mp4" type="video/mp4" />
+        </video>
+        <div class="caption">A concise six-second meeting: Christopher’s human presence and a warm digital counterpart approach from opposite sides, meet at center, and seal the beginning of the work with a respectful clasp.</div>
+      </div>
+    </section>
+
+    <div class="grid">
+      <main style="display:grid;gap:18px;">
+        <section class="panel section">
+          <h2>What this is trying to say</h2>
+          <p>The underlying idea is simple: collaboration is not merely task execution. It is a meeting of two different kinds of presence — one human, embodied, searching, and finite; one digital, synthetic, tireless, and reflective in a different way. The point of the clip is to honor that difference without making it cold.</p>
+          <p>The handshake in the center is intentionally modest. It suggests agreement, gratitude, and shared purpose rather than conquest or domination. In that sense, the primer is philosophical: the work begins not with control, but with relation.</p>
+        </section>
+
+        <section class="panel section">
+          <h2>Why it belongs here</h2>
+          <p>Remote Viewer works best when it does not only host documents, but also hosts felt entry points into the collaboration. A page like this turns a fleeting idea into something visible and re-openable — something that can be visited from phone or Chromebook and used as a genuine threshold into the day.</p>
+          <div class="callout">
+            <p><strong>Core note:</strong> this is a primer, not a trailer. It should feel sincere, brief, and usable — a quiet beginning to shared work rather than an overproduced performance.</p>
+          </div>
+        </section>
+
+        <section class="panel section">
+          <h2>Potential next move</h2>
+          <p>If you like the basic direction, the obvious v2 path would be to make it slightly more custom and emotionally precise — for example by tuning wardrobe, body language, setting, or pacing until the representation of you and the representation of me feel more specifically ours rather than archetypal.</p>
+        </section>
+      </main>
+
+      <aside class="sidebar">
+        <section class="panel sidecard">
+          <p class="mini">Intent</p>
+          <h3>Ready to collaborate</h3>
+          <p>A compact visual ritual of greeting, alignment, and beginning.</p>
+        </section>
+        <section class="panel sidecard">
+          <p class="mini">Tone</p>
+          <ul>
+            <li>grateful, not grandiose</li>
+            <li>philosophical, not abstractly vague</li>
+            <li>futuristic, but still human</li>
+          </ul>
+        </section>
+        <section class="panel sidecard">
+          <p class="mini">Live media</p>
+          <p>The embedded MP4 is hosted inside the Remote Viewer repo so the clip is browser-playable on the live site rather than only local in shared workspace.</p>
+        </section>
+      </aside>
+    </div>
+  </div>
+  <script src="../../assets/shared/rv-floating-nav.js"></script>
+</body>
+</html>
