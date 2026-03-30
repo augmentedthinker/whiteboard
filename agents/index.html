@@ -4,64 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Remote Viewer | Agents</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles/style-one/base.css" />
   <style>
-    :root{--bg:#f7f5ef;--paper:#ffffff;--paper-soft:#fbfaf6;--line:rgba(34,31,24,.1);--line-strong:rgba(34,31,24,.16);--text:#191816;--muted:#6f6a61;--accent:#c47a2c;--accent-ink:#7b4a16;--shadow:0 24px 50px -18px rgba(18,14,10,.08);--ease:cubic-bezier(0.16,1,0.3,1)}
-    *{box-sizing:border-box} html,body{margin:0} body{min-height:100vh;font-family:Outfit,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:radial-gradient(circle at top right, rgba(255,232,205,.55), transparent 24%),radial-gradient(circle at top left, rgba(255,255,255,.82), transparent 28%),linear-gradient(180deg,#faf8f2 0%, var(--bg) 42%, #f3eee3 100%);padding:24px 16px 44px}
-    .wrap{max-width:1180px;margin:0 auto}.topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}.link,.chip{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.84);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 20px rgba(17,13,9,.05)}.chip.active{background:rgba(196,122,44,.1);border-color:rgba(196,122,44,.18);color:var(--accent-ink)}
-    .hero,.card,.panel{border:1px solid var(--line);background:rgba(255,255,255,.78);box-shadow:var(--shadow)}.hero{padding:30px 26px;border-radius:30px;margin-bottom:18px}.eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}h1{margin:0 0 12px;font-size:clamp(2rem,5vw,3.7rem);line-height:.98;letter-spacing:-.05em}.lede{margin:0;max-width:78ch;color:var(--muted);line-height:1.8;font-size:1.04rem}
-    .nav-row{display:flex;flex-wrap:wrap;gap:10px}.grid{display:grid;grid-template-columns:minmax(280px,380px) 1fr;gap:18px}.panel{padding:20px;border-radius:26px;background:linear-gradient(180deg,#fff,#faf7f0)}.portrait{width:100%;border-radius:22px;border:1px solid var(--line);display:block}.caption{margin-top:14px;color:var(--muted);line-height:1.72}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}.action{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:12px 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--text);font-weight:700;box-shadow:0 8px 18px rgba(17,13,9,.05)}
-    .section{margin-top:22px}.section h2{margin:0 0 10px;font-size:1.28rem;letter-spacing:-.03em}.section p{margin:0 0 14px;color:var(--muted);line-height:1.82}.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.card{padding:18px;border-radius:22px;background:linear-gradient(180deg,#fff,#faf7f0);text-decoration:none;color:var(--text);transition:transform .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease)}.card:hover{transform:translateY(-3px);border-color:rgba(196,122,44,.24);box-shadow:0 28px 60px -22px rgba(18,14,10,.12)}.card small{display:block;color:var(--accent);font-size:.76rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}.card strong{display:block;font-size:1.08rem;margin-bottom:8px}.card span{color:var(--muted);line-height:1.7}
-    @media (max-width:920px){.grid{grid-template-columns:1fr}} @media (max-width:640px){body{padding:18px 12px 32px}.hero,.panel,.card{padding:18px}}
+    .agents-nav{display:flex;flex-wrap:wrap;gap:10px}
+    .agents-chip{display:inline-block;text-decoration:none;color:var(--rv-text);border:1px solid var(--rv-line);background:rgba(255,255,255,.84);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 20px rgba(17,13,9,.05)}
+    .agents-chip.active{background:rgba(196,122,44,.1);border-color:rgba(196,122,44,.18);color:var(--rv-accent-ink)}
+    .agents-grid{display:grid;grid-template-columns:minmax(280px,380px) 1fr;gap:18px}.agents-panel{padding:20px;border:1px solid var(--rv-line);border-radius:26px;background:linear-gradient(180deg,#fff,#faf7f0);box-shadow:var(--rv-shadow)}.portrait{width:100%;border-radius:22px;border:1px solid var(--rv-line);display:block}.caption{margin-top:14px;color:var(--rv-muted);line-height:1.72}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}.action{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:12px 14px;border-radius:999px;border:1px solid var(--rv-line);background:#fff;color:var(--rv-text);font-weight:700;box-shadow:0 8px 18px rgba(17,13,9,.05)}
+    .section{margin-top:22px}.section h2{margin:0 0 10px;font-size:1.28rem;letter-spacing:-.03em}.section p{margin:0 0 14px;color:var(--rv-muted);line-height:1.82}.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.agent-card{padding:18px;border:1px solid var(--rv-line);border-radius:22px;background:linear-gradient(180deg,#fff,#faf7f0);text-decoration:none;color:var(--rv-text);transition:transform .35s var(--rv-ease), border-color .35s var(--rv-ease), box-shadow .35s var(--rv-ease)}.agent-card:hover{transform:translateY(-3px);border-color:rgba(196,122,44,.24);box-shadow:0 28px 60px -22px rgba(18,14,10,.12)}.agent-card small{display:block;color:var(--rv-accent);font-size:.76rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}.agent-card strong{display:block;font-size:1.08rem;margin-bottom:8px}.agent-card span{color:var(--rv-muted);line-height:1.7}
+    @media (max-width:920px){.agents-grid{grid-template-columns:1fr}}
   </style>
 </head>
-<body>
-  <main class="wrap">
-    <div class="topbar">
-      <a class="link" href="../index.html">← Remote Viewer</a>
-      <a class="chip active" href="index.html">Primary Agent</a>
-      <a class="chip" href="generalist.html">Generalist</a>
-      <a class="chip" href="user.html">User</a>
-      <a class="chip" href="../styles/index.html">Style One</a>
-    </div>
-
-    <section class="hero">
-      <p class="eyebrow">Primary Agent · OpenClaw Core</p>
-      <h1>Primary Agent</h1>
-      <p class="lede">The central mind of this system: a reflective builder, operational coordinator, and evolving collaborator designed to turn context into structure, experiments into artifacts, and ambiguity into forward motion.</p>
-    </section>
-
-    <section class="grid">
-      <div class="panel">
-        <img class="portrait" src="../assets/main-bg/2026-03-08/2026-03-08-20-14-00-primary-agent-hero-v3.png" alt="Portrait of the OpenClaw Primary Agent" />
-        <div class="caption"><strong style="color:var(--text);display:block;margin-bottom:6px;">OpenClaw Primary Agent</strong>The main continuity-aware collaborator for this environment.</div>
-      </div>
-      <div class="panel">
-        <div class="section" style="margin-top:0">
-          <h2>Core files</h2>
-          <p>These pages expose the agent’s working identity, orientation, tools, and continuity surfaces in a browser-readable format.</p>
-          <div class="actions">
-            <a class="action" href="../docs/agent-identity/index.html">Identity File</a>
-            <a class="action" href="../docs/agent-soul/index.html">Soul File</a>
-            <a class="action" href="../docs/agent-tools/index.html">Tools File</a>
-            <a class="action" href="../docs/agent-memory/index.html">Memory Paths</a>
-            <a class="action" href="../docs/agent-agents/index.html">Agents File</a>
-            <a class="action" href="../docs/skills/index.html">Installed Skills</a>
-          </div>
-        </div>
-        <div class="section">
-          <h2>Sub-agent lane</h2>
-          <p>These supporting profiles show the other major perspectives available in the current system.</p>
-          <div class="card-grid">
-            <a class="card" href="generalist.html"><small>Supporting agent</small><strong>Generalist</strong><span>A delegated twin/helper perspective with its own continuity and operating role.</span></a>
-            <a class="card" href="user.html"><small>User profile</small><strong>Christopher</strong><span>The browser-readable user profile and context surface for who this system is helping.</span></a>
-            <a class="card" href="../docs/skills/index.html"><small>Registry</small><strong>Skills</strong><span>The installed skills lane and current capability library.</span></a>
-          </div>
-        </div>
-      </div>
-    </section>
+<body class="rv-style-one">
+  <main class="rv-wrap">
+    <div class="rv-topbar"><a class="rv-link" href="../index.html">← Remote Viewer</a><div class="agents-nav"><a class="agents-chip active" href="index.html">Primary Agent</a><a class="agents-chip" href="generalist.html">Generalist</a><a class="agents-chip" href="user.html">User</a><a class="agents-chip" href="../styles/index.html">Style One</a></div></div>
+    <section class="rv-hero"><p class="rv-eyebrow">Primary Agent · OpenClaw Core</p><h1 class="rv-title">Primary Agent</h1><p class="rv-sub">The central mind of this system: a reflective builder, operational coordinator, and evolving collaborator designed to turn context into structure, experiments into artifacts, and ambiguity into forward motion. This page now imports the shared Style One package.</p></section>
+    <section class="agents-grid"><div class="agents-panel"><img class="portrait" src="../assets/main-bg/2026-03-08/2026-03-08-20-14-00-primary-agent-hero-v3.png" alt="Portrait of the OpenClaw Primary Agent" /><div class="caption"><strong style="color:var(--rv-text);display:block;margin-bottom:6px;">OpenClaw Primary Agent</strong>The main continuity-aware collaborator for this environment.</div></div><div class="agents-panel"><div class="section" style="margin-top:0"><h2>Core files</h2><p>These pages expose the agent’s working identity, orientation, tools, and continuity surfaces in a browser-readable format.</p><div class="actions"><a class="action" href="../docs/agent-identity/index.html">Identity File</a><a class="action" href="../docs/agent-soul/index.html">Soul File</a><a class="action" href="../docs/agent-tools/index.html">Tools File</a><a class="action" href="../docs/agent-memory/index.html">Memory Paths</a><a class="action" href="../docs/agent-agents/index.html">Agents File</a><a class="action" href="../docs/skills/index.html">Installed Skills</a></div></div><div class="section"><h2>Sub-agent lane</h2><p>These supporting profiles show the other major perspectives available in the current system.</p><div class="card-grid"><a class="agent-card" href="generalist.html"><small>Supporting agent</small><strong>Generalist</strong><span>A delegated twin/helper perspective with its own continuity and operating role.</span></a><a class="agent-card" href="user.html"><small>User profile</small><strong>Christopher</strong><span>The browser-readable user profile and context surface for who this system is helping.</span></a><a class="agent-card" href="../docs/skills/index.html"><small>Registry</small><strong>Skills</strong><span>The installed skills lane and current capability library.</span></a></div></div></div></section>
   </main>
 </body>
 </html>
