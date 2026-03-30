@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Matthew Berman Weekly Channel Review · 2026-03-30</title>
+  <link rel="stylesheet" href="../../assets/styles/style-one/base.css" />
+  <style>
+    .review-grid{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(280px,.82fr);gap:18px}
+    .review-main{display:grid;gap:18px}
+    .review-side{display:grid;gap:18px}
+    .review-card h2{margin:0 0 12px;font-size:1.3rem;letter-spacing:-.03em}
+    .review-card h3{margin:18px 0 8px;font-size:1rem;letter-spacing:-.02em}
+    .review-card p,.review-card li{margin:0 0 12px;color:var(--rv-muted);line-height:1.82}
+    .review-card strong{color:var(--rv-text)}
+    .review-card ul{margin:0;padding-left:1.15rem}
+    .chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(196,122,44,.1);color:var(--rv-accent-ink);border:1px solid rgba(196,122,44,.18)}
+    .review-side .rv-card{position:sticky;top:18px}
+    @media (max-width:940px){.review-grid{grid-template-columns:1fr}.review-side .rv-card{position:static}}
+  </style>
+</head>
+<body class="rv-style-one">
+  <div class="rv-wrap">
+    <div class="rv-topbar">
+      <div class="rv-topbar-left">
+        <a class="rv-link" href="../../today/index.html">← Today’s Artifacts</a>
+        <a class="rv-link" href="./signature.html">✒️ Signature</a>
+      </div>
+    </div>
+
+    <section class="rv-hero">
+      <p class="rv-eyebrow">YouTube Exploration · First Public-Web Pass</p>
+      <h1 class="rv-title">Matthew Berman Weekly Channel Review · 2026-03-30</h1>
+      <p class="rv-sub">A first lightweight public-web proof of concept for the YouTube monitoring lane: identify what a creator appears to have posted over the last week, summarize the likely themes, and package it into a hosted review surface worth reopening on phone or Chromebook.</p>
+      <div class="chip-row">
+        <span class="chip">Public web pass</span>
+        <span class="chip">Not API-backed yet</span>
+        <span class="chip">YouTube monitoring prototype</span>
+      </div>
+    </section>
+
+    <div class="review-grid">
+      <main class="review-main">
+        <section class="rv-card review-card">
+          <h2>What this artifact is</h2>
+          <p>This is not yet a formal YouTube API integration. It is the first proof of concept for the lane Christopher described: pick a creator he actually follows, inspect what they appear to have posted recently, and turn that into a concise readable review artifact.</p>
+          <p>For this first pass, the channel is <strong>Matthew Berman</strong>, one of the stronger public AI-commentary / AI-builder personalities in Christopher’s orbit.</p>
+        </section>
+
+        <section class="rv-card review-card">
+          <h2>Recent visible uploads from the last week</h2>
+          <p>Using a lightweight public-web search pass, the clearest recent uploads surfaced for the last week were:</p>
+          <ul>
+            <li><strong>ARC AGI 3 just dropped, what it means for AGI</strong> — uploaded <strong>March 27, 2026</strong></li>
+            <li><strong>You NEED to try these open-source AI projects right now...</strong> — uploaded <strong>March 26, 2026</strong></li>
+            <li><strong>Hard Takeoff has started</strong> — uploaded <strong>March 24, 2026</strong></li>
+          </ul>
+          <p>This is not yet a perfect channel scrape. It is the first working external-read prototype using currently available public-web access in-session.</p>
+        </section>
+
+        <section class="rv-card review-card">
+          <h2>What he seems to be posting about</h2>
+          <h3>1. AGI benchmark / capability acceleration discourse</h3>
+          <p>The <strong>ARC AGI 3</strong> title suggests Matthew is continuing to cover frontier-model evaluation, benchmark meaning, and the narrative pressure around what counts as evidence of “real” generality versus overhyped benchmark theater.</p>
+
+          <h3>2. Practical builder signal in the open-source lane</h3>
+          <p>The open-source projects video suggests he is also serving a curator role, not just a commentary role. That is valuable because it means his channel is not purely philosophical or news-reactive — it is at least partly trying to convert attention into tools and experiments worth touching.</p>
+
+          <h3>3. Macro-trajectory interpretation</h3>
+          <p><strong>Hard Takeoff has started</strong> is a much more thesis-driven frame. That title suggests he is also tracking the broader acceleration narrative: not only what shipped, but what the shape of the current moment means in larger strategic terms.</p>
+        </section>
+
+        <section class="rv-card review-card">
+          <h2>Why this channel matters for Christopher</h2>
+          <p>Matthew Berman is a useful test case because he sits in the overlap of:</p>
+          <ul>
+            <li>AI news / frontier-model attention</li>
+            <li>tool discovery</li>
+            <li>practical builder curiosity</li>
+            <li>larger narrative framing around the current AI moment</li>
+          </ul>
+          <p>That makes him exactly the kind of channel where summary support could save time. Christopher may not need to watch every upload in full if the system can first tell him:</p>
+          <ul>
+            <li>what the creator seems focused on this week</li>
+            <li>which uploads are probably just incremental noise</li>
+            <li>which one might actually matter</li>
+          </ul>
+        </section>
+
+        <section class="rv-card review-card">
+          <h2>Initial value judgment</h2>
+          <p>This first proof suggests the YouTube lane is worth pursuing further. Even with sparse public-web access, the shape of the use case is already clear:</p>
+          <ul>
+            <li>channel monitoring can be useful</li>
+            <li>weekly summaries are a strong format</li>
+            <li>creator-specific review artifacts make sense in Remote Viewer</li>
+            <li>the next level would be stronger structured access via YouTube API or a cleaner feed route</li>
+          </ul>
+          <p>In other words: the concept already feels legible before full integration exists.</p>
+        </section>
+
+        <section class="rv-note">
+          <strong>Current limitation:</strong> this artifact is a first public-web prototype, not yet a full YouTube API-backed channel reader. The next meaningful upgrade would be stronger structured retrieval of recent uploads and metadata so summaries become more complete and less inference-heavy.
+        </section>
+      </main>
+
+      <aside class="review-side">
+        <section class="rv-card review-card">
+          <span class="rv-label">At a glance</span>
+          <h2 style="font-size:1.1rem;">This week’s visible themes</h2>
+          <ul>
+            <li>AGI benchmark interpretation</li>
+            <li>open-source AI tool discovery</li>
+            <li>hard-takeoff / acceleration framing</li>
+          </ul>
+          <div class="rv-actions"><a href="https://www.youtube.com/@MatthewBerman/videos" target="_blank" rel="noopener">Open channel</a></div>
+        </section>
+      </aside>
+    </div>
+
+    <script src="../../assets/styles/style-one/theme.js"></script>
+  </div>
+</body>
+</html>
