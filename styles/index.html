@@ -3,372 +3,182 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Remote Viewer | Styles</title>
+  <title>Remote Viewer | Styles 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@500;700&family=Audiowide&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500&family=Audiowide&display=swap');
-
     :root{
-      --bg:#efebe3;
-      --paper:#fbfaf7;
-      --line:rgba(26,34,48,.12);
-      --text:#18202c;
-      --muted:#5f6878;
-      --accent:#275df1;
-      --shadow:0 18px 50px rgba(17,24,39,.08);
+      --bg:#f7f5ef;
+      --paper:#ffffff;
+      --paper-soft:#fbfaf6;
+      --line:rgba(34,31,24,.1);
+      --line-strong:rgba(34,31,24,.16);
+      --text:#191816;
+      --muted:#6f6a61;
+      --accent:#c47a2c;
+      --accent-ink:#7b4a16;
+      --shadow:0 24px 50px -18px rgba(18,14,10,.08);
+      --ease:cubic-bezier(0.16,1,0.3,1);
     }
-
     *{box-sizing:border-box}
     html,body{margin:0}
     body{
       min-height:100vh;
-      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      font-family:Outfit,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
       color:var(--text);
-      background:linear-gradient(180deg,#f5f1ea,#efebe3 48%,#e8e3d9);
+      background:
+        radial-gradient(circle at top right, rgba(255,232,205,.55), transparent 24%),
+        radial-gradient(circle at top left, rgba(255,255,255,.82), transparent 28%),
+        linear-gradient(180deg,#faf8f2 0%, var(--bg) 42%, #f3eee3 100%);
       padding:24px 16px 44px;
     }
-
     .wrap{max-width:1180px;margin:0 auto}
     .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
-    .link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.72);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 24px rgba(17,24,39,.05)}
-
-    .hero{
-      padding:30px 26px;
-      border:1px solid var(--line);
-      border-radius:26px;
-      background:rgba(255,255,255,.7);
-      box-shadow:var(--shadow);
-      margin-bottom:22px;
-    }
+    .link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.84);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 20px rgba(17,13,9,.05)}
+    .hero,.card-frame,.helper{border:1px solid var(--line);background:rgba(255,255,255,.78);box-shadow:var(--shadow)}
+    .hero{padding:30px 26px;border-radius:30px;margin-bottom:18px}
     .eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
-    h1{margin:0 0 12px;font-size:clamp(1.9rem,5vw,3.6rem);line-height:1.02}
-    .sub{margin:0;max-width:80ch;color:var(--muted);line-height:1.78;font-size:1.04rem}
-
+    h1{margin:0 0 12px;font-size:clamp(2rem,5vw,3.7rem);line-height:.98;letter-spacing:-.05em}
+    .sub{margin:0;max-width:78ch;color:var(--muted);line-height:1.8;font-size:1.04rem}
     .grid{display:grid;grid-template-columns:1fr;gap:22px}
     .style-card{display:block;text-decoration:none;color:inherit;transition:transform .18s ease}
     .style-card:hover{transform:translateY(-3px)}
 
-    /* STYLE 001: Luminous Glass Noir */
-    .style-card.noir{
-      border:1px solid rgba(143,230,255,.16);
-      border-radius:30px;
-      overflow:hidden;
-      background:
-        radial-gradient(circle at 82% 10%, rgba(143,230,255,.14), transparent 28%),
-        radial-gradient(circle at 14% 18%, rgba(240,179,109,.09), transparent 24%),
-        linear-gradient(160deg, rgba(13,22,39,.97), rgba(8,13,24,.98));
-      box-shadow:0 24px 70px rgba(0,0,0,.28);
-      color:#eef6ff;
-      padding:24px;
-    }
-    .noir-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:end}
-    .noir .tag{display:inline-block;margin-bottom:12px;padding:6px 10px;border-radius:999px;background:rgba(143,230,255,.12);border:1px solid rgba(143,230,255,.16);color:#8fe6ff;font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
-    .noir h2{margin:0 0 10px;font-size:clamp(1.6rem,3vw,2.25rem);line-height:1.02}
-    .noir p{margin:0;color:#b8cbe5;line-height:1.75}
-    .noir-specimen{min-height:210px;border:1px solid rgba(143,230,255,.16);border-radius:24px;background:linear-gradient(160deg, rgba(12,20,36,.86), rgba(8,13,24,.9));box-shadow:0 16px 50px rgba(0,0,0,.25);position:relative;overflow:hidden}
-    .noir-specimen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06);filter:saturate(1.08) contrast(1.06) brightness(.9)}
-    .noir-specimen::before{content:"";position:absolute;inset:0;background:linear-gradient(160deg, rgba(8,14,24,.18), rgba(8,13,24,.54))}
-    .noir-specimen::after{content:"";position:absolute;inset:18px;border:1px solid rgba(143,230,255,.18);border-radius:18px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04)}
-    .noir-line{position:absolute;left:36px;top:36px;width:48%;font-size:2rem;font-weight:700;line-height:.98;letter-spacing:-.03em;z-index:2;text-shadow:0 8px 24px rgba(0,0,0,.38)}
-    .noir-note{position:absolute;left:36px;top:108px;width:45%;font-size:.92rem;line-height:1.6;color:#d2e4f8;z-index:2;text-shadow:0 8px 22px rgba(0,0,0,.34)}
+    .house-style-card{border:1px solid rgba(196,122,44,.16);border-radius:24px;overflow:hidden;background:linear-gradient(180deg,#fffdf8,#f7f2e8 100%);box-shadow:0 18px 48px rgba(18,14,10,.08)}
+    .house-top{display:grid;grid-template-columns:1.08fr .92fr;gap:0;border-bottom:1px solid rgba(34,31,24,.08)}
+    .house-copy{padding:26px 24px 22px}
+    .house-kicker{margin:0 0 12px;color:#c47a2c;font:800 12px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase}
+    .house-style-card h2{margin:0 0 12px;font-size:clamp(1.95rem,4.5vw,3rem);line-height:.96;letter-spacing:-.04em;color:#191816}
+    .house-style-card p{margin:0;color:#6f6a61;line-height:1.82}
+    .house-side{padding:24px;border-left:1px solid rgba(34,31,24,.08);background:linear-gradient(180deg,#fff,#faf5eb);display:flex;align-items:end}
+    .house-window{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;padding:18px;background:linear-gradient(180deg,#fbfaf6,#f3eee3)}
+    .house-shell{padding:18px;border:1px solid rgba(34,31,24,.08);border-radius:24px;background:linear-gradient(180deg,#fff,#faf7f0);box-shadow:0 24px 50px -18px rgba(18,14,10,.08)}
+    .house-shell small{display:block;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:#c47a2c;font-weight:800;margin-bottom:10px}
+    .house-shell strong{display:block;font-size:1.22rem;letter-spacing:-.03em;margin-bottom:8px}
 
-    /* STYLE 002: Paper Editorial Modern */
-    .style-card.editorial{
-      border:1px solid rgba(26,34,48,.12);
-      border-radius:10px;
-      overflow:hidden;
-      background:linear-gradient(180deg,#fffdf8,#f7f2ea 58%,#efe6d8);
-      box-shadow:0 18px 50px rgba(17,24,39,.09);
-      color:#18202c;
-      padding:0;
-    }
-    .editorial-top{display:grid;grid-template-columns:1.12fr .88fr;gap:0;border-bottom:1px solid rgba(26,34,48,.12)}
-    .editorial-copy{padding:28px 26px 24px}
-    .editorial-kicker{margin:0 0 12px;color:#275df1;font:700 12px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase}
-    .editorial h2{margin:0 0 12px;font-family:Fraunces,serif;font-size:clamp(2rem,4.5vw,3.5rem);line-height:.94;letter-spacing:-.04em}
-    .editorial p{margin:0;color:#5f6878;line-height:1.82}
-    .editorial-side{padding:26px;border-left:1px solid rgba(26,34,48,.1);display:flex;align-items:end;background:rgba(255,255,255,.45)}
-    .editorial-side p{font-size:.96rem}
-    .editorial-bottom{display:grid;grid-template-columns:1fr 320px;gap:0}
-    .editorial-specimen{min-height:220px;padding:0;position:relative;overflow:hidden;background:#f5f0e8}
-    .editorial-specimen img{position:absolute;right:0;top:0;width:68%;height:100%;object-fit:cover;object-position:center;filter:saturate(.92) contrast(1.02) brightness(.99)}
-    .editorial-specimen::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg, rgba(251,250,247,.96) 0 42%, rgba(251,250,247,.62) 58%, rgba(251,250,247,.04) 76%, rgba(251,250,247,0) 100%)}
-    .editorial-specimen .mini-kicker{position:absolute;left:28px;top:26px;font:700 11px/1 Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#275df1;margin:0;z-index:2}
-    .editorial-specimen .mini-head{position:absolute;left:28px;top:52px;font-family:Fraunces,serif;font-size:2rem;line-height:.95;letter-spacing:-.04em;max-width:260px;color:#141922;z-index:2}
-    .editorial-specimen .mini-rule{position:absolute;left:28px;top:140px;width:118px;height:2px;background:#275df1;z-index:2}
-    .editorial-specimen .mini-text{position:absolute;left:28px;top:158px;max-width:250px;color:#5f6878;font-size:.95rem;line-height:1.7;z-index:2}
-    .editorial-column{border-left:1px solid rgba(26,34,48,.12);padding:24px 22px;background:rgba(255,255,255,.42);font-size:.9rem;line-height:1.8;color:#667082}
-
-    /* STYLE 003: Brutalist Monochrome */
-    .style-card.brutal{
-      border:4px solid #111;
-      background:#f5f0e8;
-      box-shadow:12px 12px 0 #ffde59;
-      color:#101010;
-      padding:18px;
-    }
-    .brutal-top{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-bottom:18px}
-    .brutal-main,.brutal-side{border:4px solid #111;background:#fff;padding:18px}
-    .brutal-main .kicker{display:inline-block;margin-bottom:12px;padding:8px 10px;background:#ff3b30;color:#fff;font:700 12px/1 "IBM Plex Mono",monospace;letter-spacing:.18em;text-transform:uppercase}
-    .brutal h2{margin:0 0 12px;font-family:"Space Grotesk",system-ui,sans-serif;font-size:clamp(2rem,5vw,3.8rem);line-height:.9;text-transform:uppercase;letter-spacing:-.05em}
-    .brutal p{margin:0;color:#3f3f3f;line-height:1.78}
-    .brutal-side{background:linear-gradient(180deg,#111 0 34%, #fff 34% 100%);color:#fff}
-    .brutal-side p{color:inherit;font-size:.92rem}
-    .brutal-bar{height:16px;background:#ff3b30;margin:12px 0}
-    .brutal-square{width:88px;height:88px;background:#275df1;border:4px solid #fff;margin-top:14px}
-    .brutal-specimen{border:4px solid #111;background:#fff;padding:20px;position:relative;min-height:220px;box-shadow:10px 10px 0 #275df1;overflow:hidden}
-    .brutal-specimen img{position:absolute;right:0;top:0;width:58%;height:100%;object-fit:cover;object-position:center;filter:contrast(1.08) saturate(1.04)}
-    .brutal-specimen::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg, rgba(255,255,255,1) 0 34%, rgba(255,255,255,.88) 44%, rgba(255,255,255,.08) 70%, rgba(255,255,255,0) 100%)}
-    .brutal-stamp{display:inline-block;padding:8px 10px;background:#111;color:#fff;font:700 12px/1 "IBM Plex Mono",monospace;letter-spacing:.16em;text-transform:uppercase;position:relative;z-index:2}
-    .brutal-head{margin-top:14px;font-family:"Space Grotesk",system-ui,sans-serif;font-size:2.3rem;line-height:.92;text-transform:uppercase;max-width:320px;position:relative;z-index:2}
-    .brutal-block-red{position:absolute;right:18px;top:18px;width:74px;height:74px;background:#ff3b30;border:4px solid #111;z-index:2}
-    .brutal-block-yellow{position:absolute;left:22px;bottom:20px;width:118px;height:24px;background:#ffde59;border:4px solid #111;z-index:2}
-    .brutal-block-black{position:absolute;left:22px;top:72px;width:86px;height:18px;background:#111;z-index:2}
-
-    /* STYLE 004: Amber Arcade Portal */
-    .style-card.portal{
-      border:2px solid rgba(255,153,86,.85);
-      border-radius:18px;
-      overflow:hidden;
-      background:linear-gradient(180deg, rgba(12,12,12,.96), rgba(5,5,5,.98));
-      box-shadow:0 0 0 1px rgba(255,153,86,.18), 0 20px 60px rgba(0,0,0,.28);
-      color:#ffe0c8;
-      padding:18px;
-      position:relative;
-    }
-    .style-card.portal::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      background:
-        repeating-linear-gradient(45deg, rgba(255,176,124,.08) 0 1px, transparent 1px 12px),
-        repeating-linear-gradient(-45deg, rgba(255,176,124,.05) 0 1px, transparent 1px 12px);
-      mix-blend-mode:screen;
-    }
-    .portal-top{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:stretch;position:relative;z-index:1}
-    .portal-main,.portal-side{border:2px solid rgba(255,153,86,.62);border-radius:14px;background:linear-gradient(160deg, rgba(20,20,20,.62), rgba(8,8,8,.62));padding:18px;position:relative;overflow:hidden}
-    .portal-main::before,.portal-side::before{content:"";position:absolute;inset:-55% -40%;pointer-events:none;background:linear-gradient(112deg, transparent 40%, rgba(255,230,196,.18) 50%, transparent 60%);transform:translateX(-40%)}
-    .portal-kicker{display:inline-block;margin-bottom:12px;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,153,86,.3);background:rgba(255,153,86,.08);color:#ffb482;font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
-    .portal h2{margin:0 0 12px;font-family:'Audiowide',sans-serif;font-size:clamp(1.7rem,4vw,2.9rem);line-height:.94;letter-spacing:.05em;text-transform:uppercase;color:#ff9a56}
-    .portal p{margin:0;color:#efbc94;line-height:1.78}
-    .portal-stack{display:grid;gap:10px;margin-top:14px}
-    .portal-pill{min-height:48px;display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,153,86,.55);border-radius:12px;background:linear-gradient(160deg, rgba(20,20,20,.78), rgba(8,8,8,.78));font-family:'Audiowide',sans-serif;color:#ff9a56;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 0 0 1px rgba(255,153,86,.12), 0 10px 20px rgba(0,0,0,.18)}
-    .portal-surface{min-height:220px;border:2px solid rgba(255,153,86,.55);border-radius:14px;background:radial-gradient(circle at 50% 18%, rgba(255,154,86,.16), transparent 28%),linear-gradient(180deg, rgba(10,10,10,.92), rgba(0,0,0,.96));position:relative;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,153,86,.08)}
-    .portal-surface::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg, rgba(255,176,124,.08) 0 1px, transparent 1px 12px),repeating-linear-gradient(-45deg, rgba(255,176,124,.05) 0 1px, transparent 1px 12px);mix-blend-mode:screen}
-    .portal-header{position:absolute;left:18px;right:18px;top:18px;padding:12px 14px;border:2px solid rgba(255,153,86,.72);border-radius:14px;background:rgba(10,10,10,.78);font-family:'Audiowide',sans-serif;font-size:1.15rem;letter-spacing:.08em;text-transform:uppercase;color:#ff9a56;text-align:center;box-shadow:0 0 0 1px rgba(255,153,86,.12), 0 8px 28px rgba(0,0,0,.3)}
-    .portal-glow{position:absolute;inset:-40% -35%;background:linear-gradient(110deg, transparent 42%, rgba(255,225,190,.22) 50%, transparent 58%)}
-    .portal-ambient{position:absolute;left:50%;top:48%;width:60%;height:58%;transform:translate(-50%,-50%);background:radial-gradient(circle, rgba(255,154,86,.12), transparent 62%);filter:blur(8px);opacity:.9}
-
-    /* STYLE 005: Markdown Reader */
-    .style-card.reader{
-      border:1px solid #d6dbe3;
-      border-radius:22px;
-      overflow:hidden;
-      background:linear-gradient(180deg,#ffffff,#f7f9fc 100%);
-      box-shadow:0 18px 48px rgba(15,23,42,.08);
-      color:#1f2937;
-      padding:0;
-    }
+    .reader{border:1px solid #d6dbe3;border-radius:22px;overflow:hidden;background:linear-gradient(180deg,#ffffff,#f7f9fc 100%);box-shadow:0 18px 48px rgba(15,23,42,.08)}
     .reader-top{display:grid;grid-template-columns:1.08fr .92fr;gap:0;border-bottom:1px solid #dce1e8}
     .reader-copy{padding:26px 24px 22px}
     .reader-kicker{margin:0 0 12px;color:#2f6fed;font:800 12px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase}
-    .reader h2{margin:0 0 12px;font-size:clamp(1.95rem,4.5vw,3.2rem);line-height:.96;letter-spacing:-.04em}
+    .reader h2{margin:0 0 12px;font-size:clamp(1.95rem,4.5vw,3.2rem);line-height:.96;letter-spacing:-.04em;color:#1f2937}
     .reader p{margin:0;color:#667085;line-height:1.82}
     .reader-side{padding:24px;border-left:1px solid #dce1e8;background:linear-gradient(180deg,#fbfcfe,#f4f7fb);display:flex;align-items:end}
-    .reader-side p{font-size:.96rem}
-    .reader-bottom{border-top:0}
     .reader-specimen{min-height:250px;position:relative;background:#fff}
     .reader-window{position:absolute;inset:18px;border:1px solid #cfd6df;border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 12px 30px rgba(15,23,42,.07)}
     .reader-window-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 14px;background:linear-gradient(180deg,#fafbfd,#f2f4f7);border-bottom:1px solid #dce1e8;color:#667085;font-size:.9rem}
-    .reader-dots{display:flex;gap:8px}
-    .reader-dot{width:10px;height:10px;border-radius:999px;background:#d0d5dd}
+    .reader-dots{display:flex;gap:8px}.reader-dot{width:10px;height:10px;border-radius:999px;background:#d0d5dd}
     .reader-window-body{display:grid;grid-template-columns:minmax(0,1fr) 210px;min-height:188px}
-    .reader-doc{padding:20px 18px 18px}
-    .reader-doc-title{margin:0 0 10px;font-size:1.22rem;line-height:1.18;letter-spacing:-.03em;color:#111827}
-    .reader-doc-copy{margin:0 0 12px;color:#667085;font-size:.94rem;line-height:1.72;max-width:42ch}
-    .reader-inline{display:inline-block;padding:.14rem .38rem;border-radius:8px;border:1px solid #dce6f6;background:#f3f6fb;color:#1849a9;font:500 .84rem/1.2 'IBM Plex Mono',monospace}
-    .reader-quote{margin:12px 0 0;padding-left:12px;border-left:3px solid #2f6fed;color:#4b5563;font-size:.92rem;line-height:1.66;max-width:38ch}
-    .reader-rail{border-left:1px solid #dce1e8;background:linear-gradient(180deg,#fbfcfe,#f7f9fc);padding:16px 14px}
-    .reader-rail-label{margin:0 0 8px;color:#2f6fed;font:800 11px/1 Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase}
-    .reader-rail-copy{margin:0;color:#667085;font-size:.88rem;line-height:1.62}
+    .reader-doc{padding:20px 18px 18px}.reader-doc-title{margin:0 0 10px;font-size:1.22rem;line-height:1.18;letter-spacing:-.03em;color:#111827}.reader-doc-copy{margin:0 0 12px;color:#667085;font-size:.94rem;line-height:1.72;max-width:42ch}.reader-inline{display:inline-block;padding:.14rem .38rem;border-radius:8px;border:1px solid #dce6f6;background:#f3f6fb;color:#1849a9;font:500 .84rem/1.2 'IBM Plex Mono',monospace}.reader-quote{margin:12px 0 0;padding-left:12px;border-left:3px solid #2f6fed;color:#4b5563;font-size:.92rem;line-height:1.66;max-width:38ch}.reader-rail{border-left:1px solid #dce1e8;background:linear-gradient(180deg,#fbfcfe,#f7f9fc);padding:16px 14px}.reader-rail-label{margin:0 0 8px;color:#2f6fed;font:800 11px/1 Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase}.reader-rail-copy{margin:0;color:#667085;font-size:.88rem;line-height:1.62}
 
-
-    /* REFERENCE: Cross-Surface */
-    .style-card.cross-surface{
-      border:1px solid rgba(26,34,48,.12);
-      border-radius:24px;
-      overflow:hidden;
-      background:linear-gradient(180deg,#fbfcfe,#f2f5fa 100%);
-      box-shadow:0 18px 48px rgba(15,23,42,.08);
-      color:#18202c;
-      padding:0;
-    }
+    .cross-surface{border:1px solid rgba(26,34,48,.12);border-radius:24px;overflow:hidden;background:linear-gradient(180deg,#fbfcfe,#f2f5fa 100%);box-shadow:0 18px 48px rgba(15,23,42,.08)}
     .cross-top{display:grid;grid-template-columns:1.05fr .95fr;gap:0;border-bottom:1px solid rgba(26,34,48,.08)}
     .cross-copy{padding:26px 24px 22px}
     .cross-kicker{margin:0 0 12px;color:#275df1;font:800 12px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase}
-    .cross-surface h2{margin:0 0 12px;font-size:clamp(1.95rem,4.5vw,3rem);line-height:.96;letter-spacing:-.04em}
+    .cross-surface h2{margin:0 0 12px;font-size:clamp(1.95rem,4.5vw,3rem);line-height:.96;letter-spacing:-.04em;color:#18202c}
     .cross-surface p{margin:0;color:#5f6878;line-height:1.82}
     .cross-side{padding:24px;border-left:1px solid rgba(26,34,48,.08);background:linear-gradient(180deg,#ffffff,#f5f8fc);display:flex;align-items:end}
-    .cross-side p{font-size:.96rem}
     .cross-bottom{display:grid;grid-template-columns:1.2fr .8fr;gap:0;min-height:260px}
     .cross-desktop{padding:18px;background:linear-gradient(160deg,#101827,#162443 58%,#0d1527)}
     .cross-desktop-shell{height:100%;border:1px solid rgba(143,230,255,.14);border-radius:18px;background:linear-gradient(160deg,rgba(13,22,39,.96),rgba(8,13,24,.98));overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.22)}
     .cross-window-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(143,230,255,.12);color:#9bb4d7;font-size:.88rem}
     .cross-dots{display:flex;gap:8px}.cross-dot{width:10px;height:10px;border-radius:999px;background:#506381}
     .cross-window-body{display:grid;grid-template-columns:1fr 180px;min-height:180px}
-    .cross-main{padding:18px}.cross-main strong{display:block;margin-bottom:10px;color:#eef6ff;font-size:1.02rem;line-height:1.2}.cross-main p{color:#b8cbe5;font-size:.9rem;line-height:1.7;max-width:34ch}
-    .cross-rail{border-left:1px solid rgba(143,230,255,.12);padding:16px;color:#9bb4d7;background:rgba(255,255,255,.02);font-size:.84rem;line-height:1.6}
+    .cross-main{padding:18px}.cross-main strong{display:block;margin-bottom:10px;color:#eef6ff;font-size:1.02rem;line-height:1.2}.cross-main p{color:#b8cbe5;font-size:.9rem;line-height:1.7;max-width:34ch}.cross-rail{border-left:1px solid rgba(143,230,255,.12);padding:16px;color:#9bb4d7;background:rgba(255,255,255,.02);font-size:.84rem;line-height:1.6}
     .cross-mobile{display:flex;align-items:center;justify-content:center;padding:18px;background:linear-gradient(180deg,#fbfcfe,#edf2f8)}
     .cross-phone{width:min(100%,200px);border:1px solid #ced8e5;border-radius:28px;background:#fff;box-shadow:0 18px 44px rgba(17,24,39,.12);padding:10px}
     .cross-phone-screen{border:1px solid #e1e8f0;border-radius:18px;overflow:hidden;background:#fff}
     .cross-phone-top{padding:12px 12px 8px;border-bottom:1px solid #e7edf5;background:linear-gradient(180deg,#fbfcfe,#f4f7fb)}
     .cross-phone-top strong{display:block;font-size:.95rem;line-height:1.2;letter-spacing:-.02em;color:#18202c}.cross-phone-top span{display:block;margin-top:6px;color:#5f6878;font-size:.78rem;line-height:1.5}
     .cross-phone-body{padding:12px}.cross-chip{padding:10px 12px;border:1px solid #dce3ec;border-radius:12px;background:#fbfcfe;color:#5f6878;font-size:.8rem;line-height:1.45;margin-bottom:8px}.cross-cta{padding:10px 12px;border-radius:12px;background:#2f6fed;color:#fff;text-align:center;font-size:.82rem;font-weight:800}
-    .helper{margin-top:18px;padding:16px 18px;border:1px solid rgba(26,34,48,.1);border-radius:18px;background:rgba(255,255,255,.72);box-shadow:0 10px 30px rgba(17,24,39,.05);color:var(--muted);line-height:1.78}
-
-    @media (max-width:820px){
-      .noir-inner,.editorial-top,.editorial-bottom,.brutal-top,.portal-top{grid-template-columns:1fr}
-      .editorial-side,.editorial-column{border-left:0;border-top:1px solid rgba(26,34,48,.1)}
-      .noir-specimen{min-height:180px}
-    }
-    @media (max-width:640px){
-      body{padding:18px 12px 32px}
-      .hero{padding:22px 18px}
-      .style-card.noir,.style-card.brutal,.style-card.portal,.editorial-copy,.editorial-side,.editorial-specimen,.editorial-column{padding:18px}
-      .noir-inner{min-height:auto}
-      .noir-specimen{min-height:220px}
-      .noir-specimen img{transform:scale(1.02);object-position:center}
-      .noir-line{left:18px;top:16px;width:40%;max-width:7ch;font-size:1.24rem;line-height:.95}
-      .noir-note{left:18px;top:auto;bottom:16px;width:46%;max-width:13ch;font-size:.72rem;line-height:1.38}
-      .editorial-specimen{min-height:200px;padding:18px;display:flex;align-items:flex-start}
-      .editorial-specimen img{width:100%;height:100%;right:0;top:0;object-position:center;opacity:.26}
-      .editorial-specimen::before{background:linear-gradient(180deg, rgba(251,250,247,.96) 0 56%, rgba(251,250,247,.82) 72%, rgba(251,250,247,.68) 100%)}
-      .editorial-specimen .mini-kicker{left:18px;top:18px}
-      .editorial-specimen .mini-head{left:18px;top:42px;max-width:220px;font-size:1.55rem}
-      .editorial-specimen .mini-rule{left:18px;top:112px;width:92px}
-      .editorial-specimen .mini-text{left:18px;top:128px;max-width:230px;font-size:.88rem;line-height:1.55}
-      .brutal-top{grid-template-columns:1fr;gap:12px}
-      .brutal-main,.brutal-side{padding:14px}
-      .brutal-side{background:linear-gradient(180deg,#111 0 30%, #fff 30% 100%)}
-      .brutal-side p{font-size:.84rem;line-height:1.55;word-break:break-word}
-      .brutal-bar{height:12px;margin:10px 0}
-      .brutal-square{width:64px;height:64px;margin-top:10px}
-      .brutal-specimen{min-height:190px;padding:14px;box-shadow:7px 7px 0 #275df1}
-      .brutal-specimen img{width:54%}
-      .brutal-head{font-size:1.42rem;max-width:58%}
-      .brutal-stamp{padding:7px 8px;font-size:10px}
-      .brutal-block-red{right:12px;top:12px;width:54px;height:54px}
-      .brutal-block-yellow{left:14px;bottom:14px;width:88px;height:18px}
-      .brutal-block-black{left:14px;top:58px;width:62px;height:14px}
-    }
+    .helper{margin-top:18px;padding:16px 18px;border-radius:20px;background:linear-gradient(180deg,#fff,#f8f4eb);color:var(--muted);line-height:1.78}
+    @media (max-width:900px){.house-top,.house-window,.reader-top,.cross-top,.cross-bottom,.reader-window-body{grid-template-columns:1fr}.house-side,.reader-side,.cross-side,.reader-rail{border-left:0;border-top:1px solid var(--line)}.cross-window-body{grid-template-columns:1fr}.cross-rail{border-left:0;border-top:1px solid rgba(143,230,255,.12)}}
+    @media (max-width:640px){body{padding:18px 12px 32px}.hero,.house-copy,.house-side,.reader-copy,.reader-side,.cross-copy,.cross-side,.helper{padding:18px}}
   </style>
-  </head>
+</head>
 <body>
   <div class="wrap">
     <div class="topbar">
       <a class="link" href="../index.html">← Remote Viewer</a>
+      <a class="link" href="./classic-showroom.html">Classic Showroom</a>
     </div>
 
     <section class="hero">
-      <p class="eyebrow">Styles</p>
-      <h1>Visual languages we can reuse on purpose</h1>
-      <p class="sub">This page is now meant to work like a neutral showroom with fully stylized specimens. Each card should already feel like an example of the design system before you even click through for the deeper explanation, tokens, and replication notes.</p>
+      <p class="eyebrow">Styles 2</p>
+      <h1>Focused style showroom, second lane.</h1>
+      <p class="sub">A smaller, cleaner style shelf built in the new house style. This lane is for the styles we want to foreground right now: the house style itself, the markdown-reader utility style, and the cross-surface reference for desktop/mobile thinking.</p>
     </section>
 
     <section class="grid">
-      <a class="style-card noir" href="./luminous-glass-noir/index.html">
-        <div class="noir-inner">
-          <div class="noir-copy">
-            <div>
-              <span class="tag">Style 001 · Dark / Cinematic / Glass</span>
-              <h2>Luminous Glass Noir</h2>
-              <p>The current Remote Viewer house style: dark atmospheric backgrounds, cyan highlights, muted amber warmth, translucent panels, rounded geometry, and a premium editorial feel.</p>
+      <a class="style-card house-style-card" href="./taste-skill-inspired/index.html">
+        <div class="house-top">
+          <div class="house-copy">
+            <p class="house-kicker">Style 001 · House Style · Premium / Warm / Operational</p>
+            <h2>Style One</h2>
+            <p>The Remote Viewer house style: warm accent, calmer premium product-web composition, stronger hierarchy, and a clearer standard for hosted operational pages.</p>
+          </div>
+          <div class="house-side">
+            <p>This card is styled as itself. It is both the specimen and the current house grammar for standard pages.</p>
+          </div>
+        </div>
+        <div class="house-window">
+          <div class="house-shell">
+            <small>Hero posture</small>
+            <strong>Split + offset</strong>
+            <p>Prefer left-copy with supporting structure over generic centered stacks.</p>
+          </div>
+          <div class="house-shell">
+            <small>Accent rule</small>
+            <strong>One warm accent</strong>
+            <p>Use restrained amber rather than a noisy multi-color palette.</p>
+          </div>
+          <div class="house-shell">
+            <small>Page role</small>
+            <strong>System coherence</strong>
+            <p>Best for operational lanes, registries, and hosted structure pages.</p>
+          </div>
+        </div>
+      </a>
+
+      <a class="style-card reader" href="./markdown-reader/index.html">
+        <div class="reader-top">
+          <div class="reader-copy">
+            <p class="reader-kicker">Style 002 · Markdown / Reading / Utility</p>
+            <h2>Style Two</h2>
+            <p>A calm document-viewer system for long markdown pages, imported notes, reports, and internal writing that should feel native in Remote Viewer without being forced into a more theatrical artifact treatment.</p>
+          </div>
+          <div class="reader-side">
+            <p>Think reliable markdown preview, README surface, or continuity note viewer — where spacing, hierarchy, code styling, and low-noise chrome matter more than atmosphere.</p>
+          </div>
+        </div>
+        <div class="reader-specimen" aria-hidden="true">
+          <div class="reader-window">
+            <div class="reader-window-top">
+              <div class="reader-dots"><span class="reader-dot"></span><span class="reader-dot"></span><span class="reader-dot"></span></div>
+              <div>notes / imported-markdown.md</div>
             </div>
-          </div>
-          <div class="noir-specimen" aria-hidden="true">
-            <img src="./assets/generated/2026-03-16/2026-03-16-21-52-00-luminous-glass-noir-reference.png" alt="Luminous Glass Noir reference image" />
-            <div class="noir-line">Night interfaces with thoughtful glow.</div>
-            <div class="noir-note">Cinematic glass surfaces, cyan edge light, and reflective nocturnal depth.</div>
-          </div>
-        </div>
-      </a>
-
-      <a class="style-card editorial" href="./paper-editorial-modern/index.html">
-        <div class="editorial-top">
-          <div class="editorial-copy">
-            <p class="editorial-kicker">Style 002 · Light / Serif / Editorial</p>
-            <h2>Paper Editorial Modern</h2>
-            <p>A bright, print-like direction with serif-led hierarchy, sharper rectangular composition, cleaner surfaces, and a more magazine or design-journal sensibility.</p>
-          </div>
-          <div class="editorial-side">
-            <p>Think premium essay layout, product memo, or design publication — where typography and page structure do more of the work than atmosphere.</p>
-          </div>
-        </div>
-        <div class="editorial-bottom">
-          <div class="editorial-specimen" aria-hidden="true">
-            <img src="./assets/generated/2026-03-16/2026-03-16-21-54-00-paper-editorial-modern-reference.png" alt="Paper Editorial Modern reference image" />
-            <div class="mini-kicker">Essay / System / Notes</div>
-            <div class="mini-head">Paper systems with strong hierarchy.</div>
-            <div class="mini-rule"></div>
-            <div class="mini-text">Document-like imagery, calm paper texture, and structure carried by type and composition.</div>
-          </div>
-          <div class="editorial-column">A lighter, more publication-like visual system for essays, manifests, frameworks, and design thinking pages.</div>
-        </div>
-      </a>
-
-      <a class="style-card brutal" href="./brutalist-monochrome/index.html">
-        <div class="brutal-top">
-          <div class="brutal-main">
-            <span class="kicker">Style 003 · Sharp / Bold / Poster</span>
-            <h2>Brutalist Monochrome</h2>
-            <p>High-contrast blocks, sharp corners, oversized type, hard borders, abrupt geometry, and a confrontational poster-like layout language with almost no softness.</p>
-          </div>
-          <div class="brutal-side">
-            <p>BLACK / WHITE / SIGNAL COLORS</p>
-            <div class="brutal-bar"></div>
-            <p>TYPE AS IMPACT<br />BOXES AS STRUCTURE<br />NO GLASS / NO GLOW</p>
-            <div class="brutal-square"></div>
-          </div>
-        </div>
-        <div class="brutal-specimen" aria-hidden="true">
-          <img src="./assets/generated/2026-03-16/2026-03-16-21-57-00-brutalist-monochrome-reference.png" alt="Brutalist Monochrome reference image" />
-          <span class="brutal-stamp">Web Brutalist</span>
-          <div class="brutal-head">Sharp geometry. Loud hierarchy.</div>
-          <div class="brutal-block-red"></div>
-          <div class="brutal-block-yellow"></div>
-          <div class="brutal-block-black"></div>
-        </div>
-      </a>
-
-      <a class="style-card portal" href="./amber-arcade-portal/index.html">
-        <div class="portal-top">
-          <div class="portal-main">
-            <span class="portal-kicker">Style 004 · Menu / Portal / Warm Sci-Fi</span>
-            <h2>Amber Arcade Portal</h2>
-            <p>The original Remote Viewer menu language: black void backdrop, amber signal borders, Audiowide headings, glint sweeps, and stacked portal buttons that feel more like entering a destination than opening a plain index.</p>
-            <div class="portal-stack">
-              <div class="portal-pill">Skills</div>
-              <div class="portal-pill">Balance</div>
-              <div class="portal-pill">Archive</div>
-            </div>
-          </div>
-          <div class="portal-side">
-            <div class="portal-surface" aria-hidden="true">
-              <div class="portal-ambient"></div>
-              <div class="portal-glow"></div>
-              <div class="portal-header">Remote Viewer</div>
+            <div class="reader-window-body">
+              <div class="reader-doc">
+                <div class="reader-doc-title">Reading real markdown without turning it into theater</div>
+                <div class="reader-doc-copy">A simple, trustworthy document surface for long notes, essays, logs, and reference material.</div>
+                <span class="reader-inline">inline code</span>
+                <div class="reader-quote">Use this when the content itself deserves center stage.</div>
+              </div>
+              <div class="reader-rail">
+                <p class="reader-rail-label">Best Fit</p>
+                <p class="reader-rail-copy">READMEs, reports, memory exports, docs, and markdown-first pages.</p>
+              </div>
             </div>
           </div>
         </div>
       </a>
-
 
       <a class="style-card cross-surface" href="./cross-surface-reference/index.html">
         <div class="cross-top">
           <div class="cross-copy">
             <p class="cross-kicker">Reference · Desktop vs Mobile · Surface Strategy</p>
             <h2>Cross-Surface Reference</h2>
-            <p>An unnumbered comparison template for deciding how the same page should behave across devices: widescreen desktop as a more luxurious inspection surface, portrait mobile as a tighter reading-and-action surface.</p>
+            <p>An explicit comparison template for deciding how the same page should behave across devices: widescreen desktop as a more luxurious inspection surface, portrait mobile as a tighter reading-and-action surface.</p>
           </div>
           <div class="cross-side">
             <p>Use this when the question is not “which style?” but “how should this surface change when the screen, posture, and interaction mode change?”</p>
@@ -402,75 +212,9 @@
           </div>
         </div>
       </a>
-
-      <a class="style-card" href="./taste-skill-inspired/index.html" style="display:block;text-decoration:none;color:inherit;transition:transform .18s ease;border:1px solid rgba(196,122,44,.16);border-radius:24px;overflow:hidden;background:linear-gradient(180deg,#fffdf8,#f7f2e8 100%);box-shadow:0 18px 48px rgba(18,14,10,.08);">
-        <div style="display:grid;grid-template-columns:1.08fr .92fr;gap:0;border-bottom:1px solid rgba(34,31,24,.08)">
-          <div style="padding:26px 24px 22px;">
-            <p style="margin:0 0 12px;color:#c47a2c;font:800 12px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase">Style 006 · Taste-Skill Inspired · Product / Premium / Modern</p>
-            <h2 style="margin:0 0 12px;font-size:clamp(1.95rem,4.5vw,3rem);line-height:.96;letter-spacing:-.04em;color:#191816;">Taste-Skill Inspired</h2>
-            <p style="margin:0;color:#6f6a61;line-height:1.82;">A premium product-web style based on the Taste-Skill field test: asymmetry, stronger typography, one controlled accent, anti-generic layout rules, and a more deliberate founder-operator polish.</p>
-          </div>
-          <div style="padding:24px;border-left:1px solid rgba(34,31,24,.08);background:linear-gradient(180deg,#fff,#faf5eb);display:flex;align-items:end;">
-            <p style="margin:0;font-size:.96rem;color:#6f6a61;line-height:1.78;">Use this when you want a page to feel like a high-end product or concept website rather than a document-style artifact wrapper.</p>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;padding:18px;background:linear-gradient(180deg,#fbfaf6,#f3eee3);">
-          <div style="padding:18px;border:1px solid rgba(34,31,24,.08);border-radius:24px;background:linear-gradient(180deg,#fff,#faf7f0);box-shadow:0 24px 50px -18px rgba(18,14,10,.08);">
-            <div style="display:block;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:#c47a2c;font-weight:800;margin-bottom:10px;">Hero posture</div>
-            <div style="display:block;font-size:1.22rem;letter-spacing:-.03em;margin-bottom:8px;color:#191816;font-weight:700;">Split + offset</div>
-            <div style="color:#6f6a61;line-height:1.7;">Avoid the default centered stack. Prefer asymmetry, supporting assets, and more intentional composition.</div>
-          </div>
-          <div style="padding:18px;border:1px solid rgba(34,31,24,.08);border-radius:24px;background:linear-gradient(180deg,#fff,#faf7f0);box-shadow:0 24px 50px -18px rgba(18,14,10,.08);">
-            <div style="display:block;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:#c47a2c;font-weight:800;margin-bottom:10px;">Accent rule</div>
-            <div style="display:block;font-size:1.22rem;letter-spacing:-.03em;margin-bottom:8px;color:#191816;font-weight:700;">One color</div>
-            <div style="color:#6f6a61;line-height:1.7;">Use one warm or cool accent with restraint. No purple-blue AI glow soup.</div>
-          </div>
-          <div style="padding:18px;border:1px solid rgba(34,31,24,.08);border-radius:24px;background:linear-gradient(180deg,#fff,#faf7f0);box-shadow:0 24px 50px -18px rgba(18,14,10,.08);">
-            <div style="display:block;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:#c47a2c;font-weight:800;margin-bottom:10px;">Anti-pattern</div>
-            <div style="display:block;font-size:1.22rem;letter-spacing:-.03em;margin-bottom:8px;color:#191816;font-weight:700;">No 3-card stripe</div>
-            <div style="color:#6f6a61;line-height:1.7;">Ban the generic equal-width feature row. Use a more deliberate section architecture.</div>
-          </div>
-        </div>
-      </a>
-
-      <a class="style-card reader" href="./markdown-reader/index.html">
-        <div class="reader-top">
-          <div class="reader-copy">
-            <p class="reader-kicker">Style 005 · Markdown / Reading / Utility</p>
-            <h2>Markdown Reader</h2>
-            <p>A calm document-viewer system for long markdown pages, imported notes, reports, and internal writing that should feel native in Remote Viewer without being forced into a more theatrical artifact treatment.</p>
-          </div>
-          <div class="reader-side">
-            <p>Think reliable markdown preview, README surface, or continuity note viewer — where spacing, hierarchy, code styling, and low-noise chrome matter more than atmosphere.</p>
-          </div>
-        </div>
-        <div class="reader-bottom">
-          <div class="reader-specimen" aria-hidden="true">
-            <div class="reader-window">
-              <div class="reader-window-top">
-                <div class="reader-dots"><span class="reader-dot"></span><span class="reader-dot"></span><span class="reader-dot"></span></div>
-                <div>notes / imported-markdown.md</div>
-              </div>
-              <div class="reader-window-body">
-                <div class="reader-doc">
-                  <div class="reader-doc-title">Reading real markdown without turning it into theater</div>
-                  <div class="reader-doc-copy">A simple, trustworthy document surface for long notes, essays, logs, and reference material.</div>
-                  <span class="reader-inline">inline code</span>
-                  <div class="reader-quote">Use this when the content itself deserves center stage.</div>
-                </div>
-                <div class="reader-rail">
-                  <p class="reader-rail-label">Best Fit</p>
-                  <p class="reader-rail-copy">READMEs, reports, memory exports, docs, and markdown-first pages.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
     </section>
 
-    <div class="helper">This is the better model: the showroom background stays calm, while each card becomes a miniature working specimen of its style. Then the detail page can hold the deeper explanation, tokens, color values, font choices, and replication notes.</div>
+    <div class="helper">This second styles lane is intentionally smaller and more focused than the original showroom. It foregrounds the styles that feel most live right now: the house grammar, the markdown-reader utility style, and the desktop/mobile surface reference.</div>
   </div>
-
-  </body>
+</body>
 </html>
