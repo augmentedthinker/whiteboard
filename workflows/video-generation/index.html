@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Workflow · Veo Video Generation</title>
+  <style>
+    :root{
+      --bg:#f6f3ec;--paper:#fffdf9;--line:rgba(40,34,24,.12);--line-strong:rgba(40,34,24,.18);--text:#1b1814;--muted:#665f55;--accent:#c47a2c;--accent-ink:#7a4a19;--shadow:0 18px 46px rgba(30,24,18,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{min-height:100vh;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(180deg,#faf8f2,#f2ede2 58%,#ece5d8);color:var(--text);padding:16px;line-height:1.65}
+    .wrap{max-width:980px;margin:0 auto}
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+    .link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.88);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 22px rgba(30,24,18,.05)}
+    .hero,.section,.code,.callout{border:1px solid var(--line);background:rgba(255,255,255,.82);box-shadow:var(--shadow);border-radius:24px}
+    .hero{padding:24px 22px;margin-bottom:16px;background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(251,247,239,.92))}
+    .eyebrow{margin:0 0 8px;color:var(--accent);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 12px;font-size:clamp(2rem,5vw,3.2rem);line-height:.98;letter-spacing:-.04em}
+    .sub{margin:0;color:var(--muted);line-height:1.8;max-width:74ch}
+    .toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:18px}
+    .toc a{display:block;text-decoration:none;color:var(--accent-ink);padding:10px 12px;border-radius:14px;border:1px solid rgba(196,122,44,.18);background:rgba(196,122,44,.08);font-weight:700}
+    .stack{display:grid;gap:16px}
+    .section{padding:20px}
+    .section h2{margin:0 0 12px;font-size:1.28rem;letter-spacing:-.03em}
+    .section h3{margin:16px 0 8px;font-size:1rem}
+    .section p,.section li{color:var(--muted);line-height:1.8}
+    .section strong{color:var(--text)}
+    .section ul,.section ol{padding-left:1.2rem;margin:0}
+    .section li{margin:0 0 8px}
+    .code{padding:16px;background:#141312;color:#f5efe6;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92rem;line-height:1.6}
+    .callout{padding:16px 18px;background:linear-gradient(180deg,#fff,#faf7ef)}
+    .mini{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);font-weight:800;margin:0 0 8px}
+    @media (max-width:720px){body{padding:10px}.hero,.section,.code,.callout{border-radius:18px}.hero,.section{padding:18px}}
+  </style>
+  <link rel="stylesheet" href="../../assets/shared/rv-floating-nav.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="link" href="../index.html">← Workflows</a>
+      <a class="link" href="../../index.html">Remote Viewer</a>
+      <a class="link" href="../../tools/veo-video-generation-checker/index.html">Browser checker</a>
+    </div>
+
+    <section class="hero">
+      <p class="eyebrow">Workflow · Proven Capability</p>
+      <h1>Veo Video Generation</h1>
+      <p class="sub">This page is the browser-readable backup playbook for creating AI-generated videos from the main session using Gemini / Veo. It is designed to be complete enough that a future session could reconstruct the workflow from this page alone, even if the local markdown file were unavailable.</p>
+      <div class="toc">
+        <a href="#status">Current status</a>
+        <a href="#requirements">Requirements</a>
+        <a href="#core-route">Core route</a>
+        <a href="#procedure">Step-by-step</a>
+        <a href="#template">Shell template</a>
+        <a href="#failures">Failure modes</a>
+        <a href="#verification">Verification</a>
+      </div>
+    </section>
+
+    <div class="stack">
+      <section class="section" id="status">
+        <h2>Current status</h2>
+        <p><strong>Status:</strong> proven working from the main session as of 2026-03-30.</p>
+        <ul>
+          <li>Video generation works through Gemini’s <strong>long-running Veo endpoint</strong>.</li>
+          <li>The reliable model currently documented here is <strong>veo-3.0-fast-generate-001</strong>.</li>
+          <li>The successful path is <strong>not</strong> the browser checker and <strong>not</strong> a simple one-shot generateContent call.</li>
+          <li>The workflow is: start a long-running prediction, poll the operation until it is done, extract the returned file URL, and then download the MP4 with the API key header.</li>
+        </ul>
+      </section>
+
+      <section class="section" id="requirements">
+        <h2>Requirements</h2>
+        <ul>
+          <li>Shell access from a session that can run <code>curl</code> and <code>python3</code>.</li>
+          <li>A readable Gemini API key. Current preferred key path in the local system is:<br><code>/mnt/chromeos/MyFiles/Downloads/shared_workspace/secrets/GEMINI_API_KEY</code></li>
+          <li>An output folder in shared workspace, typically:<br><code>/mnt/chromeos/MyFiles/Downloads/shared_workspace/generated-videos/YYYY-MM-DD/</code></li>
+          <li>Enough patience to poll the operation — the first response only gives an operation name, not the final video.</li>
+        </ul>
+        <div class="callout">
+          <p class="mini">Important distinction</p>
+          <p>The browser-side Veo checker is still useful for diagnostics, but the <strong>main-session CLI long-running route is the real proven path</strong>.</p>
+        </div>
+      </section>
+
+      <section class="section" id="core-route">
+        <h2>Core route</h2>
+        <h3>Model</h3>
+        <p><code>veo-3.0-fast-generate-001</code></p>
+        <h3>Start endpoint</h3>
+        <p><code>POST https://generativelanguage.googleapis.com/v1beta/models/veo-3.0-fast-generate-001:predictLongRunning?key=GEMINI_API_KEY</code></p>
+        <h3>Poll endpoint pattern</h3>
+        <p><code>GET https://generativelanguage.googleapis.com/v1beta/&lt;operation-name&gt;?key=GEMINI_API_KEY</code></p>
+        <h3>Result extraction path</h3>
+        <p><code>response.generateVideoResponse.generatedSamples[0].video.uri</code></p>
+        <h3>Download rule</h3>
+        <p>Use the returned URI with the header:<br><code>x-goog-api-key: GEMINI_API_KEY</code></p>
+      </section>
+
+      <section class="section" id="procedure">
+        <h2>Step-by-step procedure</h2>
+        <ol>
+          <li><strong>Read the API key</strong> from the secrets location and strip trailing newlines.</li>
+          <li><strong>Create a dated output folder</strong> in shared workspace.</li>
+          <li><strong>Write a request JSON</strong> using the shape <code>{"instances":[{"prompt":"..."}],"parameters":{"aspectRatio":"16:9"}}</code>.</li>
+          <li><strong>POST to predictLongRunning</strong> and save the response JSON.</li>
+          <li><strong>Extract the operation name</strong> from the start response.</li>
+          <li><strong>Poll the operation</strong> every ~10 seconds until <code>done: true</code>.</li>
+          <li><strong>Extract the nested video URI</strong> from the completed response.</li>
+          <li><strong>Download the MP4</strong> with the <code>x-goog-api-key</code> header.</li>
+          <li><strong>Write sibling metadata</strong> beside the video so future sessions know what was generated and how.</li>
+        </ol>
+
+        <h3>Proven request shape</h3>
+        <div class="code">{
+  "instances": [
+    {
+      "prompt": "A cinematic 6-second shot of a lone traveler standing on a rooftop in Washington, D.C. at blue hour, soft wind moving their coat, city lights glowing below, subtle camera dolly forward, tasteful sci-fi atmosphere, realistic, elegant, no text, no watermark."
+    }
+  ],
+  "parameters": {
+    "aspectRatio": "16:9"
+  }
+}</div>
+      </section>
+
+      <section class="section" id="template">
+        <h2>Reusable shell template</h2>
+        <p>This is the compact template version of the workflow. It is not the only valid implementation, but it captures the proven shape clearly enough to recreate the route.</p>
+        <div class="code">set -euo pipefail
+
+KEY_FILE="/mnt/chromeos/MyFiles/Downloads/shared_workspace/secrets/GEMINI_API_KEY"
+API_KEY="$(tr -d '\r\n' &lt; "$KEY_FILE")"
+OUT_DIR="/mnt/chromeos/MyFiles/Downloads/shared_workspace/generated-videos/$(date +%F)"
+mkdir -p "$OUT_DIR"
+
+PROMPT='REPLACE WITH VIDEO PROMPT'
+BASENAME='replace-with-output-name'
+
+cat &gt; "$OUT_DIR/request.json" &lt;&lt;'JSON'
+{
+  "instances": [
+    {
+      "prompt": "REPLACE WITH VIDEO PROMPT"
+    }
+  ],
+  "parameters": {
+    "aspectRatio": "16:9"
+  }
+}
+JSON
+
+START_URL="https://generativelanguage.googleapis.com/v1beta/models/veo-3.0-fast-generate-001:predictLongRunning?key=${API_KEY}"
+
+curl -sS -X POST "$START_URL" \
+  -H 'Content-Type: application/json' \
+  --data @"$OUT_DIR/request.json" \
+  -o "$OUT_DIR/start-response.json"
+
+OP_NAME=$(python3 - &lt;&lt;PY
+import json
+with open("$OUT_DIR/start-response.json") as f:
+    print(json.load(f)["name"])
+PY
+)
+
+STATUS_URL="https://generativelanguage.googleapis.com/v1beta/${OP_NAME}?key=${API_KEY}"
+
+for i in $(seq 1 40); do
+  curl -sS "$STATUS_URL" -o "$OUT_DIR/op-status.json"
+  DONE=$(python3 - &lt;&lt;PY
+import json
+with open("$OUT_DIR/op-status.json") as f:
+    data=json.load(f)
+print('true' if data.get('done') else 'false')
+PY
+)
+  if [ "$DONE" = "true" ]; then
+    break
+  fi
+  sleep 10
+done
+
+VIDEO_URL=$(python3 - &lt;&lt;PY
+import json
+with open("$OUT_DIR/op-status.json") as f:
+    data=json.load(f)
+print(data["response"]["generateVideoResponse"]["generatedSamples"][0]["video"]["uri"])
+PY
+)
+
+VIDEO_PATH="$OUT_DIR/${BASENAME}.mp4"
+
+curl -L -sS -H "x-goog-api-key: ${API_KEY}" "$VIDEO_URL" -o "$VIDEO_PATH"
+
+echo "Saved to: $VIDEO_PATH"</div>
+        <div class="callout">
+          <p class="mini">Practical note</p>
+          <p>In actual sessions, it can be safer to write the final prompt literal directly into the request JSON rather than over-generalizing the shell template too early.</p>
+        </div>
+      </section>
+
+      <section class="section" id="failures">
+        <h2>Common failure modes</h2>
+        <ul>
+          <li><strong>Missing API key:</strong> the key file is absent, unreadable, or malformed.</li>
+          <li><strong>Wrong endpoint:</strong> trying generateContent instead of <code>predictLongRunning</code>.</li>
+          <li><strong>Wrong model:</strong> swapping away from the currently proven <code>veo-3.0-fast-generate-001</code> without testing.</li>
+          <li><strong>Stopping too early:</strong> forgetting that the first response is only an operation handle.</li>
+          <li><strong>Bad extraction:</strong> failing to pull <code>generatedSamples[0].video.uri</code> from the completed response.</li>
+          <li><strong>Download auth mistake:</strong> not sending the <code>x-goog-api-key</code> header on the final file download.</li>
+          <li><strong>Surface mismatch:</strong> a remote session may need delegation if it lacks shell access or workspace access.</li>
+        </ul>
+      </section>
+
+      <section class="section" id="verification">
+        <h2>Verification standard</h2>
+        <p>Treat the workflow as successful only if all of these are true:</p>
+        <ol>
+          <li>the start request returns an operation name</li>
+          <li>polling eventually returns <code>done: true</code></li>
+          <li>a <code>video.uri</code> appears in the completed response</li>
+          <li>the MP4 downloads successfully</li>
+          <li>the file exists in shared workspace</li>
+          <li>the output path is clearly reported</li>
+          <li>ideally, a metadata markdown file is written beside it</li>
+        </ol>
+        <div class="callout">
+          <p class="mini">Current truth</p>
+          <p>The point now is no longer proving that video generation is possible. The point is preserving the route clearly enough that future sessions can do it again without guesswork.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="../../assets/shared/rv-floating-nav.js"></script>
+</body>
+</html>
