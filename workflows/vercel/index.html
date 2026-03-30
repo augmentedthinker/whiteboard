@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <title>Remote Viewer | Vercel Workflow</title>
+  <link rel="stylesheet" href="../../assets/styles/style-one/base.css" />
+  <style>
+    .workflow-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);gap:18px}
+    .workflow-main{display:grid;gap:18px}
+    .workflow-side{display:grid;gap:18px}
+    .workflow-card h2{margin:0 0 12px;font-size:1.3rem;letter-spacing:-.03em}
+    .workflow-card h3{margin:18px 0 8px;font-size:1rem;letter-spacing:-.02em}
+    .workflow-card p,.workflow-card li{margin:0 0 12px;color:var(--rv-muted);line-height:1.82}
+    .workflow-card strong{color:var(--rv-text)}
+    .workflow-card ul,.workflow-card ol{margin:0;padding-left:1.15rem}
+    .workflow-chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+    .workflow-chip{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(196,122,44,.1);color:var(--rv-accent-ink);border:1px solid rgba(196,122,44,.18)}
+    .workflow-side .rv-card{position:sticky;top:18px}
+    code{background:rgba(34,31,24,.06);padding:.12rem .34rem;border-radius:6px}
+    @media (max-width:940px){.workflow-grid{grid-template-columns:1fr}.workflow-side .rv-card{position:static}}
+  </style>
+</head>
+<body class="rv-style-one">
+  <div class="rv-wrap">
+    <div class="rv-topbar">
+      <div class="rv-topbar-left">
+        <a class="rv-link" href="../index.html">← Workflows</a>
+        <a class="rv-link" href="../../index.html">Remote Viewer</a>
+      </div>
+    </div>
+
+    <section class="rv-hero">
+      <p class="rv-eyebrow">Workflow · Vercel</p>
+      <h1 class="rv-title">Using Vercel as the hosted app layer.</h1>
+      <p class="rv-sub">This is the durable hosted workflow for when a project needs more than static hosting: hidden API keys, backend routes, dynamic media generation, or app behavior that should live behind a deployed server-side layer.</p>
+      <div class="workflow-chip-row">
+        <span class="workflow-chip">Proven</span>
+        <span class="workflow-chip">GitHub-linked</span>
+        <span class="workflow-chip">Env vars</span>
+        <span class="workflow-chip">Backend routes</span>
+      </div>
+    </section>
+
+    <div class="workflow-grid">
+      <main class="workflow-main">
+        <section class="rv-card workflow-card">
+          <h2>What Vercel is for in this ecosystem</h2>
+          <p><strong>GitHub</strong> stores the code and history. <strong>Vercel</strong> runs and serves the app.</p>
+          <p>Use Vercel when a project needs server-side behavior: hidden API keys, backend routes, deployed app logic, or media-generation workflows that should not expose raw provider secrets in the browser.</p>
+        </section>
+
+        <section class="rv-card workflow-card">
+          <h2>What was proven on 2026-03-30</h2>
+          <ul>
+            <li>token-based authenticated Vercel API access from the main session</li>
+            <li>API-driven Vercel project creation linked to GitHub</li>
+            <li>API-driven environment-variable setup</li>
+            <li>API-triggered deployment from the linked GitHub repo</li>
+            <li>a real live deployed app: <strong>Gemini Media Gate</strong></li>
+          </ul>
+        </section>
+
+        <section class="rv-card workflow-card">
+          <h2>Proven example: Gemini Media Gate</h2>
+          <p>The working proof app was deployed as <strong>veo-gate-main</strong> and is now live at <a href="https://veo-gate-main.vercel.app" target="_blank" rel="noopener">veo-gate-main.vercel.app</a>.</p>
+          <p>That app proved:</p>
+          <ul>
+            <li>4-digit gated access</li>
+            <li>Gemini key stored in Vercel env vars</li>
+            <li>backend image generation</li>
+            <li>backend Veo generation</li>
+            <li>backend proxy delivery for protected video URLs</li>
+          </ul>
+        </section>
+
+        <section class="rv-card workflow-card">
+          <h2>Minimal repeatable flow</h2>
+          <ol>
+            <li>create or choose a GitHub repo</li>
+            <li>normalize the branch to <code>main</code></li>
+            <li>create a fresh Vercel project linked to the repo</li>
+            <li>set required env vars</li>
+            <li>deploy from GitHub</li>
+            <li>verify the live URL</li>
+            <li>test frontend ↔ backend behavior</li>
+            <li>if media URLs are provider-protected, proxy them server-side instead of handing raw URLs directly to the browser</li>
+          </ol>
+        </section>
+
+        <section class="rv-card workflow-card">
+          <h2>Important lessons</h2>
+          <h3>Fresh projects can be easier than rescuing stale state</h3>
+          <p>The first Vercel project for this proof got stuck on an old branch/deployment state. Creating a fresh clean project turned out to be the faster path.</p>
+          <h3>Branch naming matters immediately</h3>
+          <p><code>master</code> vs <code>main</code> mismatches can quietly break the first deployment or make redeploy behavior confusing.</p>
+          <h3>Image mode is the better debug lane</h3>
+          <p>Video generation is slower and more expensive to test repeatedly. Use image generation to validate the architecture faster, then use video for higher-value tests.</p>
+        </section>
+      </main>
+
+      <aside class="workflow-side">
+        <section class="rv-card workflow-card">
+          <span class="rv-label">Current paths</span>
+          <h2 style="font-size:1.1rem;">Key references</h2>
+          <ul>
+            <li>shared workflow: <code>workflows/vercel.md</code></li>
+            <li>repo: <code>shared_workspace/veo-gate</code></li>
+            <li>live app: <a href="https://veo-gate-main.vercel.app" target="_blank" rel="noopener">Gemini Media Gate</a></li>
+            <li>token secret: <code>secrets/vercel_token</code></li>
+          </ul>
+          <div class="rv-actions"><a href="https://veo-gate-main.vercel.app" target="_blank" rel="noopener">Open live app</a></div>
+        </section>
+      </aside>
+    </div>
+
+    <script src="../../assets/styles/style-one/theme.js"></script>
+  </div>
+</body>
+</html>
