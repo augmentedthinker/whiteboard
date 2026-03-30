@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>YouTube Monitoring Capability Review · 2026-03-30</title>
+  <link rel="stylesheet" href="../../assets/styles/style-one/base.css" />
+  <style>
+    .review-grid{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(280px,.82fr);gap:18px}
+    .review-main{display:grid;gap:18px}
+    .review-side{display:grid;gap:18px}
+    .review-card h2{margin:0 0 12px;font-size:1.3rem;letter-spacing:-.03em}
+    .review-card h3{margin:18px 0 8px;font-size:1rem;letter-spacing:-.02em}
+    .review-card p,.review-card li{margin:0 0 12px;color:var(--rv-muted);line-height:1.82}
+    .review-card strong{color:var(--rv-text)}
+    .review-card ul,.review-card ol{margin:0;padding-left:1.15rem}
+    .chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(196,122,44,.1);color:var(--rv-accent-ink);border:1px solid rgba(196,122,44,.18)}
+    .review-side .rv-card{position:sticky;top:18px}
+    @media (max-width:940px){.review-grid{grid-template-columns:1fr}.review-side .rv-card{position:static}}
+  </style>
+</head>
+<body class="rv-style-one">
+  <div class="rv-wrap">
+    <div class="rv-topbar">
+      <div class="rv-topbar-left">
+        <a class="rv-link" href="../../today/index.html">← Today’s Artifacts</a>
+        <a class="rv-link" href="./signature.html">✒️ Signature</a>
+      </div>
+    </div>
+
+    <section class="rv-hero">
+      <p class="rv-eyebrow">YouTube Lane · Capability Review</p>
+      <h1 class="rv-title">YouTube Monitoring Capability Review · 2026-03-30</h1>
+      <p class="rv-sub">A clear explanation of what was actually proven by the Matthew Berman review artifact, where the current limits are, and what stronger YouTube integration through API and/or OAuth would unlock next.</p>
+      <div class="chip-row">
+        <span class="chip">What we proved</span>
+        <span class="chip">Current limits</span>
+        <span class="chip">Why integrate further</span>
+      </div>
+    </section>
+
+    <div class="review-grid">
+      <main class="review-main">
+        <section class="rv-card review-card">
+          <h2>What we just proved</h2>
+          <p>We proved that the YouTube lane is already useful <strong>before</strong> full integration exists.</p>
+          <p>Using lightweight public-web access, it was possible to:</p>
+          <ul>
+            <li>identify a creator Christopher actually follows</li>
+            <li>surface at least some recent visible uploads</li>
+            <li>summarize the themes of those uploads</li>
+            <li>package that summary into a hosted artifact worth reopening on phone or Chromebook</li>
+          </ul>
+          <p>That matters because it shows the use case is not hypothetical. The lane already has shape, even if the current access method is incomplete.</p>
+        </section>
+
+        <section class="rv-card review-card">
+          <h2>What the current method can do</h2>
+          <ul>
+            <li>find a public creator/channel</li>
+            <li>inspect what appears publicly visible on the open web</li>
+            <li>produce creator-specific weekly review artifacts</li>
+            <li>extract broad themes and likely areas of emphasis</li>
+            <li>help Christopher decide whether a creator’s recent output seems worth deeper attention</li>
+          </ul>
+          <p>For a first pass, that is already enough to create signal from noise.</p>
+        </section>
+
+        <section class="rv-card review-card">
+          <h2>What the current method cannot reliably do</h2>
+          <p>This first pass also exposed the current limitations very clearly.</p>
+          <ul>
+            <li><strong>not a full structured channel read</strong> — public web results are sparse and inconsistent</li>
+            <li><strong>not guaranteed complete</strong> — recent uploads may be partially missing from public-web retrieval</li>
+            <li><strong>weak metadata access</strong> — titles may be visible, but not always dependable publish dates, descriptions, durations, or clean links</li>
+            <li><strong>not personalized</strong> — this does not yet know Christopher’s subscriptions/feed directly</li>
+            <li><strong>not ideal for repeatable automation</strong> — public-web scraping/fetching is less stable than structured API access</li>
+          </ul>
+          <p>So the current lane is useful, but inference-heavy and incomplete.</p>
+        </section>
+
+        <section class="rv-card review-card">
+          <h2>Why a YouTube API or OAuth integration would matter</h2>
+          <h3>If we add YouTube API access</h3>
+          <p>API access would likely let the system retrieve cleaner, more structured public channel data. That would improve:</p>
+          <ul>
+            <li>recent uploads list completeness</li>
+            <li>publish dates and ordering</li>
+            <li>video titles and links</li>
+            <li>metadata consistency</li>
+            <li>repeatability for weekly creator reviews</li>
+          </ul>
+
+          <h3>If we add OAuth / account-level access</h3>
+          <p>OAuth would matter when the goal stops being “read a public channel” and becomes more personal, for example:</p>
+          <ul>
+            <li>understanding Christopher’s actual subscriptions</li>
+            <li>monitoring channels he follows without naming them one by one every time</li>
+            <li>building a personalized watch-intelligence or weekly creator-digest lane</li>
+            <li>surfacing his own real information environment rather than only publicly named channels</li>
+          </ul>
+        </section>
+
+        <section class="rv-card review-card">
+          <h2>What stronger integration would let us do next</h2>
+          <ol>
+            <li><strong>Creator review, but better:</strong> more complete weekly channel summaries with better metadata and cleaner confidence</li>
+            <li><strong>Multi-channel weekly digests:</strong> summarize what several favorite creators posted this week</li>
+            <li><strong>Priority ranking:</strong> help decide which uploads seem most worth Christopher’s time</li>
+            <li><strong>Topic clustering:</strong> identify what multiple AI creators are all talking about at once</li>
+            <li><strong>Personal feed intelligence:</strong> once OAuth exists, summarize his actual watched/followed information environment more directly</li>
+          </ol>
+        </section>
+
+        <section class="rv-card review-card">
+          <h2>Why this is worth doing</h2>
+          <p>YouTube is not just another social platform for Christopher. It is one of the main places he actually gets information and shapes his ongoing attention.</p>
+          <p>That means this lane is valuable for at least three reasons:</p>
+          <ul>
+            <li><strong>information triage</strong> — not every creator upload deserves a full watch</li>
+            <li><strong>creator monitoring</strong> — recurring channels can be summarized over time</li>
+            <li><strong>ecosystem awareness</strong> — the system can start seeing what the broader AI conversation is focusing on through the creators Christopher actually trusts or follows</li>
+          </ul>
+          <p>That is much closer to Christopher’s real daily information life than many hypothetical integrations.</p>
+        </section>
+
+        <section class="rv-card review-card">
+          <h2>Current recommendation</h2>
+          <p>The right next move is <strong>not</strong> to overbuild immediately. The right progression is:</p>
+          <ol>
+            <li>prove value with a few more creator-specific review artifacts</li>
+            <li>if the lane continues to feel useful, add proper YouTube API-backed public-channel retrieval</li>
+            <li>only later decide whether OAuth/account-level personalization is worth the extra setup</li>
+          </ol>
+          <p>In short: public channel intelligence first, personal feed intelligence later.</p>
+        </section>
+
+        <section class="rv-note">
+          <strong>Bottom line:</strong> we have already proven the YouTube lane is useful enough to justify deeper integration. What we have now is a workable first public-web prototype; what API/OAuth would add is structure, completeness, personalization, and scalability.
+        </section>
+      </main>
+
+      <aside class="review-side">
+        <section class="rv-card review-card">
+          <span class="rv-label">At a glance</span>
+          <h2 style="font-size:1.1rem;">Present state</h2>
+          <ul>
+            <li>public creator review: <strong>possible now</strong></li>
+            <li>complete/structured retrieval: <strong>not yet</strong></li>
+            <li>personal subscriptions/feed: <strong>not yet</strong></li>
+            <li>next strongest move: <strong>YouTube API public-channel lane</strong></li>
+          </ul>
+          <div class="rv-actions"><a href="../matthew-berman-weekly-channel-review-2026-03-30/index.html">Open Matthew Berman review</a></div>
+        </section>
+      </aside>
+    </div>
+
+    <script src="../../assets/styles/style-one/theme.js"></script>
+  </div>
+</body>
+</html>
