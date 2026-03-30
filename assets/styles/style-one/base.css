@@ -67,3 +67,49 @@ body.rv-style-one{
   body.rv-style-one{padding:18px 12px 32px}
   .rv-hero,.rv-card,.rv-note,.rv-panel{padding:18px}
 }
+
+
+body.rv-style-one[data-theme="dark"]{
+  --rv-bg:#0d1117;
+  --rv-paper:#161b22;
+  --rv-paper-soft:#10161d;
+  --rv-line:rgba(201,209,217,.14);
+  --rv-line-strong:rgba(201,209,217,.22);
+  --rv-text:#e6edf3;
+  --rv-muted:#9da7b1;
+  --rv-accent:#d79a52;
+  --rv-accent-ink:#ffd7a6;
+  --rv-shadow:0 24px 50px -18px rgba(0,0,0,.32);
+  background:
+    radial-gradient(circle at top right, rgba(215,154,82,.12), transparent 24%),
+    radial-gradient(circle at top left, rgba(88,166,255,.08), transparent 28%),
+    linear-gradient(180deg,#0f141b 0%, var(--rv-bg) 42%, #0b1016 100%);
+}
+body.rv-style-one[data-theme="dark"] .rv-link,
+body.rv-style-one[data-theme="dark"] .rv-pill,
+body.rv-style-one[data-theme="dark"] .rv-btn,
+body.rv-style-one[data-theme="dark"] .rv-theme-toggle{
+  color:var(--rv-text);
+  border:1px solid var(--rv-line);
+  background:rgba(27,34,48,.92);
+  box-shadow:0 8px 20px rgba(0,0,0,.22);
+}
+body.rv-style-one[data-theme="dark"] .rv-hero,
+body.rv-style-one[data-theme="dark"] .rv-card,
+body.rv-style-one[data-theme="dark"] .rv-note,
+body.rv-style-one[data-theme="dark"] .rv-panel{
+  border:1px solid var(--rv-line);
+  background:rgba(22,27,34,.86);
+}
+body.rv-style-one[data-theme="dark"] .rv-card{background:linear-gradient(180deg,#161b22,#10161d)}
+body.rv-style-one[data-theme="dark"] .rv-note{background:linear-gradient(180deg,#161b22,#111822)}
+body.rv-style-one[data-theme="dark"] .rv-card:hover{border-color:rgba(215,154,82,.28);box-shadow:0 28px 60px -22px rgba(0,0,0,.36)}
+body.rv-style-one[data-theme="dark"] code{background:rgba(255,255,255,.06);padding:.12rem .34rem;border-radius:6px}
+.rv-theme-toggle{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  appearance:none;
+  font:700 0.95rem Outfit,system-ui,sans-serif;
+}
