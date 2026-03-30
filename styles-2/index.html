@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Remote Viewer | Styles 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:wght@500;700&family=Audiowide&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f7f5ef;
+      --paper:#ffffff;
+      --paper-soft:#fbfaf6;
+      --line:rgba(34,31,24,.1);
+      --line-strong:rgba(34,31,24,.16);
+      --text:#191816;
+      --muted:#6f6a61;
+      --accent:#c47a2c;
+      --accent-ink:#7b4a16;
+      --shadow:0 24px 50px -18px rgba(18,14,10,.08);
+      --ease:cubic-bezier(0.16,1,0.3,1);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      min-height:100vh;
+      font-family:Outfit,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(255,232,205,.55), transparent 24%),
+        radial-gradient(circle at top left, rgba(255,255,255,.82), transparent 28%),
+        linear-gradient(180deg,#faf8f2 0%, var(--bg) 42%, #f3eee3 100%);
+      padding:24px 16px 44px;
+    }
+    .wrap{max-width:1180px;margin:0 auto}
+    .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+    .link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.84);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 20px rgba(17,13,9,.05)}
+    .hero,.card-frame,.helper{border:1px solid var(--line);background:rgba(255,255,255,.78);box-shadow:var(--shadow)}
+    .hero{padding:30px 26px;border-radius:30px;margin-bottom:18px}
+    .eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0 0 12px;font-size:clamp(2rem,5vw,3.7rem);line-height:.98;letter-spacing:-.05em}
+    .sub{margin:0;max-width:78ch;color:var(--muted);line-height:1.8;font-size:1.04rem}
+    .grid{display:grid;grid-template-columns:1fr;gap:22px}
+    .style-card{display:block;text-decoration:none;color:inherit;transition:transform .18s ease}
+    .style-card:hover{transform:translateY(-3px)}
+
+    .house-style-card{border:1px solid rgba(196,122,44,.16);border-radius:24px;overflow:hidden;background:linear-gradient(180deg,#fffdf8,#f7f2e8 100%);box-shadow:0 18px 48px rgba(18,14,10,.08)}
+    .house-top{display:grid;grid-template-columns:1.08fr .92fr;gap:0;border-bottom:1px solid rgba(34,31,24,.08)}
+    .house-copy{padding:26px 24px 22px}
+    .house-kicker{margin:0 0 12px;color:#c47a2c;font:800 12px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase}
+    .house-style-card h2{margin:0 0 12px;font-size:clamp(1.95rem,4.5vw,3rem);line-height:.96;letter-spacing:-.04em;color:#191816}
+    .house-style-card p{margin:0;color:#6f6a61;line-height:1.82}
+    .house-side{padding:24px;border-left:1px solid rgba(34,31,24,.08);background:linear-gradient(180deg,#fff,#faf5eb);display:flex;align-items:end}
+    .house-window{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;padding:18px;background:linear-gradient(180deg,#fbfaf6,#f3eee3)}
+    .house-shell{padding:18px;border:1px solid rgba(34,31,24,.08);border-radius:24px;background:linear-gradient(180deg,#fff,#faf7f0);box-shadow:0 24px 50px -18px rgba(18,14,10,.08)}
+    .house-shell small{display:block;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:#c47a2c;font-weight:800;margin-bottom:10px}
+    .house-shell strong{display:block;font-size:1.22rem;letter-spacing:-.03em;margin-bottom:8px}
+
+    .reader{border:1px solid #d6dbe3;border-radius:22px;overflow:hidden;background:linear-gradient(180deg,#ffffff,#f7f9fc 100%);box-shadow:0 18px 48px rgba(15,23,42,.08)}
+    .reader-top{display:grid;grid-template-columns:1.08fr .92fr;gap:0;border-bottom:1px solid #dce1e8}
+    .reader-copy{padding:26px 24px 22px}
+    .reader-kicker{margin:0 0 12px;color:#2f6fed;font:800 12px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase}
+    .reader h2{margin:0 0 12px;font-size:clamp(1.95rem,4.5vw,3.2rem);line-height:.96;letter-spacing:-.04em;color:#1f2937}
+    .reader p{margin:0;color:#667085;line-height:1.82}
+    .reader-side{padding:24px;border-left:1px solid #dce1e8;background:linear-gradient(180deg,#fbfcfe,#f4f7fb);display:flex;align-items:end}
+    .reader-specimen{min-height:250px;position:relative;background:#fff}
+    .reader-window{position:absolute;inset:18px;border:1px solid #cfd6df;border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 12px 30px rgba(15,23,42,.07)}
+    .reader-window-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 14px;background:linear-gradient(180deg,#fafbfd,#f2f4f7);border-bottom:1px solid #dce1e8;color:#667085;font-size:.9rem}
+    .reader-dots{display:flex;gap:8px}.reader-dot{width:10px;height:10px;border-radius:999px;background:#d0d5dd}
+    .reader-window-body{display:grid;grid-template-columns:minmax(0,1fr) 210px;min-height:188px}
+    .reader-doc{padding:20px 18px 18px}.reader-doc-title{margin:0 0 10px;font-size:1.22rem;line-height:1.18;letter-spacing:-.03em;color:#111827}.reader-doc-copy{margin:0 0 12px;color:#667085;font-size:.94rem;line-height:1.72;max-width:42ch}.reader-inline{display:inline-block;padding:.14rem .38rem;border-radius:8px;border:1px solid #dce6f6;background:#f3f6fb;color:#1849a9;font:500 .84rem/1.2 'IBM Plex Mono',monospace}.reader-quote{margin:12px 0 0;padding-left:12px;border-left:3px solid #2f6fed;color:#4b5563;font-size:.92rem;line-height:1.66;max-width:38ch}.reader-rail{border-left:1px solid #dce1e8;background:linear-gradient(180deg,#fbfcfe,#f7f9fc);padding:16px 14px}.reader-rail-label{margin:0 0 8px;color:#2f6fed;font:800 11px/1 Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase}.reader-rail-copy{margin:0;color:#667085;font-size:.88rem;line-height:1.62}
+
+    .cross-surface{border:1px solid rgba(26,34,48,.12);border-radius:24px;overflow:hidden;background:linear-gradient(180deg,#fbfcfe,#f2f5fa 100%);box-shadow:0 18px 48px rgba(15,23,42,.08)}
+    .cross-top{display:grid;grid-template-columns:1.05fr .95fr;gap:0;border-bottom:1px solid rgba(26,34,48,.08)}
+    .cross-copy{padding:26px 24px 22px}
+    .cross-kicker{margin:0 0 12px;color:#275df1;font:800 12px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase}
+    .cross-surface h2{margin:0 0 12px;font-size:clamp(1.95rem,4.5vw,3rem);line-height:.96;letter-spacing:-.04em;color:#18202c}
+    .cross-surface p{margin:0;color:#5f6878;line-height:1.82}
+    .cross-side{padding:24px;border-left:1px solid rgba(26,34,48,.08);background:linear-gradient(180deg,#ffffff,#f5f8fc);display:flex;align-items:end}
+    .cross-bottom{display:grid;grid-template-columns:1.2fr .8fr;gap:0;min-height:260px}
+    .cross-desktop{padding:18px;background:linear-gradient(160deg,#101827,#162443 58%,#0d1527)}
+    .cross-desktop-shell{height:100%;border:1px solid rgba(143,230,255,.14);border-radius:18px;background:linear-gradient(160deg,rgba(13,22,39,.96),rgba(8,13,24,.98));overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.22)}
+    .cross-window-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 14px;border-bottom:1px solid rgba(143,230,255,.12);color:#9bb4d7;font-size:.88rem}
+    .cross-dots{display:flex;gap:8px}.cross-dot{width:10px;height:10px;border-radius:999px;background:#506381}
+    .cross-window-body{display:grid;grid-template-columns:1fr 180px;min-height:180px}
+    .cross-main{padding:18px}.cross-main strong{display:block;margin-bottom:10px;color:#eef6ff;font-size:1.02rem;line-height:1.2}.cross-main p{color:#b8cbe5;font-size:.9rem;line-height:1.7;max-width:34ch}.cross-rail{border-left:1px solid rgba(143,230,255,.12);padding:16px;color:#9bb4d7;background:rgba(255,255,255,.02);font-size:.84rem;line-height:1.6}
+    .cross-mobile{display:flex;align-items:center;justify-content:center;padding:18px;background:linear-gradient(180deg,#fbfcfe,#edf2f8)}
+    .cross-phone{width:min(100%,200px);border:1px solid #ced8e5;border-radius:28px;background:#fff;box-shadow:0 18px 44px rgba(17,24,39,.12);padding:10px}
+    .cross-phone-screen{border:1px solid #e1e8f0;border-radius:18px;overflow:hidden;background:#fff}
+    .cross-phone-top{padding:12px 12px 8px;border-bottom:1px solid #e7edf5;background:linear-gradient(180deg,#fbfcfe,#f4f7fb)}
+    .cross-phone-top strong{display:block;font-size:.95rem;line-height:1.2;letter-spacing:-.02em;color:#18202c}.cross-phone-top span{display:block;margin-top:6px;color:#5f6878;font-size:.78rem;line-height:1.5}
+    .cross-phone-body{padding:12px}.cross-chip{padding:10px 12px;border:1px solid #dce3ec;border-radius:12px;background:#fbfcfe;color:#5f6878;font-size:.8rem;line-height:1.45;margin-bottom:8px}.cross-cta{padding:10px 12px;border-radius:12px;background:#2f6fed;color:#fff;text-align:center;font-size:.82rem;font-weight:800}
+    .helper{margin-top:18px;padding:16px 18px;border-radius:20px;background:linear-gradient(180deg,#fff,#f8f4eb);color:var(--muted);line-height:1.78}
+    @media (max-width:900px){.house-top,.house-window,.reader-top,.cross-top,.cross-bottom,.reader-window-body{grid-template-columns:1fr}.house-side,.reader-side,.cross-side,.reader-rail{border-left:0;border-top:1px solid var(--line)}.cross-window-body{grid-template-columns:1fr}.cross-rail{border-left:0;border-top:1px solid rgba(143,230,255,.12)}}
+    @media (max-width:640px){body{padding:18px 12px 32px}.hero,.house-copy,.house-side,.reader-copy,.reader-side,.cross-copy,.cross-side,.helper{padding:18px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="link" href="../index.html">← Remote Viewer</a>
+      <a class="link" href="../styles/index.html">Styles</a>
+    </div>
+
+    <section class="hero">
+      <p class="eyebrow">Styles 2</p>
+      <h1>Focused style showroom, second lane.</h1>
+      <p class="sub">A smaller, cleaner style shelf built in the new house style. This lane is for the styles we want to foreground right now: the house style itself, the markdown-reader utility style, and the cross-surface reference for desktop/mobile thinking.</p>
+    </section>
+
+    <section class="grid">
+      <a class="style-card house-style-card" href="../styles/taste-skill-inspired/index.html">
+        <div class="house-top">
+          <div class="house-copy">
+            <p class="house-kicker">Style 001 · House Style · Premium / Warm / Operational</p>
+            <h2>Style One</h2>
+            <p>The Remote Viewer house style: warm accent, calmer premium product-web composition, stronger hierarchy, and a clearer standard for hosted operational pages.</p>
+          </div>
+          <div class="house-side">
+            <p>This card is styled as itself. It is both the specimen and the current house grammar for standard pages.</p>
+          </div>
+        </div>
+        <div class="house-window">
+          <div class="house-shell">
+            <small>Hero posture</small>
+            <strong>Split + offset</strong>
+            <p>Prefer left-copy with supporting structure over generic centered stacks.</p>
+          </div>
+          <div class="house-shell">
+            <small>Accent rule</small>
+            <strong>One warm accent</strong>
+            <p>Use restrained amber rather than a noisy multi-color palette.</p>
+          </div>
+          <div class="house-shell">
+            <small>Page role</small>
+            <strong>System coherence</strong>
+            <p>Best for operational lanes, registries, and hosted structure pages.</p>
+          </div>
+        </div>
+      </a>
+
+      <a class="style-card reader" href="../styles/markdown-reader/index.html">
+        <div class="reader-top">
+          <div class="reader-copy">
+            <p class="reader-kicker">Style 002 · Markdown / Reading / Utility</p>
+            <h2>Style Two</h2>
+            <p>A calm document-viewer system for long markdown pages, imported notes, reports, and internal writing that should feel native in Remote Viewer without being forced into a more theatrical artifact treatment.</p>
+          </div>
+          <div class="reader-side">
+            <p>Think reliable markdown preview, README surface, or continuity note viewer — where spacing, hierarchy, code styling, and low-noise chrome matter more than atmosphere.</p>
+          </div>
+        </div>
+        <div class="reader-specimen" aria-hidden="true">
+          <div class="reader-window">
+            <div class="reader-window-top">
+              <div class="reader-dots"><span class="reader-dot"></span><span class="reader-dot"></span><span class="reader-dot"></span></div>
+              <div>notes / imported-markdown.md</div>
+            </div>
+            <div class="reader-window-body">
+              <div class="reader-doc">
+                <div class="reader-doc-title">Reading real markdown without turning it into theater</div>
+                <div class="reader-doc-copy">A simple, trustworthy document surface for long notes, essays, logs, and reference material.</div>
+                <span class="reader-inline">inline code</span>
+                <div class="reader-quote">Use this when the content itself deserves center stage.</div>
+              </div>
+              <div class="reader-rail">
+                <p class="reader-rail-label">Best Fit</p>
+                <p class="reader-rail-copy">READMEs, reports, memory exports, docs, and markdown-first pages.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a class="style-card cross-surface" href="../styles/cross-surface-reference/index.html">
+        <div class="cross-top">
+          <div class="cross-copy">
+            <p class="cross-kicker">Reference · Desktop vs Mobile · Surface Strategy</p>
+            <h2>Cross-Surface Reference</h2>
+            <p>An explicit comparison template for deciding how the same page should behave across devices: widescreen desktop as a more luxurious inspection surface, portrait mobile as a tighter reading-and-action surface.</p>
+          </div>
+          <div class="cross-side">
+            <p>Use this when the question is not “which style?” but “how should this surface change when the screen, posture, and interaction mode change?”</p>
+          </div>
+        </div>
+        <div class="cross-bottom">
+          <div class="cross-desktop" aria-hidden="true">
+            <div class="cross-desktop-shell">
+              <div class="cross-window-top"><div class="cross-dots"><span class="cross-dot"></span><span class="cross-dot"></span><span class="cross-dot"></span></div><div>Desktop Surface</div></div>
+              <div class="cross-window-body">
+                <div class="cross-main">
+                  <strong>More room for context, hierarchy, and luxurious breathing space.</strong>
+                  <p>Desktop can support side rails, comparison modules, and richer navigation when those actually improve inspection.</p>
+                </div>
+                <div class="cross-rail">Sidebar notes, secondary data, and parallel context can live here without overwhelming the main flow.</div>
+              </div>
+            </div>
+          </div>
+          <div class="cross-mobile" aria-hidden="true">
+            <div class="cross-phone">
+              <div class="cross-phone-screen">
+                <div class="cross-phone-top"><strong>Mobile Surface</strong><span>Clear, thumb-friendly, and fast to understand.</span></div>
+                <div class="cross-phone-body">
+                  <div class="cross-chip">One primary action</div>
+                  <div class="cross-chip">Readable first</div>
+                  <div class="cross-chip">Reduced chrome</div>
+                  <div class="cross-cta">Open</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </section>
+
+    <div class="helper">This second styles lane is intentionally smaller and more focused than the original showroom. It foregrounds the styles that feel most live right now: the house grammar, the markdown-reader utility style, and the desktop/mobile surface reference.</div>
+  </div>
+</body>
+</html>
