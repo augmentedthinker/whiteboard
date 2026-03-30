@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <title>Remote Viewer | Vercel</title>
+  <link rel="stylesheet" href="../assets/styles/style-one/base.css" />
+  <style>
+    .vercel-grid{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+  </style>
+</head>
+<body class="rv-style-one">
+  <div class="rv-wrap">
+    <div class="rv-topbar">
+      <a class="rv-link" href="../index.html">← Remote Viewer</a>
+      <a class="rv-link" href="../styles/index.html">Style One</a>
+    </div>
+    <section class="rv-hero">
+      <p class="rv-eyebrow">Remote Viewer · Vercel</p>
+      <h1 class="rv-title">Hosted app lane for Vercel-backed experiments.</h1>
+      <p class="rv-sub">This lane is for projects that go beyond static pages: server-side secrets, lightweight backends, dynamic generation, and deployed app behavior that GitHub Pages alone does not cover.</p>
+    </section>
+
+    <section class="rv-grid vercel-grid">
+      <article class="rv-card">
+        <span class="rv-label">Live</span>
+        <h2>Gemini Media Gate</h2>
+        <p>A gated Gemini app deployed on Vercel with both image and video generation modes, a 4-digit shared access code, server-side secret handling, and backend routes for media generation and delivery.</p>
+        <div class="rv-actions"><a href="https://veo-gate-main.vercel.app" target="_blank" rel="noopener">Open App</a></div>
+      </article>
+    </section>
+
+    <section class="rv-note">Use this lane when a project needs backend logic, hidden API keys, dynamic media generation, or other app-like behavior that should not live purely as a static artifact.</section>
+  </div>
+  <script src="../assets/styles/style-one/theme.js"></script>
+</body>
+</html>
