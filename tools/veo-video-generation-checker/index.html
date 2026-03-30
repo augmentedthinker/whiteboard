@@ -28,7 +28,7 @@
     </div>
     <section class="hero">
       <h1>🎬 Veo / Video Generation Schema Checker</h1>
-      <p>This tool is now intentionally framed as a <strong>schema and endpoint diagnostic</strong>, not a validated video generator. Current evidence suggests the earlier request shape was wrong. Use this to compare multiple payload variants against likely Veo / Gemini video model IDs and inspect raw responses.</p>
+      <p>This tool is now intentionally framed as a <strong>schema and endpoint diagnostic</strong>, not a validated video generator. Current evidence suggests the earlier request shape was wrong. Use this to compare multiple payload variants against the newer Veo 3.1 video-generation model IDs and inspect raw responses.</p>
     </section>
     <section class="grid">
       <section class="panel stack">
@@ -69,9 +69,9 @@
   <script>
     const KEY_STORAGE='remoteViewer.geminiApiKey';
     const MODELS=[
-      {id:'veo-3.0-generate-preview',label:'Veo 3.0 Generate Preview',note:'Primary likely Veo/VO3-style candidate.'},
-      {id:'veo-2.0-generate-001',label:'Veo 2.0 Generate 001',note:'Fallback candidate if newer naming is unavailable.'},
-      {id:'gemini-3.1-video-preview',label:'Gemini 3.1 Video Preview',note:'Speculative Gemini-native video preview lane.'}
+      {id:'veo-3.1-generate-001',label:'Veo 3.1 Generate 001',note:'Flagship Veo 3.1 candidate: highest-quality generation lane to test first.'},
+      {id:'veo-3.1-fast-generate-001',label:'Veo 3.1 Fast Generate 001',note:'Lower-latency / lower-cost Veo 3.1 candidate for faster generation tests.'},
+      {id:'veo-3.1-generate-preview',label:'Veo 3.1 Generate Preview',note:'Preview / experimental Veo 3.1 candidate if the stable IDs are unavailable.'}
     ];
     const VARIANTS=[
       {id:'text-only',label:'Text-only baseline',note:'Plain generateContent request with no video fields. Useful to separate model-not-found from schema-not-found.',build:(prompt)=>({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0.7}})},
