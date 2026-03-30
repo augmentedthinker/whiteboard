@@ -103,6 +103,7 @@ This is the visual style library and design-reference lane.
 
 It now functions as a real operating surface, not just a loose idea.
 Current style entries include:
+- **Style One / Default House Style**
 - **Style 001 / Luminous Glass Noir**
 - **Style 002 / Paper Editorial Modern**
 - **Style 003 / Brutalist Monochrome**
@@ -112,6 +113,8 @@ Current style entries include:
 - **Cross-Surface Reference** (special reference entry, not a numbered style)
 
 This lane matters because style choice is increasingly part of the actual work, not an afterthought.
+
+**Important current rule:** unless Christopher asks for a specific alternative style, new standard Remote Viewer pages should use **Style One** and import the shared package rather than re-creating the house CSS/JS locally.
 
 ### 5. Tools (`tools/`)
 This is the operational utility lane.
@@ -166,16 +169,27 @@ That means:
 - navigation behavior must be designed with multi-page reality in mind
 - universal UI should increasingly rely on shared assets rather than per-page duplication
 
+### Shared style infrastructure
+A major current architectural improvement is the extraction of the default house style into shared assets:
+- `assets/styles/style-one/base.css`
+- `assets/styles/style-one/theme.js`
+
+This matters because it:
+- reduces duplicated house-style page code
+- makes theme behavior consistent across standard pages
+- supports faster creation of new menu-linked pages
+- makes updates to the default system more centralized and less fragile
+
+The main current rule is:
+- use the shared Style One package for standard pages unless a different style is explicitly requested
+- add only page-specific CSS/JS locally when the page genuinely needs custom layout or behavior
+
 ### Shared floating navigation assets
-A major architectural improvement was the extraction of the floating Remote Viewer navigation into shared assets:
+An earlier architectural move extracted floating Remote Viewer navigation into shared assets:
 - `assets/shared/rv-floating-nav.css`
 - `assets/shared/rv-floating-nav.js`
 
-This matters because it:
-- reduces duplicated page code
-- makes future updates less fragile
-- moves the repo toward reusable UI infrastructure
-- supports a more coherent site-wide experience
+That system was useful as a proof of shared UI infrastructure, but it also exposed an important lesson: broad shared UI can still be the wrong fit if the interaction model causes friction in actual Chromebook use.
 
 A practical maintenance lesson also came with that refactor: broad repo-wide replacement passes can accidentally break page-specific logic in handcrafted artifacts, so global changes should be made carefully and smoke-tested afterward.
 

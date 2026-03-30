@@ -54,6 +54,35 @@ This top-level README is the broader reference layer for the styles area as a wh
 
 ## Current entries
 
+### Style One / Default House Style
+**Role:** the default reusable visual system for standard Remote Viewer pages.
+
+**Current implementation:**
+- `remote-viewer/assets/styles/style-one/base.css`
+- `remote-viewer/assets/styles/style-one/theme.js`
+
+**Best for:**
+- standard menu-linked pages
+- documentation pages
+- tools indexes
+- archive / today / ideas / agents / workflows pages
+- any new Remote Viewer page where Christopher did not request a specific alternative style
+
+**Core traits:**
+- warm, clean, legible browser-native presentation
+- reusable topbar / hero / card / note grammar
+- shared light/dark theme toggle with saved preference across participating pages
+- mobile-capable layout without over-designed chrome
+- intended as infrastructure, not just aesthetics
+
+**Default rule:** unless Christopher explicitly asks for another style, new standard Remote Viewer pages should use **Style One**.
+
+**Important implementation rule:** when building a new standard page that should match the house system, prefer importing the shared Style One package rather than duplicating page-level house CSS/JS. Keep local CSS or JS only for:
+- page-specific layout extensions
+- page-specific interactive logic
+- intentionally different style systems such as Style 006 or artifact-specific treatments
+
+
 ### Style 001 / Luminous Glass Noir
 **Role:** dark, luminous, layered, cinematic glass interface language.
 
