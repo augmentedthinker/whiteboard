@@ -6,61 +6,27 @@
   <title>Troubleshooting | Remote Viewer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#0a1020;
-      --bg2:#121b31;
-      --panel:rgba(14,24,45,.8);
-      --line:rgba(157,201,255,.18);
-      --text:#ecf3ff;
-      --muted:#b8cae7;
-      --accent:#9fd2ff;
-      --warn:#ffd28d;
-      --shadow:0 20px 56px rgba(0,0,0,.28);
-    }
+    :root{--bg:#f7f5ef;--paper:#ffffff;--paper-soft:#fbfaf6;--line:rgba(34,31,24,.1);--line-strong:rgba(34,31,24,.16);--text:#191816;--muted:#6f6a61;--accent:#c47a2c;--accent-ink:#7b4a16;--shadow:0 24px 50px -18px rgba(18,14,10,.08);--ease:cubic-bezier(0.16,1,0.3,1)}
     *{box-sizing:border-box} html,body{margin:0}
-    body{
-      min-height:100vh;
-      background:linear-gradient(180deg,var(--bg),var(--bg2) 58%,#0d1528);
-      color:var(--text);
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-      padding:14px;
-      overflow-x:hidden;
-      -webkit-text-size-adjust:100%;
-    }
-    .wrap{max-width:920px;margin:0 auto}
-    .topbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
-    .pill{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.06);font-weight:700}
-    .hero,.card,.note{border:1px solid var(--line);border-radius:22px;background:var(--panel);box-shadow:var(--shadow)}
-    .hero{padding:20px 18px;margin-bottom:14px}
-    .eyebrow{margin:0 0 8px;color:var(--accent);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
-    h1{margin:0 0 10px;font-family:Fraunces,serif;font-size:clamp(2rem,7vw,3rem);line-height:.96;letter-spacing:-.04em}
-    .hero p{margin:0;color:var(--muted);line-height:1.78}
-    .grid{display:grid;gap:12px}
-    .card{padding:16px}
-    .card h2{margin:0 0 8px;font-size:1.08rem;line-height:1.25}
-    .status{display:inline-block;margin:0 0 12px;padding:5px 10px;border-radius:999px;font-size:.75rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:var(--warn)}
-    p{margin:0 0 12px;color:var(--muted);line-height:1.75}
-    ul{margin:0;padding-left:18px}
-    li{margin:0 0 8px;color:var(--muted);line-height:1.7}
-    strong{color:var(--text)}
-    .note{padding:16px;margin-top:14px}
-    @media (min-width:780px){.grid{grid-template-columns:1fr 1fr}}
-    @media (max-width:640px){body{padding:10px}.hero,.card,.note{border-radius:18px}.hero{padding:16px 14px}.card{padding:14px}h1{font-size:2rem}}
+    body{min-height:100vh;font-family:Outfit,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:radial-gradient(circle at top right, rgba(255,232,205,.55), transparent 24%),radial-gradient(circle at top left, rgba(255,255,255,.82), transparent 28%),linear-gradient(180deg,#faf8f2 0%, var(--bg) 42%, #f3eee3 100%);padding:24px 16px 44px}
+    .wrap{max-width:1180px;margin:0 auto}.topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}.link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.84);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 20px rgba(17,13,9,.05)}
+    .hero,.card,.note{border:1px solid var(--line);background:rgba(255,255,255,.78);box-shadow:var(--shadow)} .hero{padding:30px 26px;border-radius:30px;margin-bottom:18px}.eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}h1{margin:0 0 12px;font-size:clamp(2rem,5vw,3.7rem);line-height:.98;letter-spacing:-.05em}.sub{margin:0;max-width:78ch;color:var(--muted);line-height:1.8;font-size:1.04rem}
+    .grid{display:grid;gap:18px}.card{padding:22px;border-radius:26px;background:linear-gradient(180deg,#fff,#faf7f0)}.status{display:inline-block;margin-bottom:12px;padding:6px 10px;border-radius:999px;background:rgba(196,122,44,.1);border:1px solid rgba(196,122,44,.18);color:var(--accent-ink);font-size:.76rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.card h2{margin:0 0 10px;font-size:1.2rem;letter-spacing:-.03em}.card p,.card li{color:var(--muted);line-height:1.8}.card ul{margin:0;padding-left:1.2rem}.card strong{color:var(--text)}.note{padding:18px 20px;border-radius:20px;background:linear-gradient(180deg,#fff,#f8f4eb);color:var(--muted);line-height:1.82;margin-top:18px}
+    @media (min-width:860px){.grid{grid-template-columns:1fr 1fr}} @media (max-width:640px){body{padding:18px 12px 32px}.hero,.card,.note{padding:18px}}
   </style>
-  </head>
+</head>
 <body>
   <div class="wrap">
     <div class="topbar">
-      <a class="pill" href="../../index.html">← Main Menu</a>
-      <a class="pill" href="../../today/index.html">Today’s Artifacts</a>
+      <a class="link" href="../../index.html">← Remote Viewer</a>
+      <a class="link" href="../../styles/taste-skill-inspired/index.html">Style 006</a>
     </div>
-
     <section class="hero">
       <p class="eyebrow">Operational Diagnostics</p>
       <h1>Troubleshooting</h1>
-      <p>A focused page for recurring system issues and unresolved technical weirdness across OpenClaw, Remote Viewer, Chromebook/Crostini behavior, and related workflow infrastructure.</p>
+      <p class="sub">A focused page for recurring system issues and unresolved technical weirdness across OpenClaw, Remote Viewer, Chromebook/Crostini behavior, and related workflow infrastructure.</p>
     </section>
 
     <section class="grid">
@@ -74,7 +40,6 @@
           <li>At least one job appeared to be picked up by the scheduler and then stalled or disappeared in a <strong>runningAtMs</strong> state without delivering.</li>
         </ul>
       </article>
-
       <article class="card">
         <span class="status">Recurring concern</span>
         <h2>Chromebook / Crostini startup behavior</h2>
@@ -85,29 +50,26 @@
           <li>The real fragility may be less about network and more about <strong>device/container active-use state</strong>.</li>
         </ul>
       </article>
-
       <article class="card">
         <span class="status">Recent bug lane</span>
         <h2>Fullscreen / input quirks on Chromebook</h2>
-        <p>The shared floating navigation introduced a narrower interaction bug where touchscreen behavior and mouse/trackpad behavior did not match cleanly on Chromebook.</p>
+        <p>The now-removed shared floating navigation exposed a narrower interaction bug where touchscreen behavior and mouse/trackpad behavior did not match cleanly on Chromebook.</p>
         <ul>
-          <li>Touch input was able to trigger fullscreen.</li>
+          <li>Touch input was able to trigger fullscreen more reliably than mouse/trackpad click.</li>
           <li>Mouse/trackpad clicks were being interfered with by the drag logic in the floating control.</li>
-          <li>This is a good reminder that <strong>shared UI abstractions can hide input-specific bugs</strong>.</li>
+          <li>This reinforced a useful lesson: <strong>shared UI abstractions can hide input-specific bugs</strong>.</li>
         </ul>
       </article>
-
       <article class="card">
         <span class="status">Newly noticed</span>
         <h2>Memory search path seems degraded</h2>
-        <p>The raw memory files are readable, but the formal <strong>memory_search</strong> retrieval layer returned empty results even for queries that should plausibly have matched known content.</p>
+        <p>The raw memory files are readable, but the formal <strong>memory_search</strong> retrieval layer returned weak or empty results even for queries that should plausibly have matched known content.</p>
         <ul>
           <li>Direct reading of <strong>MEMORY.md</strong> and <strong>memory/*.md</strong> still works.</li>
-          <li>The search layer reported <strong>provider: none</strong> and <strong>mode: fts-only</strong>.</li>
+          <li>The search layer previously reported <strong>provider: none</strong> and <strong>mode: fts-only</strong>.</li>
           <li>That suggests discovery/indexing is weaker than raw access, not that memory itself is missing.</li>
         </ul>
       </article>
-
       <article class="card">
         <span class="status">Known tool-handoff issue</span>
         <h2>Browser relay connected, but browser control may not reach this session</h2>
@@ -120,10 +82,7 @@
       </article>
     </section>
 
-    <section class="note">
-      <h2 style="margin-top:0">Why this page exists</h2>
-      <p style="margin-bottom:0">This is meant to make active technical problems easier to revisit without relying on scattered chat memory. If this lane becomes genuinely useful, it can later grow into a fuller troubleshooting hub or connect more explicitly to the incident-reports archive.</p>
-    </section>
+    <section class="note"><strong>Why this page exists:</strong> to make active technical problems easier to revisit without relying on scattered chat memory. If this lane keeps proving useful, it can later grow into a fuller troubleshooting hub or connect more explicitly to the incident-reports archive.</section>
   </div>
-  </body>
+</body>
 </html>

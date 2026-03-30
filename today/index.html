@@ -4,296 +4,62 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Remote Viewer | Today's Artifacts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0b1222;color:#dbe8ff;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding:20px}
-    .card{max-width:760px;border:1px solid rgba(157,201,255,.28);border-radius:16px;padding:20px;background:rgba(14,24,45,.55)}
-    h1{margin:0 0 8px;font-size:clamp(1.4rem,4vw,2rem)}
-    p{margin:0 0 14px;color:#b7cae6;line-height:1.6}
-    a{color:#9fd2ff;text-decoration:none;font-weight:600}
-    .legend{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px}
-    .chip{font-size:.78rem;padding:4px 8px;border-radius:999px;color:#08111f;font-weight:700}
-    .chip.temp{background:#f59e0b}
-    .chip.expansion{background:#60a5fa}
-    .label-note{margin:0 0 14px;font-size:.9rem;color:#aecdff;line-height:1.45}
-    .artifact-card{position:relative;overflow:hidden;border:1px solid rgba(157,201,255,.28); border-radius: 8px; padding: 16px; margin-bottom: 20px; background: rgba(0,0,0,0.2);}
-    .ribbon{position:absolute;top:10px;right:-36px;transform:rotate(35deg);padding:4px 44px;font-size:.72rem;font-weight:800;letter-spacing:.04em;color:#08111f;text-transform:uppercase}
-    .ribbon.temp{background:#f59e0b}
-    .ribbon.expansion{background:#60a5fa}
-    .topbar{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 14px}
-    .link{display:inline-block;text-decoration:none;color:#dbe8ff;border:1px solid rgba(157,201,255,.28);background:rgba(14,24,45,.55);padding:10px 14px;border-radius:999px;font-weight:700}
-  </style>
-  <style id="rv-mobile-opt-style">
-    html{-webkit-text-size-adjust:100%}
-    body{overflow-x:hidden}
-    img,video,canvas,iframe{max-width:100%;height:auto}
-    *{word-wrap:break-word}
-    @media (max-width: 768px){
-      .container,.wrap,.doc-wrap,.hero,.topbar-inner,main{max-width:100% !important}
-      body{padding-left:max(10px, env(safe-area-inset-left));padding-right:max(10px, env(safe-area-inset-right))}
-    }
+    :root{--bg:#f7f5ef;--paper:#ffffff;--paper-soft:#fbfaf6;--line:rgba(34,31,24,.1);--line-strong:rgba(34,31,24,.16);--text:#191816;--muted:#6f6a61;--accent:#c47a2c;--accent-ink:#7b4a16;--shadow:0 24px 50px -18px rgba(18,14,10,.08);--ease:cubic-bezier(0.16,1,0.3,1)}
+    *{box-sizing:border-box} html,body{margin:0}
+    body{min-height:100vh;font-family:Outfit,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);background:radial-gradient(circle at top right, rgba(255,232,205,.55), transparent 24%),radial-gradient(circle at top left, rgba(255,255,255,.82), transparent 28%),linear-gradient(180deg,#faf8f2 0%, var(--bg) 42%, #f3eee3 100%);padding:24px 16px 44px}
+    .wrap{max-width:1180px;margin:0 auto}.topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}.link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.84);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 20px rgba(17,13,9,.05)}
+    .hero,.card,.note{border:1px solid var(--line);background:rgba(255,255,255,.78);box-shadow:var(--shadow)} .hero{padding:30px 26px;border-radius:30px;margin-bottom:18px}.eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}h1{margin:0 0 12px;font-size:clamp(2rem,5vw,3.7rem);line-height:.98;letter-spacing:-.05em}.sub{margin:0;max-width:78ch;color:var(--muted);line-height:1.8;font-size:1.04rem}
+    .legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.chip{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.chip.temp{background:rgba(196,122,44,.12);color:var(--accent-ink);border:1px solid rgba(196,122,44,.14)}.chip.expansion{background:rgba(34,31,24,.06);color:#5c5347;border:1px solid var(--line)}
+    .grid{display:grid;gap:18px}.card{position:relative;padding:22px;border-radius:26px;background:linear-gradient(180deg,#fff,#faf7f0);transition:transform .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease)}.card:hover{transform:translateY(-3px);border-color:rgba(196,122,44,.24);box-shadow:0 28px 60px -22px rgba(18,14,10,.12)}.label{display:inline-block;margin-bottom:12px;padding:6px 10px;border-radius:999px;background:rgba(196,122,44,.1);border:1px solid rgba(196,122,44,.18);color:var(--accent-ink);font-size:.76rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.label.expansion{background:rgba(34,31,24,.06);border-color:var(--line);color:#5c5347}
+    .card h2{margin:0 0 10px;font-size:1.2rem;letter-spacing:-.03em}.card p{margin:0 0 14px;color:var(--muted);line-height:1.8}.actions{display:flex;gap:16px;flex-wrap:wrap}.actions a{text-decoration:none;color:var(--text);font-weight:700}.actions a.signature{color:var(--accent-ink)}
+    .note{margin-top:18px;padding:18px 20px;border-radius:20px;background:linear-gradient(180deg,#fff,#f8f4eb);color:var(--muted);line-height:1.82}
+    @media (max-width:640px){body{padding:18px 12px 32px}.hero,.card,.note{padding:18px}}
   </style>
 </head>
 <body>
-  <main class="card">
-    <div class="topbar">
-      <a class="link" href="../index.html">← Remote Viewer</a>
-    </div>
-    <h1>Today’s Artifact Gallery</h1>
-    <p>A curated front-stage set. Older and lower-priority pieces have been moved to the archive so this page stays legible.</p>
-    <div class="legend">
-      <span class="chip temp">TEMP</span>
-      <span class="chip expansion">EXPANSION</span>
-    </div>
-    <p class="label-note"><strong>TEMP</strong> = short-lived formatting/experience artifacts (including summaries/reviews made mainly for better readability). <strong>EXPANSION</strong> = artifacts with potential to grow into broader features or permanent lanes.</p>
-    <p class="label-note"><strong>✒️ Signature</strong> pages document artifact provenance: intent, initiating prompt, model(s) used, and implementation notes. If metadata is unavailable, the signature states that explicitly.</p>
+  <div class="wrap">
+    <div class="topbar"><a class="link" href="../index.html">← Remote Viewer</a><a class="link" href="../styles/taste-skill-inspired/index.html">Style 006</a></div>
+    <section class="hero">
+      <p class="eyebrow">Remote Viewer · Today</p>
+      <h1>Today’s Artifact Gallery</h1>
+      <p class="sub">A curated front-stage set. Older and lower-priority pieces have been moved to the archive so this page stays legible. This lane now uses the new Style 006 house style for standard Remote Viewer operating pages.</p>
+      <div class="legend"><span class="chip temp">Temp</span><span class="chip expansion">Expansion</span></div>
+    </section>
 
+    <section class="grid">
+      <article class="card"><span class="label">Temp</span><h2>Year Calendar · 2026</h2><p>A full-year 2026 calendar laid out as a clean 12-month screen-fitting board for laptop and Chromebook viewing.</p><div class="actions"><a href="../artifacts/year-calendar-2026/index.html">Launch Artifact</a><a class="signature" href="../artifacts/year-calendar-2026/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label">Temp</span><h2>Philosophical Parable · 2026-03-30</h2><p>A short contemplative artifact built around a lantern-at-the-crossroads image, a philosophical parable about maps versus motion, and a hosted spoken version with progressive text reveal.</p><div class="actions"><a href="../artifacts/philosophical-parable-2026-03-30/index.html">Launch Artifact</a><a class="signature" href="../artifacts/philosophical-parable-2026-03-30/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label">Temp</span><h2>Christopher × OpenClaw · Collaboration Primer · 2026-03-30</h2><p>A concise hosted video primer showing Christopher and a warm AI counterpart approaching from opposite sides, meeting at center, and beginning the day with a gesture of trust, gratitude, and shared purpose.</p><div class="actions"><a href="../artifacts/christopher-openclaw-collaboration-primer-2026-03-30/index.html">Launch Artifact</a><a class="signature" href="../artifacts/christopher-openclaw-collaboration-primer-2026-03-30/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label">Temp</span><h2>Daily Session Primer · 2026-03-30</h2><p>A Monday morning re-entry primer built directly in Style 006 with stronger typography, one warm accent, and a more deliberate hosted briefing surface for choosing today’s real lane.</p><div class="actions"><a href="../artifacts/daily-session-primer-2026-03-30/index.html">Launch Artifact</a><a class="signature" href="../artifacts/daily-session-primer-2026-03-30/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label">Temp</span><h2>Taste-Skill Test · Signal Atlas · 2026-03-29</h2><p>A hosted field-test page using the taste-skill grammar: asymmetry, stronger typography, single-accent restraint, and a more premium product-marketing composition.</p><div class="actions"><a href="../artifacts/taste-skill-test-2026-03-29/index.html">Launch Artifact</a><a class="signature" href="../artifacts/taste-skill-test-2026-03-29/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label">Temp</span><h2>Daily Session Primer · Persona Lens 02 · 2026-03-29</h2><p>A Mark Randolph–inspired founder/operator version of the primer with a more practical, action-biased tone.</p><div class="actions"><a href="../artifacts/daily-session-primer-persona-02-2026-03-29/index.html">Launch Artifact</a><a class="signature" href="../artifacts/daily-session-primer-persona-02-2026-03-29/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label">Temp</span><h2>Daily Session Primer · Lens 03 · Gratitude · 2026-03-29</h2><p>A gratitude-lens morning primer with a warmer editorial framing for Sunday re-entry.</p><div class="actions"><a href="../artifacts/daily-session-primer-lens-03-2026-03-29/index.html">Launch Artifact</a><a class="signature" href="../artifacts/daily-session-primer-lens-03-2026-03-29/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label">Temp</span><h2>Daily Session Primer · 2026-03-29</h2><p>The continuity-rich base daily primer for Sunday morning, presented as a full hosted artifact wrapper.</p><div class="actions"><a href="../artifacts/daily-session-primer-2026-03-29/index.html">Launch Artifact</a><a class="signature" href="../artifacts/daily-session-primer-2026-03-29/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label">Temp</span><h2>Morning Session Primer · Persona Lens 02 · 2026-03-28</h2><p>A voice-led version of the primer using the Mark Randolph–inspired persona lens: more pragmatic, action-biased, and simplification-oriented.</p><div class="actions"><a href="../artifacts/morning-session-primer-persona-02-2026-03-28/index.html">Launch Artifact</a><a class="signature" href="../artifacts/morning-session-primer-persona-02-2026-03-28/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label">Temp</span><h2>Morning Session Primer · Persona Lens 01 · 2026-03-28</h2><p>A voice-led version of the primer using the Alan Watts–inspired persona lens: more spacious, philosophical, and directly spoken.</p><div class="actions"><a href="../artifacts/morning-session-primer-persona-01-2026-03-28/index.html">Launch Artifact</a><a class="signature" href="../artifacts/morning-session-primer-persona-01-2026-03-28/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label">Temp</span><h2>Morning Session Primer · Lens 01 · 2026-03-28</h2><p>A fresh version of the primer through the Philosophical / Existential lens: more meaning-forward and identity-aware while still grounded in practical openings.</p><div class="actions"><a href="../artifacts/morning-session-primer-lens-01-2026-03-28/index.html">Launch Artifact</a><a class="signature" href="../artifacts/morning-session-primer-lens-01-2026-03-28/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label">Temp</span><h2>Morning Session Primer · 2026-03-28</h2><p>The baseline continuity-rich morning re-entry primer for the day: current context, deeper pattern read, strongest live lane, and practical openings.</p><div class="actions"><a href="../artifacts/morning-session-primer-2026-03-28/index.html">Launch Artifact</a><a class="signature" href="../artifacts/morning-session-primer-2026-03-28/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label">Temp</span><h2>Daily Session Primer Spec · 2026-03-28</h2><p>A browser-readable version of the shared-workspace instruction file that defines how future morning session primers should be generated.</p><div class="actions"><a href="../artifacts/daily-session-primer-2026-03-28/index.html">Launch Artifact</a></div></article>
+      <article class="card"><span class="label">Temp</span><h2>AI Learning Workflow Next Steps · 2026-03-27</h2><p>An extensive action breakdown for the structured AI learning and distillation lane: definition, sequencing, testing, storage, routing into output, and keeping it from becoming vague intention again.</p><div class="actions"><a href="../artifacts/ai-learning-workflow-next-steps-2026-03-27/index.html">Launch Artifact</a><a class="signature" href="../artifacts/ai-learning-workflow-next-steps-2026-03-27/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label">Temp</span><h2>Today Review · 2026-03-27</h2><p>An extensive review of the day’s full discussion arc: what was built, what was clarified, and why the day matters in the larger trajectory of the ecosystem.</p><div class="actions"><a href="../artifacts/today-review-2026-03-27/index.html">Launch Artifact</a><a class="signature" href="../artifacts/today-review-2026-03-27/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label">Temp</span><h2>Deep To-Do · 2026-03-27</h2><p>A more extensive operating list than the Next Steps page, organized by force and expanded with inferred trajectory across multiple lanes.</p><div class="actions"><a href="../artifacts/deep-todo-2026-03-27/index.html">Launch Artifact</a><a class="signature" href="../artifacts/deep-todo-2026-03-27/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label">Temp</span><h2>Mind Dive · 2026-03-27</h2><p>An extensive philosophical and psychological reading drawn from the memory lanes: identity, hidden tensions, recurring patterns, and deeper interpretation.</p><div class="actions"><a href="../artifacts/mind-dive-2026-03-27/index.html">Launch Artifact</a><a class="signature" href="../artifacts/mind-dive-2026-03-27/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label">Temp</span><h2>Opening State Summary · 2026-03-27</h2><p>An extensive mobile-readable account of what was already in context at the start of that session — identity, memory, environment, architecture, and live project awareness.</p><div class="actions"><a href="../artifacts/opening-state-summary-2026-03-27/index.html">Launch Artifact</a><a class="signature" href="../artifacts/opening-state-summary-2026-03-27/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label expansion">Expansion</span><h2>README Index · 2026-03-26</h2><p>A browser-readable index of the main README files in the shared workspace, with short descriptions of what each one is for.</p><div class="actions"><a href="../artifacts/readme-index-2026-03-26/index.html">Launch Artifact</a><a class="signature" href="../artifacts/readme-index-2026-03-26/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label expansion">Expansion</span><h2>Value</h2><p>The live value and profitability surface for thinking about economic reality, monetization runway, and where usefulness might become consequence.</p><div class="actions"><a href="../artifacts/profitability-runway-2026-03-18/index.html">Open Page</a></div></article>
+      <article class="card"><span class="label expansion">Expansion</span><h2>X Social</h2><p>The live X / social operating surface for public proof-of-work, post logging, and related publishing context.</p><div class="actions"><a href="../docs/x-social/index.html">Open Page</a></div></article>
+      <article class="card"><span class="label expansion">Expansion</span><h2>Blogger</h2><p>The Blogger hub for long-form publishing, archive review, and the review-first essay lane.</p><div class="actions"><a href="../docs/blogger-hub/index.html">Open Page</a></div></article>
+      <article class="card"><span class="label expansion">Expansion</span><h2>Time Management · 2026-03-26</h2><p>A mobile-first artifact with two stacked pie charts showing work-day and free-day time structure before finer categories are added.</p><div class="actions"><a href="../artifacts/time-microscope-2026-03-26/index.html">Launch Artifact</a><a class="signature" href="../artifacts/time-microscope-2026-03-26/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label temp">Temp</span><h2>Morning Briefing · 2026-03-26</h2><p>A Style 005 morning briefing for Christopher: a readable re-entry surface on the current state of the ecosystem, with supporting imagery and a blunt call toward consequence.</p><div class="actions"><a href="../artifacts/morning-briefing-2026-03-26/index.html">Launch Artifact</a><a class="signature" href="../artifacts/morning-briefing-2026-03-26/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label expansion">Expansion</span><h2>Image Generation Checker · 2026-03-25</h2><p>A live browser-side Gemini / Google image-generation diagnostic surface for testing multiple likely image-capable models and previewing any returned outputs directly in the page.</p><div class="actions"><a href="../artifacts/image-generation-checker-2026-03-25/index.html">Launch Artifact</a><a class="signature" href="../artifacts/image-generation-checker-2026-03-25/signature.html">✒️ Signature</a></div></article>
+      <article class="card"><span class="label expansion">Expansion</span><h2>Daylight Ring · 2026-03-26</h2><p>A sibling 24-hour ring with month toggles, showing approximate daylight and darkness as orange and blue blocks around the circle.</p><div class="actions"><a href="../artifacts/daylight-ring-2026-03-26/index.html">Launch Artifact</a><a class="signature" href="../artifacts/daylight-ring-2026-03-26/signature.html">✒️ Signature</a></div></article>
+    </section>
 
-
-
-
-
-
-
-
-
-
-
-    <div class="artifact-card" style="border-color: rgba(143,208,255,.42); background: linear-gradient(180deg, rgba(143,208,255,.14), rgba(0,0,0,.22));">
-      <span class="ribbon temp">TEMP</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem; color: #e7f4ff;">Year Calendar · 2026</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A full-year 2026 calendar laid out as a clean 12-month screen-fitting board for laptop and Chromebook viewing.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/year-calendar-2026/index.html" style="color:#bfe6ff;">Launch Artifact</a>
-        <a href="../artifacts/year-calendar-2026/signature.html" style="color: #8fd0ff;">✒️ Signature</a>
-      </div>
-    </div>
-
-    <div class="artifact-card" style="border-color: rgba(215,154,82,.44); background: linear-gradient(180deg, rgba(215,154,82,.16), rgba(0,0,0,.22));">
-      <span class="ribbon temp">TEMP</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem; color: #ffe6cc;">Philosophical Parable · 2026-03-30</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A short contemplative artifact built around a new AI-generated lantern-at-the-crossroads background, a fresh philosophical parable about maps versus motion, and a hosted spoken version with progressive text reveal.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/philosophical-parable-2026-03-30/index.html" style="color:#ffd7b0;">Launch Artifact</a>
-        <a href="../artifacts/philosophical-parable-2026-03-30/signature.html" style="color: #c59460;">✒️ Signature</a>
-      </div>
-    </div>
-
-    <div class="artifact-card" style="border-color: rgba(215,154,82,.42); background: linear-gradient(180deg, rgba(215,154,82,.14), rgba(0,0,0,.22));">
-      <span class="ribbon temp">TEMP</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem; color: #ffe6cc;">Christopher × OpenClaw · Collaboration Primer · 2026-03-30</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A concise hosted video primer showing Christopher and a warm AI counterpart approaching from opposite sides, meeting at center, and beginning the day with a gesture of trust, gratitude, and shared purpose.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/christopher-openclaw-collaboration-primer-2026-03-30/index.html" style="color:#ffd7b0;">Launch Artifact</a>
-        <a href="../artifacts/christopher-openclaw-collaboration-primer-2026-03-30/signature.html" style="color: #c59460;">✒️ Signature</a>
-      </div>
-    </div>
-    <div class="artifact-card" style="border-color: rgba(196,122,44,.38); background: linear-gradient(180deg, rgba(255,237,214,.16), rgba(0,0,0,.2));">
-      <span class="ribbon temp">TEMP</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem; color: #ffe6cc;">Daily Session Primer · 2026-03-30</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A new Monday morning re-entry primer built directly in Style 006 / Taste-Skill Inspired: premium product-web composition, stronger typography, one warm accent, and a more deliberate hosted briefing surface for choosing today’s real lane.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/daily-session-primer-2026-03-30/index.html" style="color:#ffd7b0;">Launch Artifact</a>
-        <a href="../artifacts/daily-session-primer-2026-03-30/signature.html" style="color: #c59460;">✒️ Signature</a>
-      </div>
-    </div>
-    <div class="artifact-card" style="border-color: rgba(196,122,44,.34); background: linear-gradient(180deg, rgba(255,237,214,.12), rgba(0,0,0,.2));">
-      <span class="ribbon temp">TEMP</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem; color: #ffe6cc;">Taste-Skill Test · Signal Atlas · 2026-03-29</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A hosted field-test page using the taste-skill repo’s design grammar: asymmetry, stronger typography, single-accent restraint, and a more premium product-marketing composition.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/taste-skill-test-2026-03-29/index.html" style="color:#ffd7b0;">Launch Artifact</a>
-        <a href="../artifacts/taste-skill-test-2026-03-29/signature.html" style="color: #c59460;">✒️ Signature</a>
-      </div>
-    </div>
-    <div class="artifact-card" style="border-color: rgba(255,166,87,.34); background: linear-gradient(180deg, rgba(255,166,87,.10), rgba(0,0,0,.2));">
-      <span class="ribbon temp">TEMP</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem; color: #ffe6cc;">Daily Session Primer · Persona Lens 02 · 2026-03-29</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A new Mark Randolph–inspired founder/operator version of today’s primer, built in the Style 005 / Option 4 family with a freshly generated AI hero image and a more practical, action-biased tone.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/daily-session-primer-persona-02-2026-03-29/index.html" style="color:#ffd7b0;">Launch Artifact</a>
-        <a href="../artifacts/daily-session-primer-persona-02-2026-03-29/signature.html" style="color: #c59460;">✒️ Signature</a>
-      </div>
-    </div>
-    <div class="artifact-card" style="border-color: rgba(230,184,107,.40); background: linear-gradient(180deg, rgba(255,241,214,.16), rgba(0,0,0,.2));">
-      <span class="ribbon temp">TEMP</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem; color: #fff0d1;">Daily Session Primer · Lens 03 · Gratitude · 2026-03-29</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A new gratitude-lens morning primer built in the Style 005 / Option 4 family, with a freshly generated AI hero image and a warmer editorial framing for Sunday re-entry.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/daily-session-primer-lens-03-2026-03-29/index.html" style="color:#ffe0b9;">Launch Artifact</a>
-        <a href="../artifacts/daily-session-primer-lens-03-2026-03-29/signature.html" style="color: #d2b48c;">✒️ Signature</a>
-      </div>
-    </div>
-    <div class="artifact-card" style="border-color: rgba(199,182,255,.34); background: linear-gradient(180deg, rgba(255,248,233,.12), rgba(0,0,0,.2));">
-      <span class="ribbon temp">TEMP</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem; color: #f8ead6;">Daily Session Primer · 2026-03-29</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">The new base daily primer for Sunday morning: a continuity-rich re-entry document presented as a full Style 005 / Option 4 artifact wrapper, optimized for desktop and Chromebook review.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/daily-session-primer-2026-03-29/index.html" style="color:#ffe0b9;">Launch Artifact</a>
-        <a href="../artifacts/daily-session-primer-2026-03-29/signature.html" style="color: #d2b48c;">✒️ Signature</a>
-      </div>
-    </div>
-    <div class="artifact-card" style="border-color: rgba(138,160,255,.34); background: linear-gradient(180deg, rgba(138,160,255,.08), rgba(0,0,0,.2));">
-      <span class="ribbon temp">TEMP</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem; color: #dfe7ff;">Morning Session Primer · Persona Lens 02 · 2026-03-28</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A new voice-led version of today’s primer using the Mark Randolph–inspired persona lens: more pragmatic, action-biased, and simplification-oriented, with a warm founder/operator palette.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/morning-session-primer-persona-02-2026-03-28/index.html" style="color:#ffd7b0;">Launch Artifact</a>
-        <a href="../artifacts/morning-session-primer-persona-02-2026-03-28/signature.html" style="color: #c59460;">✒️ Signature</a>
-      </div>
-    </div>
-    <div class="artifact-card" style="border-color: rgba(138,160,255,.34); background: linear-gradient(180deg, rgba(138,160,255,.08), rgba(0,0,0,.2));">
-      <span class="ribbon temp">TEMP</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem; color: #dfe7ff;">Morning Session Primer · Persona Lens 01 · 2026-03-28</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A new voice-led version of today’s primer using the Alan Watts–inspired persona lens: more spacious, philosophical, and directly spoken, while still anchored to the actual structure of the day.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/morning-session-primer-persona-01-2026-03-28/index.html" style="color:#cfd9ff;">Launch Artifact</a>
-        <a href="../artifacts/morning-session-primer-persona-01-2026-03-28/signature.html" style="color: #a8b7ff;">✒️ Signature</a>
-      </div>
-    </div>
-    <div class="artifact-card">
-      <span class="ribbon temp">TEMP</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Morning Session Primer · Lens 01 · 2026-03-28</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A fresh version of today’s primer through the Philosophical / Existential lens: more meaning-forward, identity-aware, and interpretive, while still grounded in practical openings for the day.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/morning-session-primer-lens-01-2026-03-28/index.html">Launch Artifact</a>
-        <a href="../artifacts/morning-session-primer-lens-01-2026-03-28/signature.html" style="color: #64748b;">✒️ Signature</a>
-      </div>
-    </div>
-    <div class="artifact-card">
-      <span class="ribbon temp">TEMP</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Morning Session Primer · 2026-03-28</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">The baseline continuity-rich morning re-entry primer for today: current context, deeper pattern read, strongest live lane, and practical openings for what this Saturday could actually move.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/morning-session-primer-2026-03-28/index.html">Launch Artifact</a>
-        <a href="../artifacts/morning-session-primer-2026-03-28/signature.html" style="color: #64748b;">✒️ Signature</a>
-      </div>
-    </div>
-    <div class="artifact-card">
-      <span class="ribbon temp">TEMP</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Daily Session Primer Spec · 2026-03-28</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A browser-readable version of the shared-workspace instruction file that defines how future morning session primers should be generated.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/daily-session-primer-2026-03-28/index.html">Launch Artifact</a>
-      </div>
-    </div>
-    <div class="artifact-card">
-      <span class="ribbon temp">TEMP</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">AI Learning Workflow Next Steps · 2026-03-27</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">An elaborate, detailed, and lengthy action breakdown for the structured AI learning / distillation lane: how to define it, sequence it, test it, store it, route it into output, and keep it from becoming another vague intention.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/ai-learning-workflow-next-steps-2026-03-27/index.html">Launch Artifact</a>
-        <a href="../artifacts/ai-learning-workflow-next-steps-2026-03-27/signature.html" style="color: #64748b;">✒️ Signature</a>
-      </div>
-    </div>
-    <div class="artifact-card">
-      <span class="ribbon temp">TEMP</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Today Review · 2026-03-27</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">An extensive review of today’s full discussion arc: what was built, what was clarified, and why the day matters in the larger strategic and psychological trajectory of the Christopher + OpenClaw ecosystem.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/today-review-2026-03-27/index.html">Launch Artifact</a>
-        <a href="../artifacts/today-review-2026-03-27/signature.html" style="color: #64748b;">✒️ Signature</a>
-      </div>
-    </div>
-    <div class="artifact-card">
-      <span class="ribbon temp">TEMP</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Deep To-Do · 2026-03-27</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A more extensive operating list than the Next Steps page: organized by force, grounded in memory, and expanded with inferred trajectory across publishing, monetization, troubleshooting, architecture, relationships, stewardship, and aliveness.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/deep-todo-2026-03-27/index.html">Launch Artifact</a>
-        <a href="../artifacts/deep-todo-2026-03-27/signature.html" style="color: #64748b;">✒️ Signature</a>
-      </div>
-    </div>
-    <div class="artifact-card">
-      <span class="ribbon temp">TEMP</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Mind Dive · 2026-03-27</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">An extensive philosophical and psychological reading drawn from the memory lanes: identity, hidden tensions, recurring patterns, and a deeper interpretation of what Christopher may be trying to become through the work.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/mind-dive-2026-03-27/index.html">Launch Artifact</a>
-        <a href="../artifacts/mind-dive-2026-03-27/signature.html" style="color: #64748b;">✒️ Signature</a>
-      </div>
-    </div>
-    <div class="artifact-card">
-      <span class="ribbon temp">TEMP</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Opening State Summary · 2026-03-27</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">An extensive mobile-readable account of what was already in my context at the start of this new session — identity, memory, environment, architecture, and live project awareness — written without doing a broader fresh investigation.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/opening-state-summary-2026-03-27/index.html">Launch Artifact</a>
-        <a href="../artifacts/opening-state-summary-2026-03-27/signature.html" style="color: #64748b;">✒️ Signature</a>
-      </div>
-    </div>
-    <div class="artifact-card">
-      <span class="ribbon expansion">EXPANSION</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">README Index · 2026-03-26</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A browser-readable index of the main README files in the shared workspace, with short descriptions of what each one is for.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/readme-index-2026-03-26/index.html">Launch Artifact</a>
-        <a href="../artifacts/readme-index-2026-03-26/signature.html" style="color: #64748b;">✒️ Signature</a>
-      </div>
-    </div>
-    <div class="artifact-card">
-      <span class="ribbon expansion">EXPANSION</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Value</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">The live value / profitability surface for thinking about economic reality, monetization runway, and where usefulness might become consequence.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/profitability-runway-2026-03-18/index.html">Open Page</a>
-      </div>
-    </div>
-    <div class="artifact-card">
-      <span class="ribbon expansion">EXPANSION</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">X Social</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">The live X / social operating surface for public proof-of-work, post logging, and related publishing context.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../docs/x-social/index.html">Open Page</a>
-      </div>
-    </div>
-
-    <div class="artifact-card">
-      <span class="ribbon expansion">EXPANSION</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Blogger</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">The Blogger hub for long-form publishing, archive review, and the review-first essay lane.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../docs/blogger-hub/index.html">Open Page</a>
-      </div>
-    </div>
-    <div class="artifact-card">
-      <span class="ribbon expansion">EXPANSION</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Time Management · 2026-03-26</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A super-basic mobile-first artifact with two stacked pie charts: one for work days and one for free days, making the structural reality of time visible before finer categories get added.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/time-microscope-2026-03-26/index.html">Launch Artifact</a>
-        <a href="../artifacts/time-microscope-2026-03-26/signature.html" style="color: #64748b;">✒️ Signature</a>
-      </div>
-    </div>
-    <div class="artifact-card">
-      <span class="ribbon temp">TEMP</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Morning Briefing · 2026-03-26</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A Style 005 / Artifact Wrapper morning briefing for Christopher: a readable re-entry surface on the current state of the ecosystem, with supporting AI-generated imagery and a blunt call toward consequence.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/morning-briefing-2026-03-26/index.html">Launch Artifact</a>
-        <a href="../artifacts/morning-briefing-2026-03-26/signature.html" style="color: #64748b;">✒️ Signature</a>
-      </div>
-    </div>
-    <div class="artifact-card">
-      <span class="ribbon expansion">EXPANSION</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Image Generation Checker · 2026-03-25</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A live browser-side Gemini / Google image-generation diagnostic surface: paste a key if needed, test multiple likely image-capable models, compare failures, and preview any returned images directly in the page.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/image-generation-checker-2026-03-25/index.html">Launch Artifact</a>
-        <a href="../artifacts/image-generation-checker-2026-03-25/signature.html" style="color: #64748b;">✒️ Signature</a>
-      </div>
-    </div>
-
-
-    <div class="artifact-card">
-      <span class="ribbon expansion">EXPANSION</span>
-      <h2 style="margin: 0 0 8px; font-size: 1.2rem;">Daylight Ring · 2026-03-26</h2>
-      <p style="margin: 0 0 12px; font-size: 0.95rem;">A sibling 24-hour ring with month toggles, showing approximate daylight and darkness as orange and blue blocks around the circle.</p>
-      <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="../artifacts/daylight-ring-2026-03-26/index.html">Launch Artifact</a>
-        <a href="../artifacts/daylight-ring-2026-03-26/signature.html" style="color: #64748b;">✒️ Signature</a>
-      </div>
-    </div>
-  </main>
-
-  </body>
+    <section class="note"><strong>Label note:</strong> <strong>Temp</strong> means short-lived formatting or experience artifacts, including summaries and review wrappers. <strong>Expansion</strong> means artifacts with a realistic path to becoming broader features or permanent lanes.</section>
+  </div>
+</body>
 </html>
