@@ -201,11 +201,14 @@
 
         <section class="media-card">
           <h2>AI media note</h2>
-          <p>I wired this artifact for both image and video support because you asked for at least one AI-generated image and, if possible, an AI-generated video. The page now includes a live hero image slot and a dedicated video section. In this session, the actual generation route was only partially available: the local manual Gemini image fallback script exists, but the expected API key was not readable from the current session, and the Veo lane is still documented as a schema-diagnostic path rather than a proven generation flow.</p>
-          <div class="video-box">
-            <div>
-              <strong>Video slot reserved</strong>
-              <p>A future version of this artifact can embed a generated short ambient clip once a working authenticated video route is available. Right now the honest state is: the tool surface exists, but video generation is not yet proven end to end in this environment.</p>
+          <p>This artifact now includes both requested media layers: a generated hero image and a generated Veo video. The video was created from the main-session long-running workflow and saved into the shared workspace, which means the video-generation lane has crossed from speculative tooling into a real operational capability.</p>
+          <div class="video-box" style="display:block;padding:14px;">
+            <video controls playsinline preload="metadata" poster="../generated/2026-03-30/2026-03-30-daily-session-primer-style-006-hero.png" style="display:block;width:100%;max-width:100%;border-radius:16px;border:1px solid rgba(34,31,24,.12);background:#000;box-shadow:0 18px 40px rgba(18,14,10,.12);">
+              <source src="../../../generated-videos/2026-03-30/daily-session-primer-style-006-2026-03-30.mp4" type="video/mp4" />
+            </video>
+            <div style="margin-top:12px;">
+              <strong>Embedded morning clip</strong>
+              <p>A cinematic six-second dawn scene for the primer: warm Washington morning light, subtle motion, and a quieter sense of momentum than a static hero image alone can provide.</p>
             </div>
           </div>
         </section>
