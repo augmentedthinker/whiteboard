@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Workflow · Text-to-Speech</title>
+  <style>
+    :root{
+      --bg:#f6f3ec;--paper:#fffdf9;--line:rgba(40,34,24,.12);--text:#1b1814;--muted:#665f55;--accent:#c47a2c;--accent-ink:#7a4a19;--shadow:0 18px 46px rgba(30,24,18,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{min-height:100vh;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(180deg,#faf8f2,#f2ede2 58%,#ece5d8);color:var(--text);padding:16px;line-height:1.65}
+    .wrap{max-width:980px;margin:0 auto}.topbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.88);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 22px rgba(30,24,18,.05)}
+    .hero,.section,.code,.callout{border:1px solid var(--line);background:rgba(255,255,255,.82);box-shadow:var(--shadow);border-radius:24px}.hero{padding:24px 22px;margin-bottom:16px;background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(251,247,239,.92))}
+    .eyebrow{margin:0 0 8px;color:var(--accent);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase} h1{margin:0 0 12px;font-size:clamp(2rem,5vw,3.2rem);line-height:.98;letter-spacing:-.04em}.sub{margin:0;color:var(--muted);line-height:1.8;max-width:76ch}
+    .toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:18px}.toc a{display:block;text-decoration:none;color:var(--accent-ink);padding:10px 12px;border-radius:14px;border:1px solid rgba(196,122,44,.18);background:rgba(196,122,44,.08);font-weight:700}
+    .stack{display:grid;gap:16px}.section{padding:20px}.section h2{margin:0 0 12px;font-size:1.28rem;letter-spacing:-.03em}.section h3{margin:16px 0 8px;font-size:1rem}.section p,.section li{color:var(--muted);line-height:1.8}.section strong{color:var(--text)}.section ul,.section ol{padding-left:1.2rem;margin:0}.section li{margin:0 0 8px}
+    .code{padding:16px;background:#141312;color:#f5efe6;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92rem;line-height:1.6}.callout{padding:16px 18px;background:linear-gradient(180deg,#fff,#faf7ef)}.mini{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);font-weight:800;margin:0 0 8px}
+    @media (max-width:720px){body{padding:10px}.hero,.section,.code,.callout{border-radius:18px}.hero,.section{padding:18px}}
+  </style>
+  <link rel="stylesheet" href="../../assets/shared/rv-floating-nav.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="link" href="../index.html">← Workflows</a>
+      <a class="link" href="../../index.html">Remote Viewer</a>
+      <a class="link" href="../../tools/tts-voice-checker/index.html">Browser checker</a>
+    </div>
+
+    <section class="hero">
+      <p class="eyebrow">Workflow · Proven Capability</p>
+      <h1>Text-to-Speech</h1>
+      <p class="sub">This page is the browser-readable backup playbook for creating AI-generated speech from the main session using Gemini TTS. It is written to be complete enough that a future session could reconstruct the route from this page alone, including the non-obvious browser playback fix.</p>
+      <div class="toc">
+        <a href="#status">Current status</a>
+        <a href="#requirements">Requirements</a>
+        <a href="#core-route">Core route</a>
+        <a href="#procedure">Step-by-step</a>
+        <a href="#template">Python template</a>
+        <a href="#failures">Failure modes</a>
+        <a href="#verification">Verification</a>
+      </div>
+    </section>
+
+    <div class="stack">
+      <section class="section" id="status">
+        <h2>Current status</h2>
+        <p><strong>Status:</strong> proven working from the main session as of 2026-03-30.</p>
+        <ul>
+          <li>The currently proven model is <strong>gemini-2.5-flash-preview-tts</strong>.</li>
+          <li>The currently proven prebuilt voice is <strong>Aoede</strong>.</li>
+          <li>The successful request uses <strong>responseModalities: ["AUDIO"]</strong>.</li>
+          <li>An earlier attempt using <strong>gemini-2.5-flash</strong> failed because that model only supported text output.</li>
+          <li>The response audio was returned as raw <strong>audio/L16 PCM @ 24 kHz</strong>, which means a browser-playable WAV requires a wrapping step.</li>
+        </ul>
+      </section>
+
+      <section class="section" id="requirements">
+        <h2>Requirements</h2>
+        <ul>
+          <li>Shell access from a session that can run Python.</li>
+          <li>A readable Gemini API key at:<br><code>/mnt/chromeos/MyFiles/Downloads/shared_workspace/secrets/GEMINI_API_KEY</code></li>
+          <li>A destination folder in shared workspace or inside Remote Viewer.</li>
+          <li>If the result should play on a hosted page, the final fixed audio file must be inside the repo tree.</li>
+        </ul>
+        <div class="callout">
+          <p class="mini">Important distinction</p>
+          <p>The browser TTS checker is useful for diagnosis, but the durable route is the main-session API call plus a possible PCM-to-WAV wrapping step.</p>
+        </div>
+      </section>
+
+      <section class="section" id="core-route">
+        <h2>Core route</h2>
+        <h3>Model</h3>
+        <p><code>gemini-2.5-flash-preview-tts</code></p>
+        <h3>Endpoint</h3>
+        <p><code>POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=GEMINI_API_KEY</code></p>
+        <h3>Required response modality</h3>
+        <p><code>["AUDIO"]</code></p>
+        <h3>Proven voice</h3>
+        <p><code>Aoede</code></p>
+        <h3>Critical output detail</h3>
+        <p>The successful response mime type was <code>audio/L16;codec=pcm;rate=24000</code>, which means the returned bytes are raw PCM and may need to be wrapped into a valid WAV container before browser playback.</p>
+      </section>
+
+      <section class="section" id="procedure">
+        <h2>Step-by-step procedure</h2>
+        <ol>
+          <li><strong>Read the API key</strong> from the shared-workspace secrets path.</li>
+          <li><strong>Build the JSON request</strong> with the desired text, the TTS preview model, the chosen prebuilt voice, and <code>responseModalities: ["AUDIO"]</code>.</li>
+          <li><strong>POST to generateContent</strong> and parse the JSON response.</li>
+          <li><strong>Extract inline audio data</strong> from candidate parts.</li>
+          <li><strong>Decode the base64 bytes</strong> and save metadata about model, voice, and spoken text.</li>
+          <li><strong>If mime type is raw PCM</strong>, wrap the bytes into a proper WAV container with 1 channel, 16-bit samples, and 24 kHz sample rate.</li>
+          <li><strong>If hosting the result</strong>, copy the fixed audio into the Remote Viewer repo tree and link the HTML audio player to that in-repo path.</li>
+        </ol>
+
+        <h3>Proven request shape</h3>
+        <div class="code">{
+  "contents": [
+    {
+      "parts": [
+        {
+          "text": "Christopher, welcome. This is a small collaboration primer. Two presences meet here with gratitude, trust, and a willingness to build something real together. Let this be a calm beginning: not performance, but partnership."
+        }
+      ]
+    }
+  ],
+  "generationConfig": {
+    "temperature": 0.6,
+    "responseModalities": ["AUDIO"],
+    "speechConfig": {
+      "voiceConfig": {
+        "prebuiltVoiceConfig": {
+          "voiceName": "Aoede"
+        }
+      }
+    }
+  }
+}</div>
+      </section>
+
+      <section class="section" id="template">
+        <h2>Reusable Python template</h2>
+        <div class="code">import json, urllib.request, base64, wave
+
+KEY_FILE = "/mnt/chromeos/MyFiles/Downloads/shared_workspace/secrets/GEMINI_API_KEY"
+with open(KEY_FILE, "r", encoding="utf-8") as f:
+    API_KEY = f.read().strip()
+
+MODEL = "gemini-2.5-flash-preview-tts"
+VOICE = "Aoede"
+TEXT = "REPLACE WITH SPOKEN TEXT"
+
+url = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent?key={API_KEY}"
+body = {
+    "contents": [{"parts": [{"text": TEXT}]}],
+    "generationConfig": {
+        "temperature": 0.6,
+        "responseModalities": ["AUDIO"],
+        "speechConfig": {
+            "voiceConfig": {
+                "prebuiltVoiceConfig": {
+                    "voiceName": VOICE
+                }
+            }
+        }
+    }
+}
+
+req = urllib.request.Request(
+    url,
+    data=json.dumps(body).encode("utf-8"),
+    headers={"Content-Type": "application/json"}
+)
+
+with urllib.request.urlopen(req, timeout=120) as resp:
+    data = json.loads(resp.read().decode("utf-8"))
+
+audio_b64 = None
+mime_type = None
+for cand in data.get("candidates", []):
+    for part in cand.get("content", {}).get("parts", []):
+        inline = part.get("inlineData") or part.get("inline_data")
+        if inline and inline.get("data"):
+            audio_b64 = inline["data"]
+            mime_type = inline.get("mimeType") or inline.get("mime_type")
+            break
+    if audio_b64:
+        break
+
+raw = base64.b64decode(audio_b64)
+
+# For the proven case, wrap raw PCM into a real WAV
+with wave.open("output.wav", "wb") as w:
+    w.setnchannels(1)
+    w.setsampwidth(2)
+    w.setframerate(24000)
+    w.writeframes(raw)</div>
+        <div class="callout">
+          <p class="mini">Practical note</p>
+          <p>If the returned mime type changes in a future model version, inspect it before assuming the same wrapping step still applies. But for the currently proven route, raw PCM wrapping is necessary.</p>
+        </div>
+      </section>
+
+      <section class="section" id="failures">
+        <h2>Common failure modes</h2>
+        <ul>
+          <li><strong>Wrong model:</strong> <code>gemini-2.5-flash</code> may fail because it only supports text output.</li>
+          <li><strong>Wrong response modalities:</strong> the TTS preview model may reject <code>["TEXT", "AUDIO"]</code>; use <code>["AUDIO"]</code>.</li>
+          <li><strong>No inline audio extraction:</strong> inspect parts for <code>inlineData.data</code> or <code>inline_data.data</code>.</li>
+          <li><strong>Browser player appears but won’t play:</strong> the bytes were probably raw PCM saved with a fake <code>.wav</code> extension instead of being wrapped into a proper WAV container.</li>
+          <li><strong>Hosted asset path is wrong:</strong> the final audio file must live inside the repo tree for GitHub Pages playback.</li>
+        </ul>
+      </section>
+
+      <section class="section" id="verification">
+        <h2>Verification standard</h2>
+        <ol>
+          <li>the request returns inline audio data</li>
+          <li>the audio bytes are saved</li>
+          <li>metadata about model, voice, and text is preserved</li>
+          <li>raw PCM is wrapped into a valid WAV container when needed</li>
+          <li>the final file exists in the intended location</li>
+          <li>if hosted, the live browser player actually works</li>
+        </ol>
+        <div class="callout">
+          <p class="mini">Current truth</p>
+          <p>The durable lesson is not merely “Gemini can do TTS.” The durable lesson is that the working route depends on the right preview model, the right response modality, and a container-wrapping step before hosted playback.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script src="../../assets/shared/rv-floating-nav.js"></script>
+</body>
+</html>
