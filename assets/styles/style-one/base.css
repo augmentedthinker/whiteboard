@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+
+:root{
+  --rv-bg:#f7f5ef;
+  --rv-paper:#ffffff;
+  --rv-paper-soft:#fbfaf6;
+  --rv-line:rgba(34,31,24,.1);
+  --rv-line-strong:rgba(34,31,24,.16);
+  --rv-text:#191816;
+  --rv-muted:#6f6a61;
+  --rv-accent:#c47a2c;
+  --rv-accent-ink:#7b4a16;
+  --rv-shadow:0 24px 50px -18px rgba(18,14,10,.08);
+  --rv-ease:cubic-bezier(0.16,1,0.3,1);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body.rv-style-one{
+  min-height:100vh;
+  font-family:Outfit,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color:var(--rv-text);
+  background:
+    radial-gradient(circle at top right, rgba(255,232,205,.55), transparent 24%),
+    radial-gradient(circle at top left, rgba(255,255,255,.82), transparent 28%),
+    linear-gradient(180deg,#faf8f2 0%, var(--rv-bg) 42%, #f3eee3 100%);
+  padding:24px 16px 44px;
+}
+
+.rv-wrap{max-width:1180px;margin:0 auto}
+.rv-topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.rv-link,.rv-pill,.rv-btn{
+  display:inline-block;
+  text-decoration:none;
+  color:var(--rv-text);
+  border:1px solid var(--rv-line);
+  background:rgba(255,255,255,.84);
+  padding:10px 14px;
+  border-radius:999px;
+  font-weight:700;
+  box-shadow:0 8px 20px rgba(17,13,9,.05);
+}
+
+.rv-hero,.rv-card,.rv-note,.rv-panel{
+  border:1px solid var(--rv-line);
+  background:rgba(255,255,255,.78);
+  box-shadow:var(--rv-shadow);
+}
+.rv-hero{padding:30px 26px;border-radius:30px;margin-bottom:18px}
+.rv-eyebrow{margin:0 0 8px;color:var(--rv-accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.rv-title{margin:0 0 12px;font-size:clamp(2rem,5vw,3.7rem);line-height:.98;letter-spacing:-.05em}
+.rv-sub{margin:0;max-width:78ch;color:var(--rv-muted);line-height:1.8;font-size:1.04rem}
+.rv-grid{display:grid;gap:18px}
+.rv-card{padding:22px;border-radius:26px;background:linear-gradient(180deg,#fff,#faf7f0);transition:transform .35s var(--rv-ease), border-color .35s var(--rv-ease), box-shadow .35s var(--rv-ease)}
+.rv-card:hover{transform:translateY(-3px);border-color:rgba(196,122,44,.24);box-shadow:0 28px 60px -22px rgba(18,14,10,.12)}
+.rv-card h2,.rv-card h3{margin:0 0 10px;letter-spacing:-.03em}
+.rv-card p,.rv-card li{color:var(--rv-muted);line-height:1.8}
+.rv-note{margin-top:18px;padding:18px 20px;border-radius:20px;background:linear-gradient(180deg,#fff,#f8f4eb);color:var(--rv-muted);line-height:1.82}
+.rv-label{display:inline-block;margin-bottom:12px;padding:6px 10px;border-radius:999px;background:rgba(196,122,44,.1);border:1px solid rgba(196,122,44,.18);color:var(--rv-accent-ink);font-size:.76rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.rv-actions{display:flex;gap:16px;flex-wrap:wrap}
+.rv-actions a{text-decoration:none;color:var(--rv-text);font-weight:700}
+
+@media (max-width:860px){
+  .rv-split,.rv-grid-2{grid-template-columns:1fr !important}
+}
+@media (max-width:640px){
+  body.rv-style-one{padding:18px 12px 32px}
+  .rv-hero,.rv-card,.rv-note,.rv-panel{padding:18px}
+}
