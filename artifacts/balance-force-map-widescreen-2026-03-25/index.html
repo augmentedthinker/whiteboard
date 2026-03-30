@@ -32,12 +32,14 @@
         linear-gradient(180deg,#06101a,#0b1420 52%, #0e1724);
       overflow:hidden;
     }
+    .topbar{position:fixed;top:16px;left:16px;z-index:20;display:flex;gap:10px;flex-wrap:wrap}
+    .link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid rgba(255,255,255,.12);background:rgba(9,15,24,.72);padding:10px 14px;border-radius:999px;font-weight:700;backdrop-filter:blur(10px);box-shadow:0 10px 28px rgba(0,0,0,.24)}
     .stage{
       min-height:100vh;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:24px;
+      padding:72px 24px 24px;
     }
     .grid{
       width:min(1460px, calc(100vw - 48px));
@@ -88,6 +90,9 @@
   </style>
   </head>
 <body>
+  <div class="topbar">
+    <a class="link" href="../../index.html">← Remote Viewer</a>
+  </div>
   <main class="stage">
     <section class="grid" aria-label="Balance Force Map">
       <article class="force blue venture-bg">
