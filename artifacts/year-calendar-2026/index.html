@@ -33,7 +33,8 @@
         radial-gradient(circle at 86% 18%, rgba(242,179,93,.10), transparent 22%),
         linear-gradient(180deg,var(--bg),var(--bg2));
       padding:14px 14px 18px;
-      overflow:hidden;
+      overflow-x:hidden;
+      overflow-y:auto;
     }
     .wrap{
       max-width:1480px;
@@ -60,6 +61,7 @@
       display:grid;
       grid-template-columns:repeat(4, minmax(0, 1fr));
       gap:12px;
+      align-content:start;
     }
     .month{
       border:1px solid rgba(255,255,255,.07);
