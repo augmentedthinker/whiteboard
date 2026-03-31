@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+  <title>Remote Viewer | Blogger Workflow</title>
+  <link rel="stylesheet" href="../../assets/styles/style-one/base.css" />
+</head>
+<body class="rv-style-one">
+  <div class="rv-wrap">
+    <div class="rv-topbar">
+      <a class="rv-link" href="../../index.html">← Remote Viewer</a>
+      <a class="rv-link" href="../index.html">Workflows</a>
+    </div>
+    <section class="rv-hero">
+      <p class="rv-eyebrow">Remote Viewer · Workflows · Blogger</p>
+      <h1 class="rv-title">Review-first Blogger drafting workflow.</h1>
+      <p class="rv-sub">This is the current working path for creating Blogger drafts from the main session without auto-publishing. It includes the known credential files, the current blog target, the actual re-auth reality, and the draft-first rule that should remain the default.</p>
+    </section>
+
+    <section class="rv-grid">
+      <article class="rv-card">
+        <span class="rv-label">Proven</span>
+        <h2>Current status</h2>
+        <p>Blogger draft creation was revalidated live on 2026-03-31. A real draft titled <strong>“GitHub and Vercel quick note”</strong> was created successfully through the Blogger API using a fresh OAuth client and token.</p>
+      </article>
+      <article class="rv-card">
+        <span class="rv-label">Target</span>
+        <h2>Live blog</h2>
+        <p><strong>AUGMENTED THINKER</strong><br/>Blog ID: <strong>6236921522623272389</strong><br/><a href="https://augmentedthinker.blogspot.com/" target="_blank" rel="noopener">Open blog</a></p>
+      </article>
+      <article class="rv-card">
+        <span class="rv-label">Secrets</span>
+        <h2>Credential files</h2>
+        <p><code>/mnt/chromeos/MyFiles/Downloads/shared_workspace/secrets/blogger-api.json</code></p>
+        <p><code>/mnt/chromeos/MyFiles/Downloads/shared_workspace/secrets/blogger-token.json</code></p>
+      </article>
+      <article class="rv-card">
+        <span class="rv-label">Reality check</span>
+        <h2>Auth lifetime</h2>
+        <p>The current testing-mode OAuth setup should be treated as roughly a <strong>7-day refresh-token window</strong>, not a durable 90-day promise. The access token is short-lived, but the practical concern is the refresh token lifespan returned by Google in this setup.</p>
+      </article>
+    </section>
+
+    <section class="rv-card" style="margin-top:18px;">
+      <h2>Recommended operating pattern</h2>
+      <ul>
+        <li>Create <strong>drafts first</strong>, not published posts.</li>
+        <li>Use Blogger for longer-form, slower, more thoughtful writing.</li>
+        <li>Keep publishing manual/explicit unless Christopher asks otherwise.</li>
+        <li>Treat re-auth as a known maintenance task until the OAuth setup is hardened further.</li>
+      </ul>
+    </section>
+
+    <section class="rv-card" style="margin-top:18px;">
+      <h2>Current re-auth reality</h2>
+      <p>The cleanest re-auth path in this environment ended up being a <strong>manual OAuth code flow</strong> rather than a localhost callback flow. The localhost method was fragile because browser/device/container boundaries made the redirect unreliable. Manual code exchange proved more dependable.</p>
+      <ol>
+        <li>Create or confirm the Google Cloud project and Blogger API.</li>
+        <li>Create a Desktop OAuth client and save fresh <code>blogger-api.json</code>.</li>
+        <li>Delete stale <code>blogger-token.json</code>.</li>
+        <li>Use manual OAuth code flow if localhost callback becomes unreliable again.</li>
+        <li>Exchange the returned code for a fresh token and save it back to secrets.</li>
+      </ol>
+    </section>
+
+    <section class="rv-note">This lane should be treated as the canonical hosted Blogger workflow reference going forward, replacing older scattered capability notes.</section>
+  </div>
+  <script src="../../assets/styles/style-one/theme.js"></script>
+</body>
+</html>
