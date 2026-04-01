@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Remote Viewer | Trajectory</title>
+  <link rel="stylesheet" href="../assets/styles/style-one/base.css" />
+  <style>
+    .trajectory-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px;align-items:start}
+    .trajectory-stack{display:grid;gap:18px}
+    .trajectory-card h2{margin-bottom:10px}
+    .trajectory-card p,.trajectory-card li{line-height:1.78}
+    .trajectory-card ul{margin:0;padding-left:1.2rem}
+    .trajectory-card li{margin:0 0 10px}
+    .signal-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .signal-chip{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;background:rgba(196,122,44,.12);color:var(--rv-accent-ink);border:1px solid rgba(196,122,44,.16)}
+    .trajectory-note{padding:16px 18px;border-radius:16px;border:1px solid rgba(196,122,44,.18);background:rgba(196,122,44,.05)}
+    .mini-list{display:grid;gap:10px}
+    .mini-list a,.mini-list div{padding:10px 12px;border-radius:14px;border:1px solid var(--rv-line);background:var(--rv-paper-soft)}
+    @media (max-width: 960px){.trajectory-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body class="rv-style-one">
+  <div class="rv-wrap">
+    <div class="rv-topbar">
+      <div class="rv-topbar-left">
+        <a class="rv-link" href="../index.html">← Remote Viewer</a>
+        <a class="rv-link" href="../styles/index.html">Style One</a>
+      </div>
+    </div>
+
+    <section class="rv-hero">
+      <p class="rv-eyebrow">Remote Viewer · Trajectory</p>
+      <h1 class="rv-title">Steering the next iteration on purpose.</h1>
+      <p class="rv-sub">This lane is for feedback that should actively shape what comes next. Not just notes, not just postmortems — but directional corrections that help the next version learn from the current one. The goal is trajectory steering: preserving what worked, naming what felt redundant, and improving the next pass with intention.</p>
+      <div class="signal-row">
+        <span class="signal-chip">Feedback → iteration</span>
+        <span class="signal-chip">Trajectory steering</span>
+        <span class="signal-chip">Next version memory</span>
+      </div>
+    </section>
+
+    <div class="trajectory-grid">
+      <main class="trajectory-stack">
+        <article class="rv-card trajectory-card">
+          <span class="rv-label">Seed Card</span>
+          <h2>Primer feedback · 2026-04-01</h2>
+          <p>The Daily Session Primer became the first real use case for this lane. Christopher’s feedback was not just “make it better” in the abstract. It contained actionable steering signals about what should change in the next iteration.</p>
+          <ul>
+            <li>The primer had become too internally repetitive and too reliant on stable context that may not need to be re-read every day.</li>
+            <li>The numbered review version was useful because it made critique easier and more surgical.</li>
+            <li>The better direction is a slimmer recurring structure with stronger signal density.</li>
+            <li>Future versions should incorporate more genuinely <strong>new</strong> information, not only internal continuity — for example news, quotes, and fresh external signal.</li>
+            <li>The primer should feel less like system boot text and more like a real morning briefing.</li>
+          </ul>
+          <div class="trajectory-note">
+            <p><strong>Steering implication:</strong> future primer iterations should likely become modular — one continuity block, one fresh external signal block, one human-charge block, and one clear suggested move.</p>
+          </div>
+          <div class="rv-actions">
+            <a href="../artifacts/daily-session-primer-2026-04-01/index.html">Open current primer</a>
+          </div>
+        </article>
+
+        <article class="rv-card trajectory-card">
+          <span class="rv-label">Pattern</span>
+          <h2>What belongs on this page?</h2>
+          <p>This page should collect feedback that changes future work, especially when the feedback is:</p>
+          <ul>
+            <li>specific enough to guide the next iteration</li>
+            <li>about structure, not just surface taste</li>
+            <li>likely to matter again later</li>
+            <li>best understood as steering, not merely commentary</li>
+          </ul>
+          <p>Examples: artifact structure feedback, publishing workflow preferences, style-language corrections, what should be canonical vs temporary, or what counts as “live” from Christopher’s point of view.</p>
+        </article>
+      </main>
+
+      <aside class="trajectory-stack">
+        <section class="rv-card trajectory-card">
+          <p class="rv-eyebrow">How to use this lane</p>
+          <h2 style="margin-top:0">Simple pattern</h2>
+          <div class="mini-list">
+            <div><strong>1.</strong> Build something</div>
+            <div><strong>2.</strong> Get feedback</div>
+            <div><strong>3.</strong> Distill what that feedback actually means</div>
+            <div><strong>4.</strong> Let the next version change because of it</div>
+          </div>
+        </section>
+
+        <section class="rv-card trajectory-card">
+          <p class="rv-eyebrow">Current thesis</p>
+          <h2 style="margin-top:0">Why this matters</h2>
+          <p>A system improves faster when critique is preserved as design steering instead of evaporating into chat history. This page is meant to help the collaboration learn directionally, not just conversationally.</p>
+        </section>
+      </aside>
+    </div>
+  </div>
+  <script src="../assets/styles/style-one/theme.js"></script>
+</body>
+</html>
