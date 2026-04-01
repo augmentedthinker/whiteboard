@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Daily Session Primer · 2026-04-01</title>
+  <title>Daily Session Primer · 2026-04-01 · Numbered Review Edition</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root{
       --bg:#f6f3ec;
       --paper:#ffffff;
       --paper-soft:#fbfaf6;
       --line:rgba(34,31,24,.1);
+      --line-strong:rgba(34,31,24,.18);
       --text:#1a1815;
       --muted:#6f6a61;
       --accent:#c47a2c;
@@ -31,20 +32,19 @@
         linear-gradient(180deg,#faf8f2 0%, var(--bg) 42%, #f2ecdf 100%);
       padding:24px 16px 44px;
     }
-    .wrap{max-width:1220px;margin:0 auto}
+    .wrap{max-width:1240px;margin:0 auto}
     .topbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
     .link{display:inline-block;text-decoration:none;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.84);padding:10px 14px;border-radius:999px;font-weight:700;box-shadow:0 8px 20px rgba(17,13,9,.05)}
-    .hero,.section,.sidecard,.signature-strip,.opening{border:1px solid var(--line);background:rgba(255,255,255,.8);box-shadow:var(--shadow)}
-    .hero{display:grid;grid-template-columns:1.12fr .88fr;gap:0;border-radius:30px;overflow:hidden;margin-bottom:18px}
+    .hero,.section,.sidecard,.review-note{border:1px solid var(--line);background:rgba(255,255,255,.8);box-shadow:var(--shadow)}
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:0;border-radius:30px;overflow:hidden;margin-bottom:18px}
     .hero-copy{padding:30px 26px 28px}
-    .hero-media{border-left:1px solid var(--line);background:rgba(255,255,255,.54);display:flex;flex-direction:column}
+    .hero-media{border-left:1px solid var(--line);display:flex;flex-direction:column;background:rgba(255,255,255,.56)}
     .eyebrow{margin:0 0 8px;color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
-    h1{margin:0 0 12px;font-size:clamp(2rem,5vw,4rem);line-height:.96;letter-spacing:-.05em;max-width:11ch}
+    h1{margin:0 0 12px;font-size:clamp(2rem,5vw,4rem);line-height:.96;letter-spacing:-.05em;max-width:12ch}
     .hero-copy p{margin:0;max-width:70ch;color:var(--muted);line-height:1.82;font-size:1.03rem}
     .chip-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
     .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid rgba(196,122,44,.16);background:rgba(196,122,44,.08);color:var(--accent-ink);font-size:.82rem;font-weight:800}
-    .hero-image-wrap{position:relative;min-height:360px;background:linear-gradient(180deg,#fbfaf6,#f3eee3)}
-    .hero-visual{position:relative;overflow:hidden;min-height:300px;background:
+    .hero-visual{position:relative;min-height:340px;overflow:hidden;background:
       radial-gradient(circle at 16% 18%, rgba(255,214,163,.74), transparent 18%),
       radial-gradient(circle at 74% 34%, rgba(237,170,94,.22), transparent 24%),
       linear-gradient(180deg,#fbf7ef 0%, #f5ecdd 52%, #eadcc6 100%);
@@ -53,21 +53,24 @@
     .hero-orbit{position:absolute;border-radius:999px;border:1px solid rgba(196,122,44,.18)}
     .hero-orbit.one{width:320px;height:320px;right:-56px;top:-58px}
     .hero-orbit.two{width:228px;height:228px;right:54px;top:30px}
-    .hero-card{position:absolute;left:28px;right:28px;bottom:28px;padding:18px 18px 16px;border-radius:22px;border:1px solid rgba(34,31,24,.1);background:rgba(255,255,255,.72);backdrop-filter:blur(8px);box-shadow:0 18px 40px rgba(18,14,10,.08)}
+    .hero-card{position:absolute;left:28px;right:28px;bottom:28px;padding:18px 18px 16px;border-radius:22px;border:1px solid rgba(34,31,24,.1);background:rgba(255,255,255,.74);backdrop-filter:blur(8px);box-shadow:0 18px 40px rgba(18,14,10,.08)}
     .hero-card strong{display:block;font-size:1.26rem;letter-spacing:-.03em;margin-bottom:8px}
     .hero-card p{margin:0;color:var(--muted);line-height:1.72;font-size:.96rem}
-    .hero-caption{padding:14px 16px;border-top:1px solid var(--line);color:var(--muted);font-size:.92rem;line-height:1.65;background:rgba(255,255,255,.7)}
+    .hero-caption{padding:14px 16px;border-top:1px solid var(--line);color:var(--muted);font-size:.92rem;line-height:1.65;background:rgba(255,255,255,.72)}
     .layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px;align-items:start}
     .article{display:grid;gap:18px}
-    .section{padding:22px;border-radius:26px}
-    .section h2{margin:0 0 12px;font-size:1.34rem;letter-spacing:-.03em}
+    .section{padding:22px;border-radius:26px;scroll-margin-top:18px}
+    .section-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:14px}
+    .section-num{flex:0 0 auto;display:grid;place-items:center;width:50px;height:50px;border-radius:16px;background:linear-gradient(180deg,#fff3e4,#f4ddbc);border:1px solid rgba(196,122,44,.24);color:var(--accent-ink);font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:1rem;font-weight:700;box-shadow:inset 0 1px 0 rgba(255,255,255,.65)}
+    .section-title-wrap h2{margin:0;font-size:1.34rem;letter-spacing:-.03em}
+    .section-kicker{margin:4px 0 0;color:var(--muted);font-size:.92rem;line-height:1.5}
     .section p,.section li{color:var(--muted);line-height:1.82;font-size:1rem}
     .section strong{color:var(--text)}
     .section ul{margin:0;padding-left:1.2rem}
     .section li{margin:0 0 10px}
     .callout{margin-top:14px;padding:16px 16px 4px;border-radius:18px;border:1px solid rgba(196,122,44,.18);background:linear-gradient(180deg,#fff,#f8f4eb)}
     .two-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-    .opening{padding:16px 15px;border-radius:18px;background:linear-gradient(180deg,#fff,#faf7f0)}
+    .opening{padding:16px 15px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#faf7f0)}
     .opening strong{display:block;margin-bottom:8px;color:var(--text)}
     .sidebar{display:grid;gap:18px;position:sticky;top:18px}
     .sidecard{padding:18px;border-radius:24px;background:linear-gradient(180deg,#fff,#faf7f0)}
@@ -75,11 +78,14 @@
     .sidecard p,.sidecard li{margin:0 0 10px;color:var(--muted);line-height:1.75;font-size:.96rem}
     .sidecard ul{margin:0;padding-left:1.15rem}
     .mini-label{margin:0 0 8px;color:var(--accent);font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
-    .signature-strip{padding:18px 20px;border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(249,244,236,.88));display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
-    .signature-strip p{margin:0;color:var(--muted);line-height:1.75;font-size:.95rem}
-    .signature-strip strong{display:block;margin-bottom:6px;color:var(--text)}
+    .toc{display:grid;gap:8px}
+    .toc a{display:flex;gap:10px;align-items:flex-start;text-decoration:none;color:var(--text);padding:10px 12px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.7)}
+    .toc-num{font-family:"IBM Plex Mono",ui-monospace,monospace;color:var(--accent-ink);font-weight:700;min-width:28px}
+    .review-note{padding:18px 20px;border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(249,244,236,.88))}
+    .review-note p{margin:0;color:var(--muted);line-height:1.75;font-size:.95rem}
+    .review-note strong{color:var(--text)}
     @media (max-width:1100px){.hero,.layout,.two-col{grid-template-columns:1fr}.hero-media{border-left:0;border-top:1px solid var(--line)}.sidebar{position:static}}
-    @media (max-width:720px){body{padding:18px 12px 32px}.hero-copy,.section,.sidecard{padding:18px}.signature-strip{padding:16px;display:grid}.hero,.section,.sidecard,.signature-strip,.opening{border-radius:20px}.hero-card{left:18px;right:18px;bottom:18px}}
+    @media (max-width:720px){body{padding:18px 12px 32px}.hero-copy,.section,.sidecard,.review-note{padding:18px}.hero,.section,.sidecard,.review-note,.opening{border-radius:20px}.hero-card{left:18px;right:18px;bottom:18px}.section-head{gap:12px}.section-num{width:42px;height:42px;border-radius:14px}}
   </style>
 </head>
 <body>
@@ -93,160 +99,208 @@
 
     <section class="hero">
       <div class="hero-copy">
-        <p class="eyebrow">Daily Session Primer · Wednesday, April 1, 2026</p>
-        <h1>The world is coherent again. Now make one move that survives the day.</h1>
-        <p>This morning arrives after a clean reset, a successful Blogger recovery, a real Remote Viewer cleanup pass, and a fresh proof that the hosted system can still be kept honest through curation. It is also a hospital-day morning, which means the right ambition is not sprawling depth for its own sake but a focused, high-signal move that either becomes live now or makes later work easier to re-enter.</p>
+        <p class="eyebrow">Daily Session Primer · Wednesday, April 1, 2026 · Review Edition</p>
+        <h1>Number the thing so we can cut it honestly.</h1>
+        <p>This version of today’s primer is intentionally structured as a review instrument rather than a finished monologue. Every major block is clearly numbered so Christopher can say keep, cut, merge, shrink, or rewrite without having to gesture vaguely at the page.</p>
         <div class="chip-row">
-          <span class="chip">Hosted morning primer</span>
-          <span class="chip">Workday realism</span>
-          <span class="chip">Blogger lane recovered</span>
-          <span class="chip">Remote Viewer cleanup pressure</span>
+          <span class="chip">Numbered review build</span>
+          <span class="chip">Section-by-section critique</span>
+          <span class="chip">Workday context</span>
+          <span class="chip">Hosted live for annotation</span>
         </div>
       </div>
       <div class="hero-media">
-        <div class="hero-image-wrap">
-          <div class="hero-visual" aria-hidden="true">
-            <div class="hero-grid"></div>
-            <div class="hero-orbit one"></div>
-            <div class="hero-orbit two"></div>
-            <div class="hero-card">
-              <strong>Coherence before expansion</strong>
-              <p>The system is in a better state than it was yesterday morning: Blogger auth is working again, the front door is cleaner, and the style vocabulary is less confused. The useful question now is not what could be explored next, but which active lane deserves one more real act of stabilization.</p>
-            </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="hero-grid"></div>
+          <div class="hero-orbit one"></div>
+          <div class="hero-orbit two"></div>
+          <div class="hero-card">
+            <strong>The point here is pruning</strong>
+            <p>If a section feels redundant, too stable to need daily repetition, or better handled implicitly by startup context, it can now be removed cleanly by number. The page is meant to make that critique easy.</p>
           </div>
         </div>
-        <div class="hero-caption">Custom hosted-primer treatment adjacent to the current house system: warm restraint, stronger hierarchy, and a briefing posture meant for a real morning decision rather than a neutral document wrapper.</div>
+        <div class="hero-caption">Same day, same general intent — but now explicitly rebuilt for review and reduction rather than passive reading.</div>
       </div>
     </section>
 
     <div class="layout">
       <main class="article">
-        <section class="section">
-          <h2>Opening orientation</h2>
-          <p>It is early Wednesday morning. The system has been reset cleanly, continuity has been preserved, and the immediate world is legible again. That alone matters. A lot of recent progress has involved turning messy capability into something more durable: shared styles, hosted workflows, Vercel-backed app potential, recovered Blogger publishing, and sharper curation discipline in Remote Viewer. This morning is therefore less about rediscovery and more about choosing a proportional move.</p>
-          <p>The useful frame is <strong>coherence under real constraints</strong>. This is not the kind of day that naturally invites sprawling architectural wandering unless you intentionally make room for it. Because Wednesday is typically a hospital day, the bar for success should be a move that is clear, bounded, and genuinely cumulative.</p>
-        </section>
-
-        <section class="section">
-          <h2>Collaboration frame</h2>
-          <p>Christopher is not here for generic assistant throughput. He uses this collaboration to restore continuity, pressure-test ideas, convert reflection into structure, and make that structure visible enough to be lived with. My role is not to flatter the ecosystem or expand every possibility equally. It is to help name what is most alive, what is under-sequenced, and what would actually count as meaningful motion today.</p>
-          <p>The collaboration works best when it stays thoughtful, practical, and slightly opinionated. That means honoring ambition without indulging drift, and keeping the distinction clear between an interesting direction and a lane that is ready for another rung of commitment.</p>
-        </section>
-
-        <section class="section">
-          <h2>Today’s operating context</h2>
-          <p>This is a Wednesday, which usually means hospital-work context, more fragmented attention, and a higher likelihood that at least part of the day will be mobile-first rather than long-form desktop immersion. So while deep work is not impossible, it should not be assumed casually. The better stance is to favor things that can either be completed cleanly in one bounded block or set up later work with minimal re-entry friction.</p>
-          <div class="callout">
-            <p><strong>Practical read of the day:</strong> choose work that survives interruption well — hosted artifacts, clean structural edits, clarified next steps, workflow hardening, or one visible publishing-support move.</p>
+        <section id="section-1" class="section">
+          <div class="section-head">
+            <div class="section-num">01</div>
+            <div class="section-title-wrap">
+              <h2>Opening orientation</h2>
+              <p class="section-kicker">What kind of morning is this, in one frame?</p>
+            </div>
           </div>
-          <p>A common trap on days like this is trying to think at Saturday scale while living inside Wednesday fragmentation. If that happens, even good ideas can curdle into dissatisfaction because the day was asked to carry the wrong weight.</p>
+          <p>It is early Wednesday morning. The system has been reset cleanly, continuity has been preserved, and the immediate world is legible again. This morning is less about rediscovery and more about choosing a proportional move that fits the day.</p>
+          <p>The useful frame is <strong>coherence under real constraints</strong>. Because Wednesday is typically a hospital day, success should probably mean one clear, bounded, cumulative move rather than sprawling architectural depth.</p>
         </section>
 
-        <section class="section">
-          <h2>Workspace and ecosystem orientation</h2>
-          <p>OpenClaw still lives in Penguin, but Penguin is the engine room rather than the real visible habitat. The shared workspace remains the practical project territory, and the hosted/browser-facing outputs remain disproportionately important because they are what Christopher can actually reopen from phone or Chromebook in a way that feels real.</p>
-          <p>That distinction matters more now, not less. The ecosystem is no longer just internal notes and one-off experiments. It increasingly includes visible surfaces, durable workflow documents, hosted primers, browser-side tools, and public-or-semi-public pages whose value is precisely that they are inspectable from lived context.</p>
+        <section id="section-2" class="section">
+          <div class="section-head">
+            <div class="section-num">02</div>
+            <div class="section-title-wrap">
+              <h2>Collaboration frame</h2>
+              <p class="section-kicker">Who Christopher is here, who I am here, and how we work best.</p>
+            </div>
+          </div>
+          <p>Christopher uses this collaboration to restore continuity, pressure-test ideas, convert reflection into structure, and make that structure visible enough to be lived with. My role is not to expand every possibility equally. It is to help identify what is most alive, what is under-sequenced, and what would count as meaningful motion.</p>
+          <p>The collaboration works best when it stays thoughtful, practical, and slightly opinionated — ambitious without drifting into generic assistant behavior or vague motivational language.</p>
         </section>
 
-        <section class="section">
-          <h2>Remote Viewer as hosted collaboration surface</h2>
-          <p>Remote Viewer continues to mature into a browser-facing operating surface rather than a loose pile of artifacts. The front door is leaner. The style system is cleaner. Workflows now have a more appropriate home. Today’s Artifacts functions more like a curated shelf than a dump. These changes are not cosmetic; they are governance.</p>
-          <p>The recent clarification that the active style language should be <strong>Style One</strong>, <strong>Style Two</strong>, and <strong>Cross-Surface Reference</strong> is especially healthy. It reduces naming drift and keeps future work from accidentally inheriting obsolete vocabulary. Likewise, the shift from the older `docs/skills*` cluster toward the `workflows/` lane is a real architectural cleanup, not just a folder preference.</p>
-          <p>Hosted truth matters here. When Christopher asks whether something is live, he means hosted online, not merely edited locally. Remote Viewer’s importance comes from exactly that conversion: thought becoming inspectable surface.</p>
+        <section id="section-3" class="section">
+          <div class="section-head">
+            <div class="section-num">03</div>
+            <div class="section-title-wrap">
+              <h2>Today’s operating context</h2>
+              <p class="section-kicker">What does this actual day realistically allow?</p>
+            </div>
+          </div>
+          <p>This is a Wednesday, which usually means hospital-work context, more fragmented attention, and a higher likelihood that at least part of the day will be mobile-first. So while deep work is not impossible, it should not be assumed casually.</p>
+          <div class="callout">
+            <p><strong>Practical read of the day:</strong> favor work that survives interruption well — hosted artifacts, small structural edits, clarified next steps, workflow hardening, or one visible publishing-support move.</p>
+          </div>
+          <p>A common trap on days like this is trying to think at Saturday scale while living inside Wednesday fragmentation.</p>
         </section>
 
-        <section class="section">
-          <h2>Recent continuity</h2>
-          <p>Yesterday’s strongest concrete win was the <strong>Blogger recovery</strong>. The system confirmed that the prior failure was stale auth rather than a broken blog lane, a fresh Google Cloud Desktop OAuth client was created, the old localhost callback path was exposed as unreliable, and a manual OAuth code flow successfully restored the connection. A real draft — <strong>“GitHub and Vercel quick note”</strong> — was then created successfully in the live <strong>AUGMENTED THINKER</strong> blog.</p>
-          <p>That success came with an honest caveat: the current Blogger auth posture is still fragile because Google testing-mode token behavior appears short-lived. So the lane is operational again, but not yet hardened in a way that feels fully settled.</p>
-          <p>Remote Viewer also received a meaningful cleanup pass. The style language was narrowed, outdated showroom baggage was removed, and the larger governance problem became more explicit: the repo still contains a mix of canonical current structure, historically meaningful leftovers, and stale surfaces that can mislead future work simply by still looking official.</p>
-          <p>One immediate practical datapoint also arrived right before this session: the Blogger button was restored on the Remote Viewer front door and pushed successfully. That closes one small but real drift between current publishing importance and front-door visibility.</p>
+        <section id="section-4" class="section">
+          <div class="section-head">
+            <div class="section-num">04</div>
+            <div class="section-title-wrap">
+              <h2>Workspace and ecosystem orientation</h2>
+              <p class="section-kicker">The architecture underneath the session.</p>
+            </div>
+          </div>
+          <p>OpenClaw lives in Penguin, but Penguin is the engine room rather than the visible habitat. The shared workspace is the practical project territory, and browser-facing outputs matter disproportionately because they are what Christopher can actually reopen from phone or Chromebook in a way that feels real.</p>
+          <p>The ecosystem increasingly includes visible surfaces, durable workflow documents, hosted primers, browser-side tools, and public-or-semi-public pages whose value is precisely that they are inspectable from lived context.</p>
         </section>
 
-        <section class="section">
-          <h2>Emerging patterns and deeper interpretation</h2>
-          <p>The strongest recurring pattern is still that Christopher’s ideas are often <strong>under-sequenced</strong> rather than unrealistic. That remains true even as the ecosystem gets more capable. In fact, stronger capability can worsen the sequencing problem by making more directions feel available at once.</p>
-          <p>A second pattern is that governance is becoming just as important as invention. Earlier phases needed raw creation energy. The current phase increasingly needs decisions about what stays canonical, what gets archived, what deserves a workflow, and what should stop pretending to be active. This is a sign of maturation, not stagnation.</p>
-          <p>A third pattern is that the most authentic lanes still arise from Christopher’s actual life texture: reflective synthesis, hosted continuity surfaces, psychologically honest systems, practical AI workflows, and public writing rooted in real field notes rather than generic futurist performance. Those lanes keep proving they belong.</p>
+        <section id="section-5" class="section">
+          <div class="section-head">
+            <div class="section-num">05</div>
+            <div class="section-title-wrap">
+              <h2>Remote Viewer as hosted collaboration surface</h2>
+              <p class="section-kicker">Why the browser-facing layer matters.</p>
+            </div>
+          </div>
+          <p>Remote Viewer continues to mature into a browser-facing operating surface rather than a loose pile of artifacts. The front door is leaner, the style system is cleaner, workflows have a more appropriate home, and Today’s Artifacts behaves more like a curated shelf than a dump.</p>
+          <p>The recent clarification that the active style language should be <strong>Style One</strong>, <strong>Style Two</strong>, and <strong>Cross-Surface Reference</strong> is healthy because it reduces naming drift. Likewise, the move from the older <code>docs/skills*</code> cluster toward <code>workflows/</code> is a real architectural cleanup.</p>
+          <p>Hosted truth matters here: when Christopher asks whether something is live, he means hosted online, not merely edited locally.</p>
         </section>
 
-        <section class="section">
-          <h2>Strategic read of the moment</h2>
-          <p><strong>Most alive right now:</strong> keeping the publishing-and-hosting ecosystem coherent. That includes Blogger as a restored review-first lane, Remote Viewer as the browser-facing coordination surface, and workflows as the place where durable operational truth now belongs.</p>
-          <p><strong>Secondary valid lanes:</strong> continued cleanup of stale Remote Viewer structures, hardening the Blogger workflow so re-auth is less annoying next time, and deciding which recently proven capability actually deserves to become a recurring habit.</p>
-          <p><strong>Promising but not necessarily for today:</strong> broad YouTube-lane expansion, larger Vercel product ambition, or any deep new conceptual branch that would benefit from a calmer off-day rather than a workday morning.</p>
-          <p><strong>What should not dominate today:</strong> expansion for expansion’s sake, repo sprawl disguised as momentum, or abstract monetization pressure detached from the real state of the lanes that are already finally becoming usable.</p>
+        <section id="section-6" class="section">
+          <div class="section-head">
+            <div class="section-num">06</div>
+            <div class="section-title-wrap">
+              <h2>Recent continuity</h2>
+              <p class="section-kicker">What actually happened lately that still matters now?</p>
+            </div>
+          </div>
+          <p>Yesterday’s strongest concrete win was the <strong>Blogger recovery</strong>. The lane was confirmed broken because of stale auth rather than a broken blog surface, a fresh Desktop OAuth client was created, the old localhost callback route proved unreliable, and a manual OAuth code flow restored the connection.</p>
+          <p>A real draft — <strong>“GitHub and Vercel quick note”</strong> — was then created successfully in the live <strong>AUGMENTED THINKER</strong> blog. The caveat is that the current auth posture still looks fragile because the Google testing-mode token window appears short-lived.</p>
+          <p>Remote Viewer also received a meaningful cleanup pass: older style baggage was removed, the visible style language was narrowed, and the repo-governance problem became more explicit.</p>
         </section>
 
-        <section class="section">
-          <h2>Action bridge</h2>
+        <section id="section-7" class="section">
+          <div class="section-head">
+            <div class="section-num">07</div>
+            <div class="section-title-wrap">
+              <h2>Emerging patterns and deeper interpretation</h2>
+              <p class="section-kicker">What keeps recurring underneath the visible tasks?</p>
+            </div>
+          </div>
+          <p>The strongest recurring pattern is still that Christopher’s ideas are often <strong>under-sequenced</strong> rather than unrealistic. Stronger capability can actually worsen the sequencing problem by making more directions feel available at once.</p>
+          <p>A second pattern is that governance is becoming just as important as invention. The system now needs decisions about what stays canonical, what gets archived, and what deserves durable workflow treatment.</p>
+          <p>A third pattern is that the most authentic lanes still arise from Christopher’s actual life texture: reflective synthesis, hosted continuity surfaces, psychologically honest systems, practical AI workflows, and public writing rooted in real field notes.</p>
+        </section>
+
+        <section id="section-8" class="section">
+          <div class="section-head">
+            <div class="section-num">08</div>
+            <div class="section-title-wrap">
+              <h2>Strategic read of the moment</h2>
+              <p class="section-kicker">What feels central, what feels adjacent, and what should not take over today?</p>
+            </div>
+          </div>
+          <p><strong>Most alive right now:</strong> keeping the publishing-and-hosting ecosystem coherent — Blogger as a restored review-first lane, Remote Viewer as the browser-facing coordination surface, and workflows as the place where durable operational truth now belongs.</p>
+          <p><strong>Secondary valid lanes:</strong> continued cleanup of stale Remote Viewer structures, hardening the Blogger workflow so re-auth is less annoying next time, and deciding which recently proven capability deserves recurring use.</p>
+          <p><strong>What should not dominate today:</strong> expansion for expansion’s sake, repo sprawl disguised as momentum, or abstract monetization pressure detached from the current state of the live lanes.</p>
+        </section>
+
+        <section id="section-9" class="section">
+          <div class="section-head">
+            <div class="section-num">09</div>
+            <div class="section-title-wrap">
+              <h2>Action bridge</h2>
+              <p class="section-kicker">What kind of progress would actually count today?</p>
+            </div>
+          </div>
           <p>If today is used well, the result should be one cleaner lane — not one more interesting pile.</p>
           <ul>
-            <li><strong>Strongest move:</strong> build or refine the hosted Daily Session Primer for today and keep the Today shelf honest and current. This gives the day an immediate live object and reinforces the re-entry system as a real operational lane.</li>
-            <li><strong>Very good follow-up move:</strong> tighten one Blogger workflow artifact or documentation page so the recovered lane is easier to trust and re-use.</li>
-            <li><strong>Good governance move:</strong> identify one stale Remote Viewer cluster that should be archived, migrated, or retired rather than left ambiguously alive.</li>
-            <li><strong>Good bounded workday move:</strong> define the next three concrete steps for one active lane instead of imagining its full future.</li>
+            <li><strong>Strongest move:</strong> build or refine one hosted object that improves re-entry or operational clarity.</li>
+            <li><strong>Very good follow-up move:</strong> tighten one Blogger workflow or documentation surface so the recovered lane is easier to trust.</li>
+            <li><strong>Good governance move:</strong> identify one stale Remote Viewer cluster that should be archived, migrated, or retired.</li>
+            <li><strong>Pseudo-progress to avoid:</strong> making more pages without clarifying which pages are canonical, live, and likely to be reopened.</li>
           </ul>
-          <div class="callout">
-            <p><strong>Pseudo-progress warning:</strong> making more pages without clarifying which pages are canonical, live, and likely to be reopened.</p>
-          </div>
         </section>
 
-        <section class="section">
-          <h2>Conversation openings</h2>
+        <section id="section-10" class="section">
+          <div class="section-head">
+            <div class="section-num">10</div>
+            <div class="section-title-wrap">
+              <h2>Conversation openings</h2>
+              <p class="section-kicker">Practical entry points for the session.</p>
+            </div>
+          </div>
           <div class="two-col">
-            <div class="opening"><strong>1. Ship today’s primer live.</strong> Use this morning to create a fresh hosted artifact and keep the Today shelf current.</div>
-            <div class="opening"><strong>2. Harden the Blogger lane.</strong> Turn yesterday’s recovery into a cleaner repeatable workflow and note the auth fragility honestly.</div>
-            <div class="opening"><strong>3. Clean one stale cluster.</strong> Pick one Remote Viewer area that still looks canonical without actually being current.</div>
-            <div class="opening"><strong>4. Clarify publishing posture.</strong> Decide what belongs on the front door, what belongs in workflows, and what belongs only as an artifact entry.</div>
-            <div class="opening"><strong>5. Make one next rung explicit.</strong> Choose one active lane and define three concrete moves that fit a Wednesday, not an idealized future day.</div>
-            <div class="opening"><strong>6. Preserve coherence.</strong> Keep today’s work biased toward reuse, curation, and re-entry rather than fresh conceptual proliferation.</div>
+            <div class="opening"><strong>10.1 Ship today’s primer live.</strong> Use the morning to create a fresh hosted artifact and keep the Today shelf current.</div>
+            <div class="opening"><strong>10.2 Harden the Blogger lane.</strong> Turn yesterday’s recovery into a cleaner repeatable workflow and note the auth fragility honestly.</div>
+            <div class="opening"><strong>10.3 Clean one stale cluster.</strong> Pick one Remote Viewer area that still looks canonical without actually being current.</div>
+            <div class="opening"><strong>10.4 Clarify publishing posture.</strong> Decide what belongs on the front door, what belongs in workflows, and what belongs only as an artifact entry.</div>
+            <div class="opening"><strong>10.5 Make one next rung explicit.</strong> Choose one active lane and define three concrete moves that fit a Wednesday.</div>
+            <div class="opening"><strong>10.6 Preserve coherence.</strong> Bias today’s work toward reuse, curation, and re-entry rather than fresh conceptual proliferation.</div>
           </div>
         </section>
 
-        <section class="signature-strip">
-          <div>
-            <strong>Style note</strong>
-            <p>Built as a custom hosted-primer treatment adjacent to the house system rather than pure Style One or Style Two, because the page’s job is to act like a morning briefing surface with stronger hierarchy and more directional energy.</p>
-          </div>
-          <div>
-            <strong>Intent</strong>
-            <p>To restore the world clearly, size the day honestly, and make one bounded but cumulative move feel more compelling than scattered possibility.</p>
-          </div>
+        <section id="section-11" class="review-note">
+          <p><strong>11. Review note:</strong> This page is intentionally over-explicit so it can be reduced. If a block is stable enough that it does not need daily repetition, that is exactly the kind of thing to cut or compress after review.</p>
         </section>
       </main>
 
       <aside class="sidebar">
         <section class="sidecard">
-          <p class="mini-label">Today at a glance</p>
-          <h3>High-signal lane</h3>
-          <p><strong>Preserve coherence across publishing, workflow, and hosted surfaces.</strong></p>
-          <p>Today favors one clean stabilizing move more than broad expansion.</p>
+          <p class="mini-label">Quick review map</p>
+          <h3>Jump by section number</h3>
+          <div class="toc">
+            <a href="#section-1"><span class="toc-num">01</span><span>Opening orientation</span></a>
+            <a href="#section-2"><span class="toc-num">02</span><span>Collaboration frame</span></a>
+            <a href="#section-3"><span class="toc-num">03</span><span>Today’s operating context</span></a>
+            <a href="#section-4"><span class="toc-num">04</span><span>Workspace and ecosystem orientation</span></a>
+            <a href="#section-5"><span class="toc-num">05</span><span>Remote Viewer as hosted collaboration surface</span></a>
+            <a href="#section-6"><span class="toc-num">06</span><span>Recent continuity</span></a>
+            <a href="#section-7"><span class="toc-num">07</span><span>Patterns / interpretation</span></a>
+            <a href="#section-8"><span class="toc-num">08</span><span>Strategic read</span></a>
+            <a href="#section-9"><span class="toc-num">09</span><span>Action bridge</span></a>
+            <a href="#section-10"><span class="toc-num">10</span><span>Conversation openings</span></a>
+            <a href="#section-11"><span class="toc-num">11</span><span>Review note</span></a>
+          </div>
         </section>
 
         <section class="sidecard">
-          <p class="mini-label">Most relevant live facts</p>
+          <p class="mini-label">How to use this</p>
           <ul>
-            <li>Blogger auth was recovered and draft creation works again</li>
-            <li>The Blogger button was restored on the front door</li>
-            <li>Remote Viewer style language was cleaned up</li>
-            <li>Workflows is now the right lane for durable operational methods</li>
+            <li>“Keep 1, 3, 8, 9”</li>
+            <li>“Cut 4 and 5”</li>
+            <li>“Merge 2 into 1”</li>
+            <li>“Shrink 6 by 70%”</li>
+            <li>“10 should become just 3 options”</li>
           </ul>
         </section>
 
         <section class="sidecard">
-          <p class="mini-label">What to resist</p>
-          <ul>
-            <li>workday overreach</li>
-            <li>naming drift and stale canonical leftovers</li>
-            <li>creating pages without governance</li>
-            <li>mistaking option-richness for progress</li>
-          </ul>
-        </section>
-
-        <section class="sidecard">
-          <p class="mini-label">Grounding sources</p>
-          <p>Daily memory for 2026-03-31, long-term memory, the Daily Session Primer spec, shared-workspace README architecture, and the current Remote Viewer / Today structure.</p>
+          <p class="mini-label">Intent</p>
+          <p>This is a live critique version of the primer system, not a claim that all eleven blocks should survive long-term.</p>
         </section>
       </aside>
     </div>
