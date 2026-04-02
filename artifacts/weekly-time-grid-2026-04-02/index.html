@@ -16,6 +16,8 @@
       --hospital-text:#4b3726;
       --gym:#c86d6d;
       --gym-text:#5a2222;
+      --groceries:#d98b43;
+      --groceries-text:#5f3412;
     }
     *{box-sizing:border-box}
     html,body{margin:0}
@@ -32,6 +34,7 @@
     td{background:#fff}
     td.hospital{background:var(--hospital)}
     td.gym{background:var(--gym)}
+    td.groceries{background:var(--groceries)}
     tbody tr{height:calc((100dvh - 18px - 2px) / 16)}
     .legend{display:grid;gap:10px;padding:12px 10px 0}
     .legend-item{display:flex;align-items:center;gap:10px;color:var(--hospital-text);font-size:12px;line-height:1.35}
@@ -74,7 +77,7 @@
             <tr><th>6A</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
             <tr><th>7A</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
             <tr><th>8A</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
-            <tr><th>9A</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
+            <tr><th>9A</th><td></td><td></td><td class="groceries"></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td class="groceries"></td></tr>
             <tr><th>10A</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
             <tr><th>11A</th><td></td><td></td><td class="gym"></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td class="gym"></td></tr>
             <tr><th>12P</th><td></td><td></td><td class="gym"></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td class="gym"></td></tr>
@@ -95,6 +98,7 @@
     <section class="legend" aria-label="Color legend">
       <div class="legend-item"><span class="swatch hospital"></span><span>Hospital shift</span></div>
       <div class="legend-item"><span class="swatch gym" style="background:var(--gym);"></span><span>Gym</span></div>
+      <div class="legend-item"><span class="swatch groceries" style="background:var(--groceries);"></span><span>Groceries</span></div>
     </section>
   </div>
 </body>
