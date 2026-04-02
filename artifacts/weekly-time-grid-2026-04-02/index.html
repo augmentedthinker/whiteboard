@@ -20,21 +20,21 @@
     table{width:100%;height:100%;border-collapse:collapse;table-layout:fixed}
     th,td{border:var(--border) solid var(--line);padding:0}
     thead th{height:16px;font-size:8px;letter-spacing:0;text-transform:uppercase;font-weight:700;color:var(--muted);text-align:center;background:#f7f3ec;line-height:1}
-    tbody th{font-size:7px;font-weight:700;color:var(--muted);text-align:center;background:#faf7f1;white-space:nowrap;width:24px;line-height:1}
+    tbody th{font-size:7px;font-weight:700;color:var(--muted);text-align:center;background:#faf7f1;white-space:nowrap;width:20px;line-height:1}
     td{background:#fff}
-    tbody tr{height:calc((100dvh - 18px - 2px) / 17)}
+    tbody tr{height:calc((100dvh - 18px - 2px) / 16)}
     @media (min-width:700px){
       .frame{padding:4px}
       thead th{height:22px;font-size:10px}
-      tbody th{font-size:9px;width:42px}
-      tbody tr{height:calc((100dvh - 30px - 8px) / 17)}
+      tbody th{font-size:9px;width:34px}
+      tbody tr{height:calc((100dvh - 30px - 8px) / 16)}
     }
   </style>
 </head>
 <body>
   <div class="frame">
     <div class="wrap">
-      <table aria-label="Weekly time grid from 6 AM to 10 PM">
+      <table aria-label="Weekly time grid from 6 AM to 9 PM">
         <thead>
           <tr>
             <th></th>
@@ -64,7 +64,6 @@
           <tr><th>7P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
           <tr><th>8P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
           <tr><th>9P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>10P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
         </tbody>
       </table>
     </div>
