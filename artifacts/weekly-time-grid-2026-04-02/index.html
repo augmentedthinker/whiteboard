@@ -4,94 +4,71 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Weekly Time Grid · 2026-04-02</title>
-  <link rel="stylesheet" href="../../assets/styles/style-one/base.css" />
   <style>
-    .grid-shell{display:grid;gap:18px}
-    .grid-card{padding:18px;border:1px solid var(--rv-line);border-radius:22px;background:var(--rv-paper);box-shadow:var(--rv-shadow-soft)}
-    .schedule-wrap{overflow:auto;border-radius:18px;border:1px solid var(--rv-line);background:linear-gradient(180deg,#fff,#fbfaf7)}
-    table.schedule{width:100%;min-width:980px;border-collapse:separate;border-spacing:0;font-size:.96rem}
-    .schedule th,.schedule td{border-right:1px solid var(--rv-line);border-bottom:1px solid var(--rv-line);padding:12px 10px;vertical-align:top}
-    .schedule thead th{position:sticky;top:0;background:rgba(255,252,247,.96);backdrop-filter:blur(8px);z-index:2;text-align:left;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--rv-accent-ink)}
-    .schedule thead th:first-child{z-index:3}
-    .schedule tbody th{position:sticky;left:0;background:rgba(255,252,247,.98);z-index:1;min-width:120px;text-align:left;font-weight:700;color:var(--rv-text)}
-    .schedule th:first-child,.schedule td:first-child{border-left:0}
-    .schedule tr:first-child th{border-top:0}
-    .schedule td{height:72px;min-width:118px;background:rgba(255,255,255,.84)}
-    .schedule td:hover{background:rgba(196,122,44,.06)}
-    .axis-note{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-    .axis-note .rv-card{padding:16px}
-    .time-label{font-size:.88rem;color:var(--rv-muted)}
-    @media (max-width:720px){.grid-card{padding:14px}.schedule tbody th{min-width:96px}.schedule td{height:64px;min-width:100px}}
+    :root{
+      --bg:#fbfaf7;
+      --paper:#ffffff;
+      --line:#dfd8cc;
+      --text:#2b2620;
+      --muted:#6d6458;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%}
+    body{background:var(--bg);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text)}
+    .frame{width:100vw;height:100vh;padding:8px}
+    .wrap{width:100%;height:100%;border:1px solid var(--line);background:var(--paper);overflow:auto}
+    table{width:100%;height:100%;border-collapse:collapse;table-layout:fixed}
+    th,td{border:1px solid var(--line);padding:4px 5px}
+    thead th{font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted);text-align:center;background:#f7f3ec}
+    tbody th{font-size:10px;font-weight:700;color:var(--muted);text-align:right;background:#faf7f1;white-space:nowrap;width:62px}
+    td{background:#fff}
+    tbody tr{height:calc((100vh - 34px) / 17)}
+    @media (max-width:700px){
+      .frame{padding:4px}
+      th,td{padding:2px 3px}
+      thead th{font-size:8px}
+      tbody th{font-size:8px;width:48px}
+      tbody tr{height:calc((100vh - 22px) / 17)}
+    }
   </style>
 </head>
-<body class="rv-style-one">
-  <main class="rv-wrap">
-    <div class="rv-topbar">
-      <div class="rv-topbar-left">
-        <a class="rv-link" href="../../today/index.html">← Today’s Artifacts</a>
-        <a class="rv-link" href="./signature.html">✒️ Signature</a>
-      </div>
+<body>
+  <div class="frame">
+    <div class="wrap">
+      <table aria-label="Weekly time grid from 6 AM to 10 PM">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Saturday</th>
+            <th>Sunday</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th>6 AM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>7 AM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>8 AM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>9 AM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>10 AM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>11 AM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>12 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>1 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>2 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>3 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>4 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>5 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>6 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>7 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>8 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>9 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>10 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        </tbody>
+      </table>
     </div>
-
-    <section class="rv-hero">
-      <p class="rv-eyebrow">Weekly Scaffold · April 2, 2026</p>
-      <h1 class="rv-title">Weekly Time Grid</h1>
-      <p class="rv-sub">A simple hosted scaffold: days across the top, hours down the side, starting at 6:00 AM and ending at 10:00 PM. No interpretation yet — just a clean structure to build on.</p>
-    </section>
-
-    <section class="grid-shell">
-      <article class="grid-card">
-        <div class="schedule-wrap">
-          <table class="schedule" aria-label="Weekly time grid from 6 AM to 10 PM">
-            <thead>
-              <tr>
-                <th>Time</th>
-                <th>Saturday</th>
-                <th>Sunday</th>
-                <th>Monday</th>
-                <th>Tuesday</th>
-                <th>Wednesday</th>
-                <th>Thursday</th>
-                <th>Friday</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><th>6:00 AM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><th>7:00 AM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><th>8:00 AM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><th>9:00 AM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><th>10:00 AM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><th>11:00 AM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><th>12:00 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><th>1:00 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><th>2:00 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><th>3:00 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><th>4:00 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><th>5:00 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><th>6:00 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><th>7:00 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><th>8:00 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><th>9:00 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-              <tr><th>10:00 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </article>
-
-      <section class="axis-note">
-        <article class="rv-card">
-          <p class="rv-eyebrow">Horizontal axis</p>
-          <h2 style="margin-top:0">Days of the week</h2>
-          <p>Saturday through Friday across the top for a full weekly view.</p>
-        </article>
-        <article class="rv-card">
-          <p class="rv-eyebrow">Vertical axis</p>
-          <h2 style="margin-top:0">Hours of the day</h2>
-          <p>6:00 AM through 10:00 PM in one-hour blocks.<br /><span class="time-label">Clean scaffold only — ready for later annotation or color-coding.</span></p>
-        </article>
-      </section>
-    </section>
-  </main>
-  <script src="../../assets/styles/style-one/theme.js"></script>
+  </div>
 </body>
 </html>
