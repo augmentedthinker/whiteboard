@@ -13,22 +13,21 @@
       --muted:#6d6458;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;height:100%}
+    html,body{margin:0;height:100%;overflow:hidden}
     body{background:var(--bg);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text)}
-    .frame{width:100vw;height:100vh;padding:8px}
-    .wrap{width:100%;height:100%;border:1px solid var(--line);background:var(--paper);overflow:auto}
+    .frame{width:100vw;height:100vh;padding:2px}
+    .wrap{width:100%;height:100%;border:1px solid var(--line);background:var(--paper)}
     table{width:100%;height:100%;border-collapse:collapse;table-layout:fixed}
-    th,td{border:1px solid var(--line);padding:4px 5px}
-    thead th{font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted);text-align:center;background:#f7f3ec}
-    tbody th{font-size:10px;font-weight:700;color:var(--muted);text-align:right;background:#faf7f1;white-space:nowrap;width:62px}
+    th,td{border:1px solid var(--line);padding:0}
+    thead th{font-size:9px;letter-spacing:.02em;text-transform:uppercase;font-weight:700;color:var(--muted);text-align:center;background:#f7f3ec}
+    tbody th{font-size:8px;font-weight:700;color:var(--muted);text-align:center;background:#faf7f1;white-space:nowrap;width:32px;line-height:1}
     td{background:#fff}
-    tbody tr{height:calc((100vh - 34px) / 17)}
-    @media (max-width:700px){
-      .frame{padding:4px}
-      th,td{padding:2px 3px}
-      thead th{font-size:8px}
-      tbody th{font-size:8px;width:48px}
-      tbody tr{height:calc((100vh - 22px) / 17)}
+    tbody tr{height:calc((100vh - 20px) / 17)}
+    @media (min-width:700px){
+      .frame{padding:6px}
+      thead th{font-size:11px}
+      tbody th{font-size:9px;width:52px}
+      tbody tr{height:calc((100vh - 30px) / 17)}
     }
   </style>
 </head>
@@ -38,34 +37,34 @@
       <table aria-label="Weekly time grid from 6 AM to 10 PM">
         <thead>
           <tr>
-            <th>Time</th>
-            <th>Saturday</th>
-            <th>Sunday</th>
-            <th>Monday</th>
-            <th>Tuesday</th>
-            <th>Wednesday</th>
-            <th>Thursday</th>
-            <th>Friday</th>
+            <th>T</th>
+            <th>S</th>
+            <th>M</th>
+            <th>T</th>
+            <th>W</th>
+            <th>R</th>
+            <th>F</th>
+            <th>S</th>
           </tr>
         </thead>
         <tbody>
-          <tr><th>6 AM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>7 AM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>8 AM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>9 AM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>10 AM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>11 AM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>12 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>1 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>2 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>3 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>4 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>5 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>6 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>7 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>8 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>9 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>10 PM</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>6A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>7A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>8A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>9A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>10A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>11A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>12P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>1P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>2P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>3P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>4P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>5P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>6P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>7P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>8P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>9P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><th>10P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
         </tbody>
       </table>
     </div>
