@@ -12,10 +12,13 @@
       --muted:#6d6458;
       --border:1px;
       --time-col:18px;
+      --hospital:#c7a27f;
+      --hospital-text:#4b3726;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;height:100%;overflow:hidden}
-    body{background:var(--bg);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+    html,body{margin:0}
+    body{background:var(--bg);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:hidden}
+    .page{min-height:100dvh;padding:1px 1px 24px}
     .frame{width:100vw;height:100dvh;padding:1px}
     .wrap{width:100%;height:100%;background:var(--paper);overflow:hidden}
     table{width:100%;height:100%;border-collapse:collapse;table-layout:fixed}
@@ -25,56 +28,70 @@
     thead th:first-child{width:var(--time-col)}
     tbody th{font-size:7px;font-weight:700;color:var(--muted);text-align:center;background:#faf7f1;white-space:nowrap;line-height:1;padding:0 1px;overflow:hidden}
     td{background:#fff}
+    td.hospital{background:var(--hospital)}
     tbody tr{height:calc((100dvh - 18px - 2px) / 16)}
+    .legend{display:grid;gap:10px;padding:12px 10px 0}
+    .legend-item{display:flex;align-items:center;gap:10px;color:var(--hospital-text);font-size:12px;line-height:1.35}
+    .swatch{width:14px;height:14px;border-radius:4px;border:1px solid rgba(75,55,38,.18);flex:0 0 auto}
+    .swatch.hospital{background:var(--hospital)}
     @media (min-width:700px){
       :root{--time-col:30px}
+      .page{padding:4px 4px 28px}
       .frame{padding:4px}
       thead th{height:22px;font-size:10px}
       tbody th{font-size:9px}
       tbody tr{height:calc((100dvh - 30px - 8px) / 16)}
+      .legend{padding:14px 12px 0}
+      .legend-item{font-size:13px}
     }
   </style>
 </head>
 <body>
-  <div class="frame">
-    <div class="wrap">
-      <table aria-label="Weekly time grid from 6 AM to 9 PM">
-        <colgroup>
-          <col class="time-col" />
-          <col span="7" />
-        </colgroup>
-        <thead>
-          <tr>
-            <th></th>
-            <th>S</th>
-            <th>M</th>
-            <th>T</th>
-            <th>W</th>
-            <th>R</th>
-            <th>F</th>
-            <th>S</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><th>6A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>7A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>8A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>9A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>10A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>11A</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>12P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>1P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>2P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>3P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>4P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>5P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>6P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>7P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>8P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          <tr><th>9P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        </tbody>
-      </table>
+  <div class="page">
+    <div class="frame">
+      <div class="wrap">
+        <table aria-label="Weekly time grid from 6 AM to 9 PM">
+          <colgroup>
+            <col class="time-col" />
+            <col span="7" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th></th>
+              <th>S</th>
+              <th>M</th>
+              <th>T</th>
+              <th>W</th>
+              <th>R</th>
+              <th>F</th>
+              <th>S</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th>6A</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
+            <tr><th>7A</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
+            <tr><th>8A</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
+            <tr><th>9A</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
+            <tr><th>10A</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
+            <tr><th>11A</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
+            <tr><th>12P</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
+            <tr><th>1P</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
+            <tr><th>2P</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
+            <tr><th>3P</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
+            <tr><th>4P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th>5P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th>6P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th>7P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th>8P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th>9P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+
+    <section class="legend" aria-label="Color legend">
+      <div class="legend-item"><span class="swatch hospital"></span><span>Hospital shift</span></div>
+    </section>
   </div>
 </body>
 </html>
