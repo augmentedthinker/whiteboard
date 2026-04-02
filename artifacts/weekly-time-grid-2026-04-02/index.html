@@ -44,6 +44,7 @@
     .legend-item{display:flex;align-items:center;gap:10px;color:var(--hospital-text);font-size:12px;line-height:1.35}
     .swatch{width:14px;height:14px;border-radius:4px;border:1px solid rgba(75,55,38,.18);flex:0 0 auto}
     .swatch.hospital{background:var(--hospital)}
+    .swatch.breakfast::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(135deg, rgba(184,216,168,.95) 0 2px, transparent 2px 8px)}
     @media (min-width:700px){
       :root{--time-col:30px}
       .page{padding:4px 4px 28px}
@@ -103,7 +104,7 @@
       <div class="legend-item"><span class="swatch hospital"></span><span>Hospital shift</span></div>
       <div class="legend-item"><span class="swatch gym" style="background:var(--gym);"></span><span>Gym</span></div>
       <div class="legend-item"><span class="swatch groceries" style="background:var(--groceries);"></span><span>Groceries</span></div>
-      <div class="legend-item"><span class="swatch breakfast" style="background:var(--breakfast);"></span><span>Break-fast</span></div>
+      <div class="legend-item"><span class="swatch breakfast" style="background:#fff; position:relative; overflow:hidden;"></span><span>Break-fast</span></div>
     </section>
   </div>
 </body>
