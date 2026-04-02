@@ -37,7 +37,8 @@
     td.hospital{background:var(--hospital)}
     td.gym{background:var(--gym)}
     td.groceries{background:var(--groceries)}
-    td.breakfast{background:var(--breakfast)}
+    td.breakfast{background:rgba(184,216,168,.28); position:relative}
+    td.breakfast::after{content:""; position:absolute; inset:1px; border:1px dashed #7ea06f; box-sizing:border-box; pointer-events:none}
     tbody tr{height:calc((100dvh - 18px - 2px) / 16)}
     .legend{display:grid;gap:10px;padding:12px 10px 0}
     .legend-item{display:flex;align-items:center;gap:10px;color:var(--hospital-text);font-size:12px;line-height:1.35}
