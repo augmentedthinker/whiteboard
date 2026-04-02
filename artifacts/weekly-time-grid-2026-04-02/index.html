@@ -18,6 +18,8 @@
       --gym-text:#5a2222;
       --groceries:#d98b43;
       --groceries-text:#5f3412;
+      --breakfast:#b8d8a8;
+      --breakfast-text:#34512a;
     }
     *{box-sizing:border-box}
     html,body{margin:0}
@@ -35,6 +37,7 @@
     td.hospital{background:var(--hospital)}
     td.gym{background:var(--gym)}
     td.groceries{background:var(--groceries)}
+    td.breakfast{background:var(--breakfast)}
     tbody tr{height:calc((100dvh - 18px - 2px) / 16)}
     .legend{display:grid;gap:10px;padding:12px 10px 0}
     .legend-item{display:flex;align-items:center;gap:10px;color:var(--hospital-text);font-size:12px;line-height:1.35}
@@ -82,10 +85,10 @@
             <tr><th>11A</th><td></td><td></td><td class="gym"></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td class="gym"></td></tr>
             <tr><th>12P</th><td></td><td></td><td class="gym"></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td class="gym"></td></tr>
             <tr><th>1P</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
-            <tr><th>2P</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
-            <tr><th>3P</th><td></td><td></td><td></td><td></td><td class="gym"></td><td></td><td></td></tr>
+            <tr><th>2P</th><td class="breakfast"></td><td class="breakfast"></td><td class="breakfast"></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td class="breakfast"></td></tr>
+            <tr><th>3P</th><td></td><td></td><td></td><td class="breakfast"></td><td class="gym"></td><td class="breakfast"></td><td></td></tr>
             <tr><th>4P</th><td></td><td></td><td></td><td></td><td class="gym"></td><td></td><td></td></tr>
-            <tr><th>5P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th>5P</th><td></td><td></td><td></td><td></td><td class="breakfast"></td><td></td><td></td></tr>
             <tr><th>6P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
             <tr><th>7P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
             <tr><th>8P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
@@ -99,6 +102,7 @@
       <div class="legend-item"><span class="swatch hospital"></span><span>Hospital shift</span></div>
       <div class="legend-item"><span class="swatch gym" style="background:var(--gym);"></span><span>Gym</span></div>
       <div class="legend-item"><span class="swatch groceries" style="background:var(--groceries);"></span><span>Groceries</span></div>
+      <div class="legend-item"><span class="swatch breakfast" style="background:var(--breakfast);"></span><span>Break-fast</span></div>
     </section>
   </div>
 </body>
