@@ -14,6 +14,8 @@
       --time-col:18px;
       --hospital:#c7a27f;
       --hospital-text:#4b3726;
+      --gym:#c86d6d;
+      --gym-text:#5a2222;
     }
     *{box-sizing:border-box}
     html,body{margin:0}
@@ -29,6 +31,7 @@
     tbody th{font-size:7px;font-weight:700;color:var(--muted);text-align:center;background:#faf7f1;white-space:nowrap;line-height:1;padding:0 1px;overflow:hidden}
     td{background:#fff}
     td.hospital{background:var(--hospital)}
+    td.gym{background:var(--gym)}
     tbody tr{height:calc((100dvh - 18px - 2px) / 16)}
     .legend{display:grid;gap:10px;padding:12px 10px 0}
     .legend-item{display:flex;align-items:center;gap:10px;color:var(--hospital-text);font-size:12px;line-height:1.35}
@@ -73,12 +76,12 @@
             <tr><th>8A</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
             <tr><th>9A</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
             <tr><th>10A</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
-            <tr><th>11A</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
-            <tr><th>12P</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
+            <tr><th>11A</th><td class="gym"></td><td></td><td class="gym"></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
+            <tr><th>12P</th><td class="gym"></td><td></td><td class="gym"></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
             <tr><th>1P</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
             <tr><th>2P</th><td></td><td></td><td></td><td class="hospital"></td><td class="hospital"></td><td class="hospital"></td><td></td></tr>
-            <tr><th>3P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><th>4P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><th>3P</th><td></td><td></td><td></td><td class="gym"></td><td></td><td></td><td></td></tr>
+            <tr><th>4P</th><td></td><td></td><td></td><td class="gym"></td><td></td><td></td><td></td></tr>
             <tr><th>5P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
             <tr><th>6P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
             <tr><th>7P</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
@@ -91,6 +94,7 @@
 
     <section class="legend" aria-label="Color legend">
       <div class="legend-item"><span class="swatch hospital"></span><span>Hospital shift</span></div>
+      <div class="legend-item"><span class="swatch gym" style="background:var(--gym);"></span><span>Gym</span></div>
     </section>
   </div>
 </body>
