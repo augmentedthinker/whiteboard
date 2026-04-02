@@ -9,25 +9,25 @@
       --bg:#fbfaf7;
       --paper:#ffffff;
       --line:#dfd8cc;
-      --text:#2b2620;
       --muted:#6d6458;
+      --border:1px;
     }
     *{box-sizing:border-box}
     html,body{margin:0;height:100%;overflow:hidden}
-    body{background:var(--bg);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text)}
-    .frame{width:100vw;height:100vh;padding:2px}
-    .wrap{width:100%;height:100%;border:1px solid var(--line);background:var(--paper)}
+    body{background:var(--bg);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+    .frame{width:100vw;height:100dvh;padding:1px}
+    .wrap{width:100%;height:100%;background:var(--paper);overflow:hidden}
     table{width:100%;height:100%;border-collapse:collapse;table-layout:fixed}
-    th,td{border:1px solid var(--line);padding:0}
-    thead th{font-size:9px;letter-spacing:.02em;text-transform:uppercase;font-weight:700;color:var(--muted);text-align:center;background:#f7f3ec}
-    tbody th{font-size:8px;font-weight:700;color:var(--muted);text-align:center;background:#faf7f1;white-space:nowrap;width:32px;line-height:1}
+    th,td{border:var(--border) solid var(--line);padding:0}
+    thead th{height:16px;font-size:8px;letter-spacing:0;text-transform:uppercase;font-weight:700;color:var(--muted);text-align:center;background:#f7f3ec;line-height:1}
+    tbody th{font-size:7px;font-weight:700;color:var(--muted);text-align:center;background:#faf7f1;white-space:nowrap;width:24px;line-height:1}
     td{background:#fff}
-    tbody tr{height:calc((100vh - 20px) / 17)}
+    tbody tr{height:calc((100dvh - 18px - 2px) / 17)}
     @media (min-width:700px){
-      .frame{padding:6px}
-      thead th{font-size:11px}
-      tbody th{font-size:9px;width:52px}
-      tbody tr{height:calc((100vh - 30px) / 17)}
+      .frame{padding:4px}
+      thead th{height:22px;font-size:10px}
+      tbody th{font-size:9px;width:42px}
+      tbody tr{height:calc((100dvh - 30px - 8px) / 17)}
     }
   </style>
 </head>
@@ -37,7 +37,7 @@
       <table aria-label="Weekly time grid from 6 AM to 10 PM">
         <thead>
           <tr>
-            <th>T</th>
+            <th></th>
             <th>S</th>
             <th>M</th>
             <th>T</th>
