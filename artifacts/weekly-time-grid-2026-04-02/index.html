@@ -45,6 +45,14 @@
     .swatch{width:14px;height:14px;border-radius:4px;border:1px solid rgba(75,55,38,.18);flex:0 0 auto}
     .swatch.hospital{background:var(--hospital)}
     .swatch.breakfast::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(135deg, rgba(184,216,168,.95) 0 2px, transparent 2px 8px)}
+    .pie-section{padding:16px 10px 0}
+    .pie-title{margin:0 0 10px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+    .pie-wrap{display:grid;justify-items:center;gap:12px}
+    .pie-chart{width:min(92vw,420px);aspect-ratio:1 / 1;border-radius:50%;border:1px solid var(--line);background:conic-gradient(var(--hospital) 0deg 96.4286deg,var(--gym) 96.4286deg 115.7143deg,var(--groceries) 115.7143deg 122.1429deg,#efe7dc 122.1429deg 360deg);box-shadow:inset 0 0 0 1px rgba(75,55,38,.04)}
+    .pie-summary{display:grid;gap:8px;width:min(92vw,420px)}
+    .pie-row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;font-size:12px;color:var(--hospital-text)}
+    .pie-label{display:flex;align-items:center;gap:8px}
+    .pie-empty{color:var(--muted)}
     @media (min-width:700px){
       :root{--time-col:30px}
       .page{padding:4px 4px 28px}
@@ -54,6 +62,9 @@
       tbody tr{height:calc((100dvh - 30px - 8px) / 16)}
       .legend{padding:14px 12px 0}
       .legend-item{font-size:13px}
+      .pie-section{padding:18px 12px 0}
+      .pie-title{font-size:13px}
+      .pie-row{font-size:13px}
     }
   </style>
 </head>
@@ -105,6 +116,19 @@
       <div class="legend-item"><span class="swatch gym" style="background:var(--gym);"></span><span>Gym</span></div>
       <div class="legend-item"><span class="swatch groceries" style="background:var(--groceries);"></span><span>Groceries</span></div>
       <div class="legend-item"><span class="swatch breakfast" style="background:#fff; position:relative; overflow:hidden;"></span><span>Break-fast</span></div>
+    </section>
+
+    <section class="pie-section" aria-label="Scheduled-time pie chart">
+      <h2 class="pie-title">Scheduled share of total grid</h2>
+      <div class="pie-wrap">
+        <div class="pie-chart" role="img" aria-label="Pie chart showing hospital shift at 26.8 percent of the full grid, gym at 5.4 percent, groceries at 1.8 percent, and unallocated time at 66.1 percent."></div>
+        <div class="pie-summary">
+          <div class="pie-row"><span class="pie-label"><span class="swatch hospital"></span>Hospital shift</span><span></span><strong>26.8%</strong></div>
+          <div class="pie-row"><span class="pie-label"><span class="swatch gym" style="background:var(--gym);"></span>Gym</span><span></span><strong>5.4%</strong></div>
+          <div class="pie-row"><span class="pie-label"><span class="swatch groceries" style="background:var(--groceries);"></span>Groceries</span><span></span><strong>1.8%</strong></div>
+          <div class="pie-row pie-empty"><span class="pie-label"><span class="swatch" style="background:#efe7dc;"></span>Open / unassigned</span><span></span><strong>66.1%</strong></div>
+        </div>
+      </div>
     </section>
   </div>
 </body>
