@@ -11,8 +11,15 @@
     .today-chip.temp{background:rgba(196,122,44,.12);color:var(--rv-accent-ink);border:1px solid rgba(196,122,44,.14)}
     .today-chip.expansion{background:rgba(34,31,24,.06);color:#5c5347;border:1px solid var(--rv-line)}
     .today-label.expansion{background:rgba(34,31,24,.06);border-color:var(--rv-line);color:#5c5347}
-    .today-grid{display:grid;gap:18px}
+    .today-grid{display:grid;gap:18px;counter-reset:today-artifact}
+    .today-grid .rv-card{position:relative;padding-left:92px;counter-increment:today-artifact}
+    .today-grid .rv-card::before{content:counter(today-artifact);position:absolute;left:24px;top:24px;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:rgba(196,122,44,.12);border:1px solid rgba(196,122,44,.18);color:var(--rv-accent-ink);font-size:1.05rem;font-weight:800;letter-spacing:.02em}
     .today-signature{color:var(--rv-accent-ink)!important}
+    .today-note{margin-top:12px;color:var(--rv-muted);font-size:.95rem;line-height:1.7}
+    @media (max-width: 720px){
+      .today-grid .rv-card{padding-left:84px}
+      .today-grid .rv-card::before{left:20px;top:20px;width:42px;height:42px}
+    }
   </style>
 </head>
 <body class="rv-style-one">
@@ -23,6 +30,7 @@
       <h1 class="rv-title">Today’s Artifact Gallery</h1>
       <p class="rv-sub">A curated front-stage set. Older and lower-priority pieces have been moved to the archive so this page stays legible. This page now imports the shared Style One package directly.</p>
       <div class="today-legend"><span class="today-chip temp">Temp</span><span class="today-chip expansion">Expansion</span></div>
+      <p class="today-note">Artifacts are now auto-numbered by their current position on the page. If a new item is inserted at the top, it becomes <strong>1</strong> and everything below it shifts automatically.</p>
     </section>
     <section class="today-grid">
       <article class="rv-card"><span class="rv-label today-label">Temp</span><h2>Daily Session Primer · 2026-04-04</h2><p>An elaborate Saturday-morning hosted primer built after reviewing the daily notes, long-term memory, and recent continuity lane together: interruption and recovery have been metabolized, the weekly grid is becoming a truthful life-structure surface, and the live weekend question is which lane deserves actual consequence next.</p><div class="rv-actions"><a href="../artifacts/daily-session-primer-2026-04-04/index.html">Launch Artifact</a><a class="today-signature" href="../artifacts/daily-session-primer-2026-04-04/signature.html">✒️ Signature</a></div></article>
