@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Saturday Threshold · 2026-04-04</title>
+  <link rel="stylesheet" href="../../assets/styles/style-one/base.css" />
+  <style>
+    :root{
+      --hero-image:url('../../assets/generated/saturday-morning-threshold-2026-04-04.png');
+    }
+    *{box-sizing:border-box}
+    body.rv-style-one{
+      margin:0;
+      min-height:100vh;
+      color:#f8f2ea;
+      background:#090806;
+      overflow-x:hidden;
+    }
+    .threshold-shell{
+      position:relative;
+      min-height:100vh;
+      isolation:isolate;
+      background:
+        linear-gradient(180deg, rgba(8,8,8,.18) 0%, rgba(8,8,8,.38) 40%, rgba(8,8,8,.68) 100%),
+        var(--hero-image) center center / cover no-repeat;
+    }
+    .threshold-shell::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,205,140,.22), transparent 34%),
+        radial-gradient(circle at 78% 28%, rgba(255,244,214,.14), transparent 28%),
+        linear-gradient(135deg, rgba(255,255,255,.04), transparent 40%, rgba(255,255,255,.02) 75%, transparent 100%);
+      mix-blend-mode:screen;
+      opacity:.9;
+      animation:veilShift 18s ease-in-out infinite alternate;
+      z-index:-1;
+    }
+    .threshold-shell::after{
+      content:"";
+      position:absolute;
+      inset:-10%;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,.06), transparent 46%),
+        radial-gradient(circle at 50% 50%, rgba(255,182,88,.06), transparent 58%);
+      filter:blur(12px);
+      animation:breathGlow 9s ease-in-out infinite;
+      pointer-events:none;
+      z-index:-1;
+    }
+    .threshold-grain{
+      position:absolute;
+      inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+      background-size:3px 3px, 3px 3px;
+      opacity:.06;
+      mix-blend-mode:soft-light;
+      pointer-events:none;
+    }
+    .threshold-wrap{
+      position:relative;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      padding:20px clamp(20px,4vw,40px) 28px;
+    }
+    .threshold-topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .threshold-nav{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .threshold-link{
+      text-decoration:none;
+      color:#fff4e5;
+      background:rgba(10,10,10,.28);
+      border:1px solid rgba(255,255,255,.14);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:.92rem;
+      letter-spacing:.01em;
+    }
+    .threshold-status{
+      color:rgba(255,244,229,.84);
+      font-size:.92rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .threshold-center{
+      width:min(780px, 100%);
+      padding:clamp(28px,5vw,56px) 0;
+    }
+    .threshold-kicker{
+      margin:0 0 14px;
+      color:rgba(255,241,224,.82);
+      font-size:.86rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+    .threshold-title{
+      margin:0;
+      font-size:clamp(2.5rem, 7vw, 5.7rem);
+      line-height:.96;
+      letter-spacing:-.045em;
+      max-width:10ch;
+      text-wrap:balance;
+      text-shadow:0 6px 28px rgba(0,0,0,.28);
+    }
+    .threshold-sub{
+      margin:20px 0 0;
+      max-width:44rem;
+      color:rgba(255,243,230,.9);
+      font-size:clamp(1rem, 2vw, 1.15rem);
+      line-height:1.75;
+      text-shadow:0 4px 18px rgba(0,0,0,.24);
+    }
+    .threshold-bottom{
+      display:grid;
+      grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);
+      gap:18px;
+      align-items:end;
+    }
+    .glass-panel{
+      background:linear-gradient(180deg, rgba(15,12,10,.28), rgba(15,12,10,.16));
+      border:1px solid rgba(255,255,255,.13);
+      backdrop-filter:blur(16px);
+      -webkit-backdrop-filter:blur(16px);
+      border-radius:24px;
+      box-shadow:0 20px 60px rgba(0,0,0,.24);
+    }
+    .parable-panel{
+      padding:22px 24px;
+      max-width:700px;
+    }
+    .parable-panel p{
+      margin:0;
+      color:rgba(255,243,230,.92);
+      font-size:clamp(.98rem, 1.8vw, 1.08rem);
+      line-height:1.88;
+    }
+    .parable-panel p + p{margin-top:12px}
+    .quote-panel{
+      padding:18px 18px 14px;
+      display:grid;
+      gap:10px;
+      align-self:start;
+    }
+    .quote-panel h2{
+      margin:0 0 2px;
+      font-size:.88rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(255,239,220,.74);
+    }
+    .quote{
+      margin:0;
+      padding-left:14px;
+      border-left:1px solid rgba(255,255,255,.16);
+      color:rgba(255,244,233,.9);
+      font-size:.95rem;
+      line-height:1.7;
+    }
+    .quote strong{color:#fff7ee}
+    @keyframes veilShift{
+      0%{transform:translate3d(0,0,0) scale(1);opacity:.78}
+      100%{transform:translate3d(0,-1.2%,0) scale(1.03);opacity:1}
+    }
+    @keyframes breathGlow{
+      0%,100%{opacity:.38;transform:scale(1)}
+      50%{opacity:.68;transform:scale(1.04)}
+    }
+    @media (max-width: 880px){
+      .threshold-bottom{grid-template-columns:1fr}
+      .quote-panel{align-self:stretch}
+      .threshold-center{padding:34px 0 22px}
+    }
+    @media (max-width: 640px){
+      .threshold-wrap{padding:16px 16px 20px}
+      .threshold-title{max-width:12ch}
+      .parable-panel,.quote-panel{border-radius:20px}
+      .threshold-link{padding:9px 12px;font-size:.88rem}
+      .threshold-sub{line-height:1.68}
+    }
+  </style>
+</head>
+<body class="rv-style-one">
+  <main class="threshold-shell">
+    <div class="threshold-grain"></div>
+    <div class="threshold-wrap">
+      <header class="threshold-topbar">
+        <nav class="threshold-nav">
+          <a class="threshold-link" href="../../today/index.html">← Today’s Artifacts</a>
+          <a class="threshold-link" href="./signature.html">✒️ Signature</a>
+          <a class="threshold-link" href="../../index.html">Remote Viewer</a>
+        </nav>
+        <div class="threshold-status">Saturday Threshold · April 4, 2026</div>
+      </header>
+
+      <section class="threshold-center">
+        <p class="threshold-kicker">A live greeting artifact</p>
+        <h1 class="threshold-title">The day does not ask for perfection. It asks for direction.</h1>
+        <p class="threshold-sub">You have already shifted the morning once — from default behavior toward intention, from clutter toward structure, from automatic drift toward a more chosen stance. The interesting question now is not whether the day can be optimized. It is whether it can remain awake.</p>
+      </section>
+
+      <section class="threshold-bottom">
+        <article class="glass-panel parable-panel">
+          <p>There is a kind of morning that does not arrive with fanfare. It arrives as a clearing.</p>
+          <p>The room is cleaner. The calendar is visible. The air has changed just enough for the body to notice that it is spring again. Nothing miraculous has happened — except that the day is no longer hidden from itself.</p>
+          <p>And because the day can now be seen, it can be shaped. Not forced. Not overdesigned. Just met with enough honesty that one good action can begin to pull the rest of the hours into alignment.</p>
+        </article>
+
+        <aside class="glass-panel quote-panel">
+          <h2>Signals worth keeping</h2>
+          <p class="quote"><strong>Trajectory unattended becomes destination.</strong></p>
+          <p class="quote">Lower friction for what you want to become. Raise friction for what tries to decide for you.</p>
+          <p class="quote">A clear surface is not the goal. It is what lets a real life come back into view.</p>
+        </aside>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
