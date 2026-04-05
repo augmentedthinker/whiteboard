@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Morning Session Primer · Immersive · 2026-04-05</title>
+  <link rel="stylesheet" href="../../assets/styles/style-one/base.css" />
+  <style>
+    :root{
+      --hero-image:url('../../assets/generated/sunday-primer-threshold-2026-04-05.png');
+      --bg:#070605;
+      --glass:rgba(13,10,8,.34);
+      --glass-strong:rgba(13,10,8,.48);
+      --line:rgba(255,255,255,.12);
+      --text:rgba(250,243,234,.94);
+      --muted:rgba(250,243,234,.72);
+      --accent:#f3b46a;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter, system-ui, sans-serif;
+      overflow-x:hidden;
+    }
+    .page{
+      position:relative;
+      min-height:100vh;
+      background:
+        linear-gradient(180deg, rgba(8,7,6,.18) 0%, rgba(8,7,6,.52) 38%, rgba(8,7,6,.92) 100%),
+        var(--hero-image) center top / cover fixed no-repeat;
+    }
+    .page::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:
+        radial-gradient(circle at 20% 18%, rgba(255,203,132,.16), transparent 30%),
+        radial-gradient(circle at 80% 14%, rgba(255,255,255,.08), transparent 26%),
+        linear-gradient(135deg, rgba(255,255,255,.04), transparent 32%, rgba(255,255,255,.02) 66%, transparent 100%);
+      mix-blend-mode:screen;
+      pointer-events:none;
+      animation:aurora 22s ease-in-out infinite alternate;
+    }
+    .gridlines{
+      position:fixed;
+      inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+      background-size:40px 40px;
+      mask-image:linear-gradient(180deg, rgba(0,0,0,.55), transparent 90%);
+      opacity:.34;
+      pointer-events:none;
+    }
+    .wrap{position:relative;z-index:1;width:min(1180px, calc(100% - 32px));margin:0 auto;padding:18px 0 56px}
+    .topbar{
+      position:sticky;top:0;z-index:5;
+      display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;
+      padding:14px 0 16px;
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+    }
+    .nav{display:flex;gap:10px;flex-wrap:wrap}
+    .nav a,.audio-toggle{
+      border:1px solid var(--line);
+      background:rgba(9,7,6,.28);
+      color:var(--text);
+      text-decoration:none;
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:.92rem;
+      cursor:pointer;
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+    }
+    .status{font-size:.85rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+    .hero{
+      min-height:92vh;
+      display:grid;
+      align-items:end;
+      padding:40px 0 28px;
+    }
+    .hero-panel{
+      width:min(780px,100%);
+      padding:30px 0 22px;
+    }
+    .eyebrow{margin:0 0 14px;color:var(--muted);font-size:.84rem;letter-spacing:.2em;text-transform:uppercase}
+    .title{
+      margin:0;
+      font-size:clamp(2.8rem, 8vw, 6.4rem);
+      line-height:.95;
+      letter-spacing:-.05em;
+      max-width:11ch;
+      text-wrap:balance;
+      text-shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    .hero-sub{
+      margin:18px 0 0;
+      max-width:48rem;
+      color:var(--text);
+      font-size:clamp(1rem, 2vw, 1.16rem);
+      line-height:1.82;
+      text-shadow:0 4px 20px rgba(0,0,0,.26);
+    }
+    .hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 11px;border-radius:999px;
+      background:rgba(10,8,6,.32);border:1px solid var(--line);
+      color:var(--muted);font-size:.82rem;letter-spacing:.08em;text-transform:uppercase
+    }
+    .section{
+      padding:28px 0;
+      display:grid;
+      grid-template-columns:220px minmax(0,1fr);
+      gap:18px;
+      align-items:start;
+    }
+    .section-label{
+      position:sticky;top:86px;
+      padding:16px 16px 14px;
+      border:1px solid var(--line);
+      border-radius:22px;
+      background:var(--glass);
+      backdrop-filter:blur(16px);
+      -webkit-backdrop-filter:blur(16px);
+    }
+    .section-label .n{display:block;color:var(--accent);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px}
+    .section-label h2{margin:0;font-size:1rem;line-height:1.35}
+    .section-body{display:grid;gap:18px}
+    .card{
+      border:1px solid var(--line);
+      background:var(--glass);
+      border-radius:28px;
+      padding:24px;
+      box-shadow:0 20px 60px rgba(0,0,0,.22);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      transform:translateY(18px);
+      opacity:0;
+      transition:transform .8s ease, opacity .8s ease;
+    }
+    .card.visible{transform:translateY(0);opacity:1}
+    .card p,.card li{line-height:1.9;color:var(--text)}
+    .card p{margin:0 0 14px}
+    .card p:last-child{margin-bottom:0}
+    .card ul{margin:0;padding-left:1.2rem}
+    .lead{font-size:1.08rem;color:#fff6ec}
+    .quote-stack,.vector-stack{display:grid;gap:14px}
+    .quote{
+      padding:18px 18px 16px;
+      border-radius:22px;
+      background:var(--glass-strong);
+      border:1px solid var(--line);
+    }
+    .quote strong{display:block;margin-bottom:8px;color:#fff8f1;font-size:1rem}
+    .novelty{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .image-card{overflow:hidden;padding:0;min-height:320px}
+    .image-card img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(1.05) contrast(1.02)}
+    .action-list{display:grid;gap:12px}
+    .vector{padding:18px;border-radius:20px;background:var(--glass-strong);border:1px solid var(--line)}
+    .vector strong{display:block;margin-bottom:8px;color:#fff8f1}
+    .footer-line{
+      margin-top:14px;
+      padding:20px 0 8px;
+      font-size:1.05rem;
+      color:rgba(255,243,231,.9);
+      text-align:center;
+      line-height:1.8;
+    }
+    .ambient-audio{display:none}
+    @keyframes aurora{
+      0%{transform:translate3d(0,0,0) scale(1);opacity:.62}
+      100%{transform:translate3d(0,-2%,0) scale(1.03);opacity:1}
+    }
+    @media (max-width: 980px){
+      .section{grid-template-columns:1fr}
+      .section-label{position:relative;top:auto}
+      .novelty{grid-template-columns:1fr}
+    }
+    @media (max-width: 680px){
+      .wrap{width:min(100% - 20px, 1180px)}
+      .topbar{padding:12px 0}
+      .hero{min-height:78vh;padding-top:28px}
+      .card{padding:20px;border-radius:24px}
+      .title{max-width:12ch}
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="gridlines"></div>
+    <div class="wrap">
+      <header class="topbar">
+        <nav class="nav">
+          <a href="../../today/index.html">← Today’s Artifacts</a>
+          <a href="./signature.html">✒️ Signature</a>
+          <a href="../../trajectory/index.html">Trajectory</a>
+          <button class="audio-toggle" id="audioToggle" type="button">Play intro voice</button>
+        </nav>
+        <div class="status">Morning Session Primer · Sunday · April 5, 2026</div>
+      </header>
+
+      <section class="hero">
+        <div class="hero-panel">
+          <p class="eyebrow">Session initiation</p>
+          <h1 class="title">The system has memory now. The question is whether the day will use it.</h1>
+          <p class="hero-sub">Recent days have moved through interruption, repair, planning truth, and a cleaner behavioral experiment around friction and intention. This morning is not a reset to zero. It is a chance to enter continuity with enough depth that the next move becomes more than maintenance.</p>
+          <div class="hero-meta">
+            <span class="chip">Recovery → continuity</span>
+            <span class="chip">Structure becoming visible</span>
+            <span class="chip">Direction over performance</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-label">
+          <span class="n">01 · Grounding</span>
+          <h2>Memory Reflection</h2>
+        </div>
+        <div class="section-body">
+          <article class="card">
+            <p class="lead">The last three days did not simply produce artifacts. They revealed a pattern.</p>
+            <p>First there was interruption: the Telegram/OpenClaw break after the update, serious enough to threaten continuity. Then there was repair, not romanticized, but actually completed. The system absorbed the rupture instead of pretending it never happened. That matters because trust in the environment is not built by never breaking; it is built by recovering without losing the thread.</p>
+            <p>Then came planning made visible. The weekly grid stopped being a neutral scaffold and started behaving like a mirror. Hospital shifts, gym, groceries, and break-fast markers turned an abstract week into something that could be seen, corrected, and perhaps redesigned. Christopher also caught the pie-chart denominator error, which sharpened a broader rule: if a surface is going to guide life, its math and its semantics both have to be honest.</p>
+            <p>And then there was the Saturday behavioral experiment: friction deliberately increased before the dominant/default behavior, environmental reset performed first, sunlight and movement brought in early, and the day shifted from autopilot toward chosen posture. That is not merely a productivity anecdote. It is a design insight. The environment changed, so behavior changed. The trajectory of the day was altered before willpower had to carry the whole load.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-label">
+          <span class="n">02 · Direction</span>
+          <h2>Trajectory Signal</h2>
+        </div>
+        <div class="section-body">
+          <article class="card">
+            <p class="lead">Christopher is not really optimizing for “doing more with AI.” He is moving toward systems that make thought, life, and output more legible without flattening identity.</p>
+            <p>The trajectory remains clear even when the individual artifacts vary: hosted surfaces that can be reopened, workflows that survive resets, memory that compounds instead of scattering, and tools that begin to influence lived structure rather than merely describing it. Remote Viewer is useful insofar as it becomes a browser-facing continuity object. Balance matters insofar as it constrains choice. Publishing matters insofar as it turns lived work into honest public proof rather than branding theater.</p>
+            <p>The live tension underneath all of this is also clear: the ecosystem keeps getting sharper, but it still wants a project substantial enough to pressure-test its reality. That pressure could come from the weekly planner evolving into a real behavioral tool. It could come from a more serious product lane. It could come from something like RPG v3. But the direction is no longer vague. The system wants consequence.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-label">
+          <span class="n">03 · Provocation</span>
+          <h2>Thinking Engine</h2>
+        </div>
+        <div class="section-body quote-stack">
+          <article class="quote"><strong>Koan</strong> If the system can remember your life better than you can, what still counts as forgetting?</article>
+          <article class="quote"><strong>Paradox</strong> The day feels most open when it already has shape. Total freedom often disguises hidden default behavior.</article>
+          <article class="quote"><strong>Line</strong> The map becomes dangerous only when it is accurate enough that you can no longer blame confusion for standing still.</article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-label">
+          <span class="n">04 · Novelty</span>
+          <h2>Creative Injection</h2>
+        </div>
+        <div class="section-body novelty">
+          <article class="card image-card">
+            <img src="../../assets/generated/sunday-primer-threshold-2026-04-05.png" alt="Cinematic Sunday morning threshold" />
+          </article>
+          <article class="card">
+            <p class="lead">What if the next genuinely important thing is not a new app, but a new way of making mornings computationally honest?</p>
+            <p>Imagine a future artifact lane that does not merely inspire, but combines friction design, schedule truth, mood/weather/day-state, and one live strategic pressure into a single daily surface that can actually redirect behavior. Not “self-improvement theater.” More like a personal operating membrane: thin enough not to dominate life, real enough to change it.</p>
+            <p>That idea may be more important than it first appears, because it sits exactly at the intersection of your strongest themes: reflection, systems thinking, AI collaboration, visual surfaces, and the desire for structure that guides without imprisoning.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-label">
+          <span class="n">05 · Vectors</span>
+          <h2>Action Vector</h2>
+        </div>
+        <div class="section-body action-list">
+          <article class="vector"><strong>Vector A · Deepen the weekly truth</strong> Continue the planner/life-structure lane until it reveals something uncomfortable or clarifying about the week. If a tool starts shaping decisions, it has crossed from artifact into infrastructure.</article>
+          <article class="vector"><strong>Vector B · Convert continuity into public signal</strong> Take one real lesson from the last few days — recovery, hosting, friction design, or platform distinction — and turn it into a publishable proof-of-work object rather than leaving it inside private memory.</article>
+          <article class="vector"><strong>Vector C · Name the next consequential build</strong> Don’t build it all today. Just define it strongly enough that the next week stops dispersing around possibility and begins orbiting a real center of gravity.</article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-label">
+          <span class="n">06 · Integration</span>
+          <h2>Closing Tone</h2>
+        </div>
+        <div class="section-body">
+          <article class="card">
+            <p class="lead">You do not need a perfect plan to begin well.</p>
+            <p>The morning has already offered enough evidence: environment matters, continuity matters, and a day can be redirected before it hardens. The point now is not to force transcendence out of Sunday. It is to choose one honest vector and let it accumulate weight.</p>
+            <div class="footer-line">Enter the day as if it can still become more truthful than it looked an hour ago.</div>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <audio id="introAudio" class="ambient-audio" preload="none" src="../../assets/generated/sunday-primer-intro-2026-04-05.wav"></audio>
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.14 });
+    document.querySelectorAll('.card').forEach((el) => observer.observe(el));
+
+    const audio = document.getElementById('introAudio');
+    const btn = document.getElementById('audioToggle');
+    let playing = false;
+    btn.addEventListener('click', async () => {
+      try {
+        if (!playing) {
+          await audio.play();
+          playing = true;
+          btn.textContent = 'Pause intro voice';
+        } else {
+          audio.pause();
+          playing = false;
+          btn.textContent = 'Play intro voice';
+        }
+      } catch (err) {
+        btn.textContent = 'Audio unavailable';
+      }
+    });
+    audio.addEventListener('ended', () => {
+      playing = false;
+      btn.textContent = 'Play intro voice';
+    });
+  </script>
+</body>
+</html>
